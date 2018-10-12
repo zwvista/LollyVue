@@ -41,7 +41,7 @@ export class HtmlService extends BaseService {
 
   getHtml(url: string): Observable<string> {
     // https://www.concretepage.com/angular-2/angular-httpclient-get-example#Text
-    return (this.http.get(url, {responseType: 'text'}) as Observable<string>).pipe(
+    return this.http.get<string>(url, {responseType: 'text'}).pipe(
     );
   }
 

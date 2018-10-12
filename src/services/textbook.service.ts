@@ -10,7 +10,7 @@ export class TextbookService extends BaseService {
 
   getDataByLang(langid: number): Observable<Textbook[]> {
     const url = `${this.baseUrl}TEXTBOOKS?transform=1&filter=LANGID,eq,${langid}`;
-    return (this.http.get(url) as Observable<Textbooks>)
+    return this.http.get<Textbooks>(url)
       .pipe(
         map(result => result.TEXTBOOKS.map(value => Object.assign(new Textbook(), value)))
       );
