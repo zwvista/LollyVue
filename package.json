@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
     "axios": "^0.18.0",
+    "reflect-metadata": "^0.1.12",
     "register-service-worker": "^1.0.0",
     "rxios": "^1.1.2",
     "rxjs": "^6.3.3",

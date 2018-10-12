@@ -15,8 +15,7 @@
     "types": [
       "node",
       "mocha",
-      "chai",
-      "reflect-metadata"
+      "chai"
     ],
     "paths": {
       "@/*": [
