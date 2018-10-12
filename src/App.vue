@@ -73,12 +73,27 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
+import { DictNoteService, DictOfflineService, DictOnlineService } from './services/dictionary.service';
+import { HtmlService } from './services/html.service';
+import { LanguageService } from './services/language.service';
+import { TextbookService } from './services/textbook.service';
+import { UnitWordService } from './services/unit-word.service';
+import { UnitPhraseService } from './services/unit-phrase.service';
+import { UserSettingService } from './services/user-setting.service';
 import { AppService } from './view-models/app.service';
+import { PhrasesUnitService } from './view-models/phrases-unit.service';
+import { WordsUnitService } from './view-models/words-unit.service';
+import { SettingsService } from './view-models/settings.service';
 
-@Component
+@Component({
+  providers: [DictOnlineService, DictOfflineService, DictNoteService,
+    HtmlService, LanguageService, TextbookService, UnitPhraseService, UnitWordService, UserSettingService,
+    AppService, PhrasesUnitService, SettingsService, WordsUnitService,
+    ],
+})
 export default class App extends Vue {
-  @inject() private readonly _serviceA!: AppService;
-  clipped = false;
+  @inject() readonly appService!: AppService;
+  clipped = true;
   drawer = true;
   fixed = false;
   items = [
