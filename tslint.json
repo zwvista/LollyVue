@@ -5,7 +5,8 @@
   ],
   "linterOptions": {
     "exclude": [
-      "node_modules/**"
+      "node_modules/**",
+      "src/common/**"
     ]
   },
   "rules": {
@@ -18,6 +19,10 @@
     "member-access": false,
     "arrow-parens": false,
     "curly": false,
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "member-ordering": false,
+    "variable-name": false,
+    "max-line-length": false,
+    "no-console": false
   }
 }

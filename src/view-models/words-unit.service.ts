@@ -1,4 +1,4 @@
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { UnitWordService } from '../services/unit-word.service';
 import { SettingsService } from './settings.service';
 import { UnitWord } from '../models/unit-word';

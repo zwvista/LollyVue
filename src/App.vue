@@ -71,10 +71,11 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
-import { inject } from "vue-typescript-inject";
-import { AppService } from "./view-models/app.service";
+import { Component, Vue } from 'vue-property-decorator';
+import { inject } from 'vue-typescript-inject';
+import { AppService } from './view-models/app.service';
 
+@Component
 export default class App extends Vue {
   @inject() private readonly _serviceA!: AppService;
   clipped = false;
@@ -101,5 +102,5 @@ export default class App extends Vue {
   right = true;
   rightDrawer = false;
   title = 'Lolly Vue';
-};
+}
 </script>

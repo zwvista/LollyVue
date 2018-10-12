@@ -1,8 +1,7 @@
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Rxios } from '../common/rxios'
 import { UserSetting, UserSettings } from '../models/user-setting';
 
 @injectable()
@@ -12,7 +11,7 @@ export class UserSettingService extends BaseService {
     const url = `${this.baseUrl}USERSETTINGS?transform=1&filter=USERID,eq,${userid}`;
     return this.http.get<UserSettings>(url)
       .pipe(
-        map(result => result.USERSETTINGS.map(value => Object.assign(new UserSetting(), value)))
+        map(result => result.USERSETTINGS.map(value => Object.assign(new UserSetting(), value))),
       );
   }
 

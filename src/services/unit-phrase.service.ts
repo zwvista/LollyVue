@@ -1,19 +1,17 @@
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Rxios } from '../common/rxios'
+import { map } from 'rxjs/operators';
 import { UnitPhrase, UnitPhrases } from '../models/unit-phrase';
 import { BaseService } from './base.service';
-import { Textbooks } from "@/models/textbook";
 
 @injectable()
 export class UnitPhraseService extends BaseService {
-  
+
   getDataByTextbookUnitPart(textbookid: number, unitPartFrom: number, unitPartTo: number): Observable<UnitPhrase[]> {
     const url = `${this.baseUrl}VUNITPHRASES?transform=1&filter[]=TEXTBOOKID,eq,${textbookid}&filter[]=UNITPART,bt,${unitPartFrom},${unitPartTo}&order[]=UNITPART&order[]=SEQNUM`;
     return this.http.get<UnitPhrases>(url)
       .pipe(
-        map(result => result.VUNITPHRASES.map(value => Object.assign(new UnitPhrase(), value)))
+        map(result => result.VUNITPHRASES.map(value => Object.assign(new UnitPhrase(), value))),
       );
   }
 

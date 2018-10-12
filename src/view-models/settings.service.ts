@@ -1,6 +1,6 @@
 
 import {map, mergeMap} from 'rxjs/operators';
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { LanguageService } from '../services/language.service';
 import { UserSettingService } from '../services/user-setting.service';
 import { UserSetting } from '../models/user-setting';

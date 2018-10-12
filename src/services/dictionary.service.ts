@@ -1,7 +1,6 @@
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Rxios } from '../common/rxios'
+import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { DictNote, DictOffline, DictOnline, DictsNote, DictsOffline, DictsOnline } from '../models/dictionary';
 
@@ -12,7 +11,7 @@ export class DictOnlineService extends BaseService {
     const url = `${this.baseUrl}VDICTSONLINE?transform=1&filter=LANGIDFROM,eq,${langid}`;
     return this.http.get<DictsOnline>(url)
       .pipe(
-        map(result => result.VDICTSONLINE.map(value => Object.assign(new DictOnline(), value)))
+        map(result => result.VDICTSONLINE.map(value => Object.assign(new DictOnline(), value))),
       );
   }
 
@@ -25,7 +24,7 @@ export class DictOfflineService extends BaseService {
     const url = `${this.baseUrl}VDICTSOFFLINE?transform=1&filter=LANGIDFROM,eq,${langid}`;
     return this.http.get<DictsOffline>(url)
       .pipe(
-        map(result => result.VDICTSOFFLINE.map(value => Object.assign(new DictOffline(), value)))
+        map(result => result.VDICTSOFFLINE.map(value => Object.assign(new DictOffline(), value))),
       );
   }
 
@@ -38,7 +37,7 @@ export class DictNoteService extends BaseService {
     const url = `${this.baseUrl}VDICTSNOTE?transform=1&filter=LANGIDFROM,eq,${langid}`;
     return this.http.get<DictsNote>(url)
       .pipe(
-        map(result => result.VDICTSNOTE.map(value => Object.assign(new DictNote(), value)))
+        map(result => result.VDICTSNOTE.map(value => Object.assign(new DictNote(), value))),
       );
   }
 

@@ -1,10 +1,8 @@
-import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
-import { Rxios } from '../common/rxios'
+import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
 import { UnitWord, UnitWords } from '../models/unit-word';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { UnitPhrases } from "@/models/unit-phrase";
 
 @injectable()
 export class UnitWordService extends BaseService {
@@ -13,7 +11,7 @@ export class UnitWordService extends BaseService {
     const url = `${this.baseUrl}VUNITWORDS?transform=1&filter[]=TEXTBOOKID,eq,${textbookid}&filter[]=UNITPART,bt,${unitPartFrom},${unitPartTo}&order[]=UNITPART&order[]=SEQNUM`;
     return this.http.get<UnitWords>(url)
       .pipe(
-        map(result => result.VUNITWORDS.map(value => Object.assign(new UnitWord(), value)))
+        map(result => result.VUNITWORDS.map(value => Object.assign(new UnitWord(), value))),
       );
   }
 
