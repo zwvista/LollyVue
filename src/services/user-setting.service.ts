@@ -2,7 +2,7 @@ import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
 import { BaseService } from './base.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Rxios } from 'rxios';
+import { Rxios } from '../common/rxios'
 import { UserSetting, UserSettings } from '../models/user-setting';
 
 @injectable()

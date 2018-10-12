@@ -1,7 +1,7 @@
 import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Rxios } from 'rxios';
+import { Rxios } from '../common/rxios'
 import { BaseService } from './base.service';
 import { DictNote, DictOffline, DictOnline, DictsNote, DictsOffline, DictsOnline } from '../models/dictionary';
 

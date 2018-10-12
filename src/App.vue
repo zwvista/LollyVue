@@ -71,38 +71,35 @@
 </template>
 
 <script lang="ts">
-import router from './router';
+import { Vue } from "vue-property-decorator";
+import { inject } from "vue-typescript-inject";
+import { AppService } from "./view-models/app.service";
 
-export default {
-  name: 'App',
-  router,
-  data() {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
-        {
-          icon: 'bubble_chart',
-          title: 'Words in Unit',
-          path: '/',
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Phrases in Unit',
-          path: '/',
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Settings',
-          path: '/about',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Lolly Vue',
-    };
-  },
+export default class App extends Vue {
+  @inject() private readonly _serviceA!: AppService;
+  clipped = false;
+  drawer = true;
+  fixed = false;
+  items = [
+    {
+      icon: 'bubble_chart',
+      title: 'Words in Unit',
+      path: '/',
+    },
+    {
+      icon: 'bubble_chart',
+      title: 'Phrases in Unit',
+      path: '/',
+    },
+    {
+      icon: 'bubble_chart',
+      title: 'Settings',
+      path: '/about',
+    },
+  ];
+  miniVariant = false;
+  right = true;
+  rightDrawer = false;
+  title = 'Lolly Vue';
 };
 </script>

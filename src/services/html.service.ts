@@ -1,6 +1,6 @@
 import VueTypeScriptInject, { injectable } from "vue-typescript-inject";
 import { BaseService } from './base.service';
-import { Rxios } from 'rxios';
+import { Rxios } from '../common/rxios'
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
