@@ -92,7 +92,7 @@ import { SettingsService } from './view-models/settings.service';
     ],
 })
 export default class App extends Vue {
-  @inject() readonly appService!: AppService;
+  // @inject() readonly appService!: AppService;
   clipped = true;
   drawer = true;
   fixed = false;

@@ -2,7 +2,7 @@
   <div class="words-unit">
     <v-data-table
       :headers="headers"
-      :items="unitWords"
+      :items="wordsUnitService.unitWords"
       hide-actions
       class="elevation-1"
     >
@@ -25,7 +25,7 @@ import { WordsUnitService } from '../view-models/words-unit.service';
 
 @Component
 export default class WordsUnit extends Vue {
-  @inject() readonly wordsUnitService!: WordsUnitService;
+  @inject() wordsUnitService!: WordsUnitService;
 
   headers = [
     { text: 'ID', sortable: false, value: 'ID' },
@@ -37,12 +37,9 @@ export default class WordsUnit extends Vue {
   ];
   newWord!: string;
 
-  mounted() {
-    this.wordsUnitService.getData();
-  }
-
-  get unitWords() {
-    return this.wordsUnitService.unitWords;
+  services = {};
+  created() {
+    this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
   }
 }
 </script>
