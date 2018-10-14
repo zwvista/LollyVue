@@ -86,13 +86,14 @@ import { WordsUnitService } from './view-models/words-unit.service';
 import { SettingsService } from './view-models/settings.service';
 
 @Component({
-  providers: [DictOnlineService, DictOfflineService, DictNoteService,
-    HtmlService, LanguageService, TextbookService, UnitPhraseService, UnitWordService, UserSettingService,
-    AppService, PhrasesUnitService, SettingsService, WordsUnitService,
-    ],
+  providers: [
+    DictOnlineService, DictOfflineService, DictNoteService, HtmlService, LanguageService,
+    TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
+    PhrasesUnitService, SettingsService, WordsUnitService,
+  ],
 })
 export default class App extends Vue {
-  // @inject() readonly appService!: AppService;
+  // @inject() appService!: AppService;
   clipped = true;
   drawer = true;
   fixed = false;

@@ -40,6 +40,7 @@ export default class WordsUnit extends Vue {
   services = {};
   created() {
     this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
+    this.wordsUnitService.getData().subscribe();
   }
 }
 </script>
