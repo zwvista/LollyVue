@@ -106,12 +106,12 @@ export default class App extends Vue {
     {
       icon: 'bubble_chart',
       title: 'Phrases in Unit',
-      path: '/',
+      path: '/phrases-unit',
     },
     {
       icon: 'bubble_chart',
       title: 'Settings',
-      path: '/about',
+      path: '/settings',
     },
   ];
   miniVariant = false;

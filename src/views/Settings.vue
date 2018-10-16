@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="words-unit">
     <v-data-table
       :headers="headers"
       :items="wordsUnitService.unitWords"
@@ -28,7 +28,7 @@ import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 
 @Component
-export default class WordsUnit extends Vue {
+export default class Settings extends Vue {
   @inject() wordsUnitService!: WordsUnitService;
 
   headers = [

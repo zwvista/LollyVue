@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="wordsUnitService.unitWords"
+      :items="phrasesUnitService.unitPhrases"
       hide-actions
       class="elevation-1"
     >
@@ -11,8 +11,8 @@
         <td>{{ props.item.UNIT }}</td>
         <td>{{ props.item.PART }}</td>
         <td>{{ props.item.SEQNUM }}</td>
-        <td>{{ props.item.WORD }}</td>
-        <td>{{ props.item.NOTE }}</td>
+        <td>{{ props.item.PHRASE }}</td>
+        <td>{{ props.item.TRANSLATION }}</td>
         <td>
           <v-btn color="error">Delete</v-btn>
           <v-btn color="info">Edit</v-btn>
@@ -25,27 +25,27 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
-import { WordsUnitService } from '../view-models/words-unit.service';
+import { PhrasesUnitService } from '../view-models/phrases-unit.service';
 
 @Component
-export default class WordsUnit extends Vue {
-  @inject() wordsUnitService!: WordsUnitService;
+export default class PhrasesUnit extends Vue {
+  @inject() phrasesUnitService: PhrasesUnitService;
 
   headers = [
     { text: 'ID', sortable: false, value: 'ID' },
     { text: 'UNIT', sortable: false, value: 'UNIT' },
     { text: 'PART', sortable: false, value: 'PART' },
     { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'WORD', sortable: false, value: 'WORD' },
-    { text: 'NOTE', sortable: false, value: 'NOTE' },
+    { text: 'PHRASE', sortable: false, value: 'PHRASE' },
+    { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
     { text: 'ACTIONS', sortable: false },
   ];
   newWord!: string;
 
   services = {};
   created() {
-    this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-    this.wordsUnitService.getData().subscribe();
+    this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
+    this.phrasesUnitService.getData().subscribe();
   }
 }
 </script>

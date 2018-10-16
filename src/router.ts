@@ -14,12 +14,22 @@ export default new Router({
       component: WordsUnit,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/words-unit',
+      name: 'words-unit',
+      component: WordsUnit,
+    },
+    {
+      path: '/phrases-unit',
+      name: 'phrases-unit',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/PhrasesUnit.vue'),
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./views/Settings.vue'),
     },
   ],
 });
