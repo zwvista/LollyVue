@@ -14,8 +14,8 @@
         <td>{{ props.item.PHRASE }}</td>
         <td>{{ props.item.TRANSLATION }}</td>
         <td>
-          <v-btn color="error">Delete</v-btn>
-          <v-btn color="info">Edit</v-btn>
+          <v-btn icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+          <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
         </td>
       </template>
     </v-data-table>

@@ -99,17 +99,17 @@ export default class App extends Vue {
   fixed = false;
   items = [
     {
-      icon: 'bubble_chart',
+      icon: 'fa-bus fa-lg',
       title: 'Words in Unit',
       path: '/',
     },
     {
-      icon: 'bubble_chart',
+      icon: 'fa-plane fa-lg',
       title: 'Phrases in Unit',
       path: '/phrases-unit',
     },
     {
-      icon: 'bubble_chart',
+      icon: 'fa-cog fa-lg',
       title: 'Settings',
       path: '/settings',
     },
