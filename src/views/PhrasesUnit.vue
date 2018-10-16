@@ -29,7 +29,7 @@ import { PhrasesUnitService } from '../view-models/phrases-unit.service';
 
 @Component
 export default class PhrasesUnit extends Vue {
-  @inject() phrasesUnitService: PhrasesUnitService;
+  @inject() phrasesUnitService!: PhrasesUnitService;
 
   headers = [
     { text: 'ID', sortable: false, value: 'ID' },
