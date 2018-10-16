@@ -9,7 +9,6 @@
     <div class="row">
       <label class="col-2 control-label">Dictionary(Online):</label>
       <b-form-select class="col-4 form-control" :value="settingsService.selectedDictOnline" @change="onDictOnlineChange($event)">
-    <div t.selectedIndex)">
         <option v-for="dict in settingsService.dictsOnline" :value="dict">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
