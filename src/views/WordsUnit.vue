@@ -2,16 +2,12 @@
   <div>
     <v-toolbar>
       <router-link to="/words-unit-detail/0">
-        <v-btn color="info">
-          <span slot="loader" class="custom-loader">
-            <v-icon light>cached</v-icon>
-          </span>
-          Add
-        </v-btn>
+        <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info">Refresh</v-btn>
+      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <v-btn color="info">Retrieve All Notes</v-btn>
       <v-btn color="info">Retrieve Notes If Empty</v-btn>
+      <v-btn color="info">Dictionary</v-btn>
     </v-toolbar>
     <v-data-table
       :headers="headers"
