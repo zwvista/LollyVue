@@ -1,5 +1,18 @@
 <template>
   <div>
+    <v-toolbar>
+      <router-link to="/words-unit-detail/0">
+        <v-btn color="info">
+          <span slot="loader" class="custom-loader">
+            <v-icon light>cached</v-icon>
+          </span>
+          Add
+        </v-btn>
+      </router-link>
+      <v-btn color="info">Refresh</v-btn>
+      <v-btn color="info">Retrieve All Notes</v-btn>
+      <v-btn color="info">Retrieve Notes If Empty</v-btn>
+    </v-toolbar>
     <v-data-table
       :headers="headers"
       :items="wordsUnitService.unitWords"
@@ -15,7 +28,13 @@
         <td>{{ props.item.NOTE }}</td>
         <td>
           <v-btn icon color="error"><v-icon>fa-trash</v-icon></v-btn>
-          <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+          <router-link :to="{ name: 'words-unit-detail', params: { id: props.item.ID }}">
+            <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+          </router-link>
+          <v-btn color="info">Retrieve Note</v-btn>
+          <v-btn color="info">Google Word</v-btn>
+          <v-btn icon color="info"><v-icon>fa-copy</v-icon></v-btn>
+          <v-btn color="info">Dictionary</v-btn>
         </td>
       </template>
     </v-data-table>
@@ -26,6 +45,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component
 export default class WordsUnit extends Vue {
@@ -40,12 +60,63 @@ export default class WordsUnit extends Vue {
     { text: 'NOTE', sortable: false, value: 'NOTE' },
     { text: 'ACTIONS', sortable: false },
   ];
-  newWord!: string;
+  newWord = '';
 
   services = {};
   created() {
     this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
     this.wordsUnitService.getData().subscribe();
   }
+
+  onEnter() {
+    if (!this.newWord) return;
+    const o = this.wordsUnitService.newUnitWord();
+    o.WORD = this.newWord;
+    this.wordsUnitService.create(o).subscribe(id => {
+      o.ID = id as number;
+      this.wordsUnitService.unitWords.push(o);
+      this.newWord = '';
+    });
+  }
+
+  private reindex() {
+    this.wordsUnitService.reindex(index => {});
+  }
+
+  onWordReorder(from: number, to: number) {
+    console.log(`${from},${to}`);
+    this.wordsUnitService.unitWords.move(from, to);
+    this.reindex();
+  }
+
+  deleteWord(index: number) {
+    console.log(index);
+  }
+
+  getNote(index: number) {
+    console.log(index);
+    this.wordsUnitService.getNote(index).subscribe();
+  }
+
+  // https://stackoverflow.com/questions/42775017/angular-2-redirect-to-an-external-url-and-open-in-a-new-tab
+  googleWord(WORD: string) {
+    window.open('https://www.google.com/search?q=' + encodeURIComponent(WORD), '_blank');
+  }
+
+  getNotes(ifEmpty: boolean) {
+    let subscription: Subscription;
+    // https://stackoverflow.com/questions/50200859/i-dont-get-rxjs-6-with-angular-6-with-interval-switchmap-and-map
+    this.wordsUnitService.getNotes(ifEmpty, n => subscription = interval(n).subscribe(_ =>
+      this.wordsUnitService.getNextNote(() => {}, () => {
+        subscription.unsubscribe();
+      })
+    ));
+  }
 }
 </script>
+
+<style>
+  .v-btn {
+    margin-right: 0;
+  }
+</style>

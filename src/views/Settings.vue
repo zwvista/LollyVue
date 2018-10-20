@@ -3,34 +3,34 @@
     <div class="form-inline mb-2">
       <label for="lang" class="col-2 control-label">Languages:</label>
       <b-form-select id="lang" class="col-4 form-control" :value="settingsService.selectedLang" @change="onLangChange($event)">
-        <option v-for="lang in settingsService.languages" :value="lang">{{lang.NAME}}</option>
+        <option v-for="lang in settingsService.languages" :value="lang" :key="lang.ID">{{lang.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictOnlne" class="col-2 control-label">Dictionary(Online):</label>
       <b-form-select id="dictOnlne" class="col-4 form-control" :value="settingsService.selectedDictOnline" @change="onDictOnlineChange($event)">
-        <option v-for="dict in settingsService.dictsOnline" :value="dict">{{dict.DICTNAME}}</option>
+        <option v-for="dict in settingsService.dictsOnline" :value="dict" :key="dict.ID">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictNote" class="col-2 control-label">Dictionary(Note):</label>
       <b-form-select id="dictNote" class="col-4 form-control" :value="settingsService.selectedDictNote" @change="onDictNoteChange($event)">
-        <option v-for="dict in settingsService.dictsNote" :value="dict">{{dict.DICTNAME}}</option>
+        <option v-for="dict in settingsService.dictsNote" :value="dict" :key="dict.ID">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="textbook" class="col-2 control-label">Textbook:</label>
       <b-form-select id="textbook" class="col-4 form-control" :value="settingsService.selectedTextbook" @change="onTextbookChange($event)">
-        <option v-for="textbook in settingsService.textbooks" :value="textbook">{{textbook.NAME}}</option>
+        <option v-for="textbook in settingsService.textbooks" :value="textbook" :key="textbook.ID">{{textbook.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="unitFrom" class="col-2 control-label">Unit:</label>
       <b-form-select id="unitFrom" class="col-2 form-control" :value="unitFrom" @change="onUnitFromChange($event)">
-        <option v-for="unit in settingsService.units" :value="unit">{{unit}}</option>
+        <option v-for="unit in settingsService.units" :value="unit" :key="unit">{{unit}}</option>
       </b-form-select>
       <b-form-select class="col-2 form-control" :value="partFrom" @change="onPartFromChange($event)">
-        <option v-for="part in settingsService.parts" :value="part">{{part}}</option>
+        <option v-for="part in settingsService.parts" :value="part" :key="part">{{part}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -38,10 +38,10 @@
         <input type="checkbox" v-model="unitPartTo">To:
       </label>
       <b-form-select id="unitTo" class="col-2 form-control" :disabled="!unitPartTo" :value="unitTo" @change="onUnitToChange($event)">
-        <option v-for="unit in settingsService.units" :value="unit">{{unit}}</option>
+        <option v-for="unit in settingsService.units" :value="unit" :key="unit">{{unit}}</option>
       </b-form-select>
       <b-form-select class="col-2 form-control" :disabled="!unitPartTo" :value="partTo" @change="onPartToChange($event)">
-        <option v-for="part in settingsService.parts" :value="part">{{part}}</option>
+        <option v-for="part in settingsService.parts" :value="part" :key="part">{{part}}</option>
       </b-form-select>
     </div>
   </div>
