@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-text-field label="ID" id="id" type="text" v-model="unitWord.ID" disabled></v-text-field>
-    <v-text-field label="UNIT" id="unit" type="text" v-model="unitWord.UNIT"></v-text-field>
-    <v-text-field label="PART" id="part" type="text" v-model="unitWord.PART"></v-text-field>
-    <v-text-field label="SEQNUM" id="seqnum" type="text" v-model="unitWord.SEQNUM"></v-text-field>
-    <v-text-field label="WORD" id="word" type="text" v-model="unitWord.WORD"></v-text-field>
-    <v-text-field label="NOTE" id="note" type="text" v-model="unitWord.NOTE"></v-text-field>
+    <v-text-field label="ID" type="text" v-model="unitWord.ID" disabled></v-text-field>
+    <v-text-field label="UNIT" type="text" v-model="unitWord.UNIT"></v-text-field>
+    <v-text-field label="PART" type="text" v-model="unitWord.PART"></v-text-field>
+    <v-text-field label="SEQNUM" type="text" v-model="unitWord.SEQNUM"></v-text-field>
+    <v-text-field label="WORD" type="text" v-model="unitWord.WORD"></v-text-field>
+    <v-text-field label="NOTE" type="text" v-model="unitWord.NOTE"></v-text-field>
     <v-btn @click="goBack()">Back</v-btn>
     <v-btn @click="save()">Save</v-btn>
   </div>

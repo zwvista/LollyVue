@@ -33,6 +33,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/PhrasesUnit.vue'),
     },
     {
+      path: '/phrases-unit-detail/:id',
+      name: 'phrases-unit-detail',
+      component: () => import(/* webpackChunkName: "about" */ './views/PhrasesUnitDetail.vue'),
+    },
+    {
       path: '/settings',
       name: 'settings',
       component: () => import('./views/Settings.vue'),

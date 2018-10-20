@@ -1,5 +1,16 @@
 <template>
   <div>
+    <v-toolbar>
+      <router-link to="/phrases-unit-detail/0">
+        <v-btn color="info">
+          <span slot="loader" class="custom-loader">
+            <v-icon light>cached</v-icon>
+          </span>
+          Add
+        </v-btn>
+      </router-link>
+      <v-btn color="info">Refresh</v-btn>
+    </v-toolbar>
     <v-data-table
       :headers="headers"
       :items="phrasesUnitService.unitPhrases"
@@ -15,7 +26,9 @@
         <td>{{ props.item.TRANSLATION }}</td>
         <td>
           <v-btn icon color="error"><v-icon>fa-trash</v-icon></v-btn>
-          <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+          <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
+            <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+          </router-link>
         </td>
       </template>
     </v-data-table>
