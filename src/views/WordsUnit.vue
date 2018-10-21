@@ -7,7 +7,9 @@
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <v-btn color="info">Retrieve All Notes</v-btn>
       <v-btn color="info">Retrieve Notes If Empty</v-btn>
-      <v-btn color="info">Dictionary</v-btn>
+      <router-link to="/words-dict/0">
+        <v-btn color="info">Dictionary</v-btn>
+      </router-link>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -30,7 +32,9 @@
           <v-btn color="info">Retrieve Note</v-btn>
           <v-btn color="info">Google Word</v-btn>
           <v-btn icon color="info"><v-icon>fa-copy</v-icon></v-btn>
-          <v-btn color="info">Dictionary</v-btn>
+          <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
+            <v-btn color="info">Dictionary</v-btn>
+          </router-link>
         </td>
       </template>
     </v-data-table>

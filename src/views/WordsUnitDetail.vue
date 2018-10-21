@@ -6,8 +6,8 @@
     <v-text-field label="SEQNUM" type="text" v-model="unitWord.SEQNUM"></v-text-field>
     <v-text-field label="WORD" type="text" v-model="unitWord.WORD"></v-text-field>
     <v-text-field label="NOTE" type="text" v-model="unitWord.NOTE"></v-text-field>
-    <v-btn @click="goBack()">Back</v-btn>
-    <v-btn @click="save()">Save</v-btn>
+    <v-btn color="info" @click="goBack()">Back</v-btn>
+    <v-btn color="info" @click="save()">Save</v-btn>
   </div>
 </template>
 

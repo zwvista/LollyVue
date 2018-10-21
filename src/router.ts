@@ -22,7 +22,12 @@ export default new Router({
     {
       path: '/words-unit-detail/:id',
       name: 'words-unit-detail',
-      component: WordsUnitDetail,
+      component: () => import('./views/WordsUnitDetail.vue'),
+    },
+    {
+      path: '/words-dict/:index',
+      name: 'words-dict',
+      component: () => import('./views/WordsDict.vue'),
     },
     {
       path: '/phrases-unit',
@@ -30,12 +35,12 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/PhrasesUnit.vue'),
+      component: () => import('./views/PhrasesUnit.vue'),
     },
     {
       path: '/phrases-unit-detail/:id',
       name: 'phrases-unit-detail',
-      component: () => import(/* webpackChunkName: "about" */ './views/PhrasesUnitDetail.vue'),
+      component: () => import('./views/PhrasesUnitDetail.vue'),
     },
     {
       path: '/settings',

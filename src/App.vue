@@ -36,14 +36,7 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>web</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -76,7 +69,6 @@ export default class App extends Vue {
   // @inject() appService!: AppService;
   clipped = true;
   drawer = true;
-  fixed = false;
   items = [
     {
       icon: 'fa-bus fa-lg',

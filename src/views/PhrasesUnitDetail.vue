@@ -6,8 +6,8 @@
     <v-text-field label="SEQNUM" type="text" v-model="unitPhrase.SEQNUM"></v-text-field>
     <v-text-field label="PHRASE" type="text" v-model="unitPhrase.PHRASE"></v-text-field>
     <v-text-field label="TRANSLATION" type="text" v-model="unitPhrase.TRANSLATION"></v-text-field>
-    <v-btn @click="goBack()">Back</v-btn>
-    <v-btn @click="save()">Save</v-btn>
+    <v-btn color="info" @click="goBack()">Back</v-btn>
+    <v-btn color="info" @click="save()">Save</v-btn>
   </div>
 </template>
 
