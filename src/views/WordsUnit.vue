@@ -105,14 +105,12 @@ export default class WordsUnit extends Vue {
     this.wordsUnitService.getNotes(ifEmpty, n => subscription = interval(n).subscribe(_ =>
       this.wordsUnitService.getNextNote(() => {}, () => {
         subscription.unsubscribe();
-      })
+      }),
     ));
   }
 }
 </script>
 
 <style>
-  .v-btn {
-    margin-right: 0;
-  }
+  @import '../assets/common.css';
 </style>

@@ -53,7 +53,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
 import { DictNoteService, DictOfflineService, DictOnlineService } from './services/dictionary.service';
 import { HtmlService } from './services/html.service';
 import { LanguageService } from './services/language.service';

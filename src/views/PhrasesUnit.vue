@@ -57,3 +57,7 @@ export default class PhrasesUnit extends Vue {
   }
 }
 </script>
+
+<style>
+  @import '../assets/common.css';
+</style>

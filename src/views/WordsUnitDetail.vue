@@ -44,7 +44,5 @@ export default class WordsUnitDetail extends Vue {
 </script>
 
 <style>
-  .v-btn {
-    margin-right: 0;
-  }
+  @import '../assets/common.css';
 </style>

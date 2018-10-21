@@ -24,6 +24,7 @@
     "variable-name": false,
     "max-line-length": false,
     "no-console": false,
-    "no-empty": false
+    "no-empty": false,
+    "no-string-literal": false
   }
 }
