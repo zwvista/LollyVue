@@ -1,8 +1,9 @@
 import '@babel/polyfill';
 import Vue from 'vue';
-import './plugins/vuetify';
-import './plugins/vue-typescript-inject';
-import './plugins/bootstrap-vue';
+import './plugins/plugin-vuetify';
+import './plugins/plugin-vue-typescript-inject';
+import './plugins/plugin-bootstrap-vue';
+import './plugins/plugin-vue-clipboard2';
 import App from './App.vue';
 import router from './router';
 import store from './store';

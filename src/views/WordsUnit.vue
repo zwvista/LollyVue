@@ -31,7 +31,7 @@
           </router-link>
           <v-btn color="info">Retrieve Note</v-btn>
           <v-btn color="info">Google Word</v-btn>
-          <v-btn icon color="info"><v-icon>fa-copy</v-icon></v-btn>
+          <v-btn icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
           <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
             <v-btn color="info">Dictionary</v-btn>
           </router-link>
