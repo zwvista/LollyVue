@@ -25,13 +25,22 @@
         <td>{{ props.item.WORD }}</td>
         <td>{{ props.item.NOTE }}</td>
         <td>
-          <v-btn icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+          <v-tooltip top>
+            <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+            <span>Delete</span>
+          </v-tooltip>
           <router-link :to="{ name: 'words-unit-detail', params: { id: props.item.ID }}">
-            <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+              <span>Edit</span>
+            </v-tooltip>
           </router-link>
+          <v-tooltip top>
+            <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+            <span>Copy</span>
+          </v-tooltip>
           <v-btn color="info">Retrieve Note</v-btn>
           <v-btn color="info">Google Word</v-btn>
-          <v-btn icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
           <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
             <v-btn color="info">Dictionary</v-btn>
           </router-link>

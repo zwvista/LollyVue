@@ -20,9 +20,15 @@
         <td>{{ props.item.PHRASE }}</td>
         <td>{{ props.item.TRANSLATION }}</td>
         <td>
-          <v-btn icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+          <v-tooltip top>
+            <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+            <span>Delete</span>
+          </v-tooltip>
           <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
-            <v-btn icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+              <span>Edit</span>
+            </v-tooltip>
           </router-link>
         </td>
       </template>
