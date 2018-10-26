@@ -11,26 +11,33 @@
       :items="phrasesUnitService.unitPhrases"
       hide-actions
       class="elevation-1"
+      ref="sortableTable"
+      item-key="ID"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.ID }}</td>
-        <td>{{ props.item.UNIT }}</td>
-        <td>{{ props.item.PART }}</td>
-        <td>{{ props.item.SEQNUM }}</td>
-        <td>{{ props.item.PHRASE }}</td>
-        <td>{{ props.item.TRANSLATION }}</td>
-        <td>
-          <v-tooltip top>
-            <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
-            <span>Delete</span>
-          </v-tooltip>
-          <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
+        <tr class="sortableRow" :key="props.item.ID">
+          <td class="px-1" style="width: 0.1%">
+            <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+          </td>
+          <td>{{ props.item.ID }}</td>
+          <td>{{ props.item.UNIT }}</td>
+          <td>{{ props.item.PART }}</td>
+          <td>{{ props.item.SEQNUM }}</td>
+          <td>{{ props.item.PHRASE }}</td>
+          <td>{{ props.item.TRANSLATION }}</td>
+          <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
-              <span>Edit</span>
+              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <span>Delete</span>
             </v-tooltip>
-          </router-link>
-        </td>
+            <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
+              <v-tooltip top>
+                <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                <span>Edit</span>
+              </v-tooltip>
+            </router-link>
+          </td>
+        </tr>
       </template>
     </v-data-table>
   </div>
@@ -40,12 +47,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { PhrasesUnitService } from '../view-models/phrases-unit.service';
+import Sortable from 'sortablejs';
 
 @Component
 export default class PhrasesUnit extends Vue {
   @inject() phrasesUnitService!: PhrasesUnitService;
 
   headers = [
+    { sortable: false },
     { text: 'ID', sortable: false, value: 'ID' },
     { text: 'UNIT', sortable: false, value: 'UNIT' },
     { text: 'PART', sortable: false, value: 'PART' },
@@ -61,6 +70,45 @@ export default class PhrasesUnit extends Vue {
     this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
     this.phrasesUnitService.getData().subscribe();
   }
+
+  expandRow = null;
+
+  mounted() {
+    /* eslint-disable no-new */
+    new Sortable(
+      (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
+      {
+        draggable: '.sortableRow',
+        handle: '.sortHandle',
+        onStart: this.dragStart,
+        onEnd: this.dragReorder,
+      },
+    );
+  }
+
+  dragStart({item}: any) {
+    const nextSib = item.nextSibling;
+    if (nextSib &&
+      nextSib.classList.contains('datatable__expand-row')) {
+      this.expandRow = nextSib;
+    } else {
+      this.expandRow = null;
+    }
+  }
+
+  dragReorder({item, oldIndex, newIndex}: any) {
+    console.log('reorder', item, oldIndex, newIndex);
+    const nextSib = item.nextSibling;
+    if (nextSib &&
+      nextSib.classList.contains('datatable__expand-row') &&
+      nextSib !== this.expandRow) {
+      item.parentNode.insertBefore(item, nextSib.nextSibling);
+    }
+    const movedItem = this.phrasesUnitService.unitPhrases.splice(oldIndex, 1)[0];
+    this.phrasesUnitService.unitPhrases.splice(newIndex, 0, movedItem);
+    this.phrasesUnitService.reindex(index => {});
+  }
+
 }
 </script>
 
