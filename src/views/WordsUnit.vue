@@ -136,12 +136,6 @@ export default class WordsUnit extends Vue {
     });
   }
 
-  onWordReorder(from: number, to: number) {
-    console.log(`${from},${to}`);
-    this.wordsUnitService.unitWords.move(from, to);
-    this.reindex();
-  }
-
   deleteWord(index: number) {
     console.log(index);
   }
