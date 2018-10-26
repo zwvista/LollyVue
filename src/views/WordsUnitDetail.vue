@@ -26,7 +26,7 @@ export default class WordsUnitDetail extends Vue {
   created() {
     const id = +this.$route.params['id'];
     const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
-    this.unitWord = o ? {...o} : this.wordsUnitService.newUnitWord();
+    this.unitWord = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
   }
 
   goBack(): void {

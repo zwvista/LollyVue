@@ -26,7 +26,7 @@ export default class PhrasesUnitDetail extends Vue {
   created() {
     const id = +this.$route.params['id'];
     const o = this.phrasesUnitService.unitPhrases.find(value => value.ID === id);
-    this.unitPhrase = o ? {...o} : this.phrasesUnitService.newUnitPhrase();
+    this.unitPhrase = o ? {...o} as UnitPhrase : this.phrasesUnitService.newUnitPhrase();
   }
 
   goBack(): void {
