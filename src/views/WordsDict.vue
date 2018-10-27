@@ -42,7 +42,7 @@ export default class WordsDict extends Vue {
   }
 
   refreshDict() {
-    this.dictUrl = this.selectedDictOnline!.urlString(this.selectedWord!);
+    this.dictUrl = this.selectedDictOnline!.urlString(this.selectedWord!, this.settingsService.autoCorrects);
   }
 
   onload(event: Event) {

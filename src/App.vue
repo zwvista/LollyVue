@@ -57,12 +57,13 @@ import { AppService } from './view-models/app.service';
 import { PhrasesUnitService } from './view-models/phrases-unit.service';
 import { WordsUnitService } from './view-models/words-unit.service';
 import { SettingsService } from './view-models/settings.service';
+import { AutoCorrectService } from './services/autocorrect.service';
 
 @Component({
   providers: [
     DictOnlineService, DictOfflineService, DictNoteService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
-    PhrasesUnitService, SettingsService, WordsUnitService,
+    PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
   ],
 })
 export default class App extends Vue {
