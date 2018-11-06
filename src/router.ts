@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import WordsUnit from './views/WordsUnit.vue';
-import WordsUnitDetail from './views/WordsUnitDetail.vue';
 
 Vue.use(Router);
 
@@ -41,6 +40,31 @@ export default new Router({
       path: '/phrases-unit-detail/:id',
       name: 'phrases-unit-detail',
       component: () => import('./views/PhrasesUnitDetail.vue'),
+    },
+    {
+      path: '/words-lang',
+      name: 'words-lang',
+      component: () => import('./views/WordsLang.vue'),
+    },
+    {
+      path: '/words-lang-detail/:id',
+      name: 'words-lang-detail',
+      component: () => import('./views/WordsLangDetail.vue'),
+    },
+    {
+      path: '/words-dict/:index',
+      name: 'words-dict',
+      component: () => import('./views/WordsDict.vue'),
+    },
+    {
+      path: '/phrases-lang',
+      name: 'phrases-lang',
+      component: () => import('./views/PhrasesLang.vue'),
+    },
+    {
+      path: '/phrases-lang-detail/:id',
+      name: 'phrases-lang-detail',
+      component: () => import('./views/PhrasesLangDetail.vue'),
     },
     {
       path: '/settings',

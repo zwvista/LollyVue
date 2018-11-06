@@ -58,12 +58,17 @@ import { PhrasesUnitService } from './view-models/phrases-unit.service';
 import { WordsUnitService } from './view-models/words-unit.service';
 import { SettingsService } from './view-models/settings.service';
 import { AutoCorrectService } from './services/autocorrect.service';
+import { WordsLangService } from './view-models/words-lang.service';
+import { LangWordService } from './services/lang-word.service';
+import { PhrasesLangService } from './view-models/phrases-lang.service';
+import { LangPhraseService } from './services/lang-phrase.service';
 
 @Component({
   providers: [
     DictOnlineService, DictOfflineService, DictNoteService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
+    LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
   ],
 })
 export default class App extends Vue {
@@ -74,12 +79,22 @@ export default class App extends Vue {
     {
       icon: 'fa-bus fa-lg',
       title: 'Words in Unit',
-      path: '/',
+      path: '/words-unit',
     },
     {
       icon: 'fa-plane fa-lg',
       title: 'Phrases in Unit',
       path: '/phrases-unit',
+    },
+    {
+      icon: 'fa-bus fa-lg',
+      title: 'Words in Language',
+      path: '/words-lang',
+    },
+    {
+      icon: 'fa-plane fa-lg',
+      title: 'Phrases in Language',
+      path: '/phrases-lang',
     },
     {
       icon: 'fa-cog fa-lg',
