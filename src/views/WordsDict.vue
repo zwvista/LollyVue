@@ -6,7 +6,7 @@
                 return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
-    <DictBrowser :url="dictUrl"></DictBrowser>
+    <DictBrowser :url="dictUrl" :htmlString="dictSrc"></DictBrowser>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import { WordsUnitService } from '../view-models/words-unit.service';
 import { SettingsService } from '../view-models/settings.service';
 import { DictOnline } from '../models/dictionary';
 import DictBrowser from '../components/DictBrowser.vue';
+import { HtmlService } from '../services/html.service';
 
 @Component({
   components: {DictBrowser},
@@ -24,10 +25,12 @@ import DictBrowser from '../components/DictBrowser.vue';
 export default class WordsDict extends Vue {
   @inject() wordsUnitService!: WordsUnitService;
   @inject() settingsService!: SettingsService;
+  @inject() htmlService!: HtmlService;
 
   words: string[] | null = null;
   selectedWord: string | null = null;
   dictUrl = 'about:blank';
+  dictSrc: string | null = null;
   selectedDictOnline: DictOnline | null = null;
 
   created() {
@@ -42,7 +45,18 @@ export default class WordsDict extends Vue {
   }
 
   refreshDict() {
-    this.dictUrl = this.selectedDictOnline!.urlString(this.selectedWord!, this.settingsService.autoCorrects);
+    const url = this.selectedDictOnline!.urlString(this.selectedWord!, this.settingsService.autoCorrects);
+    if (this.selectedDictOnline!.DICTTYPENAME === 'OFFLINE') {
+      this.dictUrl = 'about:blank';
+      this.htmlService.getHtml(url).subscribe(html => {
+        this.dictSrc = this.selectedDictOnline!.htmlString(html, this.selectedWord!)
+          .replace(/\n/g, ' ').replace(/"/g, '&quot;');
+        console.log(this.dictSrc);
+      });
+    } else {
+      this.dictSrc = null;
+      this.dictUrl = url;
+    }
   }
 
   onload(event: Event) {
