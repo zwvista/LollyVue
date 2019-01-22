@@ -7,9 +7,9 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="dictOnlne" class="col-2 control-label">Dictionary(Online):</label>
-      <b-form-select id="dictOnlne" class="col-4 form-control" :value="settingsService.selectedDictOnline" @change="onDictOnlineChange($event)">
-        <option v-for="dict in settingsService.dictsOnline" :value="dict" :key="dict.ID">{{dict.DICTNAME}}</option>
+      <label for="dictPicker" class="col-2 control-label">Dictionary(Word):</label>
+      <b-form-select id="dictPicker" class="col-4 form-control" :value="settingsService.selectedDictPicker" @change="onDictPickerChange($event)">
+        <option v-for="dict in settingsService.dictsPicker" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -52,7 +52,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { SettingsService } from '../view-models/settings.service';
 import { Language } from '../models/language';
-import { DictNote, DictOnline } from '../models/dictionary';
+import { DictNote, DictWord } from '../models/dictionary';
 import { Textbook } from '../models/textbook';
 
 
@@ -87,10 +87,10 @@ export default class Settings extends Vue {
     this.settingsService.updateLang().subscribe();
   }
 
-  onDictOnlineChange(value: DictOnline) {
-    const index = this.settingsService.dictsOnline.indexOf(value);
-    this.settingsService.selectedDictOnlineIndex = index;
-    this.settingsService.updateDictOnline().subscribe();
+  onDictPickerChange(value: DictWord) {
+    const index = this.settingsService.dictsWord.indexOf(value);
+    this.settingsService.selectedDictPickerIndex = index;
+    this.settingsService.updateDictPicker().subscribe();
   }
 
   onDictNoteChange(value: DictNote) {

@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { DictNoteService, DictOfflineService, DictOnlineService } from './services/dictionary.service';
+import { DictNoteService, DictOnlineService } from './services/dictionary.service';
 import { HtmlService } from './services/html.service';
 import { LanguageService } from './services/language.service';
 import { TextbookService } from './services/textbook.service';
@@ -65,7 +65,7 @@ import { LangPhraseService } from './services/lang-phrase.service';
 
 @Component({
   providers: [
-    DictOnlineService, DictOfflineService, DictNoteService, HtmlService, LanguageService,
+    DictOnlineService, DictNoteService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,

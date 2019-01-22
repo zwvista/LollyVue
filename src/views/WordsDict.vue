@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-btn color="info" @click="goBack()">Back</v-btn>
-      <v-select :items="settingsService.dictsOnline" item-text="DICTNAME" v-model="selectedDictOnline"
+      <v-select :items="settingsService.dictsPicker" item-text="DICTNAME" v-model="selectedDictPicker"
                 return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
@@ -15,7 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 import { SettingsService } from '../view-models/settings.service';
-import { DictOnline } from '../models/dictionary';
+import { DictPicker, DictWord } from '../models/dictionary';
 import DictBrowser from '../components/DictBrowser.vue';
 import { HtmlService } from '../services/html.service';
 
@@ -31,12 +31,12 @@ export default class WordsDict extends Vue {
   selectedWord: string | null = null;
   dictUrl = 'about:blank';
   dictSrc: string | null = null;
-  selectedDictOnline: DictOnline | null = null;
+  selectedDictPicker: DictPicker | null = null;
 
   created() {
     this.words = this.wordsUnitService.unitWords.map(v  => v.WORD);
     this.selectedWord = this.words[+this.$route.params['index']];
-    this.selectedDictOnline = this.settingsService.selectedDictOnline;
+    this.selectedDictPicker = this.settingsService.selectedDictPicker;
     if (this.selectedWord) this.refreshDict();
   }
 
@@ -45,17 +45,23 @@ export default class WordsDict extends Vue {
   }
 
   refreshDict() {
-    const url = this.selectedDictOnline!.urlString(this.selectedWord!, this.settingsService.autoCorrects);
-    if (this.selectedDictOnline!.DICTTYPENAME === 'OFFLINE') {
-      this.dictUrl = 'about:blank';
-      this.htmlService.getHtml(url).subscribe(html => {
-        this.dictSrc = this.selectedDictOnline!.htmlString(html, this.selectedWord!)
-          .replace(/\n/g, ' ').replace(/"/g, '&quot;');
-        console.log(this.dictSrc);
-      });
-    } else {
-      this.dictSrc = null;
-      this.dictUrl = url;
+    const item = this.selectedDictPicker!!;
+    if (item.DICTNAME.startsWith('Custom'))
+      this.dictSrc = this.settingsService.dictHtml(this.selectedWord!!, item.dictids());
+    else {
+      const item2 = this.settingsService.dictsWord.find(v => v.DICTNAME === item.DICTNAME)!!;
+      const url = item2.urlString(this.selectedWord!, this.settingsService.autoCorrects);
+      if (item2.DICTTYPENAME === 'OFFLINE') {
+        this.dictUrl = 'about:blank';
+        this.htmlService.getHtml(url).subscribe(html => {
+          this.dictSrc = item2.htmlString(html, this.selectedWord!)
+            .replace(/\n/g, ' ').replace(/"/g, '&quot;');
+          console.log(this.dictSrc);
+        });
+      } else {
+        this.dictSrc = null;
+        this.dictUrl = url;
+      }
     }
   }
 
