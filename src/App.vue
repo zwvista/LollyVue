@@ -62,6 +62,7 @@ import { WordsLangService } from './view-models/words-lang.service';
 import { LangWordService } from './services/lang-word.service';
 import { PhrasesLangService } from './view-models/phrases-lang.service';
 import { LangPhraseService } from './services/lang-phrase.service';
+import { NoteService } from '@/view-models/note.service';
 
 @Component({
   providers: [
@@ -69,6 +70,7 @@ import { LangPhraseService } from './services/lang-phrase.service';
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
+    NoteService,
   ],
 })
 export default class App extends Vue {
