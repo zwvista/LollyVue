@@ -36,7 +36,7 @@
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
             </v-tooltip>
-            <v-btn color="info">Google Word</v-btn>
+            <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
             <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
               <v-btn color="info">Dictionary</v-btn>
             </router-link>
@@ -52,6 +52,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsLangService } from '../view-models/words-lang.service';
 import { SettingsService } from '@/view-models/settings.service';
+import { googleString } from '@/common/common';
 
 @Component
 export default class WordsLang extends Vue {
@@ -75,7 +76,7 @@ export default class WordsLang extends Vue {
   onEnter() {
     if (!this.newWord) return;
     const o = this.wordsLangService.newLangWord();
-    o.WORD = this.wordsLangService.settingsService.autoCorrectInput(this.newWord);
+    o.WORD = this.settingsService.autoCorrectInput(this.newWord);
     this.wordsLangService.create(o).subscribe(id => {
       o.ID = id as number;
       this.wordsLangService.langWords.push(o);
@@ -87,9 +88,8 @@ export default class WordsLang extends Vue {
     console.log(index);
   }
 
-  // https://stackoverflow.com/questions/42775017/angular-2-redirect-to-an-external-url-and-open-in-a-new-tab
-  googleWord(WORD: string) {
-    window.open('https://www.google.com/search?q=' + encodeURIComponent(WORD), '_blank');
+  googleWord(word: string) {
+    googleString(word);
   }
 }
 </script>

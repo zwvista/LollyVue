@@ -36,6 +36,11 @@
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
+              <span>Copy</span>
+            </v-tooltip>
+            <v-btn color="info" @click="googlePhrase(props.item.PHRASE)">Google Phrase</v-btn>
           </td>
         </tr>
       </template>
@@ -48,6 +53,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { PhrasesUnitService } from '../view-models/phrases-unit.service';
 import Sortable from 'sortablejs';
+import { googleString } from '@/common/common';
 
 @Component
 export default class PhrasesUnit extends Vue {
@@ -107,6 +113,10 @@ export default class PhrasesUnit extends Vue {
     const movedItem = this.phrasesUnitService.unitPhrases.splice(oldIndex, 1)[0];
     this.phrasesUnitService.unitPhrases.splice(newIndex, 0, movedItem);
     this.phrasesUnitService.reindex(index => {});
+  }
+
+  googlePhrase(phrase: string) {
+    googleString(phrase);
   }
 
 }

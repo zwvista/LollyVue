@@ -46,7 +46,7 @@
               <span>Copy</span>
             </v-tooltip>
             <v-btn color="info">Retrieve Note</v-btn>
-            <v-btn color="info">Google Word</v-btn>
+            <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
             <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
               <v-btn color="info">Dictionary</v-btn>
             </router-link>
@@ -61,9 +61,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
-import { interval, Subscription } from 'rxjs';
 import Sortable from 'sortablejs';
 import { SettingsService } from '@/view-models/settings.service';
+import { googleString } from '@/common/common';
 
 @Component
 export default class WordsUnit extends Vue {
@@ -146,9 +146,8 @@ export default class WordsUnit extends Vue {
     this.wordsUnitService.getNote(index).subscribe();
   }
 
-  // https://stackoverflow.com/questions/42775017/angular-2-redirect-to-an-external-url-and-open-in-a-new-tab
-  googleWord(WORD: string) {
-    window.open('https://www.google.com/search?q=' + encodeURIComponent(WORD), '_blank');
+  googleWord(word: string) {
+    googleString(word);
   }
 
   getNotes(ifEmpty: boolean) {
