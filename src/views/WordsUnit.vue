@@ -63,10 +63,12 @@ import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 import { interval, Subscription } from 'rxjs';
 import Sortable from 'sortablejs';
+import { SettingsService } from '@/view-models/settings.service';
 
 @Component
 export default class WordsUnit extends Vue {
   @inject() wordsUnitService!: WordsUnitService;
+  @inject() settingsService!: SettingsService;
 
   headers = [
     { sortable: false },
@@ -127,7 +129,7 @@ export default class WordsUnit extends Vue {
   onEnter() {
     if (!this.newWord) return;
     const o = this.wordsUnitService.newUnitWord();
-    o.WORD = this.newWord;
+    o.WORD = this.settingsService.autoCorrectInput(this.newWord);
     this.wordsUnitService.create(o).subscribe(id => {
       o.ID = id as number;
       this.wordsUnitService.unitWords.push(o);

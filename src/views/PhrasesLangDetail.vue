@@ -13,10 +13,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { PhrasesLangService } from '../view-models/phrases-lang.service';
 import { LangPhrase } from '../models/lang-phrase';
+import { SettingsService } from '@/view-models/settings.service';
 
 @Component
 export default class PhrasesLangDetail extends Vue {
   @inject() phrasesLangService!: PhrasesLangService;
+  @inject() settingsService!: SettingsService;
 
   langPhrase!: LangPhrase;
 
@@ -31,6 +33,7 @@ export default class PhrasesLangDetail extends Vue {
   }
 
   save(): void {
+    this.langPhrase.PHRASE = this.settingsService.autoCorrectInput(this.langPhrase.PHRASE);
     if (this.langPhrase.ID) {
       this.phrasesLangService.update(this.langPhrase).subscribe(_ => this.goBack());
     } else {

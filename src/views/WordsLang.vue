@@ -20,6 +20,7 @@
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.LEVEL }}</td>
+          <td>{{ props.item.NOTE }}</td>
           <td>
             <v-tooltip top>
               <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
@@ -50,10 +51,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsLangService } from '../view-models/words-lang.service';
+import { SettingsService } from '@/view-models/settings.service';
 
 @Component
 export default class WordsLang extends Vue {
   @inject() wordsLangService!: WordsLangService;
+  @inject() settingsService!: SettingsService;
 
   headers = [
     { text: 'ID', sortable: false, value: 'ID' },
@@ -72,7 +75,7 @@ export default class WordsLang extends Vue {
   onEnter() {
     if (!this.newWord) return;
     const o = this.wordsLangService.newLangWord();
-    o.WORD = this.newWord;
+    o.WORD = this.wordsLangService.settingsService.autoCorrectInput(this.newWord);
     this.wordsLangService.create(o).subscribe(id => {
       o.ID = id as number;
       this.wordsLangService.langWords.push(o);

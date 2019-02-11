@@ -16,10 +16,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { PhrasesUnitService } from '../view-models/phrases-unit.service';
 import { UnitPhrase } from '../models/unit-phrase';
+import { SettingsService } from '@/view-models/settings.service';
 
 @Component
 export default class PhrasesUnitDetail extends Vue {
   @inject() phrasesUnitService!: PhrasesUnitService;
+  @inject() settingsService!: SettingsService;
 
   unitPhrase!: UnitPhrase;
 
@@ -34,6 +36,7 @@ export default class PhrasesUnitDetail extends Vue {
   }
 
   save(): void {
+    this.unitPhrase.PHRASE = this.settingsService.autoCorrectInput(this.unitPhrase.PHRASE);
     if (this.unitPhrase.ID) {
       this.phrasesUnitService.update(this.unitPhrase).subscribe(_ => this.goBack());
     } else {

@@ -16,10 +16,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 import { UnitWord } from '../models/unit-word';
+import { SettingsService } from '@/view-models/settings.service';
 
 @Component
 export default class WordsUnitDetail extends Vue {
   @inject() wordsUnitService!: WordsUnitService;
+  @inject() settingsService!: SettingsService;
 
   unitWord!: UnitWord;
 
@@ -34,6 +36,7 @@ export default class WordsUnitDetail extends Vue {
   }
 
   save(): void {
+    this.unitWord.WORD = this.settingsService.autoCorrectInput(this.unitWord.WORD);
     if (this.unitWord.ID) {
       this.wordsUnitService.update(this.unitWord).subscribe(_ => this.goBack());
     } else {
