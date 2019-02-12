@@ -15,7 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 import { SettingsService } from '../view-models/settings.service';
-import { DictPicker, DictWord } from '../models/dictionary';
+import { DictPicker, DictMean } from '../models/dictionary';
 import DictBrowser from '../components/DictBrowser.vue';
 import { HtmlService } from '../services/html.service';
 
@@ -49,7 +49,7 @@ export default class WordsDict extends Vue {
     if (item.DICTNAME.startsWith('Custom'))
       this.dictSrc = this.settingsService.dictHtml(this.selectedWord!!, item.dictids());
     else {
-      const item2 = this.settingsService.dictsWord.find(v => v.DICTNAME === item.DICTNAME)!!;
+      const item2 = this.settingsService.dictsMean.find(v => v.DICTNAME === item.DICTNAME)!!;
       const url = item2.urlString(this.selectedWord!, this.settingsService.autoCorrects);
       if (item2.DICTTYPENAME === 'OFFLINE') {
         this.dictUrl = 'about:blank';

@@ -52,7 +52,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { SettingsService } from '../view-models/settings.service';
 import { Language } from '../models/language';
-import { DictNote, DictWord } from '../models/dictionary';
+import { DictNote, DictMean } from '../models/dictionary';
 import { Textbook } from '../models/textbook';
 
 
@@ -87,8 +87,8 @@ export default class Settings extends Vue {
     this.settingsService.updateLang().subscribe();
   }
 
-  onDictPickerChange(value: DictWord) {
-    const index = this.settingsService.dictsWord.indexOf(value);
+  onDictPickerChange(value: DictMean) {
+    const index = this.settingsService.dictsMean.indexOf(value);
     this.settingsService.selectedDictPickerIndex = index;
     this.settingsService.updateDictPicker().subscribe();
   }

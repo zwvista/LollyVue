@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { DictNoteService, DictWordService } from './services/dictionary.service';
+import { DictNoteService, DictMeanService } from './services/dictionary.service';
 import { HtmlService } from './services/html.service';
 import { LanguageService } from './services/language.service';
 import { TextbookService } from './services/textbook.service';
@@ -66,7 +66,7 @@ import { NoteService } from '@/view-models/note.service';
 
 @Component({
   providers: [
-    DictWordService, DictNoteService, HtmlService, LanguageService,
+    DictMeanService, DictNoteService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
