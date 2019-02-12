@@ -21,7 +21,7 @@ export class LangPhraseService extends BaseService {
       .pipe(
         map(result => result.LANGPHRASES.map(value => Object.assign(new LangPhrase(), value))
           // Api is case insensitive
-          .filter(value => value.PHRASE === phrase)
+          .filter(value => value.PHRASE === phrase),
         ),
       );
   }

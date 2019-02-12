@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-text-field label="ID" type="text" v-model="unitWord.ID" disabled></v-text-field>
-    <v-text-field label="UNIT" type="text" v-model="unitWord.UNIT"></v-text-field>
-    <v-text-field label="PART" type="text" v-model="unitWord.PART"></v-text-field>
+    <v-select label="UNIT" :items="units" item-text="label" item-value="value" v-model="unitWord.UNIT"></v-select>
+    <v-select label="PART" :items="parts" item-text="label" item-value="value" v-model="unitWord.PART"></v-select>
     <v-text-field label="SEQNUM" type="text" v-model="unitWord.SEQNUM"></v-text-field>
     <v-text-field label="WORD" type="text" v-model="unitWord.WORD"></v-text-field>
     <v-text-field label="NOTE" type="text" v-model="unitWord.NOTE"></v-text-field>
@@ -24,11 +24,15 @@ export default class WordsUnitDetail extends Vue {
   @inject() settingsService!: SettingsService;
 
   unitWord!: UnitWord;
+  units!: Array<{ label: string; value: number; }>;
+  parts!: Array<{ label: string; value: number; }>;
 
   created() {
     const id = +this.$route.params['id'];
     const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
     this.unitWord = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
+    this.units = this.settingsService.units.map(v => ({label: v, value: Number(v)}));
+    this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
   }
 
   goBack(): void {

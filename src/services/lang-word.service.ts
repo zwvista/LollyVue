@@ -22,7 +22,7 @@ export class LangWordService extends BaseService {
       .pipe(
         map(result => result.LANGWORDS.map(value => Object.assign(new LangWord(), value))
           // Api is case insensitive
-          .filter(value => value.WORD === word)
+          .filter(value => value.WORD === word),
         ),
       );
   }
