@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-btn color="info" @click="goBack()">Back</v-btn>
-      <v-select :items="settingsService.dictsPicker" item-text="DICTNAME" v-model="selectedDictPicker"
+      <v-select :items="settingsService.dictsGroup" item-text="DICTNAME" v-model="selectedDictGroup"
                 return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
@@ -15,7 +15,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
 import { WordsUnitService } from '../view-models/words-unit.service';
 import { SettingsService } from '../view-models/settings.service';
-import { DictPicker, DictMean } from '../models/dictionary';
+import { DictGroup, DictMean } from '../models/dictionary';
 import DictBrowser from '../components/DictBrowser.vue';
 import { HtmlService } from '../services/html.service';
 
@@ -31,12 +31,12 @@ export default class WordsDict extends Vue {
   selectedWord: string | null = null;
   dictUrl = 'about:blank';
   dictSrc: string | null = null;
-  selectedDictPicker: DictPicker | null = null;
+  selectedDictGroup: DictGroup | null = null;
 
   created() {
     this.words = this.wordsUnitService.unitWords.map(v  => v.WORD);
     this.selectedWord = this.words[+this.$route.params['index']];
-    this.selectedDictPicker = this.settingsService.selectedDictPicker;
+    this.selectedDictGroup = this.settingsService.selectedDictGroup;
     if (this.selectedWord) this.refreshDict();
   }
 
@@ -45,7 +45,7 @@ export default class WordsDict extends Vue {
   }
 
   refreshDict() {
-    const item = this.selectedDictPicker!!;
+    const item = this.selectedDictGroup!!;
     if (item.DICTNAME.startsWith('Custom'))
       this.dictSrc = this.settingsService.dictHtml(this.selectedWord!!, item.dictids());
     else {

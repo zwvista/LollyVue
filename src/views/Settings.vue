@@ -7,9 +7,9 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="dictPicker" class="col-2 control-label">Dictionary(Word):</label>
-      <b-form-select id="dictPicker" class="col-4 form-control" :value="settingsService.selectedDictPicker" @change="onDictPickerChange($event)">
-        <option v-for="dict in settingsService.dictsPicker" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
+      <label for="dictGroup" class="col-2 control-label">Dictionary(Word):</label>
+      <b-form-select id="dictGroup" class="col-4 form-control" :value="settingsService.selectedDictGroup" @change="onDictGroupChange($event)">
+        <option v-for="dict in settingsService.dictsGroup" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -87,10 +87,10 @@ export default class Settings extends Vue {
     this.settingsService.updateLang().subscribe();
   }
 
-  onDictPickerChange(value: DictMean) {
+  onDictGroupChange(value: DictMean) {
     const index = this.settingsService.dictsMean.indexOf(value);
-    this.settingsService.selectedDictPickerIndex = index;
-    this.settingsService.updateDictPicker().subscribe();
+    this.settingsService.selectedDictGroupIndex = index;
+    this.settingsService.updateDictGroup().subscribe();
   }
 
   onDictNoteChange(value: DictNote) {
