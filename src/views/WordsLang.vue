@@ -5,7 +5,7 @@
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <router-link to="/words-dict/0">
+      <router-link to="/words-dict/lang/0">
         <v-btn color="info">Dictionary</v-btn>
       </router-link>
     </v-toolbar>
@@ -19,8 +19,8 @@
         <tr :key="props.item.ID">
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.WORD }}</td>
-          <td>{{ props.item.LEVEL }}</td>
           <td>{{ props.item.NOTE }}</td>
+          <td>{{ props.item.LEVEL }}</td>
           <td>
             <v-tooltip top>
               <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
@@ -38,7 +38,7 @@
             </v-tooltip>
             <v-btn color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
-            <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
+            <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: props.index }}">
               <v-btn color="info">Dictionary</v-btn>
             </router-link>
           </td>

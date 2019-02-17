@@ -24,9 +24,24 @@ export default new Router({
       component: () => import('./views/WordsUnitDetail.vue'),
     },
     {
-      path: '/words-dict/:index',
-      name: 'words-dict',
-      component: () => import('./views/WordsDict.vue'),
+      path: '/words-textbook',
+      name: 'words-textbook',
+      component: () => import('./views/WordsTextbook.vue'),
+    },
+    {
+      path: '/words-textbook-detail/:id',
+      name: 'words-textbook-detail',
+      component: () => import('./views/WordsTextbookDetail.vue'),
+    },
+    {
+      path: '/words-lang',
+      name: 'words-lang',
+      component: () => import('./views/WordsLang.vue'),
+    },
+    {
+      path: '/words-lang-detail/:id',
+      name: 'words-lang-detail',
+      component: () => import('./views/WordsLangDetail.vue'),
     },
     {
       path: '/phrases-unit',
@@ -42,19 +57,14 @@ export default new Router({
       component: () => import('./views/PhrasesUnitDetail.vue'),
     },
     {
-      path: '/words-lang',
-      name: 'words-lang',
-      component: () => import('./views/WordsLang.vue'),
+      path: '/phrases-textbook',
+      name: 'phrases-textbook',
+      component: () => import('./views/PhrasesTextbook.vue'),
     },
     {
-      path: '/words-lang-detail/:id',
-      name: 'words-lang-detail',
-      component: () => import('./views/WordsLangDetail.vue'),
-    },
-    {
-      path: '/words-dict/:index',
-      name: 'words-dict',
-      component: () => import('./views/WordsDict.vue'),
+      path: '/phrases-textbook-detail/:id',
+      name: 'phrases-textbook-detail',
+      component: () => import('./views/PhrasesTextbookDetail.vue'),
     },
     {
       path: '/phrases-lang',
@@ -70,6 +80,11 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: () => import('./views/Settings.vue'),
+    },
+    {
+      path: '/words-dict/:type/:index',
+      name: 'words-dict',
+      component: () => import('./views/WordsDict.vue'),
     },
   ],
 });

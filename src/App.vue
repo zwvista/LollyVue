@@ -74,7 +74,7 @@ import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
-    NoteService, TextbookWordService, TextbookPhraseService, WordsTextbookService, PhrasesTextbookService
+    NoteService, TextbookWordService, TextbookPhraseService, WordsTextbookService, PhrasesTextbookService,
   ],
 })
 export default class App extends Vue {
@@ -88,14 +88,24 @@ export default class App extends Vue {
       path: '/words-unit',
     },
     {
+      icon: 'fa-taxi fa-lg',
+      title: 'Words in Textbook',
+      path: '/words-textbook',
+    },
+    {
       icon: 'fa-plane fa-lg',
+      title: 'Words in Language',
+      path: '/words-lang',
+    },
+    {
+      icon: 'fa-bus fa-lg',
       title: 'Phrases in Unit',
       path: '/phrases-unit',
     },
     {
-      icon: 'fa-bus fa-lg',
-      title: 'Words in Language',
-      path: '/words-lang',
+      icon: 'fa-taxi fa-lg',
+      title: 'Phrases in Textbook',
+      path: '/phrases-textbook',
     },
     {
       icon: 'fa-plane fa-lg',

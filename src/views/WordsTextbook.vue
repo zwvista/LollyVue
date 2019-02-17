@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <router-link to="/words-dict/0">
+      <router-link to="/words-dict/textbook/0">
         <v-btn color="info">Dictionary</v-btn>
       </router-link>
     </v-toolbar>
@@ -15,7 +15,7 @@
       item-key="ID"
     >
       <template slot="items" slot-scope="props">
-        <tr class="sortableRow" :key="props.item.ENTRYID">
+        <tr class="sortableRow" :key="props.item.ID">
           <td class="px-1" style="width: 0.1%">
             <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
@@ -43,7 +43,7 @@
             <v-btn color="info">Retrieve Note</v-btn>
             <v-btn color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
-            <router-link :to="{ name: 'words-dict', params: { index: props.index }}">
+            <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: props.index }}">
               <v-btn color="info">Dictionary</v-btn>
             </router-link>
           </td>
@@ -94,17 +94,8 @@ export default class WordsTextbook extends Vue {
     this.wordsTextbookService.getNote(index).subscribe();
   }
 
-  getNote(index: number) {
-    console.log(index);
-    this.wordsTextbookService.getNote(index).subscribe();
-  }
-
   googleWord(word: string) {
     googleString(word);
-  }
-
-  getNotes(ifEmpty: boolean) {
-    this.wordsTextbookService.getNotes(ifEmpty, () => {}, () => {});
   }
 }
 </script>

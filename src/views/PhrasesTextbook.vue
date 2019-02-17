@@ -10,7 +10,7 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <tr :key="props.item.ENTRYID">
+        <tr :key="props.item.ID">
           <td>{{ props.item.TEXTBOOKNAME }}</td>
           <td>{{ props.item.UNIT }}</td>
           <td>{{ props.item.PART }}</td>
