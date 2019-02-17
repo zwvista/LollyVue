@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
-    <v-select label="UNIT" :items="units" item-text="label" item-value="value" v-model="unitWord.UNIT"></v-select>
-    <v-select label="PART" :items="parts" item-text="label" item-value="value" v-model="unitWord.PART"></v-select>
+    <v-select label="UNIT" :items="units" item-text="label" item-value="value" v-model="item.UNIT"></v-select>
+    <v-select label="PART" :items="parts" item-text="label" item-value="value" v-model="item.PART"></v-select>
     <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
     <v-text-field label="PHRASEID" type="text" v-model="item.PHRASEID" disabled></v-text-field>
     <v-text-field label="PHRASE" type="text" v-model="item.PHRASE"></v-text-field>
