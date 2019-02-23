@@ -67,6 +67,7 @@ export default class WordsLang extends Vue {
     { text: 'ACTIONS', sortable: false },
   ];
   newWord = '';
+  hasNoNote = this.settingsService.dictsNote.length === 0;
 
   services = {};
   created() {
@@ -78,10 +79,10 @@ export default class WordsLang extends Vue {
     if (!this.newWord) return;
     const o = this.wordsLangService.newLangWord();
     o.WORD = this.settingsService.autoCorrectInput(this.newWord);
+    this.newWord = '';
     this.wordsLangService.create(o).subscribe(id => {
       o.ID = id as number;
       this.wordsLangService.langWords.push(o);
-      this.newWord = '';
     });
   }
 

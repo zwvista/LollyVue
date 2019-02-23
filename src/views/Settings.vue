@@ -7,9 +7,9 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="dictGroup" class="col-2 control-label">Dictionary(Word):</label>
-      <b-form-select id="dictGroup" class="col-4 form-control" :value="settingsService.selectedDictGroup" @change="onDictGroupChange($event)">
-        <option v-for="dict in settingsService.dictsGroup" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
+      <label for="dictItem" class="col-2 control-label">Dictionary(Word):</label>
+      <b-form-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)">
+        <option v-for="dict in settingsService.dictItems" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -44,10 +44,10 @@
         <option v-for="part in settingsService.parts" :value="part" :key="part">{{part}}</option>
       </b-form-select>
     </div>
-    <div className="form-inline mb-2">
-      <label className="col-2 control-label" />
-      <button className="btn btn-primary mr-2" @click="previousUnitPart()">Previous</button>
-      <button className="btn btn-primary mr-2" @click="nextUnitPart()">Next</button>
+    <div class="form-inline mb-2">
+      <label class="col-2 control-label"></label>
+      <button class="btn btn-primary mr-2" :disabled="unitPartTo" @click="previousUnitPart()">Previous</button>
+      <button class="btn btn-primary mr-2" :disabled="unitPartTo" @click="nextUnitPart()">Next</button>
     </div>
   </div>
 </template>
@@ -93,10 +93,10 @@ export default class Settings extends Vue {
     this.settingsService.updateLang().subscribe();
   }
 
-  onDictGroupChange(value: DictMean) {
+  onDictItemChange(value: DictMean) {
     const index = this.settingsService.dictsMean.indexOf(value);
-    this.settingsService.selectedDictGroupIndex = index;
-    this.settingsService.updateDictGroup().subscribe();
+    this.settingsService.selectedDictItemIndex = index;
+    this.settingsService.updateDictItem().subscribe();
   }
 
   onDictNoteChange(value: DictNote) {

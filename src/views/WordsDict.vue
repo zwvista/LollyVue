@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-btn color="info" @click="goBack()">Back</v-btn>
-      <v-select :items="settingsService.dictsGroup" item-text="DICTNAME" v-model="selectedDictGroup"
+      <v-select :items="settingsService.dictItems" item-text="DICTNAME" v-model="selectedDictItem"
                 return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
@@ -13,11 +13,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { inject } from 'vue-typescript-inject';
-import { WordsUnitService } from '../view-models/words-unit.service';
-import { SettingsService } from '../view-models/settings.service';
-import { DictGroup, DictMean } from '../models/dictionary';
+import { WordsUnitService } from '@/view-models/words-unit.service';
+import { SettingsService } from '@/view-models/settings.service';
+import { DictItem } from '@/models/dictionary';
 import DictBrowser from '../components/DictBrowser.vue';
-import { HtmlService } from '../services/html.service';
+import { HtmlService } from '@/services/html.service';
 import { WordsLangService } from '@/view-models/words-lang.service';
 import { WordsTextbookService } from '@/view-models/words-textbook.service';
 
@@ -35,7 +35,7 @@ export default class WordsDict extends Vue {
   selectedWord: string | null = null;
   dictUrl = 'about:blank';
   dictSrc: string | null = null;
-  selectedDictGroup: DictGroup | null = null;
+  selectedDictItem: DictItem | null = null;
 
   created() {
     const dictType = this.$route.params['type'];
@@ -44,7 +44,7 @@ export default class WordsDict extends Vue {
       dictType === 'textbook' ? this.wordsTextbookService.textbookWords.map(v  => v.WORD) :
       this.wordsLangService.langWords.map(v  => v.WORD);
     this.selectedWord = this.words[+this.$route.params['index']];
-    this.selectedDictGroup = this.settingsService.selectedDictGroup;
+    this.selectedDictItem = this.settingsService.selectedDictItem;
     if (this.selectedWord) this.refreshDict();
   }
 
@@ -53,7 +53,7 @@ export default class WordsDict extends Vue {
   }
 
   refreshDict() {
-    const item = this.selectedDictGroup!!;
+    const item = this.selectedDictItem!!;
     if (item.DICTNAME.startsWith('Custom'))
       this.dictSrc = this.settingsService.dictHtml(this.selectedWord!!, item.dictids());
     else {

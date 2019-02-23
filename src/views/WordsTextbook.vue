@@ -75,7 +75,7 @@ export default class WordsTextbook extends Vue {
     { text: 'NOTE', sortable: false, value: 'NOTE' },
     { text: 'ACTIONS', sortable: false },
   ];
-  newWord = '';
+  hasNoNote = this.settingsService.dictsNote.length === 0;
 
   services = {};
   created() {
