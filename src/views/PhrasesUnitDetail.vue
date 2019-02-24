@@ -31,7 +31,7 @@ export default class PhrasesUnitDetail extends Vue {
   created() {
     const id = +this.$route.params['id'];
     this.item = this.phrasesUnitService.unitPhrases.find(value => value.ID === id)!;
-    this.units = this.settingsService.units.map(v => ({label: v, value: Number(v)}));
+    this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
     this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
   }
 

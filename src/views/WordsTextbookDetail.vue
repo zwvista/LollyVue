@@ -34,8 +34,8 @@ export default class WordsTextbookDetail extends Vue {
   created() {
     const id = +this.$route.params['id'];
     this.item = this.wordsTextbookService.textbookWords.find(value => value.ID === id)!;
-    this.units = this.settingsService.units.map(v => ({label: v, value: Number(v)}));
-    this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
+    this.units = this.item.units.map((v, i) => ({label: v, value: i + 1}));
+    this.parts = this.item.parts.map((v, i) => ({label: v, value: i + 1}));
   }
 
   goBack(): void {
