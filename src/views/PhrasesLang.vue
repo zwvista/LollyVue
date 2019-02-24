@@ -41,12 +41,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { PhrasesLangService } from '../view-models/phrases-lang.service';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { PhrasesLangService } from '../view-models/phrases-lang.service';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class PhrasesLang extends Vue {
   @inject() phrasesLangService!: PhrasesLangService;
 

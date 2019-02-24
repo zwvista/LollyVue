@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { PhrasesUnitService } from '../view-models/phrases-unit.service';
-import { UnitPhrase } from '../models/unit-phrase';
-import { SettingsService } from '@/view-models/settings.service';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { PhrasesUnitService } from '../view-models/phrases-unit.service';
+  import { UnitPhrase } from '../models/unit-phrase';
+  import { SettingsService } from '@/view-models/settings.service';
 
-@Component
+  @Component
 export default class PhrasesUnitDetail extends Vue {
   @inject() phrasesUnitService!: PhrasesUnitService;
   @inject() settingsService!: SettingsService;

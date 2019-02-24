@@ -53,16 +53,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { SettingsService } from '@/view-models/settings.service';
-import { Language } from '@/models/language';
-import { DictNote, DictMean } from '@/models/dictionary';
-import { Textbook } from '@/models/textbook';
-import { concatMap } from 'rxjs/operators';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { SettingsService } from '@/view-models/settings.service';
+  import { Language } from '@/models/language';
+  import { DictMean, DictNote } from '@/models/dictionary';
+  import { Textbook } from '@/models/textbook';
+  import { concatMap } from 'rxjs/operators';
 
 
-@Component
+  @Component
 export default class Settings extends Vue {
   @inject() settingsService!: SettingsService;
 

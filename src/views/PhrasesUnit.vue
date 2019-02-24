@@ -49,13 +49,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { PhrasesUnitService } from '../view-models/phrases-unit.service';
-import Sortable from 'sortablejs';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { PhrasesUnitService } from '../view-models/phrases-unit.service';
+  import Sortable from 'sortablejs';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class PhrasesUnit extends Vue {
   @inject() phrasesUnitService!: PhrasesUnitService;
 

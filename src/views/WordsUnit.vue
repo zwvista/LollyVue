@@ -58,14 +58,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { WordsUnitService } from '../view-models/words-unit.service';
-import Sortable from 'sortablejs';
-import { SettingsService } from '@/view-models/settings.service';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { WordsUnitService } from '../view-models/words-unit.service';
+  import Sortable from 'sortablejs';
+  import { SettingsService } from '@/view-models/settings.service';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class WordsUnit extends Vue {
   @inject() wordsUnitService!: WordsUnitService;
   @inject() settingsService!: SettingsService;

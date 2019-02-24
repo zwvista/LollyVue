@@ -45,30 +45,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { DictNoteService, DictMeanService } from './services/dictionary.service';
-import { HtmlService } from './services/html.service';
-import { LanguageService } from './services/language.service';
-import { TextbookService } from './services/textbook.service';
-import { UnitWordService } from './services/unit-word.service';
-import { UnitPhraseService } from './services/unit-phrase.service';
-import { UserSettingService } from './services/user-setting.service';
-import { AppService } from './view-models/app.service';
-import { PhrasesUnitService } from './view-models/phrases-unit.service';
-import { WordsUnitService } from './view-models/words-unit.service';
-import { SettingsService } from './view-models/settings.service';
-import { AutoCorrectService } from './services/autocorrect.service';
-import { WordsLangService } from './view-models/words-lang.service';
-import { LangWordService } from './services/lang-word.service';
-import { PhrasesLangService } from './view-models/phrases-lang.service';
-import { LangPhraseService } from './services/lang-phrase.service';
-import { NoteService } from '@/view-models/note.service';
-import { TextbookPhraseService } from '@/services/textbook-phrase.service';
-import { TextbookWordService } from '@/services/textbook-word.service';
-import { WordsTextbookService } from '@/view-models/words-textbook.service';
-import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { DictMeanService, DictNoteService } from './services/dictionary.service';
+  import { HtmlService } from './services/html.service';
+  import { LanguageService } from './services/language.service';
+  import { TextbookService } from './services/textbook.service';
+  import { UnitWordService } from './services/unit-word.service';
+  import { UnitPhraseService } from './services/unit-phrase.service';
+  import { UserSettingService } from './services/user-setting.service';
+  import { AppService } from './view-models/app.service';
+  import { PhrasesUnitService } from './view-models/phrases-unit.service';
+  import { WordsUnitService } from './view-models/words-unit.service';
+  import { SettingsService } from './view-models/settings.service';
+  import { AutoCorrectService } from './services/autocorrect.service';
+  import { WordsLangService } from './view-models/words-lang.service';
+  import { LangWordService } from './services/lang-word.service';
+  import { PhrasesLangService } from './view-models/phrases-lang.service';
+  import { LangPhraseService } from './services/lang-phrase.service';
+  import { NoteService } from '@/view-models/note.service';
+  import { TextbookPhraseService } from '@/services/textbook-phrase.service';
+  import { TextbookWordService } from '@/services/textbook-word.service';
+  import { WordsTextbookService } from '@/view-models/words-textbook.service';
+  import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
 
-@Component({
+  @Component({
   providers: [
     DictMeanService, DictNoteService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,

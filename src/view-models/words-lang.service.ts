@@ -1,4 +1,4 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { LangWordService } from '../services/lang-word.service';

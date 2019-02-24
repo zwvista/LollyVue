@@ -1,4 +1,4 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UnitPhrase, UnitPhrases } from '../models/unit-phrase';

@@ -1,14 +1,13 @@
-
-import {map, mergeMap} from 'rxjs/operators';
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { map, mergeMap } from 'rxjs/operators';
+import { injectable } from 'vue-typescript-inject';
 import { LanguageService } from '../services/language.service';
 import { UserSettingService } from '../services/user-setting.service';
 import { UserSetting } from '../models/user-setting';
 import { Language } from '../models/language';
-import { DictNote, DictItem, DictMean } from '../models/dictionary';
+import { DictItem, DictMean, DictNote } from '../models/dictionary';
 import { Textbook } from '../models/textbook';
-import { forkJoin ,  Observable } from 'rxjs';
-import { DictNoteService, DictMeanService } from '../services/dictionary.service';
+import { forkJoin, Observable } from 'rxjs';
+import { DictMeanService, DictNoteService } from '../services/dictionary.service';
 import { TextbookService } from '../services/textbook.service';
 import { autoCorrect, AutoCorrect } from '@/models/autocorrect';
 import { AutoCorrectService } from '@/services/autocorrect.service';

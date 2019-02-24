@@ -1,10 +1,9 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { TextbookPhraseService } from '../services/textbook-phrase.service';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { concatMap, map } from 'rxjs/operators';
 import { TextbookPhrase } from '../models/textbook-phrase';
-import { Observable } from 'rxjs';
 
 @injectable()
 export class PhrasesTextbookService {

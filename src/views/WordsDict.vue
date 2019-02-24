@@ -11,17 +11,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { WordsUnitService } from '@/view-models/words-unit.service';
-import { SettingsService } from '@/view-models/settings.service';
-import { DictItem } from '@/models/dictionary';
-import DictBrowser from '../components/DictBrowser.vue';
-import { HtmlService } from '@/services/html.service';
-import { WordsLangService } from '@/view-models/words-lang.service';
-import { WordsTextbookService } from '@/view-models/words-textbook.service';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { WordsUnitService } from '@/view-models/words-unit.service';
+  import { SettingsService } from '@/view-models/settings.service';
+  import { DictItem } from '@/models/dictionary';
+  import DictBrowser from '../components/DictBrowser.vue';
+  import { HtmlService } from '@/services/html.service';
+  import { WordsLangService } from '@/view-models/words-lang.service';
+  import { WordsTextbookService } from '@/view-models/words-textbook.service';
 
-@Component({
+  @Component({
   components: {DictBrowser},
 })
 export default class WordsDict extends Vue {

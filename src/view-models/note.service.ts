@@ -1,4 +1,4 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { EMPTY as empty, interval, Observable, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { HtmlService } from '@/services/html.service';

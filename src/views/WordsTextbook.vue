@@ -16,9 +16,6 @@
     >
       <template slot="items" slot-scope="props">
         <tr class="sortableRow" :key="props.item.ID">
-          <td class="px-1" style="width: 0.1%">
-            <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
-          </td>
           <td>{{ props.item.TEXTBOOKNAME }}</td>
           <td>{{ props.item.UNITSTR }}</td>
           <td>{{ props.item.PARTSTR }}</td>
@@ -53,14 +50,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { WordsTextbookService } from '../view-models/words-textbook.service';
-import Sortable from 'sortablejs';
-import { SettingsService } from '@/view-models/settings.service';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { WordsTextbookService } from '../view-models/words-textbook.service';
+  import { SettingsService } from '@/view-models/settings.service';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class WordsTextbook extends Vue {
   @inject() wordsTextbookService!: WordsTextbookService;
   @inject() settingsService!: SettingsService;

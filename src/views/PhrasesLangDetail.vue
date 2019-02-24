@@ -9,13 +9,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { PhrasesLangService } from '@/view-models/phrases-lang.service';
-import { LangPhrase } from '@/models/lang-phrase';
-import { SettingsService } from '@/view-models/settings.service';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { PhrasesLangService } from '@/view-models/phrases-lang.service';
+  import { LangPhrase } from '@/models/lang-phrase';
+  import { SettingsService } from '@/view-models/settings.service';
 
-@Component
+  @Component
 export default class PhrasesLangDetail extends Vue {
   @inject() phrasesLangService!: PhrasesLangService;
   @inject() settingsService!: SettingsService;

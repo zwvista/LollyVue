@@ -11,13 +11,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { WordsLangService } from '@/view-models/words-lang.service';
-import { LangWord } from '@/models/lang-word';
-import { SettingsService } from '@/view-models/settings.service';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { WordsLangService } from '@/view-models/words-lang.service';
+  import { LangWord } from '@/models/lang-word';
+  import { SettingsService } from '@/view-models/settings.service';
 
-@Component
+  @Component
 export default class WordsLangDetail extends Vue {
   @inject() wordsLangService!: WordsLangService;
   @inject() settingsService!: SettingsService;

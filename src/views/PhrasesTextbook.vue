@@ -41,13 +41,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { PhrasesTextbookService } from '../view-models/phrases-textbook.service';
-import Sortable from 'sortablejs';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { PhrasesTextbookService } from '../view-models/phrases-textbook.service';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class PhrasesTextbook extends Vue {
   @inject() phrasesTextbookService!: PhrasesTextbookService;
 

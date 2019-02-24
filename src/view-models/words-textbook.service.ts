@@ -1,11 +1,10 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { TextbookWordService } from '../services/textbook-word.service';
 import { Observable } from 'rxjs';
 import { TextbookWord } from '../models/textbook-word';
 import { concatMap, map } from 'rxjs/operators';
-import { UnitWordService } from '@/services/unit-word.service';
 import { LangWordService } from '@/services/lang-word.service';
 import { NoteService } from '@/view-models/note.service';
 

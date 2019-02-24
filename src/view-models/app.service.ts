@@ -1,4 +1,4 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { ReplaySubject } from 'rxjs';
 import { SettingsService } from './settings.service';
 

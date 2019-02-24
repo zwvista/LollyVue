@@ -1,9 +1,9 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { UnitWordService } from '../services/unit-word.service';
 import { SettingsService } from './settings.service';
 import { UnitWord } from '@/models/unit-word';
 import { AppService } from './app.service';
-import { Observable, EMPTY as empty, of } from 'rxjs';
+import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
 import { LangWordService } from '@/services/lang-word.service';

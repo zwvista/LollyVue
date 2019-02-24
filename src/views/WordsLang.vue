@@ -49,13 +49,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { inject } from 'vue-typescript-inject';
-import { WordsLangService } from '../view-models/words-lang.service';
-import { SettingsService } from '@/view-models/settings.service';
-import { googleString } from '@/common/common';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { inject } from 'vue-typescript-inject';
+  import { WordsLangService } from '../view-models/words-lang.service';
+  import { SettingsService } from '@/view-models/settings.service';
+  import { googleString } from '@/common/common';
 
-@Component
+  @Component
 export default class WordsLang extends Vue {
   @inject() wordsLangService!: WordsLangService;
   @inject() settingsService!: SettingsService;

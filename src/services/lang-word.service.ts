@@ -1,9 +1,8 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { LangWord, LangWords } from '../models/lang-word';
 import { map } from 'rxjs/operators';
-import { UnitWord } from '@/models/unit-word';
 
 @injectable()
 export class LangWordService extends BaseService {

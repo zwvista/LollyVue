@@ -1,8 +1,8 @@
-import VueTypeScriptInject, { injectable } from 'vue-typescript-inject';
+import { injectable } from 'vue-typescript-inject';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { DictNote, DictMean, DictsNote, DictsMean } from '../models/dictionary';
+import { DictMean, DictNote, DictsMean, DictsNote } from '../models/dictionary';
 
 @injectable()
 export class DictMeanService extends BaseService {

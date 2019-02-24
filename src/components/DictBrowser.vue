@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
+  @Component
 export default class DictBrowser extends Vue {
   @Prop() private url!: string;
   @Prop() private htmlString!: string;
