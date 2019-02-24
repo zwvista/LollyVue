@@ -45,30 +45,32 @@
   import { inject } from 'vue-typescript-inject';
   import { PhrasesLangService } from '../view-models/phrases-lang.service';
   import { googleString } from '@/common/common';
+  import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class PhrasesLang extends Vue {
-  @inject() phrasesLangService!: PhrasesLangService;
+  export default class PhrasesLang extends Vue {
+    @inject() phrasesLangService!: PhrasesLangService;
+    @inject() settingsService!: SettingsService;
 
-  headers = [
-    { text: 'ID', sortable: false, value: 'ID' },
-    { text: 'PHRASE', sortable: false, value: 'PHRASE' },
-    { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
-    { text: 'ACTIONS', sortable: false },
-  ];
-  newWord!: string;
+    headers = [
+      { text: 'ID', sortable: false, value: 'ID' },
+      { text: 'PHRASE', sortable: false, value: 'PHRASE' },
+      { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
+      { text: 'ACTIONS', sortable: false },
+    ];
+    newWord!: string;
 
-  services = {};
-  created() {
-    this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-    this.phrasesLangService.getData().subscribe();
+    services = {};
+    created() {
+      this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
+      this.phrasesLangService.getData().subscribe();
+    }
+
+    googlePhrase(phrase: string) {
+      googleString(phrase);
+    }
+
   }
-
-  googlePhrase(phrase: string) {
-    googleString(phrase);
-  }
-
-}
 </script>
 
 <style>

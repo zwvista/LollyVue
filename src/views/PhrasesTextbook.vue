@@ -45,34 +45,36 @@
   import { inject } from 'vue-typescript-inject';
   import { PhrasesTextbookService } from '../view-models/phrases-textbook.service';
   import { googleString } from '@/common/common';
+  import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class PhrasesTextbook extends Vue {
-  @inject() phrasesTextbookService!: PhrasesTextbookService;
+  export default class PhrasesTextbook extends Vue {
+    @inject() phrasesTextbookService!: PhrasesTextbookService;
+    @inject() settingsService!: SettingsService;
 
-  headers = [
-    { text: 'TEXTBOOKNAME', sortable: false, value: 'TEXTBOOKNAME' },
-    { text: 'UNIT', sortable: false, value: 'UNIT' },
-    { text: 'PART', sortable: false, value: 'PART' },
-    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'PHRASE', sortable: false, value: 'PHRASE' },
-    { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
-    { text: 'ACTIONS', sortable: false },
-  ];
+    headers = [
+      { text: 'TEXTBOOKNAME', sortable: false, value: 'TEXTBOOKNAME' },
+      { text: 'UNIT', sortable: false, value: 'UNIT' },
+      { text: 'PART', sortable: false, value: 'PART' },
+      { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'PHRASE', sortable: false, value: 'PHRASE' },
+      { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
+      { text: 'ACTIONS', sortable: false },
+    ];
 
-  services = {};
-  created() {
-    this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
-    this.phrasesTextbookService.getData().subscribe();
+    services = {};
+    created() {
+      this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
+      this.phrasesTextbookService.getData().subscribe();
+    }
+
+    expandRow = null;
+
+    googlePhrase(phrase: string) {
+      googleString(phrase);
+    }
+
   }
-
-  expandRow = null;
-
-  googlePhrase(phrase: string) {
-    googleString(phrase);
-  }
-
-}
 </script>
 
 <style>

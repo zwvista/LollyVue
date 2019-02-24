@@ -23,29 +23,29 @@
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class WordsTextbookDetail extends Vue {
-  @inject() wordsTextbookService!: WordsTextbookService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsTextbookDetail extends Vue {
+    @inject() wordsTextbookService!: WordsTextbookService;
+    @inject() settingsService!: SettingsService;
 
-  item!: TextbookWord;
-  units!: Array<{ label: string; value: number; }>;
-  parts!: Array<{ label: string; value: number; }>;
+    item!: TextbookWord;
+    units!: Array<{ label: string; value: number; }>;
+    parts!: Array<{ label: string; value: number; }>;
 
-  created() {
-    const id = +this.$route.params['id'];
-    this.item = this.wordsTextbookService.textbookWords.find(value => value.ID === id)!;
-    this.units = this.item.units.map((v, i) => ({label: v, value: i + 1}));
-    this.parts = this.item.parts.map((v, i) => ({label: v, value: i + 1}));
+    created() {
+      const id = +this.$route.params['id'];
+      this.item = this.wordsTextbookService.textbookWords.find(value => value.ID === id)!;
+      this.units = this.item.units.map((v, i) => ({label: v, value: i + 1}));
+      this.parts = this.item.parts.map((v, i) => ({label: v, value: i + 1}));
+    }
+
+    goBack(): void {
+      this.$router.go(-1);
+    }
+
+    save(): void {
+      this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
+    }
   }
-
-  goBack(): void {
-    this.$router.go(-1);
-  }
-
-  save(): void {
-    this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
-  }
-}
 </script>
 
 <style>

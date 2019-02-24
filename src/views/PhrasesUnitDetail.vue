@@ -20,34 +20,34 @@
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class PhrasesUnitDetail extends Vue {
-  @inject() phrasesUnitService!: PhrasesUnitService;
-  @inject() settingsService!: SettingsService;
+  export default class PhrasesUnitDetail extends Vue {
+    @inject() phrasesUnitService!: PhrasesUnitService;
+    @inject() settingsService!: SettingsService;
 
-  item!: UnitPhrase;
-  units!: Array<{ label: string; value: number; }>;
-  parts!: Array<{ label: string; value: number; }>;
+    item!: UnitPhrase;
+    units!: Array<{ label: string; value: number; }>;
+    parts!: Array<{ label: string; value: number; }>;
 
-  created() {
-    const id = +this.$route.params['id'];
-    this.item = this.phrasesUnitService.unitPhrases.find(value => value.ID === id)!;
-    this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
-    this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
-  }
+    created() {
+      const id = +this.$route.params['id'];
+      this.item = this.phrasesUnitService.unitPhrases.find(value => value.ID === id)!;
+      this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
+      this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
+    }
 
-  goBack(): void {
-    this.$router.go(-1);
-  }
+    goBack(): void {
+      this.$router.go(-1);
+    }
 
-  save(): void {
-    this.item.PHRASE = this.settingsService.autoCorrectInput(this.item.PHRASE);
-    if (this.item.ID) {
-      this.phrasesUnitService.update(this.item).subscribe(_ => this.goBack());
-    } else {
-      this.phrasesUnitService.create(this.item).subscribe(_ => this.goBack());
+    save(): void {
+      this.item.PHRASE = this.settingsService.autoCorrectInput(this.item.PHRASE);
+      if (this.item.ID) {
+        this.phrasesUnitService.update(this.item).subscribe(_ => this.goBack());
+      } else {
+        this.phrasesUnitService.create(this.item).subscribe(_ => this.goBack());
+      }
     }
   }
-}
 </script>
 
 <style>

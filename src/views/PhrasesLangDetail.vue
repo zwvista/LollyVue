@@ -16,31 +16,31 @@
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class PhrasesLangDetail extends Vue {
-  @inject() phrasesLangService!: PhrasesLangService;
-  @inject() settingsService!: SettingsService;
+  export default class PhrasesLangDetail extends Vue {
+    @inject() phrasesLangService!: PhrasesLangService;
+    @inject() settingsService!: SettingsService;
 
-  langPhrase!: LangPhrase;
+    langPhrase!: LangPhrase;
 
-  created() {
-    const id = +this.$route.params['id'];
-    const o = this.phrasesLangService.langPhrases.find(value => value.ID === id);
-    this.langPhrase = o ? {...o} as LangPhrase : this.phrasesLangService.newLangPhrase();
-  }
+    created() {
+      const id = +this.$route.params['id'];
+      const o = this.phrasesLangService.langPhrases.find(value => value.ID === id);
+      this.langPhrase = o ? {...o} as LangPhrase : this.phrasesLangService.newLangPhrase();
+    }
 
-  goBack(): void {
-    this.$router.go(-1);
-  }
+    goBack(): void {
+      this.$router.go(-1);
+    }
 
-  save(): void {
-    this.langPhrase.PHRASE = this.settingsService.autoCorrectInput(this.langPhrase.PHRASE);
-    if (this.langPhrase.ID) {
-      this.phrasesLangService.update(this.langPhrase).subscribe(_ => this.goBack());
-    } else {
-      this.phrasesLangService.create(this.langPhrase).subscribe(_ => this.goBack());
+    save(): void {
+      this.langPhrase.PHRASE = this.settingsService.autoCorrectInput(this.langPhrase.PHRASE);
+      if (this.langPhrase.ID) {
+        this.phrasesLangService.update(this.langPhrase).subscribe(_ => this.goBack());
+      } else {
+        this.phrasesLangService.create(this.langPhrase).subscribe(_ => this.goBack());
+      }
     }
   }
-}
 </script>
 
 <style>

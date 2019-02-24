@@ -56,70 +56,70 @@
   import { googleString } from '@/common/common';
 
   @Component
-export default class PhrasesUnit extends Vue {
-  @inject() phrasesUnitService!: PhrasesUnitService;
+  export default class PhrasesUnit extends Vue {
+    @inject() phrasesUnitService!: PhrasesUnitService;
 
-  headers = [
-    { sortable: false },
-    { text: 'ID', sortable: false, value: 'ID' },
-    { text: 'UNIT', sortable: false, value: 'UNIT' },
-    { text: 'PART', sortable: false, value: 'PART' },
-    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'PHRASE', sortable: false, value: 'PHRASE' },
-    { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
-    { text: 'ACTIONS', sortable: false },
-  ];
-  newWord!: string;
+    headers = [
+      { sortable: false },
+      { text: 'ID', sortable: false, value: 'ID' },
+      { text: 'UNIT', sortable: false, value: 'UNIT' },
+      { text: 'PART', sortable: false, value: 'PART' },
+      { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'PHRASE', sortable: false, value: 'PHRASE' },
+      { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
+      { text: 'ACTIONS', sortable: false },
+    ];
+    newWord!: string;
 
-  services = {};
-  created() {
-    this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-    this.phrasesUnitService.getData().subscribe();
-  }
-
-  expandRow = null;
-
-  mounted() {
-    /* eslint-disable no-new */
-    new Sortable(
-      (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
-      {
-        draggable: '.sortableRow',
-        handle: '.sortHandle',
-        onStart: this.dragStart,
-        onEnd: this.dragReorder,
-      },
-    );
-  }
-
-  dragStart({item}: any) {
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row')) {
-      this.expandRow = nextSib;
-    } else {
-      this.expandRow = null;
+    services = {};
+    created() {
+      this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
+      this.phrasesUnitService.getData().subscribe();
     }
-  }
 
-  dragReorder({item, oldIndex, newIndex}: any) {
-    console.log('reorder', item, oldIndex, newIndex);
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row') &&
-      nextSib !== this.expandRow) {
-      item.parentNode.insertBefore(item, nextSib.nextSibling);
+    expandRow = null;
+
+    mounted() {
+      /* eslint-disable no-new */
+      new Sortable(
+        (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
+        {
+          draggable: '.sortableRow',
+          handle: '.sortHandle',
+          onStart: this.dragStart,
+          onEnd: this.dragReorder,
+        },
+      );
     }
-    const movedItem = this.phrasesUnitService.unitPhrases.splice(oldIndex, 1)[0];
-    this.phrasesUnitService.unitPhrases.splice(newIndex, 0, movedItem);
-    this.phrasesUnitService.reindex(index => {});
-  }
 
-  googlePhrase(phrase: string) {
-    googleString(phrase);
-  }
+    dragStart({item}: any) {
+      const nextSib = item.nextSibling;
+      if (nextSib &&
+        nextSib.classList.contains('datatable__expand-row')) {
+        this.expandRow = nextSib;
+      } else {
+        this.expandRow = null;
+      }
+    }
 
-}
+    dragReorder({item, oldIndex, newIndex}: any) {
+      console.log('reorder', item, oldIndex, newIndex);
+      const nextSib = item.nextSibling;
+      if (nextSib &&
+        nextSib.classList.contains('datatable__expand-row') &&
+        nextSib !== this.expandRow) {
+        item.parentNode.insertBefore(item, nextSib.nextSibling);
+      }
+      const movedItem = this.phrasesUnitService.unitPhrases.splice(oldIndex, 1)[0];
+      this.phrasesUnitService.unitPhrases.splice(newIndex, 0, movedItem);
+      this.phrasesUnitService.reindex(index => {});
+    }
+
+    googlePhrase(phrase: string) {
+      googleString(phrase);
+    }
+
+  }
 </script>
 
 <style>

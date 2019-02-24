@@ -66,95 +66,95 @@
   import { googleString } from '@/common/common';
 
   @Component
-export default class WordsUnit extends Vue {
-  @inject() wordsUnitService!: WordsUnitService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsUnit extends Vue {
+    @inject() wordsUnitService!: WordsUnitService;
+    @inject() settingsService!: SettingsService;
 
-  headers = [
-    { sortable: false },
-    { text: 'ID', sortable: false, value: 'ID' },
-    { text: 'UNIT', sortable: false, value: 'UNIT' },
-    { text: 'PART', sortable: false, value: 'PART' },
-    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'WORD', sortable: false, value: 'WORD' },
-    { text: 'NOTE', sortable: false, value: 'NOTE' },
-    { text: 'ACTIONS', sortable: false },
-  ];
-  newWord = '';
-  hasNoNote = this.settingsService.dictsNote.length === 0;
+    headers = [
+      { sortable: false },
+      { text: 'ID', sortable: false, value: 'ID' },
+      { text: 'UNIT', sortable: false, value: 'UNIT' },
+      { text: 'PART', sortable: false, value: 'PART' },
+      { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'WORD', sortable: false, value: 'WORD' },
+      { text: 'NOTE', sortable: false, value: 'NOTE' },
+      { text: 'ACTIONS', sortable: false },
+    ];
+    newWord = '';
+    hasNoNote = this.settingsService.dictsNote.length === 0;
 
-  services = {};
-  created() {
-    this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-    this.wordsUnitService.getData().subscribe();
-  }
+    services = {};
+    created() {
+      this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
+      this.wordsUnitService.getData().subscribe();
+    }
 
-  expandRow = null;
+    expandRow = null;
 
-  mounted() {
-    /* eslint-disable no-new */
-    new Sortable(
-      (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
-      {
-        draggable: '.sortableRow',
-        handle: '.sortHandle',
-        onStart: this.dragStart,
-        onEnd: this.dragReorder,
-      },
-    );
-  }
+    mounted() {
+      /* eslint-disable no-new */
+      new Sortable(
+        (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
+        {
+          draggable: '.sortableRow',
+          handle: '.sortHandle',
+          onStart: this.dragStart,
+          onEnd: this.dragReorder,
+        },
+      );
+    }
 
-  dragStart({item}: any) {
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row')) {
-      this.expandRow = nextSib;
-    } else {
-      this.expandRow = null;
+    dragStart({item}: any) {
+      const nextSib = item.nextSibling;
+      if (nextSib &&
+        nextSib.classList.contains('datatable__expand-row')) {
+        this.expandRow = nextSib;
+      } else {
+        this.expandRow = null;
+      }
+    }
+
+    dragReorder({item, oldIndex, newIndex}: any) {
+      console.log('reorder', item, oldIndex, newIndex);
+      const nextSib = item.nextSibling;
+      if (nextSib &&
+        nextSib.classList.contains('datatable__expand-row') &&
+        nextSib !== this.expandRow) {
+        item.parentNode.insertBefore(item, nextSib.nextSibling);
+      }
+      const movedItem = this.wordsUnitService.unitWords.splice(oldIndex, 1)[0];
+      this.wordsUnitService.unitWords.splice(newIndex, 0, movedItem);
+      this.wordsUnitService.reindex(index => {});
+    }
+
+    onEnter() {
+      if (!this.newWord) return;
+      const o = this.wordsUnitService.newUnitWord();
+      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
+      this.newWord = '';
+      this.wordsUnitService.create(o).subscribe(id => {
+        o.ID = id as number;
+        this.wordsUnitService.unitWords.push(o);
+      });
+    }
+
+    deleteWord(index: number) {
+      console.log(index);
+    }
+
+    getNote(index: number) {
+      console.log(index);
+      this.wordsUnitService.getNote(index).subscribe();
+    }
+
+    googleWord(word: string) {
+      googleString(word);
+    }
+
+    getNotes(ifEmpty: boolean) {
+      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
     }
   }
-
-  dragReorder({item, oldIndex, newIndex}: any) {
-    console.log('reorder', item, oldIndex, newIndex);
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row') &&
-      nextSib !== this.expandRow) {
-      item.parentNode.insertBefore(item, nextSib.nextSibling);
-    }
-    const movedItem = this.wordsUnitService.unitWords.splice(oldIndex, 1)[0];
-    this.wordsUnitService.unitWords.splice(newIndex, 0, movedItem);
-    this.wordsUnitService.reindex(index => {});
-  }
-
-  onEnter() {
-    if (!this.newWord) return;
-    const o = this.wordsUnitService.newUnitWord();
-    o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-    this.newWord = '';
-    this.wordsUnitService.create(o).subscribe(id => {
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
-    });
-  }
-
-  deleteWord(index: number) {
-    console.log(index);
-  }
-
-  getNote(index: number) {
-    console.log(index);
-    this.wordsUnitService.getNote(index).subscribe();
-  }
-
-  googleWord(word: string) {
-    googleString(word);
-  }
-
-  getNotes(ifEmpty: boolean) {
-    this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-  }
-}
 </script>
 
 <style>

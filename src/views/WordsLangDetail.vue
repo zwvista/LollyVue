@@ -18,31 +18,31 @@
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class WordsLangDetail extends Vue {
-  @inject() wordsLangService!: WordsLangService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsLangDetail extends Vue {
+    @inject() wordsLangService!: WordsLangService;
+    @inject() settingsService!: SettingsService;
 
-  item!: LangWord;
+    item!: LangWord;
 
-  created() {
-    const id = +this.$route.params['id'];
-    const o = this.wordsLangService.langWords.find(value => value.ID === id);
-    this.item = o ? {...o} as LangWord : this.wordsLangService.newLangWord();
-  }
+    created() {
+      const id = +this.$route.params['id'];
+      const o = this.wordsLangService.langWords.find(value => value.ID === id);
+      this.item = o ? {...o} as LangWord : this.wordsLangService.newLangWord();
+    }
 
-  goBack(): void {
-    this.$router.go(-1);
-  }
+    goBack(): void {
+      this.$router.go(-1);
+    }
 
-  save(): void {
-    this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
-    if (this.item.ID) {
-      this.wordsLangService.update(this.item).subscribe(_ => this.goBack());
-    } else {
-      this.wordsLangService.create(this.item).subscribe(_ => this.goBack());
+    save(): void {
+      this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
+      if (this.item.ID) {
+        this.wordsLangService.update(this.item).subscribe(_ => this.goBack());
+      } else {
+        this.wordsLangService.create(this.item).subscribe(_ => this.goBack());
+      }
     }
   }
-}
 </script>
 
 <style>

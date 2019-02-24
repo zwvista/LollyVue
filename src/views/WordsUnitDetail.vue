@@ -21,35 +21,35 @@
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
-export default class WordsUnitDetail extends Vue {
-  @inject() wordsUnitService!: WordsUnitService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsUnitDetail extends Vue {
+    @inject() wordsUnitService!: WordsUnitService;
+    @inject() settingsService!: SettingsService;
 
-  item!: UnitWord;
-  units!: Array<{ label: string; value: number; }>;
-  parts!: Array<{ label: string; value: number; }>;
+    item!: UnitWord;
+    units!: Array<{ label: string; value: number; }>;
+    parts!: Array<{ label: string; value: number; }>;
 
-  created() {
-    const id = +this.$route.params['id'];
-    const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
-    this.item = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
-    this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
-    this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
-  }
+    created() {
+      const id = +this.$route.params['id'];
+      const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
+      this.item = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
+      this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
+      this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
+    }
 
-  goBack(): void {
-    this.$router.go(-1);
-  }
+    goBack(): void {
+      this.$router.go(-1);
+    }
 
-  save(): void {
-    this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
-    if (this.item.ID) {
-      this.wordsUnitService.update(this.item).subscribe(_ => this.goBack());
-    } else {
-      this.wordsUnitService.create(this.item).subscribe(_ => this.goBack());
+    save(): void {
+      this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
+      if (this.item.ID) {
+        this.wordsUnitService.update(this.item).subscribe(_ => this.goBack());
+      } else {
+        this.wordsUnitService.create(this.item).subscribe(_ => this.goBack());
+      }
     }
   }
-}
 </script>
 
 <style>

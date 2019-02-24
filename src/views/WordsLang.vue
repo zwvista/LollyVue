@@ -56,49 +56,49 @@
   import { googleString } from '@/common/common';
 
   @Component
-export default class WordsLang extends Vue {
-  @inject() wordsLangService!: WordsLangService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsLang extends Vue {
+    @inject() wordsLangService!: WordsLangService;
+    @inject() settingsService!: SettingsService;
 
-  headers = [
-    { text: 'ID', sortable: false, value: 'ID' },
-    { text: 'WORD', sortable: false, value: 'WORD' },
-    { text: 'LEVEL', sortable: false, value: 'LEVEL' },
-    { text: 'ACTIONS', sortable: false },
-  ];
-  newWord = '';
-  hasNoNote = this.settingsService.dictsNote.length === 0;
+    headers = [
+      { text: 'ID', sortable: false, value: 'ID' },
+      { text: 'WORD', sortable: false, value: 'WORD' },
+      { text: 'LEVEL', sortable: false, value: 'LEVEL' },
+      { text: 'ACTIONS', sortable: false },
+    ];
+    newWord = '';
+    hasNoNote = this.settingsService.dictsNote.length === 0;
 
-  services = {};
-  created() {
-    this.$set(this.services, 'wordsLangService', this.wordsLangService);
-    this.wordsLangService.getData().subscribe();
+    services = {};
+    created() {
+      this.$set(this.services, 'wordsLangService', this.wordsLangService);
+      this.wordsLangService.getData().subscribe();
+    }
+
+    onEnter() {
+      if (!this.newWord) return;
+      const o = this.wordsLangService.newLangWord();
+      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
+      this.newWord = '';
+      this.wordsLangService.create(o).subscribe(id => {
+        o.ID = id as number;
+        this.wordsLangService.langWords.push(o);
+      });
+    }
+
+    deleteWord(index: number) {
+      console.log(index);
+    }
+
+    getNote(index: number) {
+      console.log(index);
+      this.wordsLangService.getNote(index).subscribe();
+    }
+
+    googleWord(word: string) {
+      googleString(word);
+    }
   }
-
-  onEnter() {
-    if (!this.newWord) return;
-    const o = this.wordsLangService.newLangWord();
-    o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-    this.newWord = '';
-    this.wordsLangService.create(o).subscribe(id => {
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
-    });
-  }
-
-  deleteWord(index: number) {
-    console.log(index);
-  }
-
-  getNote(index: number) {
-    console.log(index);
-    this.wordsLangService.getNote(index).subscribe();
-  }
-
-  googleWord(word: string) {
-    googleString(word);
-  }
-}
 </script>
 
 <style>

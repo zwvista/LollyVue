@@ -12,7 +12,7 @@ import { LangPhrase } from '@/models/lang-phrase';
 @injectable()
 export class PhrasesUnitService {
 
-  unitPhrases: UnitPhrase[] = new Array(0);
+  unitPhrases: UnitPhrase[] = [];
 
   constructor(private unitPhraseService: UnitPhraseService,
               private langPhraseService: LangPhraseService,

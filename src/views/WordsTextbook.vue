@@ -6,7 +6,14 @@
         <v-btn color="info">Dictionary</v-btn>
       </router-link>
     </v-toolbar>
-    <v-data-table
+    <template>
+      <div class="text-xs-center">
+        <v-pagination
+          v-model="page"
+          :length="6"
+        ></v-pagination>
+      </div>
+    </template>    <v-data-table
       :headers="headers"
       :items="wordsTextbookService.textbookWords"
       hide-actions
@@ -57,42 +64,42 @@
   import { googleString } from '@/common/common';
 
   @Component
-export default class WordsTextbook extends Vue {
-  @inject() wordsTextbookService!: WordsTextbookService;
-  @inject() settingsService!: SettingsService;
+  export default class WordsTextbook extends Vue {
+    @inject() wordsTextbookService!: WordsTextbookService;
+    @inject() settingsService!: SettingsService;
 
-  headers = [
-    { text: 'TEXTBOOKNAME', sortable: false, value: 'TEXTBOOKNAME' },
-    { text: 'UNIT', sortable: false, value: 'UNIT' },
-    { text: 'PART', sortable: false, value: 'PART' },
-    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'WORD', sortable: false, value: 'WORD' },
-    { text: 'NOTE', sortable: false, value: 'NOTE' },
-    { text: 'ACTIONS', sortable: false },
-  ];
-  hasNoNote = this.settingsService.dictsNote.length === 0;
+    headers = [
+      { text: 'TEXTBOOKNAME', sortable: false, value: 'TEXTBOOKNAME' },
+      { text: 'UNIT', sortable: false, value: 'UNIT' },
+      { text: 'PART', sortable: false, value: 'PART' },
+      { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'WORD', sortable: false, value: 'WORD' },
+      { text: 'NOTE', sortable: false, value: 'NOTE' },
+      { text: 'ACTIONS', sortable: false },
+    ];
+    hasNoNote = this.settingsService.dictsNote.length === 0;
 
-  services = {};
-  created() {
-    this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
-    this.wordsTextbookService.getData().subscribe();
+    services = {};
+    created() {
+      this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
+      this.wordsTextbookService.getData().subscribe();
+    }
+
+    expandRow = null;
+
+    deleteWord(index: number) {
+      console.log(index);
+    }
+
+    getNote(index: number) {
+      console.log(index);
+      this.wordsTextbookService.getNote(index).subscribe();
+    }
+
+    googleWord(word: string) {
+      googleString(word);
+    }
   }
-
-  expandRow = null;
-
-  deleteWord(index: number) {
-    console.log(index);
-  }
-
-  getNote(index: number) {
-    console.log(index);
-    this.wordsTextbookService.getNote(index).subscribe();
-  }
-
-  googleWord(word: string) {
-    googleString(word);
-  }
-}
 </script>
 
 <style>
