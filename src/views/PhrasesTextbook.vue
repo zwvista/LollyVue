@@ -20,10 +20,12 @@
     >
       <template slot="items" slot-scope="props">
         <tr :key="props.item.ID">
+          <td>{{ props.item.ID }}</td>
           <td>{{ props.item.TEXTBOOKNAME }}</td>
           <td>{{ props.item.UNITSTR }}</td>
           <td>{{ props.item.PARTSTR }}</td>
           <td>{{ props.item.SEQNUM }}</td>
+          <td>{{ props.item.PHRASEID }}</td>
           <td>{{ props.item.PHRASE }}</td>
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
@@ -62,10 +64,12 @@
     @inject() settingsService!: SettingsService;
 
     headers = [
+      { text: 'ID', sortable: false, value: 'ID' },
       { text: 'TEXTBOOKNAME', sortable: false, value: 'TEXTBOOKNAME' },
       { text: 'UNIT', sortable: false, value: 'UNIT' },
       { text: 'PART', sortable: false, value: 'PART' },
       { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'PHRASEID', sortable: false, value: 'PHRASEID' },
       { text: 'PHRASE', sortable: false, value: 'PHRASE' },
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },

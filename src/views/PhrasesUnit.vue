@@ -23,6 +23,7 @@
           <td>{{ props.item.UNITSTR(settingsService.units) }}</td>
           <td>{{ props.item.PARTSTR(settingsService.parts) }}</td>
           <td>{{ props.item.SEQNUM }}</td>
+          <td>{{ props.item.PHRASEID }}</td>
           <td>{{ props.item.PHRASE }}</td>
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
@@ -65,6 +66,7 @@
       { text: 'UNIT', sortable: false, value: 'UNIT' },
       { text: 'PART', sortable: false, value: 'PART' },
       { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'PHRASEID', sortable: false, value: 'PHRASEID' },
       { text: 'PHRASE', sortable: false, value: 'PHRASE' },
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },

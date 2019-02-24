@@ -28,6 +28,7 @@
           <td>{{ props.item.UNITSTR(settingsService.units) }}</td>
           <td>{{ props.item.PARTSTR(settingsService.parts) }}</td>
           <td>{{ props.item.SEQNUM }}</td>
+          <td>{{ props.item.WORDID }}</td>
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.NOTE }}</td>
           <td>
@@ -76,6 +77,7 @@
       { text: 'UNIT', sortable: false, value: 'UNIT' },
       { text: 'PART', sortable: false, value: 'PART' },
       { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+      { text: 'WORDID', sortable: false, value: 'WORDID' },
       { text: 'WORD', sortable: false, value: 'WORD' },
       { text: 'NOTE', sortable: false, value: 'NOTE' },
       { text: 'ACTIONS', sortable: false },
