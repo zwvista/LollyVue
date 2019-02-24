@@ -25,8 +25,8 @@
             <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ props.item.ID }}</td>
-          <td>{{ props.item.UNIT }}</td>
-          <td>{{ props.item.PART }}</td>
+          <td>{{ props.item.UNITSTR(settingsService.units) }}</td>
+          <td>{{ props.item.PARTSTR(settingsService.parts) }}</td>
           <td>{{ props.item.SEQNUM }}</td>
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.NOTE }}</td>

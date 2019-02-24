@@ -12,8 +12,8 @@
       <template slot="items" slot-scope="props">
         <tr :key="props.item.ID">
           <td>{{ props.item.TEXTBOOKNAME }}</td>
-          <td>{{ props.item.UNIT }}</td>
-          <td>{{ props.item.PART }}</td>
+          <td>{{ props.item.UNITSTR }}</td>
+          <td>{{ props.item.PARTSTR }}</td>
           <td>{{ props.item.SEQNUM }}</td>
           <td>{{ props.item.PHRASE }}</td>
           <td>{{ props.item.TRANSLATION }}</td>

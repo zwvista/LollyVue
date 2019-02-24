@@ -20,8 +20,8 @@
             <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ props.item.TEXTBOOKNAME }}</td>
-          <td>{{ props.item.UNIT }}</td>
-          <td>{{ props.item.PART }}</td>
+          <td>{{ props.item.UNITSTR }}</td>
+          <td>{{ props.item.PARTSTR }}</td>
           <td>{{ props.item.SEQNUM }}</td>
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.NOTE }}</td>
