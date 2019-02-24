@@ -10,10 +10,12 @@
       <div class="text-xs-center">
         <v-pagination
           v-model="page"
-          :length="6"
+          :length="pageCount"
+          @input="pageChange"
         ></v-pagination>
       </div>
-    </template>    <v-data-table
+    </template>
+    <v-data-table
       :headers="headers"
       :items="wordsTextbookService.textbookWords"
       hide-actions
@@ -59,7 +61,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsTextbookService } from '../view-models/words-textbook.service';
+  import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
 
@@ -78,11 +80,20 @@
       { text: 'ACTIONS', sortable: false },
     ];
     hasNoNote = this.settingsService.dictsNote.length === 0;
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
       this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
-      this.wordsTextbookService.getData().subscribe();
+      this.wordsTextbookService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0
+      );
+    }
+
+    pageChange(page: number) {
+      this.wordsTextbookService.getData(page, this.rows).subscribe();
     }
 
     expandRow = null;

@@ -6,6 +6,15 @@
       </router-link>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
+    <template>
+      <div class="text-xs-center">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @input="pageChange"
+        ></v-pagination>
+      </div>
+    </template>
     <v-data-table
       :headers="headers"
       :items="phrasesLangService.langPhrases"
@@ -43,7 +52,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { PhrasesLangService } from '../view-models/phrases-lang.service';
+  import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
 
@@ -58,12 +67,20 @@
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },
     ];
-    newWord!: string;
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-      this.phrasesLangService.getData().subscribe();
+      this.phrasesLangService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0
+      );
+    }
+
+    pageChange(page: number) {
+      this.phrasesLangService.getData(page, this.rows).subscribe();
     }
 
     googlePhrase(phrase: string) {

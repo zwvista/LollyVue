@@ -15,8 +15,8 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { PhrasesUnitService } from '../view-models/phrases-unit.service';
-  import { UnitPhrase } from '../models/unit-phrase';
+  import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
+  import { UnitPhrase } from '@/models/unit-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component

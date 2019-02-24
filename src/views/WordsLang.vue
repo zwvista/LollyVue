@@ -9,6 +9,15 @@
         <v-btn color="info">Dictionary</v-btn>
       </router-link>
     </v-toolbar>
+    <template>
+      <div class="text-xs-center">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @input="pageChange"
+        ></v-pagination>
+      </div>
+    </template>
     <v-data-table
       :headers="headers"
       :items="wordsLangService.langWords"
@@ -51,7 +60,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsLangService } from '../view-models/words-lang.service';
+  import { WordsLangService } from '@/view-models/words-lang.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
 
@@ -68,11 +77,20 @@
     ];
     newWord = '';
     hasNoNote = this.settingsService.dictsNote.length === 0;
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.wordsLangService.getData().subscribe();
+      this.wordsLangService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0
+      );
+    }
+
+    pageChange(page: number) {
+      this.wordsLangService.getData(page, this.rows).subscribe();
     }
 
     onEnter() {

@@ -3,6 +3,15 @@
     <v-toolbar>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
+    <template>
+      <div class="text-xs-center">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @input="pageChange"
+        ></v-pagination>
+      </div>
+    </template>
     <v-data-table
       :headers="headers"
       :items="phrasesTextbookService.textbookPhrases"
@@ -43,7 +52,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { PhrasesTextbookService } from '../view-models/phrases-textbook.service';
+  import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
 
@@ -61,11 +70,20 @@
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },
     ];
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
       this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
-      this.phrasesTextbookService.getData().subscribe();
+      this.phrasesTextbookService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0
+      );
+    }
+
+    pageChange(page: number) {
+      this.phrasesTextbookService.getData(page, this.rows).subscribe();
     }
 
     expandRow = null;
