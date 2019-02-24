@@ -46,7 +46,7 @@
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
             </v-tooltip>
-            <v-btn color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.hasNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
             <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: props.index }}">
               <v-btn color="info">Dictionary</v-btn>
@@ -79,7 +79,6 @@
       { text: 'NOTE', sortable: false, value: 'NOTE' },
       { text: 'ACTIONS', sortable: false },
     ];
-    hasNoNote = this.settingsService.dictsNote.length === 0;
     page = 1;
     pageCount = 1;
     rows = this.settingsService.USROWSPERPAGE;
@@ -87,6 +86,7 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
+      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       this.wordsTextbookService.getData(1, this.rows).subscribe(_ =>
         this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0
       );
