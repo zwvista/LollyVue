@@ -27,6 +27,7 @@
     "no-empty": false,
     "no-string-literal": false,
     "no-unused-expression": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "no-bitwise": false
   }
 }

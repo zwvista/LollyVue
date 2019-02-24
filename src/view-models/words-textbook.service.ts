@@ -26,7 +26,7 @@ export class WordsTextbookService {
       concatMap(_ => this.textbookWordService.getDataByLang(this.settingsService.selectedLang.ID, page, rows)),
       map(res => {
         this.textbookWords = res.VTEXTBOOKWORDS;
-        this.textbookWordCount = res._results
+        this.textbookWordCount = res._results;
       }),
     );
   }
