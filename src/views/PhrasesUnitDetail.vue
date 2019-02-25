@@ -30,7 +30,8 @@
 
     created() {
       const id = +this.$route.params['id'];
-      this.item = this.phrasesUnitService.unitPhrases.find(value => value.ID === id)!;
+      const o = this.phrasesUnitService.unitPhrases.find(value => value.ID === id);
+      this.item = o ? {...o} as UnitPhrase : this.phrasesUnitService.newUnitPhrase();
       this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
       this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
     }

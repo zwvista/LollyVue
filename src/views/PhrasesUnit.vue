@@ -55,10 +55,12 @@
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
   import Sortable from 'sortablejs';
   import { googleString } from '@/common/common';
+  import { SettingsService } from '@/view-models/settings.service';
 
   @Component
   export default class PhrasesUnit extends Vue {
     @inject() phrasesUnitService!: PhrasesUnitService;
+    @inject() settingsService!: SettingsService;
 
     headers = [
       { sortable: false },
