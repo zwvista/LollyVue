@@ -198,7 +198,7 @@
         this.settingsService.USPARTFROM++;
         this.updateUnitPartTo();
         this.settingsService.updatePartFrom().subscribe();
-      } else if (this.settingsService.USUNITFROM > 1) {
+      } else if (this.settingsService.USUNITFROM < this.settingsService.units.length) {
         this.settingsService.USUNITFROM++;
         this.settingsService.USPARTFROM = 1;
         this.updateUnitPartTo();
