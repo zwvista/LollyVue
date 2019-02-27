@@ -3,51 +3,53 @@
     <div class="form-inline mb-2">
       <label for="lang" class="col-2 control-label">Languages:</label>
       <b-form-select id="lang" class="col-4 form-control" :value="settingsService.selectedLang" @change="onLangChange($event)">
-        <option v-for="lang in settingsService.languages" :value="lang" :key="lang.ID">{{lang.NAME}}</option>
+        <option v-for="o in settingsService.languages" :value="o" :key="o.ID">{{o.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictItem" class="col-2 control-label">Dictionary(Word):</label>
       <b-form-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)">
-        <option v-for="dict in settingsService.dictItems" :value="dict" :key="dict.DICTID">{{dict.DICTNAME}}</option>
+        <option v-for="o in settingsService.dictItems" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictNote" class="col-2 control-label">Dictionary(Note):</label>
       <b-form-select id="dictNote" class="col-4 form-control" :value="settingsService.selectedDictNote" @change="onDictNoteChange($event)">
-        <option v-for="dict in settingsService.dictsNote" :value="dict" :key="dict.ID">{{dict.DICTNAME}}</option>
+        <option v-for="o in settingsService.dictsNote" :value="o" :key="o.ID">{{o.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="textbook" class="col-2 control-label">Textbook:</label>
       <b-form-select id="textbook" class="col-4 form-control" :value="settingsService.selectedTextbook" @change="onTextbookChange($event)">
-        <option v-for="textbook in settingsService.textbooks" :value="textbook" :key="textbook.ID">{{textbook.NAME}}</option>
+        <option v-for="o in settingsService.textbooks" :value="o" :key="o.ID">{{o.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="unitFrom" class="col-2 control-label">Unit:</label>
       <b-form-select id="unitFrom" class="col-2 form-control" :value="unitFrom" @change="onUnitFromChange($event)">
-        <option v-for="unit in settingsService.units" :value="unit" :key="unit">{{unit}}</option>
+        <option v-for="o in settingsService.units" :value="o" :key="o">{{o}}</option>
       </b-form-select>
-      <b-form-select class="col-2 form-control" :value="partFrom" @change="onPartFromChange($event)">
-        <option v-for="part in settingsService.parts" :value="part" :key="part">{{part}}</option>
+      <b-form-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :value="partFrom" @change="onPartFromChange($event)">
+        <option v-for="o in settingsService.parts" :value="o" :key="o">{{o}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="unitTo" class="col-2 control-label">
-        <input type="checkbox" v-model="unitPartTo">To:
-      </label>
-      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!unitPartTo" :value="unitTo" @change="onUnitToChange($event)">
-        <option v-for="unit in settingsService.units" :value="unit" :key="unit">{{unit}}</option>
+      <b-form-select id="toType" class="col-1 form-control" v-model="toType" @change="onToTypeChange($event)">
+        <option v-for="o in toTypes" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
-      <b-form-select class="col-2 form-control" :disabled="!unitPartTo" :value="partTo" @change="onPartToChange($event)">
-        <option v-for="part in settingsService.parts" :value="part" :key="part">{{part}}</option>
+      <label class="col-1 control-label">
+      </label>
+      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="unitTo" @change="onUnitToChange($event)">
+        <option v-for="o in settingsService.units" :value="o" :key="unit">{{o}}</option>
+      </b-form-select>
+      <b-form-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="partTo" @change="onPartToChange($event)">
+        <option v-for="o in settingsService.parts" :value="o" :key="part">{{o}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label class="col-2 control-label"></label>
-      <button class="btn btn-primary mr-2" :disabled="unitPartTo" @click="previousUnitPart()">Previous</button>
-      <button class="btn btn-primary mr-2" :disabled="unitPartTo" @click="nextUnitPart()">Next</button>
+      <button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="previousUnitPart()">Previous</button>
+      <button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="nextUnitPart()">Next</button>
     </div>
   </div>
 </template>
@@ -78,8 +80,18 @@
     get partTo() {
       return this.settingsService.parts[this.settingsService.USPARTTO - 1];
     }
+    get toTypeIsUnit() {
+      return this.toType === 0;
+    }
+    get toTypeIsPart() {
+      return this.toType === 1;
+    }
+    get toTypeIsTo() {
+      return this.toType === 2;
+    }
 
-    unitPartTo = false;
+    toTypes = ['Unit', 'Part', 'To'].map((v, i) => ({value: i, label: v}));
+    toType = 0;
 
     services = {};
     created() {
@@ -112,100 +124,122 @@
       this.updateTextbook();
     }
 
-    onUnitFromChange(value: number) {
-      this.settingsService.USUNITFROM = value;
-      this.settingsService.updateUnitFrom()
-        .subscribe(_ => {
-          if (!this.unitPartTo || this.settingsService.isInvalidUnitPart) {
-            this.updateUnitPartTo();
-          }
-        });
+    onUnitFromChange(value: string) {
+      const index = this.settingsService.units.indexOf(value);
+      if (!this.updateUnitFrom(index + 1)) return;
+      if (this.toType === 0)
+        this.updateSingleUnit();
+      else if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
+        this.updateUnitPartTo();
     }
 
-    onPartFromChange(value: number) {
-      this.settingsService.USPARTFROM = value;
-      this.settingsService.updatePartFrom()
-        .subscribe(_ => {
-          if (!this.unitPartTo || this.settingsService.isInvalidUnitPart) {
-            this.updateUnitPartTo();
-          }
-        });
+    onPartFromChange(value: string) {
+      const index = this.settingsService.parts.indexOf(value);
+      if (!this.updatePartFrom(index + 1)) return;
+      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
+        this.updateUnitPartTo();
     }
 
-    onUnitToChange(value: number) {
-      this.settingsService.USUNITTO = value;
-      this.settingsService.updateUnitTo()
-        .subscribe(_ => {
-          if (this.settingsService.isInvalidUnitPart) {
-            this.updateUnitPartFrom();
-          }
-        });
+    onToTypeChange(value: number) {
+      const index = value;
+      if (index === 0)
+        this.updateSingleUnit();
+      else if (index === 1)
+        this.updateUnitPartTo();
     }
 
-    onPartToChange(value: number) {
-      this.settingsService.USPARTTO = value;
-      this.settingsService.updatePartTo()
-        .subscribe(_ => {
-          if (this.settingsService.isInvalidUnitPart) {
-            this.updateUnitPartFrom();
-          }
-        });
+    onUnitToChange(value: string) {
+      const index = this.settingsService.units.indexOf(value);
+      if (!this.updateUnitTo(index + 1)) return;
+      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
+        this.updateUnitPartFrom();
+    }
+
+    onPartToChange(value: string) {
+      const index = this.settingsService.parts.indexOf(value);
+      if (!this.updatePartTo(index + 1)) return;
+      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
+        this.updateUnitPartFrom();
     }
 
     updateTextbook() {
-      this.unitPartTo = !this.settingsService.isSingleUnitPart;
-    }
-
-    updateUnitPartFrom() {
-      if (this.settingsService.USUNITFROM !== this.settingsService.USUNITTO) {
-        this.settingsService.USUNITFROM = this.settingsService.USUNITTO;
-        this.settingsService.updateUnitFrom().subscribe();
-      }
-      if (this.settingsService.USPARTFROM !== this.settingsService.USPARTTO) {
-        this.settingsService.USPARTFROM = this.settingsService.USPARTTO;
-        this.settingsService.updatePartFrom().subscribe();
-      }
-    }
-
-    updateUnitPartTo() {
-      if (this.settingsService.USUNITTO !== this.settingsService.USUNITFROM) {
-        this.settingsService.USUNITTO = this.settingsService.USUNITFROM;
-        this.settingsService.updateUnitTo().subscribe();
-      }
-      if (this.settingsService.USPARTTO !== this.settingsService.USPARTFROM) {
-        this.settingsService.USPARTTO = this.settingsService.USPARTFROM;
-        this.settingsService.updatePartTo().subscribe();
-      }
+      this.toType = this.settingsService.isSingleUnitPart ? 1 : this.settingsService.isSingleUnit ? 0 : 2;
     }
 
     previousUnitPart() {
-      if (this.settingsService.USPARTFROM > 1) {
-        this.settingsService.USPARTFROM--;
+      if (this.toType === 0) {
+        if (this.settingsService.USUNITFROM > 1) {
+          this.updateUnitFrom(this.settingsService.USUNITFROM - 1);
+          this.updateUnitTo(this.settingsService.USUNITFROM);
+        }
+      } else if (this.settingsService.USPARTFROM > 1) {
+        this.updatePartFrom(this.settingsService.USPARTFROM - 1);
         this.updateUnitPartTo();
-        this.settingsService.updatePartFrom().subscribe();
       } else if (this.settingsService.USUNITFROM > 1) {
-        this.settingsService.USUNITFROM--;
-        this.settingsService.USPARTFROM = this.settingsService.parts.length;
+        this.updateUnitFrom(this.settingsService.USUNITFROM - 1);
+        this.updatePartFrom(this.settingsService.parts.length);
         this.updateUnitPartTo();
-        this.settingsService.updateUnitFrom().pipe(
-          concatMap(_ => this.settingsService.updatePartFrom()),
-        ).subscribe();
       }
     }
 
     nextUnitPart() {
-      if (this.settingsService.USPARTFROM < this.settingsService.parts.length) {
-        this.settingsService.USPARTFROM++;
+      if (this.toType === 0) {
+        if (this.settingsService.USUNITFROM < this.settingsService.units.length) {
+          this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
+          this.updateUnitTo(this.settingsService.USUNITFROM);
+        }
+      } else if (this.settingsService.USPARTFROM < this.settingsService.parts.length) {
+        this.updatePartFrom(this.settingsService.USPARTFROM + 1);
         this.updateUnitPartTo();
-        this.settingsService.updatePartFrom().subscribe();
       } else if (this.settingsService.USUNITFROM < this.settingsService.units.length) {
-        this.settingsService.USUNITFROM++;
-        this.settingsService.USPARTFROM = 1;
+        this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
+        this.updatePartFrom(1);
         this.updateUnitPartTo();
-        this.settingsService.updateUnitFrom().pipe(
-          concatMap(_ => this.settingsService.updatePartFrom()),
-        ).subscribe();
       }
+    }
+
+    updateUnitPartFrom() {
+      this.updateUnitFrom(this.settingsService.USUNITTO);
+      this.updatePartFrom(this.settingsService.USPARTTO);
+    }
+
+    updateUnitPartTo() {
+      this.updateUnitTo(this.settingsService.USUNITFROM);
+      this.updatePartTo(this.settingsService.USPARTFROM);
+    }
+
+    updateSingleUnit() {
+      this.updateUnitTo(this.settingsService.USUNITFROM);
+      this.updatePartFrom(1);
+      this.updatePartTo(this.settingsService.parts.length);
+    }
+
+    updateUnitFrom(v: number): boolean {
+      if (this.settingsService.USUNITFROM === v) return false;
+      this.settingsService.USUNITFROM = v;
+      this.settingsService.updateUnitFrom().subscribe();
+      return true;
+    }
+
+    updatePartFrom(v: number): boolean {
+      if (this.settingsService.USPARTFROM === v) return false;
+      this.settingsService.USPARTFROM = v;
+      this.settingsService.updatePartFrom().subscribe();
+      return true;
+    }
+
+    updateUnitTo(v: number): boolean {
+      if (this.settingsService.USUNITTO === v) return false;
+      this.settingsService.USUNITTO = v;
+      this.settingsService.updateUnitTo().subscribe();
+      return true;
+    }
+
+    updatePartTo(v: number): boolean {
+      if (this.settingsService.USPARTTO === v) return false;
+      this.settingsService.USPARTTO = v;
+      this.settingsService.updatePartTo().subscribe();
+      return true;
     }
   }
 </script>
