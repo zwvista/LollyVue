@@ -61,8 +61,6 @@
   import { Language } from '@/models/language';
   import { DictMean, DictNote } from '@/models/dictionary';
   import { Textbook } from '@/models/textbook';
-  import { concatMap } from 'rxjs/operators';
-
 
   @Component
   export default class Settings extends Vue {
@@ -177,21 +175,21 @@
         this.updateUnitPartTo();
       } else if (this.settingsService.USUNITFROM > 1) {
         this.updateUnitFrom(this.settingsService.USUNITFROM - 1);
-        this.updatePartFrom(this.settingsService.parts.length);
+        this.updatePartFrom(this.settingsService.partCount);
         this.updateUnitPartTo();
       }
     }
 
     nextUnitPart() {
       if (this.toType === 0) {
-        if (this.settingsService.USUNITFROM < this.settingsService.units.length) {
+        if (this.settingsService.USUNITFROM < this.settingsService.unitCount) {
           this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
           this.updateUnitTo(this.settingsService.USUNITFROM);
         }
-      } else if (this.settingsService.USPARTFROM < this.settingsService.parts.length) {
+      } else if (this.settingsService.USPARTFROM < this.settingsService.partCount) {
         this.updatePartFrom(this.settingsService.USPARTFROM + 1);
         this.updateUnitPartTo();
-      } else if (this.settingsService.USUNITFROM < this.settingsService.units.length) {
+      } else if (this.settingsService.USUNITFROM < this.settingsService.unitCount) {
         this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
         this.updatePartFrom(1);
         this.updateUnitPartTo();
@@ -211,7 +209,7 @@
     updateSingleUnit() {
       this.updateUnitTo(this.settingsService.USUNITFROM);
       this.updatePartFrom(1);
-      this.updatePartTo(this.settingsService.parts.length);
+      this.updatePartTo(this.settingsService.partCount);
     }
 
     updateUnitFrom(v: number): boolean {
