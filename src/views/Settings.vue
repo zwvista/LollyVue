@@ -26,11 +26,11 @@
     </div>
     <div class="form-inline mb-2">
       <label for="unitFrom" class="col-2 control-label">Unit:</label>
-      <b-form-select id="unitFrom" class="col-2 form-control" :value="unitFrom" @change="onUnitFromChange($event)">
-        <option v-for="o in settingsService.units" :value="o" :key="o">{{o}}</option>
+      <b-form-select id="unitFrom" class="col-2 form-control" :value="settingsService.USUNITFROM" @change="onUnitFromChange($event)">
+        <option v-for="o in settingsService.units" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
-      <b-form-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :value="partFrom" @change="onPartFromChange($event)">
-        <option v-for="o in settingsService.parts" :value="o" :key="o">{{o}}</option>
+      <b-form-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :value="settingsService.USPARTFROM" @change="onPartFromChange($event)">
+        <option v-for="o in settingsService.parts" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -39,11 +39,11 @@
       </b-form-select>
       <label class="col-1 control-label">
       </label>
-      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="unitTo" @change="onUnitToChange($event)">
-        <option v-for="o in settingsService.units" :value="o" :key="unit">{{o}}</option>
+      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="settingsService.USUNITTO" @change="onUnitToChange($event)">
+        <option v-for="o in settingsService.units" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
-      <b-form-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="partTo" @change="onPartToChange($event)">
-        <option v-for="o in settingsService.parts" :value="o" :key="part">{{o}}</option>
+      <b-form-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="settingsService.USPARTTO" @change="onPartToChange($event)">
+        <option v-for="o in settingsService.parts" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -66,18 +66,6 @@
   export default class Settings extends Vue {
     @inject() settingsService!: SettingsService;
 
-    get unitFrom() {
-      return this.settingsService.units[this.settingsService.USUNITFROM - 1];
-    }
-    get partFrom() {
-      return this.settingsService.parts[this.settingsService.USPARTFROM - 1];
-    }
-    get unitTo() {
-      return this.settingsService.units[this.settingsService.USUNITTO - 1];
-    }
-    get partTo() {
-      return this.settingsService.parts[this.settingsService.USPARTTO - 1];
-    }
     get toTypeIsUnit() {
       return this.toType === 0;
     }
@@ -122,18 +110,16 @@
       this.updateTextbook();
     }
 
-    onUnitFromChange(value: string) {
-      const index = this.settingsService.units.indexOf(value);
-      if (!this.updateUnitFrom(index + 1)) return;
+    onUnitFromChange(value: number) {
+      if (!this.updateUnitFrom(value)) return;
       if (this.toType === 0)
         this.updateSingleUnit();
       else if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
         this.updateUnitPartTo();
     }
 
-    onPartFromChange(value: string) {
-      const index = this.settingsService.parts.indexOf(value);
-      if (!this.updatePartFrom(index + 1)) return;
+    onPartFromChange(value: number) {
+      if (!this.updatePartFrom(value)) return;
       if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
         this.updateUnitPartTo();
     }
@@ -146,16 +132,14 @@
         this.updateUnitPartTo();
     }
 
-    onUnitToChange(value: string) {
-      const index = this.settingsService.units.indexOf(value);
-      if (!this.updateUnitTo(index + 1)) return;
+    onUnitToChange(value: number) {
+      if (!this.updateUnitTo(value)) return;
       if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
         this.updateUnitPartFrom();
     }
 
-    onPartToChange(value: string) {
-      const index = this.settingsService.parts.indexOf(value);
-      if (!this.updatePartTo(index + 1)) return;
+    onPartToChange(value: number) {
+      if (!this.updatePartTo(value)) return;
       if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
         this.updateUnitPartFrom();
     }

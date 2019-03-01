@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
-    <v-select label="UNIT" :items="units" item-text="label" item-value="value" v-model="item.UNIT"></v-select>
-    <v-select label="PART" :items="parts" item-text="label" item-value="value" v-model="item.PART"></v-select>
+    <v-select label="UNIT" :items="settingsService.units" item-text="label" item-value="value" v-model="item.UNIT"></v-select>
+    <v-select label="PART" :items="settingsService.parts" item-text="label" item-value="value" v-model="item.PART"></v-select>
     <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
     <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
     <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
@@ -26,15 +26,11 @@
     @inject() settingsService!: SettingsService;
 
     item!: UnitWord;
-    units!: Array<{ label: string; value: number; }>;
-    parts!: Array<{ label: string; value: number; }>;
 
     created() {
       const id = +this.$route.params['id'];
       const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
       this.item = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
-      this.units = this.settingsService.units.map((v, i) => ({label: v, value: i + 1}));
-      this.parts = this.settingsService.parts.map((v, i) => ({label: v, value: i + 1}));
     }
 
     goBack(): void {
