@@ -88,9 +88,9 @@ export default class App extends Vue {
       path: '/words-unit',
     },
     {
-      icon: 'fa-taxi fa-lg',
-      title: 'Words in Textbook',
-      path: '/words-textbook',
+      icon: 'fa-bus fa-lg',
+      title: 'Phrases in Unit',
+      path: '/phrases-unit',
     },
     {
       icon: 'fa-plane fa-lg',
@@ -98,19 +98,19 @@ export default class App extends Vue {
       path: '/words-lang',
     },
     {
-      icon: 'fa-bus fa-lg',
-      title: 'Phrases in Unit',
-      path: '/phrases-unit',
+      icon: 'fa-plane fa-lg',
+      title: 'Phrases in Language',
+      path: '/phrases-lang',
+    },
+    {
+      icon: 'fa-taxi fa-lg',
+      title: 'Words in Textbook',
+      path: '/words-textbook',
     },
     {
       icon: 'fa-taxi fa-lg',
       title: 'Phrases in Textbook',
       path: '/phrases-textbook',
-    },
-    {
-      icon: 'fa-plane fa-lg',
-      title: 'Phrases in Language',
-      path: '/phrases-lang',
     },
     {
       icon: 'fa-cog fa-lg',
