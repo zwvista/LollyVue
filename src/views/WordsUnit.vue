@@ -47,9 +47,15 @@
               <span>Copy</span>
             </v-tooltip>
             <v-btn v-show="settingsService.hasNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
-            <v-btn color="info" @click="googleWord(props.item.WORD)">Google Word</v-btn>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+              <span>Google Word</span>
+            </v-tooltip>
             <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: props.index }}">
-              <v-btn color="info">Dictionary</v-btn>
+              <v-tooltip top>
+                <v-btn slot="activator" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                <span>Dictionary</span>
+              </v-tooltip>
             </router-link>
           </td>
         </tr>

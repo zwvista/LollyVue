@@ -41,7 +41,10 @@
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
             </v-tooltip>
-            <v-btn color="info" @click="googlePhrase(props.item.PHRASE)">Google Phrase</v-btn>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info" @click="googlePhrase(props.item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
+              <span>Google Phrase</span>
+            </v-tooltip>
           </td>
         </tr>
       </template>
