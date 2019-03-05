@@ -4,11 +4,11 @@
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <v-btn v-show="settingsService.hasNote" color="info">Retrieve All Notes</v-btn>
       <v-btn v-show="settingsService.hasNote" color="info">Retrieve Notes If Empty</v-btn>
       <router-link to="/words-dict/unit/0">
-        <v-btn color="info">Dictionary</v-btn>
+        <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
     <v-data-table
@@ -93,7 +93,7 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.wordsUnitService.getData().subscribe();
+      this.onRefresh();
     }
 
     expandRow = null;
@@ -143,6 +143,10 @@
         o.ID = id as number;
         this.wordsUnitService.unitWords.push(o);
       });
+    }
+
+    onRefresh() {
+      this.wordsUnitService.getData().subscribe();
     }
 
     deleteWord(index: number) {

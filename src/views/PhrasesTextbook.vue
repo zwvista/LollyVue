@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
     <template>
       <div class="text-xs-center">
@@ -84,17 +84,19 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
-      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.phrasesTextbookService.getData(1, this.rows).subscribe(_ =>
-        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0
-      );
+      this.onRefresh();
     }
 
     pageChange(page: number) {
       this.phrasesTextbookService.getData(page, this.rows).subscribe();
     }
 
-    expandRow = null;
+    onRefresh() {
+      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+      this.phrasesTextbookService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0
+      );
+    }
 
     googlePhrase(phrase: string) {
       googleString(phrase);

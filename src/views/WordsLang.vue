@@ -4,9 +4,9 @@
       <router-link to="/words-lang-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/lang/0">
-        <v-btn color="info">Dictionary</v-btn>
+        <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
     <template>
@@ -89,14 +89,11 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(1, this.rows).subscribe(_ =>
-        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0
-      );
     }
 
     pageChange(page: number) {
       this.wordsLangService.getData(page, this.rows).subscribe();
+      this.onRefresh();
     }
 
     onEnter() {
@@ -108,6 +105,13 @@
         o.ID = id as number;
         this.wordsLangService.langWords.push(o);
       });
+    }
+
+    onRefresh() {
+      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+      this.wordsLangService.getData(1, this.rows).subscribe(_ =>
+        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0
+      );
     }
 
     deleteWord(index: number) {

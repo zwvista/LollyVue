@@ -4,7 +4,7 @@
       <router-link to="/phrases-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -81,7 +81,7 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.phrasesUnitService.getData().subscribe();
+      this.onRefresh();
     }
 
     expandRow = null;
@@ -120,6 +120,10 @@
       const movedItem = this.phrasesUnitService.unitPhrases.splice(oldIndex, 1)[0];
       this.phrasesUnitService.unitPhrases.splice(newIndex, 0, movedItem);
       this.phrasesUnitService.reindex(index => {});
+    }
+
+    onRefresh() {
+      this.phrasesUnitService.getData().subscribe();
     }
 
     googlePhrase(phrase: string) {
