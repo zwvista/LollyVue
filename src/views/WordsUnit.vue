@@ -20,7 +20,7 @@
       item-key="ID"
     >
       <template slot="items" slot-scope="props">
-        <tr class="sortableRow" :key="props.item.ID">
+        <tr class="sortableRow" :key="props.item.ID" :style="props.item.colorStyle">
           <td class="px-1" style="width: 0.1%">
             <v-btn style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
