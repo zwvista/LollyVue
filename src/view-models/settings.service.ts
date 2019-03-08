@@ -1,18 +1,17 @@
 import { map, mergeMap } from 'rxjs/operators';
 import { injectable } from 'vue-typescript-inject';
-import { LanguageService } from '../services/language.service';
-import { UserSettingService } from '../services/user-setting.service';
-import { UserSetting } from '../models/user-setting';
-import { Language } from '../models/language';
-import { DictItem, DictMean, DictNote } from '../models/dictionary';
-import { Textbook } from '../models/textbook';
+import { LanguageService } from '@/services/language.service';
+import { UserSettingService } from '@/services/user-setting.service';
+import { UserSetting } from '@/models/user-setting';
+import { Language } from '@/models/language';
+import { DictItem, DictMean, DictNote } from '@/models/dictionary';
+import { Textbook } from '@/models/textbook';
 import { forkJoin, Observable } from 'rxjs';
-import { DictMeanService, DictNoteService } from '../services/dictionary.service';
-import { TextbookService } from '../services/textbook.service';
+import { DictMeanService, DictNoteService } from '@/services/dictionary.service';
+import { TextbookService } from '@/services/textbook.service';
 import { autoCorrect, AutoCorrect } from '@/models/autocorrect';
 import { AutoCorrectService } from '@/services/autocorrect.service';
 import * as _ from 'lodash';
-import { partsFrom, unitsFrom } from '@/common/common';
 import { SelectItem } from '@/common/selectitem';
 import { WordColor } from '@/models/word-color';
 
@@ -137,7 +136,8 @@ export class SettingsService {
   }
   set selectedTextbook(newValue: Textbook) {
     this._selectedTextbook = newValue;
-    this.setSelectedTextbookIndex();
+    this.USTEXTBOOKID = newValue.ID;
+    this.selectedUSTextbook = this.userSettings.find(value => value.KIND === 3 && value.ENTITYID === newValue.ID)!;
   }
 
   units: SelectItem[] = [];
@@ -205,13 +205,6 @@ export class SettingsService {
         this.selectedTextbook = this.textbooks.find(value => value.ID === this.USTEXTBOOKID)!;
         this.autoCorrects = res[3] as AutoCorrect[];
       }));
-  }
-
-  private setSelectedTextbookIndex() {
-    this.USTEXTBOOKID = this.selectedTextbook.ID;
-    this.selectedUSTextbook = this.userSettings.find(value => value.KIND === 3 && value.ENTITYID === this.USTEXTBOOKID)!;
-    this.units = unitsFrom(this.selectedTextbook.UNITS);
-    this.parts = partsFrom(this.selectedTextbook.PARTS);
   }
 
   dictHtml(word: string, dictids: string[]): string {

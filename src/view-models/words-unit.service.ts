@@ -1,5 +1,5 @@
 import { injectable } from 'vue-typescript-inject';
-import { UnitWordService } from '../services/unit-word.service';
+import { UnitWordService } from '@/services/unit-word.service';
 import { SettingsService } from './settings.service';
 import { UnitWord } from '@/models/unit-word';
 import { AppService } from './app.service';
@@ -23,7 +23,7 @@ export class WordsUnitService {
 
   getData(): Observable<void> {
     return this.appService.initializeComplete.pipe(
-      concatMap(_ => this.unitWordService.getDataByTextbookUnitPart(this.settingsService.USTEXTBOOKID,
+      concatMap(_ => this.unitWordService.getDataByTextbookUnitPart(this.settingsService.selectedTextbook,
         this.settingsService.USUNITPARTFROM, this.settingsService.USUNITPARTTO)),
       map(res => {
         this.settingsService.setColorStyle(res);
