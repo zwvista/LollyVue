@@ -45,7 +45,7 @@
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
             </v-tooltip>
-            <v-btn v-show="settingsService.hasNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-tooltip top>
               <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
               <span>Google Word</span>

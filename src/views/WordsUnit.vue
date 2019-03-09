@@ -5,8 +5,8 @@
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.hasNote" color="info">Retrieve All Notes</v-btn>
-      <v-btn v-show="settingsService.hasNote" color="info">Retrieve Notes If Empty</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="info">Retrieve All Notes</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="info">Retrieve Notes If Empty</v-btn>
       <router-link to="/words-dict/unit/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
@@ -42,11 +42,15 @@
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
+            <v-tooltip v-show="settingsService.selectedVoice" top>
+              <v-btn slot="activator" icon color="info" @click="speak(props.item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+              <span>Speak</span>
+            </v-tooltip>
             <v-tooltip top>
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
             </v-tooltip>
-            <v-btn v-show="settingsService.hasNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-tooltip top>
               <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
               <span>Google Word</span>
@@ -164,6 +168,13 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    }
+
+    speak(word: string) {
+      this.settingsService.speech.speak({
+        text: word,
+        queue: false,
+      });
     }
   }
 </script>
