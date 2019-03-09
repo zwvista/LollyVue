@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-toolbar>
+      <v-flex xs6 md2>
+        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnter"></v-text-field>
+      </v-flex>
       <router-link to="/words-lang-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
