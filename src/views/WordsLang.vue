@@ -78,6 +78,7 @@
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },
       { text: 'WORD', sortable: false, value: 'WORD' },
+      { text: 'NOTE', sortable: false, value: 'NOTE' },
       { text: 'LEVEL', sortable: false, value: 'LEVEL' },
       { text: 'ACTIONS', sortable: false },
     ];
@@ -89,6 +90,7 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
+      this.onRefresh();
     }
 
     pageChange(page: number) {

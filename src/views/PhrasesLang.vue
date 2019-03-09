@@ -82,6 +82,7 @@
 
     pageChange(page: number) {
       this.phrasesLangService.getData(page, this.rows).subscribe();
+      this.onRefresh();
     }
 
     onRefresh() {

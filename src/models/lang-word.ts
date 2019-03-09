@@ -6,8 +6,7 @@ export class MLangWords {
   VLANGWORDS!: MLangWord[];
   _results = 0;
 }
-export class MLangWord implements MWordColor
-{
+export class MLangWord implements MWordColor {
   ID = 0;
   LANGID = 0;
   WORD = '';

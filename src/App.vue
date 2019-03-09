@@ -67,6 +67,7 @@
   import { TextbookWordService } from '@/services/textbook-word.service';
   import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
+  import { VoicesService } from '@/services/voices.service';
 
   @Component({
   providers: [
@@ -75,6 +76,7 @@
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
     NoteService, TextbookWordService, TextbookPhraseService, WordsTextbookService, PhrasesTextbookService,
+    VoicesService,
   ],
 })
 export default class App extends Vue {
