@@ -58,9 +58,9 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/settings.service';
-  import { Language } from '@/models/language';
-  import { DictItem, DictMean, DictNote } from '@/models/dictionary';
-  import { Textbook } from '@/models/textbook';
+  import { MLanguage } from '@/models/language';
+  import { MDictItem, DictMean, MDictNote } from '@/models/dictionary';
+  import { MTextbook } from '@/models/textbook';
 
   @Component
   export default class Settings extends Vue {
@@ -85,22 +85,22 @@
       this.settingsService.getData().subscribe(_ => this.updateTextbook());
     }
 
-    onLangChange(value: Language) {
+    onLangChange(value: MLanguage) {
       this.settingsService.setSelectedLang(value).subscribe();
       this.settingsService.updateLang().subscribe();
     }
 
-    onDictItemChange(value: DictItem) {
+    onDictItemChange(value: MDictItem) {
       this.settingsService.selectedDictItem = value;
       this.settingsService.updateDictItem().subscribe();
     }
 
-    onDictNoteChange(value: DictNote) {
+    onDictNoteChange(value: MDictNote) {
       this.settingsService.selectedDictNote = value;
       this.settingsService.updateDictNote().subscribe();
     }
 
-    onTextbookChange(value: Textbook) {
+    onTextbookChange(value: MTextbook) {
       this.settingsService.selectedTextbook = value;
       this.settingsService.updateTextbook().subscribe();
       this.updateTextbook();

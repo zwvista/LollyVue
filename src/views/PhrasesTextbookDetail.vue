@@ -16,7 +16,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
-  import { TextbookPhrase } from '@/models/textbook-phrase';
+  import { MTextbookPhrase } from '@/models/textbook-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
@@ -24,7 +24,7 @@
     @inject() phrasesTextbookService!: PhrasesTextbookService;
     @inject() settingsService!: SettingsService;
 
-    item!: TextbookPhrase;
+    item!: MTextbookPhrase;
 
     created() {
       const id = +this.$route.params['id'];

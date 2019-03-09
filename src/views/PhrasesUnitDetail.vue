@@ -16,7 +16,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
-  import { UnitPhrase } from '@/models/unit-phrase';
+  import { MUnitPhrase } from '@/models/unit-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
@@ -24,12 +24,12 @@
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
-    item!: UnitPhrase;
+    item!: MUnitPhrase;
 
     created() {
       const id = +this.$route.params['id'];
       const o = this.phrasesUnitService.unitPhrases.find(value => value.ID === id);
-      this.item = o ? {...o} as UnitPhrase : this.phrasesUnitService.newUnitPhrase();
+      this.item = o ? {...o} as MUnitPhrase : this.phrasesUnitService.newUnitPhrase();
     }
 
     goBack(): void {

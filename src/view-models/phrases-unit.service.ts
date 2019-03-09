@@ -1,18 +1,18 @@
 import { injectable } from 'vue-typescript-inject';
 import { AppService } from './app.service';
 import { SettingsService } from './settings.service';
-import { UnitPhrase } from '@/models/unit-phrase';
+import { MUnitPhrase } from '@/models/unit-phrase';
 import { UnitPhraseService } from '@/services/unit-phrase.service';
 import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { LangPhraseService } from '@/services/lang-phrase.service';
-import { LangPhrase } from '@/models/lang-phrase';
+import { MLangPhrase } from '@/models/lang-phrase';
 
 
 @injectable()
 export class PhrasesUnitService {
 
-  unitPhrases: UnitPhrase[] = [];
+  unitPhrases: MUnitPhrase[] = [];
 
   constructor(private unitPhraseService: UnitPhraseService,
               private langPhraseService: LangPhraseService,
@@ -28,11 +28,11 @@ export class PhrasesUnitService {
     );
   }
 
-  create(item: UnitPhrase): Observable<number | any[]> {
+  create(item: MUnitPhrase): Observable<number | any[]> {
     return this.langPhraseService.getDataByLangPhrase(item.LANGID, item.PHRASE).pipe(
       concatMap( arrLang => {
         if (arrLang.length === 0) {
-          const itemLang = LangPhrase.fromUnit(item);
+          const itemLang = MLangPhrase.fromUnit(item);
           return this.langPhraseService.create(itemLang);
         } else {
           const itemLang = arrLang[0];
@@ -56,14 +56,14 @@ export class PhrasesUnitService {
     return this.langPhraseService.updateTranslation(phraseid, translation);
   }
 
-  update(item: UnitPhrase): Observable<number> {
+  update(item: MUnitPhrase): Observable<number> {
     const phraseid = item.PHRASEID;
     return this.unitPhraseService.getDataByLangPhrase(phraseid).pipe(
       concatMap(arrUnit => {
         if (arrUnit.length === 0)
           return empty;
         else {
-          const itemLang = LangPhrase.fromUnit(item);
+          const itemLang = MLangPhrase.fromUnit(item);
           return this.langPhraseService.getDataById(phraseid).pipe(
             concatMap(arrLangOld => {
               if (arrLangOld.length > 0 && arrLangOld[0].PHRASE === item.PHRASE)
@@ -118,8 +118,8 @@ export class PhrasesUnitService {
     }
   }
 
-  newUnitPhrase(): UnitPhrase {
-    const o = new UnitPhrase();
+  newUnitPhrase(): MUnitPhrase {
+    const o = new MUnitPhrase();
     o.LANGID = this.settingsService.selectedLang.ID;
     o.TEXTBOOKID = this.settingsService.USTEXTBOOKID;
     const maxElem = this.unitPhrases.length === 0 ? null :

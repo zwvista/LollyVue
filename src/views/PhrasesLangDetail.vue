@@ -12,7 +12,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
-  import { LangPhrase } from '@/models/lang-phrase';
+  import { MLangPhrase } from '@/models/lang-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
@@ -20,12 +20,12 @@
     @inject() phrasesLangService!: PhrasesLangService;
     @inject() settingsService!: SettingsService;
 
-    langPhrase!: LangPhrase;
+    langPhrase!: MLangPhrase;
 
     created() {
       const id = +this.$route.params['id'];
       const o = this.phrasesLangService.langPhrases.find(value => value.ID === id);
-      this.langPhrase = o ? {...o} as LangPhrase : this.phrasesLangService.newLangPhrase();
+      this.langPhrase = o ? {...o} as MLangPhrase : this.phrasesLangService.newLangPhrase();
     }
 
     goBack(): void {

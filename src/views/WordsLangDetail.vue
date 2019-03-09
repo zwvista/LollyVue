@@ -14,7 +14,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { WordsLangService } from '@/view-models/words-lang.service';
-  import { LangWord } from '@/models/lang-word';
+  import { MLangWord } from '@/models/lang-word';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
@@ -22,12 +22,12 @@
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 
-    item!: LangWord;
+    item!: MLangWord;
 
     created() {
       const id = +this.$route.params['id'];
       const o = this.wordsLangService.langWords.find(value => value.ID === id);
-      this.item = o ? {...o} as LangWord : this.wordsLangService.newLangWord();
+      this.item = o ? {...o} as MLangWord : this.wordsLangService.newLangWord();
     }
 
     goBack(): void {

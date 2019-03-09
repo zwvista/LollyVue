@@ -17,7 +17,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/words-unit.service';
-  import { UnitWord } from '@/models/unit-word';
+  import { MUnitWord } from '@/models/unit-word';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component
@@ -25,12 +25,12 @@
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
-    item!: UnitWord;
+    item!: MUnitWord;
 
     created() {
       const id = +this.$route.params['id'];
       const o = this.wordsUnitService.unitWords.find(value => value.ID === id);
-      this.item = o ? {...o} as UnitWord : this.wordsUnitService.newUnitWord();
+      this.item = o ? {...o} as MUnitWord : this.wordsUnitService.newUnitWord();
     }
 
     goBack(): void {

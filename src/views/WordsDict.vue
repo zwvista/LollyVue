@@ -15,7 +15,7 @@
   import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
-  import { DictItem } from '@/models/dictionary';
+  import { MDictItem } from '@/models/dictionary';
   import DictBrowser from '../components/DictBrowser.vue';
   import { HtmlService } from '@/services/html.service';
   import { WordsLangService } from '@/view-models/words-lang.service';
@@ -35,7 +35,7 @@
     selectedWord: string | null = null;
     dictUrl = 'about:blank';
     dictSrc: string | null = null;
-    selectedDictItem: DictItem | null = null;
+    selectedDictItem: MDictItem | null = null;
 
     created() {
       const dictType = this.$route.params['type'];
