@@ -1,20 +1,20 @@
 import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
-import { TextbookWordService } from '../services/textbook-word.service';
 import { Observable } from 'rxjs';
-import { MTextbookWord } from '../models/textbook-word';
 import { concatMap, map } from 'rxjs/operators';
 import { LangWordService } from '@/services/lang-word.service';
 import { NoteService } from '@/view-models/note.service';
+import { UnitWordService } from '@/services/unit-word.service';
+import { MUnitWord } from '@/models/unit-word';
 
 @injectable()
 export class WordsTextbookService {
 
-  textbookWords: MTextbookWord[] = [];
+  textbookWords: MUnitWord[] = [];
   textbookWordCount = 0;
 
-  constructor(private textbookWordService: TextbookWordService,
+  constructor(private unitWordService: UnitWordService,
               private langWordService: LangWordService,
               private settingsService: SettingsService,
               private appService: AppService,
@@ -23,10 +23,10 @@ export class WordsTextbookService {
 
   getData(page: number, rows: number) {
     return this.appService.initializeComplete.pipe(
-      concatMap(_ => this.textbookWordService.getDataByLang(this.settingsService.selectedLang.ID,
+      concatMap(_ => this.unitWordService.getDataByLang(this.settingsService.selectedLang.ID,
         this.settingsService.textbooks, page, rows)),
       map(res => {
-        this.textbookWords = res.VTEXTBOOKWORDS;
+        this.textbookWords = res.VUNITWORDS;
         this.textbookWordCount = res._results;
       }),
     );

@@ -19,15 +19,15 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { WordsTextbookService } from '@/view-models/words-textbook.service';
-  import { MTextbookWord } from '@/models/textbook-word';
   import { SettingsService } from '@/view-models/settings.service';
+  import { MUnitWord } from '@/models/unit-word';
 
   @Component
   export default class WordsTextbookDetail extends Vue {
     @inject() wordsTextbookService!: WordsTextbookService;
     @inject() settingsService!: SettingsService;
 
-    item!: MTextbookWord;
+    item!: MUnitWord;
 
     created() {
       const id = +this.$route.params['id'];

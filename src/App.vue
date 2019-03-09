@@ -63,8 +63,6 @@
   import { PhrasesLangService } from './view-models/phrases-lang.service';
   import { LangPhraseService } from './services/lang-phrase.service';
   import { NoteService } from '@/view-models/note.service';
-  import { TextbookPhraseService } from '@/services/textbook-phrase.service';
-  import { TextbookWordService } from '@/services/textbook-word.service';
   import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
   import { VoicesService } from '@/services/voices.service';
@@ -75,7 +73,7 @@
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
-    NoteService, TextbookWordService, TextbookPhraseService, WordsTextbookService, PhrasesTextbookService,
+    NoteService, WordsTextbookService, PhrasesTextbookService,
     VoicesService,
   ],
 })

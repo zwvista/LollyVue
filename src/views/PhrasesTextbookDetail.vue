@@ -16,15 +16,15 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
-  import { MTextbookPhrase } from '@/models/textbook-phrase';
   import { SettingsService } from '@/view-models/settings.service';
+  import { MUnitPhrase } from '@/models/unit-phrase';
 
   @Component
   export default class PhrasesTextbookDetail extends Vue {
     @inject() phrasesTextbookService!: PhrasesTextbookService;
     @inject() settingsService!: SettingsService;
 
-    item!: MTextbookPhrase;
+    item!: MUnitPhrase;
 
     created() {
       const id = +this.$route.params['id'];
