@@ -1,9 +1,9 @@
 import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
-import { LangWordService } from '../services/lang-word.service';
+import { LangWordService } from '@/services/lang-word.service';
 import { Observable } from 'rxjs';
-import { MLangWord } from '../models/lang-word';
+import { MLangWord } from '@/models/lang-word';
 import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
 
@@ -23,6 +23,7 @@ export class WordsLangService {
     return this.appService.initializeComplete.pipe(
       concatMap(_ => this.langWordService.getDataByLang(this.settingsService.selectedLang.ID, page, rows)),
       map(res => {
+        this.settingsService.setColorStyle(res.VLANGWORDS);
         this.langWords = res.VLANGWORDS;
         this.langWordsCount = res._results;
       }),

@@ -27,7 +27,7 @@ export class WordsUnitService {
         this.settingsService.USUNITPARTFROM, this.settingsService.USUNITPARTTO)),
       map(res => {
         this.settingsService.setColorStyle(res);
-        this.unitWords = res
+        this.unitWords = res;
       }),
     );
   }

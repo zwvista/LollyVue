@@ -25,7 +25,7 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <tr :key="props.item.ID">
+        <tr :key="props.item.ID" :style="props.item.colorStyle">
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.NOTE }}</td>
@@ -93,12 +93,10 @@
 
     services = {};
     created() {
-      this.$set(this.services, 'wordsLangService', this.wordsLangService);
       this.onRefresh();
     }
 
     pageChange(page: number) {
-      this.wordsLangService.getData(page, this.rows).subscribe();
       this.onRefresh();
     }
 
@@ -115,9 +113,9 @@
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(1, this.rows).subscribe(_ =>
-        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0
-      );
+      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+      });
     }
 
     deleteWord(index: number) {

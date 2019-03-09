@@ -92,14 +92,14 @@
     }
 
     pageChange(page: number) {
-      this.phrasesTextbookService.getData(page, this.rows).subscribe();
+      this.onRefresh();
     }
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.phrasesTextbookService.getData(1, this.rows).subscribe(_ =>
-        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0
-      );
+      this.phrasesTextbookService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
+      });
     }
 
     googlePhrase(phrase: string) {

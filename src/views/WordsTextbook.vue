@@ -24,7 +24,7 @@
       item-key="ID"
     >
       <template slot="items" slot-scope="props">
-        <tr class="sortableRow" :key="props.item.ID">
+        <tr :key="props.item.ID" :style="props.item.colorStyle">
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.TEXTBOOKNAME }}</td>
           <td>{{ props.item.UNITSTR }}</td>
@@ -104,14 +104,14 @@
     }
 
     pageChange(page: number) {
-      this.wordsTextbookService.getData(page, this.rows).subscribe();
+      this.onRefresh();
     }
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsTextbookService.getData(1, this.rows).subscribe(_ =>
-        this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0
-      );
+      this.wordsTextbookService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+      });
     }
 
     deleteWord(index: number) {
