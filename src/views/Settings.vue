@@ -7,6 +7,12 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
+      <label for="voice" class="col-2 control-label">Voice:</label>
+      <b-form-select id="voice" class="col-4 form-control" :value="settingsService.selectedVoice" @change="onVoiceChange($event)">
+        <option v-for="o in settingsService.voices" :value="o" :key="o.ID">{{o.VOICENAME}}</option>
+      </b-form-select>
+    </div>
+    <div class="form-inline mb-2">
       <label for="dictItem" class="col-2 control-label">Dictionary(Word):</label>
       <b-form-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)">
         <option v-for="o in settingsService.dictItems" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
@@ -61,6 +67,7 @@
   import { MLanguage } from '@/models/language';
   import { MDictItem, DictMean, MDictNote } from '@/models/dictionary';
   import { MTextbook } from '@/models/textbook';
+  import { MVoice } from '@/models/voice';
 
   @Component
   export default class Settings extends Vue {
@@ -88,6 +95,11 @@
     onLangChange(value: MLanguage) {
       this.settingsService.setSelectedLang(value).subscribe();
       this.settingsService.updateLang().subscribe();
+    }
+
+    onVoiceChange(value: MVoice) {
+      this.settingsService.selectedVoice = value;
+      this.settingsService.updateVoice().subscribe();
     }
 
     onDictItemChange(value: MDictItem) {
