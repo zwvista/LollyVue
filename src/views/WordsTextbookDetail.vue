@@ -21,10 +21,12 @@
   import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { MUnitWord } from '@/models/unit-word';
+  import { WordsUnitService } from '@/view-models/words-unit.service';
 
   @Component
   export default class WordsTextbookDetail extends Vue {
     @inject() wordsTextbookService!: WordsTextbookService;
+    @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
     item!: MUnitWord;
@@ -40,6 +42,7 @@
 
     save(): void {
       this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
+      this.wordsUnitService.update(this.item);
     }
   }
 </script>

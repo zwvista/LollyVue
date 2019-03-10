@@ -55,6 +55,15 @@
         </tr>
       </template>
     </v-data-table>
+    <template>
+      <div class="text-xs-center">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @input="pageChange"
+        ></v-pagination>
+      </div>
+    </template>
   </div>
 </template>
 

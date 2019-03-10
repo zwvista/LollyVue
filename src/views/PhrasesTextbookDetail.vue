@@ -18,10 +18,12 @@
   import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { MUnitPhrase } from '@/models/unit-phrase';
+  import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
 
   @Component
   export default class PhrasesTextbookDetail extends Vue {
     @inject() phrasesTextbookService!: PhrasesTextbookService;
+    @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
     item!: MUnitPhrase;
@@ -37,6 +39,7 @@
 
     save(): void {
       this.item.PHRASE = this.settingsService.autoCorrectInput(this.item.PHRASE);
+      this.phrasesUnitService.update(this.item).subscribe(_ => this.goBack());
     }
   }
 </script>
