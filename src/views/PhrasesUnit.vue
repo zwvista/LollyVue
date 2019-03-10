@@ -38,7 +38,7 @@
               </v-tooltip>
             </router-link>
             <v-tooltip v-show="settingsService.selectedVoice" top>
-              <v-btn slot="activator" icon color="info" @click="speak(props.item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
+              <v-btn slot="activator" icon color="info" @click="settingsService.speak(props.item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
@@ -132,13 +132,6 @@
 
     googlePhrase(phrase: string) {
       googleString(phrase);
-    }
-
-    speak(phrase: string) {
-      this.settingsService.speech.speak({
-        text: phrase,
-        queue: false,
-      });
     }
   }
 </script>
