@@ -62,7 +62,6 @@
               <v-btn slot="activator" icon color="info" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               <span>Level Down</span>
             </v-tooltip>
-            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-tooltip top>
               <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
               <span>Google Word</span>
@@ -73,6 +72,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
+            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>
