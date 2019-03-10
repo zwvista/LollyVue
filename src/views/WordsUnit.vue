@@ -45,13 +45,21 @@
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
-            <v-tooltip v-show="settingsService.selectedVoice" top>
+            <v-tooltip top v-show="settingsService.selectedVoice">
               <v-btn slot="activator" icon color="info" @click="speak(props.item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               <span>Copy</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <span>Level Up</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="info" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <span>Level Down</span>
             </v-tooltip>
             <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
             <v-tooltip top>
@@ -171,6 +179,11 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    }
+
+    updateLevel(index: number, delta: number) {
+      const o = this.wordsUnitService.unitWords[index];
+      this.settingsService.updateLevel(o, o.WORDID, delta).subscribe();
     }
 
     speak(word: string) {
