@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/textbook/0">
-        <v-btn color="info" @click="onRefresh()"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
+        <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
     <template>
@@ -100,16 +100,17 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
-      this.onRefresh();
+      this.onRefresh(-1);
     }
 
     pageChange(page: number) {
-      this.onRefresh();
+      this.onRefresh(page);
     }
 
-    onRefresh() {
+    onRefresh(page: number) {
+      if (page === -1) page = this.page;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsTextbookService.getData(this.page, this.rows).subscribe(_ => {
+      this.wordsTextbookService.getData(page, this.rows).subscribe(_ => {
         this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0;
       });
     }

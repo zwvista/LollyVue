@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar>
-      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
     <template>
       <div class="text-xs-center">
@@ -88,14 +88,15 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
-      this.onRefresh();
+      this.onRefresh(-1);
     }
 
     pageChange(page: number) {
-      this.onRefresh();
+      this.onRefresh(page);
     }
 
-    onRefresh() {
+    onRefresh(page: number) {
+      if (page === -1) page = this.page;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       this.phrasesTextbookService.getData(this.page, this.rows).subscribe(_ => {
         this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
