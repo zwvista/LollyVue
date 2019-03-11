@@ -123,6 +123,7 @@
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       this.wordsTextbookService.getData(page, this.rows).subscribe(_ => {
         this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+        this.$forceUpdate();
       });
     }
 
