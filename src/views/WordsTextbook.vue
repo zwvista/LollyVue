@@ -54,6 +54,14 @@
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <span>Level Up</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <span>Level Down</span>
+            </v-tooltip>
+            <v-tooltip top>
               <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
               <span>Google Word</span>
             </v-tooltip>
@@ -63,7 +71,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>
@@ -138,6 +146,11 @@
 
     googleWord(word: string) {
       googleString(word);
+    }
+
+    updateLevel(index: number, delta: number) {
+      const o = this.wordsTextbookService.textbookWords[index];
+      this.settingsService.updateLevel(o, o.WORDID, delta).subscribe();
     }
   }
 </script>

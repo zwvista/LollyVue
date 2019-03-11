@@ -4,12 +4,16 @@
       <v-flex xs6 md2>
         <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnter"></v-text-field>
       </v-flex>
+      <v-tooltip top v-show="settingsService.selectedVoice">
+        <v-btn slot="activator" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
+        <span>Speak</span>
+      </v-tooltip>
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="info">Retrieve All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="info">Retrieve Notes If Empty</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve Notes If Empty</v-btn>
       <router-link to="/words-dict/unit/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
@@ -55,11 +59,11 @@
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
@@ -72,7 +76,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="info" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>
