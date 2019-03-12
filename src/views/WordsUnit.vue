@@ -41,7 +41,7 @@
           <td>{{ props.item.LEVEL }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="delete(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: props.item.ID }}">
@@ -91,6 +91,7 @@
   import Sortable from 'sortablejs';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
+  import { MUnitWord } from '@/models/unit-word';
 
   @Component
   export default class WordsUnit extends Vue {
@@ -170,8 +171,8 @@
       this.wordsUnitService.getData().subscribe();
     }
 
-    deleteWord(index: number) {
-      console.log(index);
+    deleteWord(item: MUnitWord) {
+      this.wordsUnitService.delete(item);
     }
 
     getNote(index: number) {

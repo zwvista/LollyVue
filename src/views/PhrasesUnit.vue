@@ -28,7 +28,7 @@
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="delete(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
@@ -63,6 +63,7 @@
   import Sortable from 'sortablejs';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
+  import { MUnitPhrase } from '@/models/unit-phrase';
 
   @Component
   export default class PhrasesUnit extends Vue {
@@ -128,6 +129,10 @@
 
     onRefresh() {
       this.phrasesUnitService.getData().subscribe();
+    }
+
+    deletePhrase(item: MUnitPhrase) {
+      this.phrasesUnitService.delete(item);
     }
 
     googlePhrase(phrase: string) {
