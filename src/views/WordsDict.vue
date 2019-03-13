@@ -19,14 +19,12 @@
   import DictBrowser from '../components/DictBrowser.vue';
   import { HtmlService } from '@/services/html.service';
   import { WordsLangService } from '@/view-models/words-lang.service';
-  import { WordsTextbookService } from '@/view-models/words-textbook.service';
 
   @Component({
     components: {DictBrowser},
   })
   export default class WordsDict extends Vue {
     @inject() wordsUnitService!: WordsUnitService;
-    @inject() wordsTextbookService!: WordsTextbookService;
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
     @inject() htmlService!: HtmlService;
@@ -41,7 +39,7 @@
       const dictType = this.$route.params['type'];
       this.words =
         dictType === 'unit' ? this.wordsUnitService.unitWords.map(v  => v.WORD) :
-        dictType === 'textbook' ? this.wordsTextbookService.textbookWords.map(v  => v.WORD) :
+        dictType === 'textbook' ? this.wordsUnitService.textbookWords.map(v  => v.WORD) :
         this.wordsLangService.langWords.map(v  => v.WORD);
       this.selectedWord = this.words[+this.$route.params['index']];
       this.selectedDictItem = this.settingsService.selectedDictItem;

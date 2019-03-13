@@ -36,7 +36,7 @@ export class TextbookService extends BaseService {
             o.units = f(o.UNITS).map((v, i) => new MSelectItem(i + 1, v));
             o.parts = o.PARTS.split(',').map((v, i) => new MSelectItem(i + 1, v));
             return o;
-          })
+          }),
         ),
       );
   }

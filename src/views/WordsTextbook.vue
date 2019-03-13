@@ -91,13 +91,13 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
+  import { WordsUnitService } from '@/view-models/words-unit.service';
 
   @Component
   export default class WordsTextbook extends Vue {
-    @inject() wordsTextbookService!: WordsTextbookService;
+    @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
     headers = [
@@ -118,7 +118,7 @@
 
     services = {};
     created() {
-      this.$set(this.services, 'wordsTextbookService', this.wordsTextbookService);
+      this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       this.onRefresh(-1);
     }
 
@@ -129,8 +129,8 @@
     onRefresh(page: number) {
       if (page === -1) page = this.page;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsTextbookService.getData(page, this.rows).subscribe(_ => {
-        this.pageCount = (this.wordsTextbookService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+      this.wordsUnitService.getDataInLang(page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
     }
@@ -141,7 +141,7 @@
 
     getNote(index: number) {
       console.log(index);
-      this.wordsTextbookService.getNote(index).subscribe();
+      this.wordsUnitService.getNote(index).subscribe();
     }
 
     googleWord(word: string) {
@@ -149,7 +149,7 @@
     }
 
     updateLevel(index: number, delta: number) {
-      const o = this.wordsTextbookService.textbookWords[index];
+      const o = this.wordsUnitService.textbookWords[index];
       this.settingsService.updateLevel(o, o.WORDID, delta).subscribe();
     }
   }

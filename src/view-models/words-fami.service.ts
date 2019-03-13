@@ -30,7 +30,7 @@ export class WordsFamiService {
           else
             return this.wordFamiService.update(item);
         }
-      })
+      }),
     );
   }
 

@@ -15,14 +15,12 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { MUnitPhrase } from '@/models/unit-phrase';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
 
   @Component
   export default class PhrasesTextbookDetail extends Vue {
-    @inject() phrasesTextbookService!: PhrasesTextbookService;
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -30,7 +28,7 @@
 
     created() {
       const id = +this.$route.params['id'];
-      this.item = this.phrasesTextbookService.textbookPhrases.find(value => value.ID === id)!;
+      this.item = this.phrasesUnitService.textbookPhrases.find(value => value.ID === id)!;
     }
 
     goBack(): void {

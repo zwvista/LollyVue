@@ -18,14 +18,12 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsTextbookService } from '@/view-models/words-textbook.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { MUnitWord } from '@/models/unit-word';
   import { WordsUnitService } from '@/view-models/words-unit.service';
 
   @Component
   export default class WordsTextbookDetail extends Vue {
-    @inject() wordsTextbookService!: WordsTextbookService;
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -33,7 +31,7 @@
 
     created() {
       const id = +this.$route.params['id'];
-      this.item = this.wordsTextbookService.textbookWords.find(value => value.ID === id)!;
+      this.item = this.wordsUnitService.textbookWords.find(value => value.ID === id)!;
     }
 
     goBack(): void {

@@ -70,13 +70,13 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { PhrasesTextbookService } from '@/view-models/phrases-textbook.service';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
+  import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
 
   @Component
   export default class PhrasesTextbook extends Vue {
-    @inject() phrasesTextbookService!: PhrasesTextbookService;
+    @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
     headers = [
@@ -96,7 +96,7 @@
 
     services = {};
     created() {
-      this.$set(this.services, 'phrasesTextbookService', this.phrasesTextbookService);
+      this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       this.onRefresh(-1);
     }
 
@@ -107,8 +107,8 @@
     onRefresh(page: number) {
       if (page === -1) page = this.page;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.phrasesTextbookService.getData(this.page, this.rows).subscribe(_ => {
-        this.pageCount = (this.phrasesTextbookService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
+      this.phrasesUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
     }

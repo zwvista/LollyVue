@@ -168,7 +168,7 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getData().subscribe();
+      this.wordsUnitService.getDataInTextbook().subscribe();
     }
 
     deleteWord(item: MUnitWord) {
