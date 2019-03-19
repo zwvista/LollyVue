@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="form-inline mb-2">
-      <label for="lang" class="col-2 control-label">Languages:</label>
+      <label for="lang" class="col-2 control-label">Language:</label>
       <b-form-select id="lang" class="col-4 form-control" :value="settingsService.selectedLang" @change="onLangChange($event)">
         <option v-for="o in settingsService.languages" :value="o" :key="o.ID">{{o.NAME}}</option>
       </b-form-select>
