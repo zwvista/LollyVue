@@ -14,10 +14,7 @@ export class UnitPhraseService extends BaseService {
       .pipe(
         map(result => {
           const result2 = result.VUNITPHRASES.map(value => Object.assign(new MUnitPhrase(), value));
-          result2.forEach(o => {
-            o.units = textbook.units;
-            o.parts = textbook.parts;
-          });
+          result2.forEach(o => o.textbook = textbook);
           return result2;
         }),
       );
@@ -30,9 +27,7 @@ export class UnitPhraseService extends BaseService {
         map(result => ({
           VUNITPHRASES: result.VUNITPHRASES.map(value => {
             const v = Object.assign(new MUnitPhrase(), value);
-            const v2 = textbooks.find(o => o.ID === v.TEXTBOOKID)!;
-            v.units = v2.units;
-            v.parts = v2.parts;
+            v.textbook = textbooks.find(o => o.ID === v.TEXTBOOKID)!;
             return v;
           }),
           _results: result._results,

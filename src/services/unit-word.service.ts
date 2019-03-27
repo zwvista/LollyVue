@@ -14,10 +14,7 @@ export class UnitWordService extends BaseService {
       .pipe(
         map(result => {
           const result2 = result.VUNITWORDS.map(value => Object.assign(new MUnitWord(), value));
-          result2.forEach(o => {
-            o.units = textbook.units;
-            o.parts = textbook.parts;
-          });
+          result2.forEach(o => o.textbook = textbook);
           return result2;
         }),
       );
@@ -30,9 +27,7 @@ export class UnitWordService extends BaseService {
         map(result => ({
           VUNITWORDS: result.VUNITWORDS.map(value => {
             const v = Object.assign(new MUnitWord(), value);
-            const v2 = textbooks.find(o => o.ID === v.TEXTBOOKID)!;
-            v.units = v2.units;
-            v.parts = v2.parts;
+            v.textbook = textbooks.find(o => o.ID === v.TEXTBOOKID)!;
             return v;
           }),
           _results: result._results,
