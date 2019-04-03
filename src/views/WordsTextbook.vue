@@ -17,7 +17,7 @@
     </template>
     <v-data-table
       :headers="headers"
-      :items="wordsTextbookService.textbookWords"
+      :items="wordsUnitService.textbookWords"
       hide-actions
       class="elevation-1"
       ref="sortableTable"

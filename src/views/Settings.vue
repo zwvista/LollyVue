@@ -40,8 +40,8 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <b-form-select id="toType" class="col-1 form-control" v-model="toType" @change="onToTypeChange($event)">
-        <option v-for="o in toTypes" :value="o.value" :key="o.value">{{o.label}}</option>
+      <b-form-select id="toType" class="col-1 form-control" v-model="settingsService.toType" @change="onToTypeChange($event)">
+        <option v-for="o in settingsService.toTypes" :value="o.value" :key="o.value">{{o.label}}</option>
       </b-form-select>
       <label class="col-1 control-label">
       </label>
@@ -63,33 +63,31 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { SettingsService } from '@/view-models/settings.service';
+  import { SettingsListener, SettingsService } from '@/view-models/settings.service';
   import { MLanguage } from '@/models/language';
   import { MDictItem, DictMean, MDictNote } from '@/models/dictionary';
   import { MTextbook } from '@/models/textbook';
   import { MVoice } from '@/models/voice';
 
   @Component
-  export default class Settings extends Vue {
+  export default class Settings extends Vue implements SettingsListener {
     @inject() settingsService!: SettingsService;
 
     get toTypeIsUnit() {
-      return this.toType === 0;
+      return this.settingsService.toType === 0;
     }
     get toTypeIsPart() {
-      return this.toType === 1;
+      return this.settingsService.toType === 1;
     }
     get toTypeIsTo() {
-      return this.toType === 2;
+      return this.settingsService.toType === 2;
     }
-
-    toTypes = ['Unit', 'Part', 'To'].map((v, i) => ({value: i, label: v}));
-    toType = 0;
 
     services = {};
     created() {
       this.$set(this.services, 'settingsService', this.settingsService);
-      this.settingsService.getData().subscribe(_ => this.updateTextbook());
+      this.settingsService.settingsListener = this;
+      this.settingsService.getData().subscribe();
     }
 
     onLangChange(value: MLanguage) {
@@ -115,121 +113,64 @@
     onTextbookChange(value: MTextbook) {
       this.settingsService.selectedTextbook = value;
       this.settingsService.updateTextbook().subscribe();
-      this.updateTextbook();
     }
 
     onUnitFromChange(value: number) {
-      if (!this.updateUnitFrom(value, false)) return;
-      if (this.toType === 0)
-        this.updateSingleUnit();
-      else if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
-        this.updateUnitPartTo();
+      this.settingsService.updateUnitFrom(value).subscribe();
     }
 
     onPartFromChange(value: number) {
-      if (!this.updatePartFrom(value, false)) return;
-      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
-        this.updateUnitPartTo();
+      this.settingsService.updatePartFrom(value).subscribe();
     }
 
     onToTypeChange(value: number) {
-      const index = value;
-      if (index === 0)
-        this.updateSingleUnit();
-      else if (index === 1)
-        this.updateUnitPartTo();
+      this.settingsService.updateToType(value).subscribe();
     }
 
     previousUnitPart() {
-      if (this.toType === 0) {
-        if (this.settingsService.USUNITFROM > 1) {
-          this.updateUnitFrom(this.settingsService.USUNITFROM - 1);
-          this.updateUnitTo(this.settingsService.USUNITFROM);
-        }
-      } else if (this.settingsService.USPARTFROM > 1) {
-        this.updatePartFrom(this.settingsService.USPARTFROM - 1);
-        this.updateUnitPartTo();
-      } else if (this.settingsService.USUNITFROM > 1) {
-        this.updateUnitFrom(this.settingsService.USUNITFROM - 1);
-        this.updatePartFrom(this.settingsService.partCount);
-        this.updateUnitPartTo();
-      }
+      this.settingsService.previousUnitPart().subscribe();
     }
 
     nextUnitPart() {
-      if (this.toType === 0) {
-        if (this.settingsService.USUNITFROM < this.settingsService.unitCount) {
-          this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
-          this.updateUnitTo(this.settingsService.USUNITFROM);
-        }
-      } else if (this.settingsService.USPARTFROM < this.settingsService.partCount) {
-        this.updatePartFrom(this.settingsService.USPARTFROM + 1);
-        this.updateUnitPartTo();
-      } else if (this.settingsService.USUNITFROM < this.settingsService.unitCount) {
-        this.updateUnitFrom(this.settingsService.USUNITFROM + 1);
-        this.updatePartFrom(1);
-        this.updateUnitPartTo();
-      }
+      this.settingsService.nextUnitPart().subscribe();
     }
 
     onUnitToChange(value: number) {
-      if (!this.updateUnitTo(value, false)) return;
-      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
-        this.updateUnitPartFrom();
+      this.settingsService.updateUnitTo(value).subscribe();
     }
 
     onPartToChange(value: number) {
-      if (!this.updatePartTo(value, false)) return;
-      if (this.toType === 1 || this.settingsService.isInvalidUnitPart)
-        this.updateUnitPartFrom();
+      this.settingsService.updateUnitTo(value).subscribe();
     }
 
-    updateTextbook() {
-      this.toType = this.settingsService.isSingleUnit ? 0 : this.settingsService.isSingleUnitPart ? 1 : 2;
+    onGetData(): void {
     }
 
-    updateUnitPartFrom() {
-      this.updateUnitFrom(this.settingsService.USUNITTO);
-      this.updatePartFrom(this.settingsService.USPARTTO);
+    onUpdateDictItem(): void {
     }
 
-    updateUnitPartTo() {
-      this.updateUnitTo(this.settingsService.USUNITFROM);
-      this.updatePartTo(this.settingsService.USPARTFROM);
+    onUpdateDictNote(): void {
     }
 
-    updateSingleUnit() {
-      this.updateUnitTo(this.settingsService.USUNITFROM);
-      this.updatePartFrom(1);
-      this.updatePartTo(this.settingsService.partCount);
+    onUpdateLang(): void {
     }
 
-    updateUnitFrom(v: number, check: boolean = true): boolean {
-      if (check && this.settingsService.USUNITFROM === v) return false;
-      this.settingsService.USUNITFROM = v;
-      this.settingsService.updateUnitFrom().subscribe();
-      return true;
+    onUpdatePartFrom(): void {
     }
 
-    updatePartFrom(v: number, check: boolean = true): boolean {
-      if (check && this.settingsService.USPARTFROM === v) return false;
-      this.settingsService.USPARTFROM = v;
-      this.settingsService.updatePartFrom().subscribe();
-      return true;
+    onUpdatePartTo(): void {
     }
 
-    updateUnitTo(v: number, check: boolean = true): boolean {
-      if (check && this.settingsService.USUNITTO === v) return false;
-      this.settingsService.USUNITTO = v;
-      this.settingsService.updateUnitTo().subscribe();
-      return true;
+    onUpdateTextbook(): void {
     }
 
-    updatePartTo(v: number, check: boolean = true): boolean {
-      if (check && this.settingsService.USPARTTO === v) return false;
-      this.settingsService.USPARTTO = v;
-      this.settingsService.updatePartTo().subscribe();
-      return true;
+    onUpdateUnitFrom(): void {
+    }
+
+    onUpdateUnitTo(): void {
+    }
+
+    onUpdateVoice(): void {
     }
   }
 </script>

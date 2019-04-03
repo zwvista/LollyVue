@@ -14,7 +14,7 @@
     </template>
     <v-data-table
       :headers="headers"
-      :items="phrasesTextbookService.textbookPhrases"
+      :items="phrasesUnitService.textbookPhrases"
       hide-actions
       class="elevation-1"
     >
