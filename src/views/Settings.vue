@@ -65,7 +65,7 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsListener, SettingsService } from '@/view-models/settings.service';
   import { MLanguage } from '@/models/language';
-  import { MDictItem, DictMean, MDictNote } from '@/models/dictionary';
+  import { MDictItem, DictReference, MDictNote } from '@/models/dictionary';
   import { MTextbook } from '@/models/textbook';
   import { MVoice } from '@/models/voice';
 

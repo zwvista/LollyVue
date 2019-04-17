@@ -23,11 +23,11 @@ class MDictionary {
   }
 }
 
-export class MDictsMean {
-  VDICTSMEAN!: DictMean[];
+export class MDictsReference {
+  VDICTSREFERENCE!: DictReference[];
 }
 const cssFolder = 'http://zwvista.tk/lolly/css/';
-export class DictMean extends MDictionary {
+export class DictReference extends MDictionary {
   htmlString(html: string, word: string): string {
     return HtmlService.extractTextFrom(html, this.TRANSFORM, this.TEMPLATE, (text, template2) =>
       template2.replace(/\{0\}/g, word).replace(/\{1\}/g, cssFolder).replace(/\{2\}/g, text));
