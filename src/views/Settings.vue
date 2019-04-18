@@ -25,6 +25,12 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
+      <label for="dictTranslation" class="col-2 control-label">Dictionary(Translation):</label>
+      <b-form-select id="dictTranslation" class="col-4 form-control" :value="settingsService.selectedDictTranslation" @change="onDictTranslationChange($event)">
+        <option v-for="o in settingsService.dictsTranslation" :value="o" :key="o.ID">{{o.DICTNAME}}</option>
+      </b-form-select>
+    </div>
+    <div class="form-inline mb-2">
       <label for="textbook" class="col-2 control-label">Textbook:</label>
       <b-form-select id="textbook" class="col-4 form-control" :value="settingsService.selectedTextbook" @change="onTextbookChange($event)">
         <option v-for="o in settingsService.textbooks" :value="o" :key="o.ID">{{o.NAME}}</option>
@@ -65,7 +71,7 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsListener, SettingsService } from '@/view-models/settings.service';
   import { MLanguage } from '@/models/language';
-  import { MDictItem, DictReference, MDictNote } from '@/models/dictionary';
+  import { MDictItem, DictReference, MDictNote, MDictTranslation } from '@/models/dictionary';
   import { MTextbook } from '@/models/textbook';
   import { MVoice } from '@/models/voice';
 
@@ -110,6 +116,11 @@
       this.settingsService.updateDictNote().subscribe();
     }
 
+    onDictTranslationChange(value: MDictTranslation) {
+      this.settingsService.selectedDictTranslation = value;
+      this.settingsService.updateDictTranslation().subscribe();
+    }
+
     onTextbookChange(value: MTextbook) {
       this.settingsService.selectedTextbook = value;
       this.settingsService.updateTextbook().subscribe();
@@ -150,6 +161,9 @@
     }
 
     onUpdateDictNote(): void {
+    }
+
+    onUpdateDictTranslation(): void {
     }
 
     onUpdateLang(): void {
