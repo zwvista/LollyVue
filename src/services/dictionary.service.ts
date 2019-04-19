@@ -8,8 +8,8 @@ import {
   MDictsReference,
   MDictsNote,
   MDictsTranslation,
-  MDictTranslation
-} from '../models/dictionary';
+  MDictTranslation,
+} from '@/models/dictionary';
 
 @injectable()
 export class DictReferenceService extends BaseService {
