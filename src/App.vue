@@ -10,19 +10,34 @@
       app
     >
       <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-          :to="{path: item.path}"
+        <v-list-group
+          v-for="item in items"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.icon"
+          no-action
         >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+          <v-list-tile
+            value="true"
+            v-for="(subItem, i) in item.items"
+            :key="i"
+            :to="{path: subItem.path}"
+          >
+            <v-list-tile-action>
+              <v-icon v-html="subItem.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="subItem.title"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -84,38 +99,85 @@ export default class App extends Vue {
   items = [
     {
       icon: 'fa-bus fa-lg',
-      title: 'Words in Unit',
-      path: '/words-unit',
+      title: 'App1',
+      items: [
+        {
+          icon: 'fa-bus fa-lg',
+          title: 'Words in Unit',
+          path: '/words-unit',
+        },
+        {
+          icon: 'fa-bus fa-lg',
+          title: 'Phrases in Unit',
+          path: '/phrases-unit',
+        },
+        {
+          icon: 'fa-plane fa-lg',
+          title: 'Words in Language',
+          path: '/words-lang',
+        },
+        {
+          icon: 'fa-plane fa-lg',
+          title: 'Phrases in Language',
+          path: '/phrases-lang',
+        },
+        {
+          icon: 'fa-taxi fa-lg',
+          title: 'Words in Textbook',
+          path: '/words-textbook',
+        },
+        {
+          icon: 'fa-taxi fa-lg',
+          title: 'Phrases in Textbook',
+          path: '/phrases-textbook',
+        },
+        {
+          icon: 'fa-cog fa-lg',
+          title: 'Settings',
+          path: '/settings',
+        },
+      ],
     },
     {
       icon: 'fa-bus fa-lg',
-      title: 'Phrases in Unit',
-      path: '/phrases-unit',
-    },
-    {
-      icon: 'fa-plane fa-lg',
-      title: 'Words in Language',
-      path: '/words-lang',
-    },
-    {
-      icon: 'fa-plane fa-lg',
-      title: 'Phrases in Language',
-      path: '/phrases-lang',
-    },
-    {
-      icon: 'fa-taxi fa-lg',
-      title: 'Words in Textbook',
-      path: '/words-textbook',
-    },
-    {
-      icon: 'fa-taxi fa-lg',
-      title: 'Phrases in Textbook',
-      path: '/phrases-textbook',
-    },
-    {
-      icon: 'fa-cog fa-lg',
-      title: 'Settings',
-      path: '/settings',
+      title: 'App2',
+      items: [
+        {
+          icon: 'fa-bus fa-lg',
+          title: 'Words in Unit',
+          path: '/words-unit',
+        },
+        {
+          icon: 'fa-bus fa-lg',
+          title: 'Phrases in Unit',
+          path: '/phrases-unit',
+        },
+        {
+          icon: 'fa-plane fa-lg',
+          title: 'Words in Language',
+          path: '/words-lang',
+        },
+        {
+          icon: 'fa-plane fa-lg',
+          title: 'Phrases in Language',
+          path: '/phrases-lang',
+        },
+        {
+          icon: 'fa-taxi fa-lg',
+          title: 'Words in Textbook',
+          path: '/words-textbook',
+        },
+        {
+          icon: 'fa-taxi fa-lg',
+          title: 'Phrases in Textbook',
+          path: '/phrases-textbook',
+        },
+        {
+          icon: 'fa-cog fa-lg',
+          title: 'Settings',
+          path: '/settings',
+        },
+      ],
     },
   ];
   miniVariant = false;
