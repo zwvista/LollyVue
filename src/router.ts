@@ -19,6 +19,11 @@ export default new Router({
       component: WordsUnit,
     },
     {
+      path: '/words-unit2',
+      name: 'words-unit2',
+      component: () => import('./views/WordsUnit2.vue'),
+    },
+    {
       path: '/words-unit-detail/:id',
       name: 'words-unit-detail',
       component: () => import('./views/WordsUnitDetail.vue'),
