@@ -41,7 +41,7 @@
           <td>{{ props.item.LEVEL }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="delete(props.item)"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: props.item.ID }}">
@@ -59,11 +59,11 @@
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
@@ -188,9 +188,8 @@
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
     }
 
-    updateLevel(index: number, delta: number) {
-      const o = this.wordsUnitService.unitWords[index];
-      this.settingsService.updateLevel(o, o.WORDID, delta).subscribe();
+    updateLevel(item: MUnitWord, delta: number) {
+      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
     }
   }
 </script>

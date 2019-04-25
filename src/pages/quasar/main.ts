@@ -1,6 +1,6 @@
 import '@babel/polyfill';
 import Vue from 'vue';
-// import '@/plugins/plugin-material';
+import '@/plugins/plugin-vuetify';
 import '@/plugins/plugin-quasar';
 import '@/plugins/plugin-vue-typescript-inject';
 import '@/plugins/plugin-vue-clipboard2';
