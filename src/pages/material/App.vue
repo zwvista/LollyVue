@@ -1,23 +1,25 @@
 <template>
-  <q-layout>
-    <q-layout-header>
-      <q-toolbar :inverted="false">
-        <q-btn flat round dense icon="menu" @click="left = !left"></q-btn>
-        <q-toolbar-title>{{title}}</q-toolbar-title>
-      </q-toolbar>
-    </q-layout-header>
-    <q-layout-drawer side="left" v-model="left" content-class="bg-grey-3">
-      <q-item v-for="item in items" :to="item.path">
-        <q-item-side :icon="item.icon"></q-item-side>
-        <q-item-main :label="item.title"></q-item-main>
-      </q-item>
-    </q-layout-drawer>
-    <q-page-container>
-      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+  <div class="page-container">
+    <md-app md-mode="reveal">
+      <md-app-toolbar class="md-primary">
+        <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <span class="md-title">{{title}}</span>
+      </md-app-toolbar>
+      <md-app-drawer :md-active.sync="menuVisible">
+        <md-list>
+          <md-list-item v-for="item in items" @click="menuVisible = false; $router.push(item.path);">
+            <md-icon :class="item.icon"></md-icon>
+            <span class="md-list-item-text">{{item.title}}</span>
+          </md-list-item>
+        </md-list>
+      </md-app-drawer>
+      <md-app-content>
         <router-view />
-      </transition>
-    </q-page-container>
-  </q-layout>
+      </md-app-content>
+    </md-app>
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,12 +57,12 @@
   })
   export default class App extends Vue {
     // @inject() appService!: AppService;
-    left = true;
+    menuVisible = false;
     items = [
       {
         icon: 'fa fa-bus fa-lg',
         title: 'Words in Unit',
-        path: '/words-unit2',
+        path: '/words-unit3',
       },
       {
         icon: 'fa fa-train fa-lg',
@@ -96,3 +98,17 @@
     title = 'Lolly Vue';
   }
 </script>
+
+<style lang="scss" scoped>
+  .md-app {
+    min-height: 1400px;
+    border: 1px solid rgba(#000, .12);
+  }
+
+  // Demo purposes only
+  .md-drawer {
+    width: 230px;
+    max-width: calc(100vw - 125px);
+  }
+
+</style>

@@ -13,8 +13,10 @@
       :data="wordsUnitService.unitWords"
       :columns="columns"
       row-key="ID"
+      :pagination.sync="pagination"
+      :rows-per-page-options="[]"
     >
-      <q-tr slot="body" slot-scope="props" :props="props">
+      <q-tr slot="body" slot-scope="props" :props="props" :style="props.row.colorStyle">
         <q-td key="ID" :props="props">{{props.row.ID}}</q-td>
         <q-td key="UNIT" :props="props">{{props.row.UNIT}}</q-td>
         <q-td key="PART" :props="props">{{props.row.PART}}</q-td>
@@ -46,11 +48,9 @@
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
   import { MUnitWord } from '@/models/unit-word';
-  import QInput from 'quasar-framework/src/components/input/QInput';
-  @Component({
-    components: {QInput}
-  })
-  export default class WordsUnit extends Vue {
+
+  @Component
+  export default class WordsUnit2 extends Vue {
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -65,6 +65,10 @@
       { name: 'LEVEL', field: 'LEVEL', label: 'LEVEL' },
       { name: 'ACTIONS', label: 'ACTIONS' },
     ];
+    pagination = {
+      page: 1,
+      rowsPerPage: 0 // current rows per page being displayed
+    };
     newWord = '';
 
     services = {};
