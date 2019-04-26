@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/textbook/0">
-        <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
+        <v-btn color="info" @click="onRefresh(page, rows)"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
     <template>
@@ -36,7 +36,7 @@
           <td>{{ props.item.LEVEL }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-textbook-detail', params: { id: props.item.ID }}">
@@ -54,11 +54,11 @@
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
@@ -71,7 +71,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.index)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>
@@ -94,6 +94,7 @@
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
   import { WordsUnitService } from '@/view-models/words-unit.service';
+  import { MUnitWord } from "@/models/unit-word";
 
   @Component
   export default class WordsTextbook extends Vue {
@@ -119,24 +120,24 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.onRefresh(-1);
+      this.onRefresh(this.page, this.rows);
     }
 
     pageChange(page: number) {
-      this.onRefresh(page);
+      this.onRefresh(page, this.rows);
     }
 
-    onRefresh(page: number) {
-      if (page === -1) page = this.page;
+    onRefresh(page: number, rows: number) {
+      this.page = page; this.rows = rows;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsUnitService.getDataInLang(page, this.rows).subscribe(_ => {
-        this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+      this.wordsUnitService.getDataInLang(page, rows).subscribe(_ => {
+        this.pageCount = (this.wordsUnitService.textbookWordCount + rows - 1) / rows >> 0;
         this.$forceUpdate();
       });
     }
 
-    deleteWord(index: number) {
-      console.log(index);
+    deleteWord(item: MUnitWord) {
+      this.wordsUnitService.delete(item);
     }
 
     getNote(index: number) {
@@ -148,9 +149,8 @@
       googleString(word);
     }
 
-    updateLevel(index: number, delta: number) {
-      const o = this.wordsUnitService.textbookWords[index];
-      this.settingsService.updateLevel(o, o.WORDID, delta).subscribe();
+    updateLevel(item: MUnitWord, delta: number) {
+      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
     }
   }
 </script>

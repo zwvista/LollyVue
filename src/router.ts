@@ -39,6 +39,16 @@ export default new Router({
       component: () => import('./views/WordsTextbook.vue'),
     },
     {
+      path: '/words-textbook2',
+      name: 'words-textbook2',
+      component: () => import('./views/WordsTextbook2.vue'),
+    },
+    {
+      path: '/words-textbook3',
+      name: 'words-textbook3',
+      component: () => import('./views/WordsTextbook3.vue'),
+    },
+    {
       path: '/words-textbook-detail/:id',
       name: 'words-textbook-detail',
       component: () => import('./views/WordsTextbookDetail.vue'),
@@ -47,6 +57,16 @@ export default new Router({
       path: '/words-lang',
       name: 'words-lang',
       component: () => import('./views/WordsLang.vue'),
+    },
+    {
+      path: '/words-lang2',
+      name: 'words-lang2',
+      component: () => import('./views/WordsLang2.vue'),
+    },
+    {
+      path: '/words-lang3',
+      name: 'words-lang3',
+      component: () => import('./views/WordsLang3.vue'),
     },
     {
       path: '/words-lang-detail/:id',

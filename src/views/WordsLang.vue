@@ -11,7 +11,7 @@
       <router-link to="/words-lang-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh(page, rows)"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/lang/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
@@ -39,7 +39,7 @@
           <td>{{ props.item.LEVEL }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item.ID)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-lang-detail', params: { id: props.item.ID }}">
@@ -57,11 +57,11 @@
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.index, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
@@ -74,7 +74,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.index)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>
@@ -97,6 +97,7 @@
   import { WordsLangService } from '@/view-models/words-lang.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
+  import { MLangWord } from "@/models/lang-word";
 
   @Component
   export default class WordsLang extends Vue {
@@ -117,11 +118,12 @@
 
     services = {};
     created() {
-      this.onRefresh(-1);
+      this.$set(this.services, 'wordsLangService', this.wordsLangService);
+      this.onRefresh(this.page, this.rows);
     }
 
     pageChange(page: number) {
-      this.onRefresh(page);
+      this.onRefresh(page, this.rows);
     }
 
     onEnter() {
@@ -135,17 +137,17 @@
       });
     }
 
-    onRefresh(page: number) {
-      if (page === -1) page = this.page;
+    onRefresh(page: number, rows: number) {
+      this.page = page; this.rows = rows;
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
-        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+      this.wordsLangService.getData(page, rows).subscribe(_ => {
+        this.pageCount = (this.wordsLangService.langWordsCount + rows - 1) / rows >> 0;
         this.$forceUpdate();
       });
     }
 
-    deleteWord(index: number) {
-      console.log(index);
+    deleteWord(id: number) {
+      this.wordsLangService.delete(id);
     }
 
     getNote(index: number) {
@@ -157,9 +159,8 @@
       googleString(word);
     }
 
-    updateLevel(index: number, delta: number) {
-      const o = this.wordsLangService.langWords[index];
-      this.settingsService.updateLevel(o, o.ID, delta).subscribe();
+    updateLevel(item: MLangWord, delta: number) {
+      this.settingsService.updateLevel(item, item.ID, delta).subscribe();
     }
   }
 </script>
