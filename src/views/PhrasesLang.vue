@@ -2,19 +2,17 @@
   <div>
     <v-toolbar>
       <router-link to="/phrases-lang-detail/0">
-        <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-plus</v-icon>Add</v-btn>
+        <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
     <v-data-table
       :headers="headers"
       :items="phrasesLangService.langPhrases"
@@ -28,7 +26,7 @@
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deletePhrase(props.item.ID)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'phrases-lang-detail', params: { id: props.item.ID }}">
@@ -53,15 +51,13 @@
         </tr>
       </template>
     </v-data-table>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -90,20 +86,24 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-      this.onRefresh(-1);
+      this.onRefresh();
     }
 
     pageChange(page: number) {
-      this.onRefresh(page);
+      this.page = page;
+      this.onRefresh();
     }
 
-    onRefresh(page: number) {
-      if (page === -1) page = this.page;
+    onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       this.phrasesLangService.getData(this.page, this.rows).subscribe(_ => {
         this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    deletePhrase(id: string) {
+      this.phrasesLangService.delete(id);
     }
 
     googlePhrase(phrase: string) {

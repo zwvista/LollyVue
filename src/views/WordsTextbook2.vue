@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh(pagination.page, pagination.rowsPerPage)"></q-btn>
+      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/textbook/0">
         <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
       </router-link>
@@ -28,7 +28,7 @@
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deleteWord(props.row)">
             <q-tooltip>Delete</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'words-unit-detail', params: { id: props.row.ID }}">
+          <router-link :to="{ name: 'words-textbook-detail', params: { id: props.row.ID }}">
             <q-btn round color="primary" icon="fa fa-edit" size="xs">
               <q-tooltip>Edit</q-tooltip>
             </q-btn>
@@ -49,13 +49,13 @@
           <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.WORD)">
             <q-tooltip>Google Word</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.unitWords.indexOf(props.row) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.textbookWords.indexOf(props.row) }}">
             <q-btn round color="primary" icon="fa fa-book" size="xs">
               <q-tooltip>Dictionary</q-tooltip>
             </q-btn>
           </router-link>
           <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Note"
-                 @click="getNote(wordsUnitService.unitWords.indexOf(props.row))">
+                 @click="getNote(wordsUnitService.textbookWords.indexOf(props.row))">
           </q-btn>
         </q-td>
       </q-tr>
@@ -97,16 +97,17 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.onRefresh(this.pagination.page, this.pagination.rowsPerPage);
+      this.onRefresh();
     }
 
     request({pagination}) {
-      this.onRefresh(pagination.page, pagination.rowsPerPage);
+      this.pagination.page = pagination.page;
+      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.onRefresh();
     }
 
-    onRefresh(page: number, rows: number) {
-      this.pagination.page = page; this.pagination.rowsPerPage = rows;
-      this.wordsUnitService.getDataInLang(page, rows).subscribe(_ => {
+    onRefresh() {
+      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
         this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
         this.$forceUpdate();
       });

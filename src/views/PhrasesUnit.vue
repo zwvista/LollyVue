@@ -81,7 +81,6 @@
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },
     ];
-    newWord!: string;
 
     services = {};
     created() {

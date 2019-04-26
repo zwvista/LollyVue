@@ -81,14 +81,11 @@
       this.onRefresh();
     }
 
-    mounted() {
-    }
-
     onRefresh() {
       this.phrasesUnitService.getDataInTextbook().subscribe();
     }
 
-    deleteWord(item: MUnitPhrase) {
+    deletePhrase(item: MUnitPhrase) {
       this.phrasesUnitService.delete(item);
     }
 

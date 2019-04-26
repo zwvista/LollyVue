@@ -1,18 +1,21 @@
 <template>
   <div>
-    <md-table v-model="phrasesUnitService.unitPhrases">
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
+    <md-table v-model="phrasesUnitService.textbookPhrases">
       <md-table-toolbar>
-        <router-link to="/phrases-unit-detail/0">
-          <md-button class="md-raised md-primary">
-            <span><md-icon class="fa fa-plus"></md-icon>Add</span>
-          </md-button>
-        </router-link>
         <md-button class="md-raised md-primary" @click="onRefresh()">
           <span><md-icon class="fa fa-refresh"></md-icon>Refresh</span>
         </md-button>
       </md-table-toolbar>
       <md-table-row slot="md-table-row" slot-scope="{item}" :style="item.colorStyle">
         <md-table-cell md-label="ID">{{item.ID}}</md-table-cell>
+        <md-table-cell md-label="TEXTBOOKNAME">{{item.TEXTBOOKNAME}}</md-table-cell>
         <md-table-cell md-label="UNIT">{{item.UNITSTR}}</md-table-cell>
         <md-table-cell md-label="PART">{{item.PARTSTR}}</md-table-cell>
         <md-table-cell md-label="SEQNUM">{{item.SEQNUM}}</md-table-cell>
@@ -24,7 +27,7 @@
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'phrases-unit-detail', params: { id: item.ID }}">
+          <router-link :to="{ name: 'phrases-textbook-detail', params: { id: item.ID }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-edit"></md-icon>
               <md-tooltip>Edit</md-tooltip>
@@ -38,13 +41,20 @@
             <md-icon class="fa fa-copy"></md-icon>
             <md-tooltip>Copy</md-tooltip>
           </md-button>
-          <md-button class="md-raised md-icon-button md-primary" @click="googleWord(item.PHRASE)">
+          <md-button class="md-raised md-icon-button md-primary" @click="googlePhrase(item.PHRASE)">
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Phrase</md-tooltip>
           </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -57,9 +67,13 @@
   import { MUnitPhrase } from '@/models/unit-phrase';
 
   @Component
-  export default class PhrasesUnit3 extends Vue {
+  export default class PhrasesTextbook3 extends Vue {
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
+
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
@@ -67,11 +81,16 @@
       this.onRefresh();
     }
 
-    mounted() {
+    pageChange(page: number) {
+      this.page = page;
+      this.onRefresh();
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
+        this.$forceUpdate();
+      });
     }
 
     deletePhrase(item: MUnitPhrase) {

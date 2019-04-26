@@ -1,6 +1,13 @@
 <template>
   <div>
-    <md-table v-model="wordsUnitService.unitWords">
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
+    <md-table v-model="wordsLangService.langWords">
       <md-table-toolbar>
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
@@ -35,19 +42,15 @@
       </md-table-toolbar>
       <md-table-row slot="md-table-row" slot-scope="{item}" :style="item.colorStyle">
         <md-table-cell md-label="ID">{{item.ID}}</md-table-cell>
-        <md-table-cell md-label="UNIT">{{item.UNITSTR}}</md-table-cell>
-        <md-table-cell md-label="PART">{{item.PARTSTR}}</md-table-cell>
-        <md-table-cell md-label="SEQNUM">{{item.SEQNUM}}</md-table-cell>
-        <md-table-cell md-label="WORDID">{{item.WORDID}}</md-table-cell>
         <md-table-cell md-label="WORD">{{item.WORD}}</md-table-cell>
         <md-table-cell md-label="NOTE">{{item.NOTE}}</md-table-cell>
         <md-table-cell md-label="LEVEL">{{item.LEVEL}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
-          <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item)">
+          <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item.ID)">
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
+          <router-link :to="{ name: 'words-lang-detail', params: { id: item.ID }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-edit"></md-icon>
               <md-tooltip>Edit</md-tooltip>
@@ -73,39 +76,50 @@
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Word</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.unitWords.indexOf(item) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsLangService.langWords.indexOf(item) }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-book"></md-icon>
               <md-tooltip>Dictionary</md-tooltip>
             </md-button>
           </router-link>
           <md-button v-show="settingsService.selectedDictNote" class="md-raised"
-                     @click="getNote(item.WORD)">
+                     @click="getNote(wordsLangService.langWords.indexOf(item))">
             Retrieve Note
           </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/unit-word';
+  import { WordsLangService } from '@/view-models/words-lang.service';
+  import { MLangWord } from '@/models/lang-word';
 
   @Component
   export default class WordsUnit3 extends Vue {
-    @inject() wordsUnitService!: WordsUnitService;
+    @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
+
     newWord = '';
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
-      this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
+      this.$set(this.services, 'wordsLangService', this.wordsLangService);
       this.onRefresh();
     }
 
@@ -114,38 +128,37 @@
 
     onEnter() {
       if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
+      const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
       this.newWord = '';
-      this.wordsUnitService.create(o).subscribe(id => {
+      this.wordsLangService.create(o).subscribe(id => {
         o.ID = id as number;
-        this.wordsUnitService.unitWords.push(o);
+        this.wordsLangService.langWords.push(o);
       });
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+        this.$forceUpdate();
+      });
     }
 
-    deleteWord(item: MUnitWord) {
-      this.wordsUnitService.delete(item);
+    deleteWord(id: number) {
+      this.wordsLangService.delete(id);
     }
 
     getNote(index: number) {
       console.log(index);
-      this.wordsUnitService.getNote(index).subscribe();
+      this.wordsLangService.getNote(index).subscribe();
     }
 
     googleWord(word: string) {
       googleString(word);
     }
 
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-    }
-
-    updateLevel(item: MUnitWord, delta: number) {
-      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
+    updateLevel(item: MLangWord, delta: number) {
+      this.settingsService.updateLevel(item, item.ID, delta).subscribe();
     }
   }
 </script>

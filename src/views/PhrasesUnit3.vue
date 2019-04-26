@@ -67,9 +67,6 @@
       this.onRefresh();
     }
 
-    mounted() {
-    }
-
     onRefresh() {
       this.phrasesUnitService.getDataInTextbook().subscribe();
     }

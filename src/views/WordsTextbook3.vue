@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
     <md-table v-model="wordsUnitService.textbookWords">
       <md-table-toolbar>
         <md-button class="md-raised md-primary" @click="onRefresh()">
@@ -52,19 +59,26 @@
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Word</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.unitWords.indexOf(item) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.textbookWords.indexOf(item) }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-book"></md-icon>
               <md-tooltip>Dictionary</md-tooltip>
             </md-button>
           </router-link>
           <md-button v-show="settingsService.selectedDictNote" class="md-raised"
-                     @click="getNote(item.WORD)">
+                     @click="getNote(wordsUnitService.textbookWords.indexOf(item))">
             Retrieve Note
           </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -80,7 +94,10 @@
   export default class WordsUnit3 extends Vue {
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
-    newWord = '';
+
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
@@ -88,22 +105,17 @@
       this.onRefresh();
     }
 
-    mounted() {
-    }
-
-    onEnter() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      this.wordsUnitService.create(o).subscribe(id => {
-        o.ID = id as number;
-        this.wordsUnitService.unitWords.push(o);
-      });
+    pageChange(page: number) {
+      this.page = page;
+      this.onRefresh();
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+      this.wordsUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+        this.$forceUpdate();
+      });
     }
 
     deleteWord(item: MUnitWord) {
@@ -117,10 +129,6 @@
 
     googleWord(word: string) {
       googleString(word);
-    }
-
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
     }
 
     updateLevel(item: MUnitWord, delta: number) {

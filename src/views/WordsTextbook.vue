@@ -3,18 +3,16 @@
     <v-toolbar>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/textbook/0">
-        <v-btn color="info" @click="onRefresh(page, rows)"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
+        <v-btn color="info" @click="onRefresh()"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
     <v-data-table
       :headers="headers"
       :items="wordsUnitService.textbookWords"
@@ -76,15 +74,13 @@
         </tr>
       </template>
     </v-data-table>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -120,18 +116,18 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.onRefresh(this.page, this.rows);
+      this.onRefresh();
     }
 
     pageChange(page: number) {
-      this.onRefresh(page, this.rows);
+      this.page = page;
+      this.onRefresh();
     }
 
-    onRefresh(page: number, rows: number) {
-      this.page = page; this.rows = rows;
+    onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsUnitService.getDataInLang(page, rows).subscribe(_ => {
-        this.pageCount = (this.wordsUnitService.textbookWordCount + rows - 1) / rows >> 0;
+      this.wordsUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
     }

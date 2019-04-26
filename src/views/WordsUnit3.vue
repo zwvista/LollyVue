@@ -109,9 +109,6 @@
       this.onRefresh();
     }
 
-    mounted() {
-    }
-
     onEnter() {
       if (!this.newWord) return;
       const o = this.wordsUnitService.newUnitWord();

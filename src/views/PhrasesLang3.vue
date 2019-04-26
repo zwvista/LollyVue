@@ -1,6 +1,13 @@
 <template>
   <div>
-    <md-table v-model="phrasesUnitService.unitPhrases">
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
+    <md-table v-model="phrasesLangService.langPhrases">
       <md-table-toolbar>
         <router-link to="/phrases-unit-detail/0">
           <md-button class="md-raised md-primary">
@@ -13,18 +20,14 @@
       </md-table-toolbar>
       <md-table-row slot="md-table-row" slot-scope="{item}" :style="item.colorStyle">
         <md-table-cell md-label="ID">{{item.ID}}</md-table-cell>
-        <md-table-cell md-label="UNIT">{{item.UNITSTR}}</md-table-cell>
-        <md-table-cell md-label="PART">{{item.PARTSTR}}</md-table-cell>
-        <md-table-cell md-label="SEQNUM">{{item.SEQNUM}}</md-table-cell>
-        <md-table-cell md-label="PHRASEID">{{item.PHRASEID}}</md-table-cell>
         <md-table-cell md-label="PHRASE">{{item.PHRASE}}</md-table-cell>
         <md-table-cell md-label="TRANSLATION">{{item.TRANSLATION}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
-          <md-button class="md-raised md-icon-button md-accent" @click="deletePhrase(item)">
+          <md-button class="md-raised md-icon-button md-accent" @click="deletePhrase(item.ID)">
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'phrases-unit-detail', params: { id: item.ID }}">
+          <router-link :to="{ name: 'phrases-lang-detail', params: { id: item.ID }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-edit"></md-icon>
               <md-tooltip>Edit</md-tooltip>
@@ -38,13 +41,20 @@
             <md-icon class="fa fa-copy"></md-icon>
             <md-tooltip>Copy</md-tooltip>
           </md-button>
-          <md-button class="md-raised md-icon-button md-primary" @click="googleWord(item.PHRASE)">
+          <md-button class="md-raised md-icon-button md-primary" @click="googlePhrase(item.PHRASE)">
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Phrase</md-tooltip>
           </md-button>
         </md-table-cell>
       </md-table-row>
     </md-table>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -53,29 +63,38 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
   import { MUnitPhrase } from '@/models/unit-phrase';
+  import { PhrasesLangService } from '@/view-models/phrases-lang.service';
 
   @Component
   export default class PhrasesUnit3 extends Vue {
-    @inject() phrasesUnitService!: PhrasesUnitService;
+    @inject() phrasesLangService!: PhrasesLangService;
     @inject() settingsService!: SettingsService;
+
+    page = 1;
+    pageCount = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
-      this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
+      this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
       this.onRefresh();
     }
 
-    mounted() {
+    pageChange(page: number) {
+      this.page = page;
+      this.onRefresh();
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesLangService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
+        this.$forceUpdate();
+      });
     }
 
-    deletePhrase(item: MUnitPhrase) {
-      this.phrasesUnitService.delete(item);
+    deletePhrase(id: string) {
+      this.phrasesLangService.delete(id);
     }
 
     googlePhrase(phrase: string) {

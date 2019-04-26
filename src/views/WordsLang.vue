@@ -11,20 +11,18 @@
       <router-link to="/words-lang-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
-      <v-btn color="info" @click="onRefresh(page, rows)"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/lang/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
     </v-toolbar>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
     <v-data-table
       :headers="headers"
       :items="wordsLangService.langWords"
@@ -79,15 +77,13 @@
         </tr>
       </template>
     </v-data-table>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -119,11 +115,12 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.onRefresh(this.page, this.rows);
+      this.onRefresh();
     }
 
     pageChange(page: number) {
-      this.onRefresh(page, this.rows);
+      this.page = page;
+      this.onRefresh();
     }
 
     onEnter() {
@@ -137,11 +134,10 @@
       });
     }
 
-    onRefresh(page: number, rows: number) {
-      this.page = page; this.rows = rows;
+    onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(page, rows).subscribe(_ => {
-        this.pageCount = (this.wordsLangService.langWordsCount + rows - 1) / rows >> 0;
+      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
     }

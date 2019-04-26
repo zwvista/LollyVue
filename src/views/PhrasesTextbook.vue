@@ -1,17 +1,15 @@
 <template>
   <div>
     <v-toolbar>
-      <v-btn color="info" @click="onRefresh(-1)"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
     <v-data-table
       :headers="headers"
       :items="phrasesUnitService.textbookPhrases"
@@ -30,7 +28,7 @@
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deletePhrase(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'phrases-textbook-detail', params: { id: props.item.ID }}">
@@ -55,15 +53,13 @@
         </tr>
       </template>
     </v-data-table>
-    <template>
-      <div class="text-xs-center">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          @input="pageChange"
-        ></v-pagination>
-      </div>
-    </template>
+    <div class="text-xs-center">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        @input="pageChange"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -73,6 +69,7 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
+  import { MUnitPhrase } from '@/models/unit-phrase';
 
   @Component
   export default class PhrasesTextbook extends Vue {
@@ -97,20 +94,24 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.onRefresh(-1);
+      this.onRefresh();
     }
 
     pageChange(page: number) {
-      this.onRefresh(page);
+      this.page = page;
+      this.onRefresh();
     }
 
-    onRefresh(page: number) {
-      if (page === -1) page = this.page;
+    onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       this.phrasesUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
         this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    deletePhrase(item: MUnitPhrase) {
+      this.phrasesUnitService.delete(item);
     }
 
     googlePhrase(phrase: string) {

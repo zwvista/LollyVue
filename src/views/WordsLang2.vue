@@ -9,7 +9,7 @@
       <router-link to="/words-lang-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
-      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh(pagination.page, pagination.rowsPerPage)"></q-btn>
+      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/lang/0">
         <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
       </router-link>
@@ -101,11 +101,13 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.onRefresh(this.pagination.page, this.pagination.rowsPerPage);
+      this.onRefresh();
     }
 
     request({pagination}) {
-      this.onRefresh(pagination.page, pagination.rowsPerPage);
+      this.pagination.page = pagination.page;
+      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.onRefresh();
     }
 
     onEnter() {
@@ -120,8 +122,7 @@
     }
 
     onRefresh(page: number, rows: number) {
-      this.pagination.page = page; this.pagination.rowsPerPage = rows;
-      this.wordsLangService.getData(page, rows).subscribe(_ => {
+      this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
         this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
         this.$forceUpdate();
       });

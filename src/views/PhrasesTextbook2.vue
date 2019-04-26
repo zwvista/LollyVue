@@ -1,20 +1,19 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <router-link to="/phrases-unit-detail/0">
-        <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
-      </router-link>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table
-      :data="phrasesUnitService.unitPhrases"
+      :data="phrasesUnitService.textbookPhrases"
       :columns="columns"
       row-key="ID"
       :pagination.sync="pagination"
-      :rows-per-page-options="[]"
+      :rows-per-page-options="settingsService.USROWSPERPAGEOPTIONS"
+      @request="request"
     >
       <q-tr slot="body" slot-scope="props" :props="props" :style="props.row.colorStyle">
         <q-td key="ID" :props="props">{{props.row.ID}}</q-td>
+        <q-td key="TEXTBOOKNAME" :props="props">{{props.row.TEXTBOOKNAME}}</q-td>
         <q-td key="UNIT" :props="props">{{props.row.UNITSTR}}</q-td>
         <q-td key="PART" :props="props">{{props.row.PARTSTR}}</q-td>
         <q-td key="SEQNUM" :props="props">{{props.row.SEQNUM}}</q-td>
@@ -25,19 +24,19 @@
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePhrase(props.row)">
             <q-tooltip>Delete</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.row.ID }}">
+          <router-link :to="{ name: 'phrases-textbook-detail', params: { id: props.row.ID }}">
             <q-btn round color="primary" icon="fa fa-edit" size="xs">
               <q-tooltip>Edit</q-tooltip>
             </q-btn>
           </router-link>
           <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up" size="xs"
-                 @click="settingsService.speak(props.row.WORD)">
+                 @click="settingsService.speak(props.row.PHRASE)">
             <q-tooltip>Speak</q-tooltip>
           </q-btn>
           <q-btn round color="primary" icon="fa fa-copy" size="xs" v-clipboard:copy="props.row.PHRASE">
             <q-tooltip>Copy</q-tooltip>
           </q-btn>
-          <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.PHRASE)">
+          <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googlePhrase(props.row.PHRASE)">
             <q-tooltip>Google Phrase</q-tooltip>
           </q-btn>
         </q-td>
@@ -56,7 +55,7 @@
   import { MUnitPhrase } from '@/models/unit-phrase';
 
   @Component
-  export default class PhrasesUnit2 extends Vue {
+  export default class PhrasesTextbook2 extends Vue {
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -72,7 +71,8 @@
     ];
     pagination = {
       page: 1,
-      rowsPerPage: 0, // current rows per page being displayed
+      rowsPerPage: this.settingsService.USROWSPERPAGE,
+      rowsNumber: 10,
     };
 
     services = {};
@@ -81,14 +81,20 @@
       this.onRefresh();
     }
 
-    mounted() {
+    request({pagination}) {
+      this.pagination.page = pagination.page;
+      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.onRefresh();
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
+        this.pagination.rowsNumber = this.phrasesUnitService.textbookPhraseCount;
+        this.$forceUpdate();
+      });
     }
 
-    deleteWord(item: MUnitPhrase) {
+    deletePhrase(item: MUnitPhrase) {
       this.phrasesUnitService.delete(item);
     }
 
