@@ -67,27 +67,27 @@
       {
         icon: 'fa fa-train fa-lg',
         title: 'Phrases in Unit',
-        path: '/phrases-unit',
+        path: '/phrases-unit3',
       },
       {
         icon: 'fa fa-plane fa-lg',
         title: 'Words in Language',
-        path: '/words-lang',
+        path: '/words-lang3',
       },
       {
         icon: 'fa fa-rocket fa-lg',
         title: 'Phrases in Language',
-        path: '/phrases-lang',
+        path: '/phrases-lang3',
       },
       {
         icon: 'fa fa-car fa-lg',
         title: 'Words in Textbook',
-        path: '/words-textbook',
+        path: '/words-textbook3',
       },
       {
         icon: 'fa fa-taxi fa-lg',
         title: 'Phrases in Textbook',
-        path: '/phrases-textbook',
+        path: '/phrases-textbook3',
       },
       {
         icon: 'fa fa-cog fa-lg',
@@ -101,7 +101,7 @@
 
 <style lang="scss" scoped>
   .md-app {
-    min-height: 1400px;
+    min-height: 1000px;
     border: 1px solid rgba(#000, .12);
   }
 

@@ -65,7 +65,7 @@
       {
         icon: 'fa fa-train fa-lg',
         title: 'Phrases in Unit',
-        path: '/phrases-unit',
+        path: '/phrases-unit2',
       },
       {
         icon: 'fa fa-plane fa-lg',
@@ -75,7 +75,7 @@
       {
         icon: 'fa fa-rocket fa-lg',
         title: 'Phrases in Language',
-        path: '/phrases-lang',
+        path: '/phrases-lang2',
       },
       {
         icon: 'fa fa-car fa-lg',
@@ -85,7 +85,7 @@
       {
         icon: 'fa fa-taxi fa-lg',
         title: 'Phrases in Textbook',
-        path: '/phrases-textbook',
+        path: '/phrases-textbook2',
       },
       {
         icon: 'fa fa-cog fa-lg',

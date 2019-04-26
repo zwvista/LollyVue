@@ -82,6 +82,16 @@ export default new Router({
       component: () => import('./views/PhrasesUnit.vue'),
     },
     {
+      path: '/phrases-unit2',
+      name: 'phrases-unit2',
+      component: () => import('./views/PhrasesUnit2.vue'),
+    },
+    {
+      path: '/phrases-unit3',
+      name: 'phrases-unit3',
+      component: () => import('./views/PhrasesUnit3.vue'),
+    },
+    {
       path: '/phrases-unit-detail/:id',
       name: 'phrases-unit-detail',
       component: () => import('./views/PhrasesUnitDetail.vue'),
@@ -92,6 +102,16 @@ export default new Router({
       component: () => import('./views/PhrasesTextbook.vue'),
     },
     {
+      path: '/phrases-textbook2',
+      name: 'phrases-textbook2',
+      component: () => import('./views/PhrasesTextbook2.vue'),
+    },
+    {
+      path: '/phrases-textbook3',
+      name: 'phrases-textbook3',
+      component: () => import('./views/PhrasesTextbook3.vue'),
+    },
+    {
       path: '/phrases-textbook-detail/:id',
       name: 'phrases-textbook-detail',
       component: () => import('./views/PhrasesTextbookDetail.vue'),
@@ -100,6 +120,16 @@ export default new Router({
       path: '/phrases-lang',
       name: 'phrases-lang',
       component: () => import('./views/PhrasesLang.vue'),
+    },
+    {
+      path: '/phrases-lang2',
+      name: 'phrases-lang2',
+      component: () => import('./views/PhrasesLang2.vue'),
+    },
+    {
+      path: '/phrases-lang3',
+      name: 'phrases-lang3',
+      component: () => import('./views/PhrasesLang3.vue'),
     },
     {
       path: '/phrases-lang-detail/:id',

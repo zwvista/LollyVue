@@ -28,7 +28,7 @@
           <td>{{ props.item.TRANSLATION }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="delete(props.item)"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deletePhrase(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'phrases-unit-detail', params: { id: props.item.ID }}">
