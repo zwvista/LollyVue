@@ -49,7 +49,7 @@
           <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.WORD)">
             <q-tooltip>Google Word</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.textbookWords.indexOf(props.row) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: wordsUnitService.textbookWords.indexOf(props.row) }}">
             <q-btn round color="primary" icon="fa fa-book" size="xs">
               <q-tooltip>Dictionary</q-tooltip>
             </q-btn>

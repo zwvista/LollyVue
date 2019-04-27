@@ -6,35 +6,40 @@
       </el-col>
       <el-tooltip content="Speak">
         <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
-               @click="settingsService.speak(newWord)"></el-button>
+                   @click="settingsService.speak(newWord)"></el-button>
       </el-tooltip>
-      <router-link to="/words-unit-detail/0">
+      <router-link to="/words-lang-detail/0">
         <el-button type="primary" icon="fa fa-plus">Add</el-button>
       </router-link>
       <el-button type="primary" icon="fa fa-refresh" @click="onRefresh()">Refresh</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve All Notes</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve Notes If Empty</el-button>
-      <router-link to="/words-dict/unit/0">
+      <router-link to="/words-dict/lang/0">
         <el-button type="primary" icon="fa fa-book">Dictionary</el-button>
       </router-link>
     </el-row>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="page"
+        :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
+        :page-size="rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="wordsLangService.langWordsCount">
+      </el-pagination>
+    </div>
     <el-table
-      :data="wordsUnitService.unitWords"
+      :data="wordsLangService.langWords"
       :row-style="({row}) => row.colorStyle"
       style="width: 100%"
     >
       <el-table-column prop="ID" label="ID"></el-table-column>
-      <el-table-column prop="UNITSTR" label="UNIT"></el-table-column>
-      <el-table-column prop="PARTSTR" label="PART"></el-table-column>
-      <el-table-column prop="SEQNUM" label="SEQNUM"></el-table-column>
-      <el-table-column prop="WORDID" label="WORDID"></el-table-column>
       <el-table-column prop="WORD" label="WORD"></el-table-column>
       <el-table-column prop="NOTE" label="NOTE"></el-table-column>
       <el-table-column prop="LEVEL" label="LEVEL"></el-table-column>
       <el-table-column label="ACTIONS" width="500">
         <template slot-scope="scope">
           <el-tooltip content="Delete">
-            <el-button circle type="danger" icon="fa fa-trash" @click="deleteWord(scope.row)"></el-button>
+            <el-button circle type="danger" icon="fa fa-trash" @click="deleteWord(scope.row.ID)"></el-button>
           </el-tooltip>
           <router-link :to="{ name: 'words-unit-detail', params: { id: scope.row.ID }}">
             <el-tooltip content="Edit">
@@ -67,64 +72,85 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="page"
+        :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
+        :page-size="rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="wordsLangService.langWordsCount">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/unit-word';
+  import { WordsLangService } from '@/view-models/words-lang.service';
+  import { MLangWord } from '@/models/lang-word';
 
   @Component
-  export default class WordsUnit4 extends Vue {
-    @inject() wordsUnitService!: WordsUnitService;
+  export default class WordsLang4 extends Vue {
+    @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 
     newWord = '';
+    page = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
-      this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
+      this.$set(this.services, 'wordsLangService', this.wordsLangService);
+      this.onRefresh();
+    }
+
+    handleSizeChange(val) {
+      this.rows = val;
+      this.onRefresh();
+    }
+
+    handleCurrentChange(val) {
+      this.page = val;
       this.onRefresh();
     }
 
     onEnter() {
       if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
+      const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
       this.newWord = '';
-      this.wordsUnitService.create(o).subscribe(id => {
+      this.wordsLangService.create(o).subscribe(id => {
         o.ID = id as number;
-        this.wordsUnitService.unitWords.push(o);
+        this.wordsLangService.langWords.push(o);
       });
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+        this.$forceUpdate();
+      });
     }
 
-    deleteWord(item: MUnitWord) {
-      this.wordsUnitService.delete(item);
+    deleteWord(id: number) {
+      this.wordsLangService.delete(id);
     }
 
     getNote(index: number) {
       console.log(index);
-      this.wordsUnitService.getNote(index).subscribe();
+      this.wordsLangService.getNote(index).subscribe();
     }
 
     googleWord(word: string) {
       googleString(word);
     }
 
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-    }
-
-    updateLevel(item: MUnitWord, delta: number) {
-      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
+    updateLevel(item: MLangWord, delta: number) {
+      this.settingsService.updateLevel(item, item.ID, delta).subscribe();
     }
   }
 </script>

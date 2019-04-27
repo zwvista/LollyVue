@@ -1,29 +1,29 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnter"></el-input>
-      </el-col>
-      <el-tooltip content="Speak">
-        <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
-               @click="settingsService.speak(newWord)"></el-button>
-      </el-tooltip>
-      <router-link to="/words-unit-detail/0">
-        <el-button type="primary" icon="fa fa-plus">Add</el-button>
-      </router-link>
       <el-button type="primary" icon="fa fa-refresh" @click="onRefresh()">Refresh</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve All Notes</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve Notes If Empty</el-button>
-      <router-link to="/words-dict/unit/0">
+      <router-link to="/words-dict/textbook/0">
         <el-button type="primary" icon="fa fa-book">Dictionary</el-button>
       </router-link>
     </el-row>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="page"
+        :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
+        :page-size="rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="wordsUnitService.textbookWordCount">
+      </el-pagination>
+    </div>
     <el-table
-      :data="wordsUnitService.unitWords"
+      :data="wordsUnitService.textbookWords"
       :row-style="({row}) => row.colorStyle"
       style="width: 100%"
     >
       <el-table-column prop="ID" label="ID"></el-table-column>
+      <el-table-column prop="TEXTBOOKNAME" label="TEXTBOOKNAME"></el-table-column>
       <el-table-column prop="UNITSTR" label="UNIT"></el-table-column>
       <el-table-column prop="PARTSTR" label="PART"></el-table-column>
       <el-table-column prop="SEQNUM" label="SEQNUM"></el-table-column>
@@ -36,7 +36,7 @@
           <el-tooltip content="Delete">
             <el-button circle type="danger" icon="fa fa-trash" @click="deleteWord(scope.row)"></el-button>
           </el-tooltip>
-          <router-link :to="{ name: 'words-unit-detail', params: { id: scope.row.ID }}">
+          <router-link :to="{ name: 'words-textbook-detail', params: { id: scope.row.ID }}">
             <el-tooltip content="Edit">
               <el-button circle type="primary" icon="fa fa-edit"></el-button>
             </el-tooltip>
@@ -57,7 +57,7 @@
           <el-tooltip content="Google Word">
             <el-button circle type="primary" icon="fa fa-google" @click="googleWord(scope.row.WORD)"></el-button>
           </el-tooltip>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: scope.$index }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: scope.$index }}">
             <el-tooltip content="Dictionary">
               <el-button circle type="primary" icon="fa fa-book"></el-button>
             </el-tooltip>
@@ -67,6 +67,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="page"
+        :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
+        :page-size="rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="wordsUnitService.textbookWordCount">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -79,11 +90,12 @@
   import { MUnitWord } from '@/models/unit-word';
 
   @Component
-  export default class WordsUnit4 extends Vue {
+  export default class WordsTextbook4 extends Vue {
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
-    newWord = '';
+    page = 1;
+    rows = this.settingsService.USROWSPERPAGE;
 
     services = {};
     created() {
@@ -91,19 +103,20 @@
       this.onRefresh();
     }
 
-    onEnter() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      this.wordsUnitService.create(o).subscribe(id => {
-        o.ID = id as number;
-        this.wordsUnitService.unitWords.push(o);
-      });
+    handleSizeChange(val) {
+      this.rows = val;
+      this.onRefresh();
+    }
+
+    handleCurrentChange(val) {
+      this.page = val;
+      this.onRefresh();
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+        this.$forceUpdate();
+      });
     }
 
     deleteWord(item: MUnitWord) {

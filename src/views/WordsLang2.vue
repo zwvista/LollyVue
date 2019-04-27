@@ -35,7 +35,7 @@
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deleteWord(props.row)">
             <q-tooltip>Delete</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'words-unit-detail', params: { id: props.row.ID }}">
+          <router-link :to="{ name: 'words-lang-detail', params: { id: props.row.ID }}">
             <q-btn round color="primary" icon="fa fa-edit" size="xs">
               <q-tooltip>Edit</q-tooltip>
             </q-btn>
@@ -56,7 +56,7 @@
           <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.WORD)">
             <q-tooltip>Google Word</q-tooltip>
           </q-btn>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsLangService.langWords.indexOf(props.row) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: wordsLangService.langWords.indexOf(props.row) }}">
             <q-btn round color="primary" icon="fa fa-book" size="xs">
               <q-tooltip>Dictionary</q-tooltip>
             </q-btn>

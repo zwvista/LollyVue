@@ -20,7 +20,7 @@
         <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(newWord)">
           <md-icon class="fa fa-volume-up"></md-icon>
         </md-button>
-        <router-link to="/words-unit-detail/0">
+        <router-link to="/words-lang-detail/0">
           <md-button class="md-raised md-primary">
             <span><md-icon class="fa fa-plus"></md-icon>Add</span>
           </md-button>
@@ -34,7 +34,7 @@
         <md-button v-show="settingsService.selectedDictNote" class="md-raised">
           Retrieve Notes If Empty
         </md-button>
-        <router-link to="/words-dict/unit/0">
+        <router-link to="/words-dict/lang/0">
           <md-button class="md-raised md-primary">
             <span><md-icon class="fa fa-book"></md-icon>Dictionary</span>
           </md-button>
@@ -76,7 +76,7 @@
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Word</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsLangService.langWords.indexOf(item) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: wordsLangService.langWords.indexOf(item) }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-book"></md-icon>
               <md-tooltip>Dictionary</md-tooltip>

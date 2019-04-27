@@ -54,6 +54,11 @@ export default new Router({
       component: () => import('./views/WordsTextbook3.vue'),
     },
     {
+      path: '/words-textbook4',
+      name: 'words-textbook4',
+      component: () => import('./views/WordsTextbook4.vue'),
+    },
+    {
       path: '/words-textbook-detail/:id',
       name: 'words-textbook-detail',
       component: () => import('./views/WordsTextbookDetail.vue'),
@@ -72,6 +77,11 @@ export default new Router({
       path: '/words-lang3',
       name: 'words-lang3',
       component: () => import('./views/WordsLang3.vue'),
+    },
+    {
+      path: '/words-lang4',
+      name: 'words-lang4',
+      component: () => import('./views/WordsLang4.vue'),
     },
     {
       path: '/words-lang-detail/:id',
@@ -97,6 +107,11 @@ export default new Router({
       component: () => import('./views/PhrasesUnit3.vue'),
     },
     {
+      path: '/phrases-unit4',
+      name: 'phrases-unit4',
+      component: () => import('./views/PhrasesUnit4.vue'),
+    },
+    {
       path: '/phrases-unit-detail/:id',
       name: 'phrases-unit-detail',
       component: () => import('./views/PhrasesUnitDetail.vue'),
@@ -117,6 +132,11 @@ export default new Router({
       component: () => import('./views/PhrasesTextbook3.vue'),
     },
     {
+      path: '/phrases-textbook4',
+      name: 'phrases-textbook4',
+      component: () => import('./views/PhrasesTextbook4.vue'),
+    },
+    {
       path: '/phrases-textbook-detail/:id',
       name: 'phrases-textbook-detail',
       component: () => import('./views/PhrasesTextbookDetail.vue'),
@@ -135,6 +155,11 @@ export default new Router({
       path: '/phrases-lang3',
       name: 'phrases-lang3',
       component: () => import('./views/PhrasesLang3.vue'),
+    },
+    {
+      path: '/phrases-lang4',
+      name: 'phrases-lang4',
+      component: () => import('./views/PhrasesLang4.vue'),
     },
     {
       path: '/phrases-lang-detail/:id',

@@ -60,27 +60,27 @@
       {
         icon: 'fa fa-train fa-lg',
         title: 'Phrases in Unit',
-        path: '/phrases-unit',
+        path: '/phrases-unit4',
       },
       {
         icon: 'fa fa-plane fa-lg',
         title: 'Words in Language',
-        path: '/words-lang',
+        path: '/words-lang4',
       },
       {
         icon: 'fa fa-rocket fa-lg',
         title: 'Phrases in Language',
-        path: '/phrases-lang',
+        path: '/phrases-lang4',
       },
       {
         icon: 'fa fa-car fa-lg',
         title: 'Words in Textbook',
-        path: '/words-textbook',
+        path: '/words-textbook4',
       },
       {
         icon: 'fa fa-taxi fa-lg',
         title: 'Phrases in Textbook',
-        path: '/phrases-textbook',
+        path: '/phrases-textbook4',
       },
       {
         icon: 'fa fa-cog fa-lg',

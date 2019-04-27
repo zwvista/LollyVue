@@ -33,7 +33,7 @@
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
+          <router-link :to="{ name: 'words-textbook-detail', params: { id: item.ID }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-edit"></md-icon>
               <md-tooltip>Edit</md-tooltip>
@@ -59,7 +59,7 @@
             <md-icon class="fa fa-google"></md-icon>
             <md-tooltip>Google Word</md-tooltip>
           </md-button>
-          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: wordsUnitService.textbookWords.indexOf(item) }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: wordsUnitService.textbookWords.indexOf(item) }}">
             <md-button class="md-raised md-icon-button md-primary">
               <md-icon class="fa fa-book"></md-icon>
               <md-tooltip>Dictionary</md-tooltip>
