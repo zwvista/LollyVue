@@ -63,7 +63,7 @@
             </q-btn>
           </router-link>
           <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Note"
-                 @click="getNote(props.item.WORD)">
+                 @click="getNote(wordsUnitService.unitWords.indexOf(props.row))">
           </q-btn>
         </q-td>
       </q-tr>

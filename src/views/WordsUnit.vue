@@ -76,7 +76,7 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.item.WORD)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.index)">Retrieve Note</v-btn>
           </td>
         </tr>
       </template>

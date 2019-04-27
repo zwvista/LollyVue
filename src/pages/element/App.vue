@@ -1,23 +1,18 @@
 <template>
-  <q-layout>
-    <q-layout-header>
-      <q-toolbar :inverted="false">
-        <q-btn flat round dense icon="menu" @click="left = !left"></q-btn>
-        <q-toolbar-title>{{title}}</q-toolbar-title>
-      </q-toolbar>
-    </q-layout-header>
-    <q-layout-drawer side="left" v-model="left" content-class="bg-grey-3">
-      <q-item v-for="item in items" :to="item.path">
-        <q-item-side :icon="item.icon"></q-item-side>
-        <q-item-main :label="item.title"></q-item-main>
-      </q-item>
-    </q-layout-drawer>
-    <q-page-container>
-      <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
-        <router-view />
-      </transition>
-    </q-page-container>
-  </q-layout>
+  <el-container>
+    <el-header>
+      <el-menu mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu-item v-for="item in items" :to="item.path">
+          <router-link :to="item.path">
+            {{item.title}}
+          </router-link>
+        </el-menu-item>
+      </el-menu>
+    </el-header>
+    <el-main>
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -60,7 +55,7 @@
       {
         icon: 'fa fa-bus fa-lg',
         title: 'Words in Unit',
-        path: '/words-unit2',
+        path: '/words-unit4',
       },
       {
         icon: 'fa fa-train fa-lg',
@@ -70,7 +65,7 @@
       {
         icon: 'fa fa-plane fa-lg',
         title: 'Words in Language',
-        path: '/words-lang2',
+        path: '/words-lang',
       },
       {
         icon: 'fa fa-rocket fa-lg',
@@ -80,7 +75,7 @@
       {
         icon: 'fa fa-car fa-lg',
         title: 'Words in Textbook',
-        path: '/words-textbook2',
+        path: '/words-textbook',
       },
       {
         icon: 'fa fa-taxi fa-lg',

@@ -80,7 +80,7 @@
   import { MLangWord } from '@/models/lang-word';
 
   @Component
-  export default class WordsUnit2 extends Vue {
+  export default class WordsLang2 extends Vue {
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 

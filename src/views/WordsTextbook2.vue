@@ -72,7 +72,7 @@
   import { MUnitWord } from '@/models/unit-word';
 
   @Component
-  export default class WordsUnit2 extends Vue {
+  export default class WordsTextbook2 extends Vue {
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 

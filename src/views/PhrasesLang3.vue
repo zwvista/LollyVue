@@ -67,7 +67,7 @@
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
 
   @Component
-  export default class PhrasesUnit3 extends Vue {
+  export default class PhrasesLang3 extends Vue {
     @inject() phrasesLangService!: PhrasesLangService;
     @inject() settingsService!: SettingsService;
 

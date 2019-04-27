@@ -80,7 +80,7 @@
             </md-button>
           </router-link>
           <md-button v-show="settingsService.selectedDictNote" class="md-raised"
-                     @click="getNote(item.WORD)">
+                     @click="getNote(wordsUnitService.unitWords.indexOf(item))">
             Retrieve Note
           </md-button>
         </md-table-cell>
