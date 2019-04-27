@@ -1,8 +1,8 @@
 <template>
   <el-container>
     <el-header>
-      <el-menu mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-        <el-menu-item v-for="item in items" :to="item.path">
+      <el-menu :default-active="activeIndex" mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu-item v-for="(item, i) in items" :to="item.path" :index="i">
           <router-link :to="item.path">
             {{item.title}}
           </router-link>
@@ -50,7 +50,7 @@
   })
   export default class App extends Vue {
     // @inject() appService!: AppService;
-    left = true;
+    activeIndex = 0;
     items = [
       {
         icon: 'fa fa-bus fa-lg',
