@@ -14,6 +14,21 @@ export default new Router({
       component: WordsUnit,
     },
     {
+      path: '/quasar',
+      name: 'home2',
+      component: () => import('./views/WordsUnit2.vue'),
+    },
+    {
+      path: '/material',
+      name: 'home3',
+      component: () => import('./views/WordsUnit3.vue'),
+    },
+    {
+      path: '/element',
+      name: 'home4',
+      component: () => import('./views/WordsUnit4.vue'),
+    },
+    {
       path: '/words-unit',
       name: 'words-unit',
       component: WordsUnit,
