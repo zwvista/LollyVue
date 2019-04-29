@@ -4,6 +4,15 @@
       <q-toolbar :inverted="false">
         <q-btn flat round dense icon="menu" @click="showLeft=!showLeft"></q-btn>
         <q-toolbar-title>{{title}}</q-toolbar-title>
+        <a href="/">
+          <q-btn color="primary" label="1. Veutify"></q-btn>
+        </a>
+        <a href="/material">
+          <q-btn color="primary" label="3. Material"></q-btn>
+        </a>
+        <a href="/element">
+          <q-btn color="primary" label="4. Element"></q-btn>
+        </a>
       </q-toolbar>
     </q-layout-header>
     <q-layout-drawer side="left" v-model="showLeft">

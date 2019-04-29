@@ -5,7 +5,16 @@
         <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">{{title}}</span>
+        <span class="md-title" style="flex: 1">{{title}}</span>
+        <a href="/">
+          <md-button class="md-raised md-primary">1. Vuetify</md-button>
+        </a>
+        <a href="/quasar">
+          <md-button class="md-raised md-primary">2. Quasar</md-button>
+        </a>
+        <a href="/element">
+          <md-button class="md-raised md-primary">4. Element</md-button>
+        </a>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible">
         <md-list>

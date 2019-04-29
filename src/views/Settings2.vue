@@ -41,7 +41,7 @@
       <q-select id="unitFrom" class="col-2 form-control" :value="settingsService.USUNITFROM" @change="onUnitFromChange($event)"
                 :options="settingsService.units">
       </q-select>
-      <q-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :value="settingsService.USPARTFROM" @change="onPartFromChange($event)"
+      <q-select id="partFrom" class="col-2 form-control" :readonly="toTypeIsUnit" :disabled="toTypeIsUnit" :value="settingsService.USPARTFROM" @change="onPartFromChange($event)"
                 :options="settingsService.parts">
       </q-select>
     </div>
@@ -51,17 +51,17 @@
       </q-select>
       <label class="col-1 control-label">
       </label>
-      <q-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="settingsService.USUNITTO" @change="onUnitToChange($event)"
+      <q-select id="unitTo" class="col-2 form-control" :readonly="!toTypeIsTo" :disabled="!toTypeIsTo" :value="settingsService.USUNITTO" @change="onUnitToChange($event)"
                 :options="settingsService.units">
       </q-select>
-      <q-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :value="settingsService.USPARTTO" @change="onPartToChange($event)"
+      <q-select id="partTo" class="col-2 form-control" :readonly="!toTypeIsTo" :disabled="!toTypeIsTo" :value="settingsService.USPARTTO" @change="onPartToChange($event)"
                 :options="settingsService.parts">
       </q-select>
     </div>
     <div class="row mb-2">
       <label class="col-2 control-label"></label>
-      <q-btn class="mr-2" color="primary" :disabled="toTypeIsTo" @click="previousUnitPart()" label="Previous"></q-btn>
-      <q-btn class="mr-2" color="primary" :disabled="toTypeIsTo" @click="nextUnitPart()" label="Next"></q-btn>
+      <q-btn class="mr-2" color="primary" :readonly="toTypeIsTo" :disabled="toTypeIsTo" @click="previousUnitPart()" label="Previous"></q-btn>
+      <q-btn class="mr-2" color="primary" :readonly="toTypeIsTo" :disabled="toTypeIsTo" @click="nextUnitPart()" label="Next"></q-btn>
     </div>
   </div>
 </template>

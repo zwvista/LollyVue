@@ -1,6 +1,18 @@
 <template>
   <el-container>
     <el-header>
+      Lolly Vue
+      <a href="/">
+        <el-button type="primary">1. Vuetify</el-button>
+      </a>
+      <a href="/quasar">
+        <el-button type="primary">2. Quasar</el-button>
+      </a>
+      <a href="/material">
+        <el-button type="primary">3. Material</el-button>
+      </a>
+    </el-header>
+    <el-header>
       <el-menu :default-active="activeIndex" mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item v-for="(item, i) in items" :to="item.path" :index="i">
           <router-link :to="item.path">
@@ -91,3 +103,12 @@
     title = 'Lolly Vue';
   }
 </script>
+
+<style>
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+</style>
