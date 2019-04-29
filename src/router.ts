@@ -172,6 +172,11 @@ export default new Router({
       component: () => import('./views/Settings.vue'),
     },
     {
+      path: '/settings2',
+      name: 'settings2',
+      component: () => import('./views/Settings2.vue'),
+    },
+    {
       path: '/words-dict/:type/:index',
       name: 'words-dict',
       component: () => import('./views/WordsDict.vue'),

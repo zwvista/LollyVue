@@ -1,16 +1,18 @@
 <template>
-  <q-layout>
+  <q-layout view="hHr LpR lFf">
     <q-layout-header>
       <q-toolbar :inverted="false">
-        <q-btn flat round dense icon="menu" @click="left = !left"></q-btn>
+        <q-btn flat round dense icon="menu" @click="showLeft=!showLeft"></q-btn>
         <q-toolbar-title>{{title}}</q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
-    <q-layout-drawer side="left" v-model="left" content-class="bg-grey-3">
-      <q-item v-for="item in items" :to="item.path">
-        <q-item-side :icon="item.icon"></q-item-side>
-        <q-item-main :label="item.title"></q-item-main>
-      </q-item>
+    <q-layout-drawer side="left" v-model="showLeft">
+      <q-list no-border link inset-separator>
+        <q-item v-for="item in items" :to="item.path">
+          <q-item-side :icon="item.icon"></q-item-side>
+          <q-item-main :label="item.title"></q-item-main>
+        </q-item>
+      </q-list>
     </q-layout-drawer>
     <q-page-container>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
@@ -55,7 +57,7 @@
   })
   export default class App extends Vue {
     // @inject() appService!: AppService;
-    left = true;
+    showLeft = true;
     items = [
       {
         icon: 'fa fa-bus fa-lg',
@@ -90,7 +92,7 @@
       {
         icon: 'fa fa-cog fa-lg',
         title: 'Settings',
-        path: '/settings',
+        path: '/settings2',
       },
     ];
     title = 'Lolly Vue';
