@@ -31,6 +31,7 @@
         <q-td key="WORD" :props="props">{{props.row.WORD}}</q-td>
         <q-td key="NOTE" :props="props">{{props.row.NOTE}}</q-td>
         <q-td key="LEVEL" :props="props">{{props.row.LEVEL}}</q-td>
+        <q-td key="ACCURACY" :props="props">{{props.row.ACCURACY}}</q-td>
         <q-td key="ACTIONS" :props="props">
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deleteWord(props.row)">
             <q-tooltip>Delete</q-tooltip>
@@ -89,6 +90,7 @@
       { name: 'WORD', field: 'WORD', label: 'WORD' },
       { name: 'NOTE', field: 'NOTE', label: 'NOTE' },
       { name: 'LEVEL', field: 'LEVEL', label: 'LEVEL' },
+      { name: 'ACCURACY', field: 'ACCURACY', label: 'ACCURACY' },
       { name: 'ACTIONS', label: 'ACTIONS' },
     ];
     pagination = {

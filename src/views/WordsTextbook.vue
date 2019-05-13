@@ -32,6 +32,7 @@
           <td>{{ props.item.WORD }}</td>
           <td>{{ props.item.NOTE }}</td>
           <td>{{ props.item.LEVEL }}</td>
+          <td>{{ props.item.ACCURACY }}</td>
           <td>
             <v-tooltip top>
               <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
@@ -107,6 +108,7 @@
       { text: 'WORD', sortable: false, value: 'WORD' },
       { text: 'NOTE', sortable: false, value: 'NOTE' },
       { text: 'LEVEL', sortable: false, value: 'LEVEL' },
+      { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
       { text: 'ACTIONS', sortable: false },
     ];
     page = 1;

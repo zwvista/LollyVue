@@ -36,6 +36,7 @@
       <el-table-column prop="WORD" label="WORD"></el-table-column>
       <el-table-column prop="NOTE" label="NOTE"></el-table-column>
       <el-table-column prop="LEVEL" label="LEVEL"></el-table-column>
+      <el-table-column prop="ACCURACY" label="ACCURACY"></el-table-column>
       <el-table-column label="ACTIONS" width="500">
         <template slot-scope="scope">
           <el-tooltip content="Delete">

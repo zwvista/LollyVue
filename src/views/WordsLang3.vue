@@ -45,6 +45,7 @@
         <md-table-cell md-label="WORD">{{item.WORD}}</md-table-cell>
         <md-table-cell md-label="NOTE">{{item.NOTE}}</md-table-cell>
         <md-table-cell md-label="LEVEL">{{item.LEVEL}}</md-table-cell>
+        <md-table-cell md-label="ACCURACY">{{item.ACCURACY}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
           <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item.ID)">
             <md-icon class="fa fa-trash"></md-icon>
