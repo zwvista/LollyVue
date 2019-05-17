@@ -8,6 +8,7 @@ import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
 import { LangWordService } from '@/services/lang-word.service';
 import { MLangWord } from '@/models/lang-word';
+import { WordsFamiService } from '@/view-models/words-fami.service';
 
 @injectable()
 export class WordsUnitService {
@@ -19,6 +20,7 @@ export class WordsUnitService {
 
   constructor(private unitWordService: UnitWordService,
               private langWordService: LangWordService,
+              private wordsFamiService: WordsFamiService,
               private settingsService: SettingsService,
               private appService: AppService,
               private noteService: NoteService) {
@@ -124,8 +126,8 @@ export class WordsUnitService {
 
   delete(item: MUnitWord): Observable<number> {
     return this.unitWordService.delete(item.ID).pipe(
-      concatMap(_ => this.unitWordService.getDataByLangWord(item.WORDID)),
-      concatMap(arr => arr.length !== 0 ? empty : this.langWordService.delete(item.WORDID)),
+      concatMap(_ => this.langWordService.delete(item.WORDID)),
+      concatMap(_ => this.wordsFamiService.delete(item.FAMIID)),
     );
   }
 

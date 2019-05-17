@@ -87,7 +87,7 @@
       });
     }
 
-    deletePhrase(id: string) {
+    deletePhrase(id: number) {
       this.phrasesLangService.delete(id);
     }
 

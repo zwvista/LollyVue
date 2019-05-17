@@ -38,7 +38,7 @@
           <td>{{ props.item.ACCURACY }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item.ID)"><v-icon>fa-trash</v-icon></v-btn>
+              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-lang-detail', params: { id: props.item.ID }}">
@@ -94,7 +94,7 @@
   import { WordsLangService } from '@/view-models/words-lang.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MLangWord } from "@/models/lang-word";
+  import { MLangWord } from '@/models/lang-word';
 
   @Component
   export default class WordsLang extends Vue {
@@ -144,8 +144,8 @@
       });
     }
 
-    deleteWord(id: number) {
-      this.wordsLangService.delete(id);
+    deleteWord(item: MLangWord) {
+      this.wordsLangService.delete(item);
     }
 
     getNote(index: number) {

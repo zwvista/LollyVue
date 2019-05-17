@@ -47,7 +47,7 @@
         <md-table-cell md-label="LEVEL">{{item.LEVEL}}</md-table-cell>
         <md-table-cell md-label="ACCURACY">{{item.ACCURACY}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
-          <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item.ID)">
+          <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item)">
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
@@ -145,8 +145,8 @@
       });
     }
 
-    deleteWord(id: number) {
-      this.wordsLangService.delete(id);
+    deleteWord(item: MLangWord) {
+      this.wordsLangService.delete(item);
     }
 
     getNote(index: number) {

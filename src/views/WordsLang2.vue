@@ -123,15 +123,15 @@
       });
     }
 
-    onRefresh(page: number, rows: number) {
+    onRefresh() {
       this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
         this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
         this.$forceUpdate();
       });
     }
 
-    deleteWord(id: number) {
-      this.wordsLangService.delete(id);
+    deleteWord(item: MLangWord) {
+      this.wordsLangService.delete(item);
     }
 
     getNote(index: number) {

@@ -40,7 +40,7 @@
       <el-table-column label="ACTIONS" width="500">
         <template slot-scope="scope">
           <el-tooltip content="Delete">
-            <el-button circle type="danger" icon="fa fa-trash" @click="deleteWord(scope.row.ID)"></el-button>
+            <el-button circle type="danger" icon="fa fa-trash" @click="deleteWord(scope.row)"></el-button>
           </el-tooltip>
           <router-link :to="{ name: 'words-unit-detail', params: { id: scope.row.ID }}">
             <el-tooltip content="Edit">
@@ -137,8 +137,8 @@
       });
     }
 
-    deleteWord(id: number) {
-      this.wordsLangService.delete(id);
+    deleteWord(item: MLangWord) {
+      this.wordsLangService.delete(item);
     }
 
     getNote(index: number) {
