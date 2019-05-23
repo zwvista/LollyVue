@@ -7,6 +7,9 @@
         <a href="/">
           <q-btn color="primary" label="1. Veutify"></q-btn>
         </a>
+        <a href="/quasar">
+          <q-btn color="primary" label="2. Quasar"></q-btn>
+        </a>
         <a href="/material">
           <q-btn color="primary" label="3. Material"></q-btn>
         </a>

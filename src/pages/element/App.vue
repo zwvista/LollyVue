@@ -11,6 +11,9 @@
       <a href="/material">
         <el-button type="primary">3. Material</el-button>
       </a>
+      <a href="/element">
+        <el-button type="primary">4. Element</el-button>
+      </a>
     </el-header>
     <el-header>
       <el-menu :default-active="activeIndex" mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">

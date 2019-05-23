@@ -38,6 +38,9 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <a href="/">
+        <v-btn color="info">1. Veutify</v-btn>
+      </a>
       <a href="/quasar">
         <v-btn color="info">2. Quasar</v-btn>
       </a>

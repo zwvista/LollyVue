@@ -12,6 +12,9 @@
         <a href="/quasar">
           <md-button class="md-raised md-primary">2. Quasar</md-button>
         </a>
+        <a href="/material">
+          <md-button class="md-raised md-primary">3. Material</md-button>
+        </a>
         <a href="/element">
           <md-button class="md-raised md-primary">4. Element</md-button>
         </a>
