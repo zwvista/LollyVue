@@ -13,7 +13,7 @@
       </q-select>
     </div>
     <div class="row mb-2">
-      <label for="dictItem" class="col-2 control-label">Dictionary(Word):</label>
+      <label for="dictItem" class="col-2 control-label">Dictionary(Reference):</label>
       <q-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)"
                 :options="settingsService.dictItems.map(o => {return {label:o.DICTNAME, value:o};})">
       </q-select>

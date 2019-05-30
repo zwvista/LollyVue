@@ -13,7 +13,7 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="dictItem" class="col-2 control-label">Dictionary(Word):</label>
+      <label for="dictItem" class="col-2 control-label">Dictionary(Reference):</label>
       <b-form-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)">
         <option v-for="o in settingsService.dictItems" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
       </b-form-select>
