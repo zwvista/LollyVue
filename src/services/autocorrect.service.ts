@@ -1,7 +1,7 @@
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MAutoCorrect, MAutoCorrects } from '../models/autocorrect';
+import { MAutoCorrect, MAutoCorrects } from '@/models/autocorrect';
 import { injectable } from 'vue-typescript-inject';
 
 @injectable()

@@ -2,7 +2,7 @@ import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { MUserSetting, MUserSettings } from '../models/user-setting';
+import { MUserSetting, MUserSettings } from '@/models/user-setting';
 
 @injectable()
 export class UserSettingService extends BaseService {
