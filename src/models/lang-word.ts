@@ -3,7 +3,7 @@ import { MWordColor } from '@/models/word-color';
 
 export class MLangWords {
   records!: MLangWord[];
-  _results = 0;
+  results = 0;
 }
 export class MLangWord implements MWordColor {
   ID = 0;
