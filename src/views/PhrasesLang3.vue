@@ -82,9 +82,11 @@
   import { googleString } from '@/common/common';
   import { MUnitPhrase } from '@/models/unit-phrase';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class PhrasesLang3 extends Vue {
+    @inject() appService!: AppService;
     @inject() phrasesLangService!: PhrasesLangService;
     @inject() settingsService!: SettingsService;
 
@@ -97,7 +99,9 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     pageChange(page: number) {

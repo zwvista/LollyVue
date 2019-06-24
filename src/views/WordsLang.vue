@@ -101,9 +101,11 @@
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
   import { MLangWord } from '@/models/lang-word';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class WordsLang extends Vue {
+    @inject() appService!: AppService;
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 
@@ -125,7 +127,9 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     pageChange(page: number) {

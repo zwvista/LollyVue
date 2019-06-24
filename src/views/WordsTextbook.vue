@@ -101,9 +101,11 @@
   import { googleString } from '@/common/common';
   import { WordsUnitService } from '@/view-models/words-unit.service';
   import { MUnitWord } from '@/models/unit-word';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class WordsTextbook extends Vue {
+    @inject() appService!: AppService;
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -130,7 +132,9 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     pageChange(page: number) {

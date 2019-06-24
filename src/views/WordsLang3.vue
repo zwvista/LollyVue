@@ -127,9 +127,11 @@
   import { googleString } from '@/common/common';
   import { WordsLangService } from '@/view-models/words-lang.service';
   import { MLangWord } from '@/models/lang-word';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class WordsLang3 extends Vue {
+    @inject() appService!: AppService;
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 
@@ -143,7 +145,9 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     mounted() {

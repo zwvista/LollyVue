@@ -56,9 +56,11 @@
   import { MUnitWord } from '@/models/unit-word';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
   import { MUnitPhrase } from '@/models/unit-phrase';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class PhrasesUnit2 extends Vue {
+    @inject() appService!: AppService;
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -82,7 +84,9 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     onRefresh() {

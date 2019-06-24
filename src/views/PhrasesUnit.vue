@@ -70,9 +70,11 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { MUnitPhrase } from '@/models/unit-phrase';
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class PhrasesUnit extends Vue {
+    @inject() appService!: AppService;
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
@@ -93,7 +95,9 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.onRefresh();
+      this.appService.initializeComplete.subscribe(_ => {
+        this.onRefresh();
+      });
     }
 
     expandRow = null;
