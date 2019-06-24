@@ -68,7 +68,7 @@
     ];
     pagination = {
       page: 1,
-      rowsPerPage: this.settingsService.USROWSPERPAGE,
+      rowsPerPage: 0,
       rowsNumber: 10,
     };
     filter = '';
@@ -78,6 +78,7 @@
     created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
       this.appService.initializeComplete.subscribe(_ => {
+        this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
     }

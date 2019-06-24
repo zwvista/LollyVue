@@ -99,7 +99,7 @@
     ];
     pagination = {
       page: 1,
-      rowsPerPage: this.settingsService.USROWSPERPAGE,
+      rowsPerPage: 0,
       rowsNumber: 10,
     };
     newWord = '';
@@ -110,6 +110,7 @@
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       this.appService.initializeComplete.subscribe(_ => {
+        this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
     }

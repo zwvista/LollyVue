@@ -100,7 +100,7 @@
     @inject() settingsService!: SettingsService;
 
     page = 1;
-    rows = this.settingsService.USROWSPERPAGE;
+    rows = 0;
     filter = '';
     filterType = 0;
     textbookFilter = 0;
@@ -109,6 +109,7 @@
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       this.appService.initializeComplete.subscribe(_ => {
+        this.rows = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
     }

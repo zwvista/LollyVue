@@ -117,7 +117,7 @@
 
     newWord = '';
     page = 1;
-    rows = this.settingsService.USROWSPERPAGE;
+    rows = 0;
     filter = '';
     filterType = 0;
 
@@ -125,6 +125,7 @@
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       this.appService.initializeComplete.subscribe(_ => {
+        this.rows = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
     }
