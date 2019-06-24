@@ -1,6 +1,12 @@
 <template>
   <div>
     <v-toolbar>
+      <v-flex xs6 md2>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onEnterFilter"></v-select>
+      </v-flex>
+      <v-flex xs6 md2>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
+      </v-flex>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/textbook/0">
         <v-btn color="info" @click="onRefresh()"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
@@ -114,6 +120,8 @@
     page = 1;
     pageCount = 1;
     rows = this.settingsService.USROWSPERPAGE;
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -128,10 +136,18 @@
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
         this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

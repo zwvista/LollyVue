@@ -9,6 +9,23 @@
     </div>
     <md-table v-model="phrasesUnitService.textbookPhrases">
       <md-table-toolbar>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <md-select v-model="filterType" @md-selected="onEnterFilter">
+                <md-option v-for="o in settingsService.phraseFilterTypes" :value="o.value">{{o.label}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+        </div>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <label>Filter</label>
+              <md-input v-model="filter" @keyup.enter="onEnterFilter"></md-input>
+            </md-field>
+          </div>
+        </div>
         <md-button class="md-raised md-primary" @click="onRefresh()">
           <span><md-icon class="fa fa-refresh"></md-icon>Refresh</span>
         </md-button>
@@ -74,6 +91,8 @@
     page = 1;
     pageCount = 1;
     rows = this.settingsService.USROWSPERPAGE;
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -87,10 +106,18 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInLang(this.page, this.rows).subscribe(_ => {
+      this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
         this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

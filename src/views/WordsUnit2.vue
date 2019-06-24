@@ -1,11 +1,13 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-input float-label="New Word" v-model="newWord" @keyup.enter="onEnter"></q-input>
+      <q-input float-label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></q-input>
       <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
              @click="settingsService.speak(newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
+      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
       <router-link to="/words-unit-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -102,6 +104,8 @@
       rowsPerPage: 0, // current rows per page being displayed
     };
     newWord = '';
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -109,7 +113,7 @@
       this.onRefresh();
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsUnitService.newUnitWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -121,7 +125,15 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

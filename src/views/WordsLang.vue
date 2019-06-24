@@ -2,12 +2,18 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnter"></v-text-field>
+        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <v-btn slot="activator" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
         <span>Speak</span>
       </v-tooltip>
+      <v-flex xs6 md2>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onEnterFilter"></v-select>
+      </v-flex>
+      <v-flex xs6 md2>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
+      </v-flex>
       <router-link to="/words-lang-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
@@ -113,6 +119,8 @@
     page = 1;
     pageCount = 1;
     rows = this.settingsService.USROWSPERPAGE;
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -125,7 +133,7 @@
       this.onRefresh();
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -138,10 +146,18 @@
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+      this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
         this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MLangWord) {

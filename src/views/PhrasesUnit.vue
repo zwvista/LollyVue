@@ -1,6 +1,12 @@
 <template>
   <div>
     <v-toolbar>
+      <v-flex xs6 md2>
+        <v-select :items="settingsService.phraseFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onEnterFilter"></v-select>
+      </v-flex>
+      <v-flex xs6 md2>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
+      </v-flex>
       <router-link to="/phrases-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
@@ -17,7 +23,7 @@
       <template slot="items" slot-scope="props">
         <tr class="sortableRow" :key="props.item.ID">
           <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+            <v-btn v-show="settingsService.isSingleUnitPart && filterType === 0" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.UNITSTR }}</td>
@@ -81,6 +87,8 @@
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },
     ];
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -127,7 +135,15 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

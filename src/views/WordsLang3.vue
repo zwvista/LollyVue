@@ -13,7 +13,27 @@
           <div class="md-layout-item">
             <md-field>
               <label>New Word</label>
-              <md-input v-model="newWord" @keyup.enter="onEnter"></md-input>
+              <md-input v-model="newWord" @keyup.enter="onEnterNewWord"></md-input>
+            </md-field>
+          </div>
+        </div>
+        <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(newWord)">
+          <md-icon class="fa fa-volume-up"></md-icon>
+        </md-button>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <md-select v-model="filterType" @md-selected="onEnterFilter">
+                <md-option v-for="o in settingsService.wordFilterTypes" :value="o.value">{{o.label}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+        </div>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <label>Filter</label>
+              <md-input v-model="filter" @keyup.enter="onEnterFilter"></md-input>
             </md-field>
           </div>
         </div>
@@ -117,6 +137,8 @@
     page = 1;
     pageCount = 1;
     rows = this.settingsService.USROWSPERPAGE;
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -127,7 +149,7 @@
     mounted() {
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -139,10 +161,18 @@
     }
 
     onRefresh() {
-      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+      this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
         this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MLangWord) {

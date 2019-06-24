@@ -1,6 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
+      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/textbook/0">
         <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
@@ -95,6 +97,8 @@
       rowsPerPage: this.settingsService.USROWSPERPAGE,
       rowsNumber: 10,
     };
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -109,10 +113,18 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
+      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
         this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

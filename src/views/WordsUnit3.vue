@@ -6,13 +6,30 @@
           <div class="md-layout-item">
             <md-field>
               <label>New Word</label>
-              <md-input v-model="newWord" @keyup.enter="onEnter"></md-input>
+              <md-input v-model="newWord" @keyup.enter="onEnterNewWord"></md-input>
             </md-field>
           </div>
         </div>
         <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(newWord)">
           <md-icon class="fa fa-volume-up"></md-icon>
         </md-button>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <md-select v-model="filterType" @md-selected="onEnterFilter">
+                <md-option v-for="o in settingsService.wordFilterTypes" :value="o.value">{{o.label}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+        </div>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <label>Filter</label>
+              <md-input v-model="filter" @keyup.enter="onEnterFilter"></md-input>
+            </md-field>
+          </div>
+        </div>
         <router-link to="/words-unit-detail/0">
           <md-button class="md-raised md-primary">
             <span><md-icon class="fa fa-plus"></md-icon>Add</span>
@@ -103,6 +120,8 @@
     @inject() wordsUnitService!: WordsUnitService;
     @inject() settingsService!: SettingsService;
     newWord = '';
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -110,7 +129,7 @@
       this.onRefresh();
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsUnitService.newUnitWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -122,7 +141,15 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

@@ -1,6 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
+      <q-select :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
       <router-link to="/phrases-lang-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -67,6 +69,8 @@
       rowsPerPage: this.settingsService.USROWSPERPAGE,
       rowsNumber: 10,
     };
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -81,10 +85,18 @@
     }
 
     onRefresh() {
-      this.phrasesLangService.getData(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
+      this.phrasesLangService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
         this.pagination.rowsNumber = this.phrasesLangService.langPhraseCount;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(id: number) {

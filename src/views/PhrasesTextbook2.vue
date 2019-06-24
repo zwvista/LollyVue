@@ -1,6 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
+      <q-select :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table
@@ -74,6 +76,8 @@
       rowsPerPage: this.settingsService.USROWSPERPAGE,
       rowsNumber: 10,
     };
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -88,10 +92,18 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage).subscribe(_ => {
+      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
         this.pagination.rowsNumber = this.phrasesUnitService.textbookPhraseCount;
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

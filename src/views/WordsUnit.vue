@@ -2,12 +2,18 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnter"></v-text-field>
+        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <v-btn slot="activator" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
         <span>Speak</span>
       </v-tooltip>
+      <v-flex xs6 md2>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onEnterFilter"></v-select>
+      </v-flex>
+      <v-flex xs6 md2>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
+      </v-flex>
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
@@ -29,7 +35,7 @@
       <template slot="items" slot-scope="props">
         <tr class="sortableRow" :key="props.item.ID" :style="props.item.colorStyle">
           <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+            <v-btn v-show="settingsService.isSingleUnitPart && filterType === 0" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ props.item.ID }}</td>
           <td>{{ props.item.UNITSTR }}</td>
@@ -113,6 +119,8 @@
       { text: 'ACTIONS', sortable: false },
     ];
     newWord = '';
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -158,7 +166,7 @@
       this.wordsUnitService.reindex(index => {});
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsUnitService.newUnitWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -170,7 +178,15 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInTextbook().subscribe();
+      this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

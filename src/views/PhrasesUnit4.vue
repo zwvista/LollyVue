@@ -1,6 +1,17 @@
 <template>
   <div>
     <el-row>
+      <el-select v-model="filterType" @change="onEnterFilter">
+        <el-option
+          v-for="item in settingsService.phraseFilterTypes"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-col :span="4">
+        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter"></el-input>
+      </el-col>
       <router-link to="/phrases-unit-detail/0">
         <el-button type="primary" icon="fa fa-plus">Add</el-button>
       </router-link>
@@ -59,6 +70,9 @@
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
+    filter = '';
+    filterType = 0;
+
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -66,7 +80,15 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

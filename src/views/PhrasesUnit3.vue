@@ -2,6 +2,23 @@
   <div>
     <md-table v-model="phrasesUnitService.unitPhrases">
       <md-table-toolbar>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <md-select v-model="filterType" @md-selected="onEnterFilter">
+                <md-option v-for="o in settingsService.phraseFilterTypes" :value="o.value">{{o.label}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+        </div>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <label>Filter</label>
+              <md-input v-model="filter" @keyup.enter="onEnterFilter"></md-input>
+            </md-field>
+          </div>
+        </div>
         <router-link to="/phrases-unit-detail/0">
           <md-button class="md-raised md-primary">
             <span><md-icon class="fa fa-plus"></md-icon>Add</span>
@@ -61,6 +78,9 @@
     @inject() phrasesUnitService!: PhrasesUnitService;
     @inject() settingsService!: SettingsService;
 
+    filter = '';
+    filterType = 0;
+
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -68,7 +88,15 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInTextbook().subscribe();
+      this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

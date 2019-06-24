@@ -2,12 +2,23 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnter"></el-input>
+        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></el-input>
       </el-col>
       <el-tooltip content="Speak">
         <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
                    @click="settingsService.speak(newWord)"></el-button>
       </el-tooltip>
+      <el-select v-model="filterType" @change="onEnterFilter">
+        <el-option
+          v-for="item in settingsService.wordFilterTypes"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-col :span="4">
+        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter"></el-input>
+      </el-col>
       <router-link to="/words-lang-detail/0">
         <el-button type="primary" icon="fa fa-plus">Add</el-button>
       </router-link>
@@ -103,6 +114,8 @@
     newWord = '';
     page = 1;
     rows = this.settingsService.USROWSPERPAGE;
+    filter = '';
+    filterType = 0;
 
     services = {};
     created() {
@@ -120,7 +133,7 @@
       this.onRefresh();
     }
 
-    onEnter() {
+    onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
@@ -132,9 +145,17 @@
     }
 
     onRefresh() {
-      this.wordsLangService.getData(this.page, this.rows).subscribe(_ => {
+      this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
         this.$forceUpdate();
       });
+    }
+
+    onEnterFilter() {
+      if (this.filter && this.filterType === 0)
+        this.filterType = 1;
+      else if (!this.filter && this.filterType !== 0)
+        this.filterType = 0;
+      this.onRefresh();
     }
 
     deleteWord(item: MLangWord) {
