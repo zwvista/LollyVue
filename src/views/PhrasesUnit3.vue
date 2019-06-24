@@ -86,7 +86,7 @@
     services = {};
     created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.appService.initializeComplete.subscribe(_ => {
+      this.appService.initializeObject.subscribe(_ => {
         this.onRefresh();
       });
     }

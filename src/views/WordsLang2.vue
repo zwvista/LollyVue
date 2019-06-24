@@ -109,7 +109,7 @@
     services = {};
     created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.appService.initializeComplete.subscribe(_ => {
+      this.appService.initializeObject.subscribe(_ => {
         this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
