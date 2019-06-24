@@ -26,6 +26,15 @@
             </md-field>
           </div>
         </div>
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item">
+            <md-field>
+              <md-select v-model="textbookFilter" @md-selected="onRefresh">
+                <md-option v-for="o in settingsService.textbookFilters" :value="o.value">{{o.label}}</md-option>
+              </md-select>
+            </md-field>
+          </div>
+        </div>
         <md-button class="md-raised md-primary" @click="onRefresh()">
           <span><md-icon class="fa fa-refresh"></md-icon>Refresh</span>
         </md-button>
@@ -118,6 +127,7 @@
     rows = this.settingsService.USROWSPERPAGE;
     filter = '';
     filterType = 0;
+    textbookFilter = 0;
 
     services = {};
     created() {
@@ -132,7 +142,7 @@
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
+      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });

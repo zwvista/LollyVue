@@ -2,22 +2,24 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></el-input>
+        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord">
+          <el-tooltip slot="append" content="Speak">
+            <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
+                       @click="settingsService.speak(newWord)"></el-button>
+          </el-tooltip>
+        </el-input>
       </el-col>
-      <el-tooltip content="Speak">
-        <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
-                   @click="settingsService.speak(newWord)"></el-button>
-      </el-tooltip>
-      <el-select v-model="filterType" @change="onEnterFilter">
-        <el-option
-          v-for="item in settingsService.wordFilterTypes"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter"></el-input>
+        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter" class="input-with-select">
+          <el-select v-model="filterType" slot="prepend" @change="onEnterFilter">
+            <el-option
+              v-for="item in settingsService.wordFilterTypes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-input>
       </el-col>
       <router-link to="/words-lang-detail/0">
         <el-button type="primary" icon="fa fa-plus">Add</el-button>

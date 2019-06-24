@@ -1,16 +1,17 @@
 <template>
   <div>
     <el-row>
-      <el-select v-model="filterType" @change="onEnterFilter">
-        <el-option
-          v-for="item in settingsService.phraseFilterTypes"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter"></el-input>
+        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter" class="input-with-select">
+          <el-select v-model="filterType" slot="prepend" @change="onEnterFilter">
+            <el-option
+              v-for="item in settingsService.phraseFilterTypes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-input>
       </el-col>
       <router-link to="/phrases-lang-detail/0">
         <el-button type="primary" icon="fa fa-plus">Add</el-button>

@@ -3,6 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
       <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
+      <q-select :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table
@@ -63,6 +64,7 @@
 
     columns = [
       { name: 'ID', field: 'ID', label: 'ID' },
+      { name: 'TEXTBOOKNAME', field: 'TEXTBOOKNAME', label: 'TEXTBOOKNAME' },
       { name: 'UNIT', field: 'UNITSTR', label: 'UNIT' },
       { name: 'PART', field: 'PARTSTR', label: 'PART' },
       { name: 'SEQNUM', field: 'SEQNUM', label: 'SEQNUM' },
@@ -78,6 +80,7 @@
     };
     filter = '';
     filterType = 0;
+    textbookFilter = 0;
 
     services = {};
     created() {
@@ -92,7 +95,7 @@
     }
 
     onRefresh() {
-      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
+      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.pagination.rowsNumber = this.phrasesUnitService.textbookPhraseCount;
         this.$forceUpdate();
       });

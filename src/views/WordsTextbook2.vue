@@ -3,6 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
       <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
+      <q-select :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/textbook/0">
         <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
@@ -99,6 +100,7 @@
     };
     filter = '';
     filterType = 0;
+    textbookFilter = 0;
 
     services = {};
     created() {
@@ -113,7 +115,7 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
+      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
         this.$forceUpdate();
       });

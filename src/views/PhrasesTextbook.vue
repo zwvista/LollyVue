@@ -7,6 +7,9 @@
       <v-flex xs6 md2>
         <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
       </v-flex>
+      <v-flex xs6 md2>
+        <v-select :items="settingsService.textbookFilters" item-text="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
+      </v-flex>
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
     </v-toolbar>
     <div class="text-xs-center">
@@ -98,6 +101,7 @@
     rows = this.settingsService.USROWSPERPAGE;
     filter = '';
     filterType = 0;
+    textbookFilter = 0;
 
     services = {};
     created() {
@@ -112,7 +116,7 @@
 
     onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
+      this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });

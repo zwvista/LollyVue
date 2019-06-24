@@ -1,17 +1,26 @@
 <template>
   <div>
     <el-row>
-      <el-select v-model="filterType" @change="onEnterFilter">
+      <el-col :span="4">
+        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter" class="input-with-select">
+          <el-select v-model="filterType" slot="prepend" @change="onEnterFilter">
+            <el-option
+              v-for="item in settingsService.wordFilterTypes"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-input>
+      </el-col>
+      <el-select v-model="textbookFilter" @change="onRefresh">
         <el-option
-          v-for="item in settingsService.wordFilterTypes"
+          v-for="item in settingsService.textbookFilters"
           :key="item.value"
           :label="item.label"
           :value="item.value">
         </el-option>
       </el-select>
-      <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter"></el-input>
-      </el-col>
       <el-button type="primary" icon="fa fa-refresh" @click="onRefresh()">Refresh</el-button>
       <router-link to="/words-dict/textbook/0">
         <el-button type="primary" icon="fa fa-book">Dictionary</el-button>
@@ -110,6 +119,7 @@
     rows = this.settingsService.USROWSPERPAGE;
     filter = '';
     filterType = 0;
+    textbookFilter = 0;
 
     services = {};
     created() {
@@ -128,7 +138,7 @@
     }
 
     onRefresh() {
-      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
+      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.$forceUpdate();
       });
     }
