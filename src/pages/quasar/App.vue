@@ -56,6 +56,7 @@
   import { VoicesService } from '@/services/voices.service';
   import { WordFamiService } from '@/services/word-fami.service';
   import { WordsFamiService } from '@/view-models/words-fami.service';
+  import { UsMappingService } from '@/services/us-mapping.service';
 
   @Component({
     providers: [
@@ -64,7 +65,7 @@
       PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
       LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
       NoteService, WordFamiService, WordsFamiService,
-      VoicesService,
+      VoicesService, UsMappingService,
     ],
   })
   export default class App extends Vue {

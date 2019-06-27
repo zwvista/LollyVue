@@ -99,7 +99,7 @@
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
   import { MUnitWord } from '@/models/unit-word';
-  import { AppService } from "@/view-models/app.service";
+  import { AppService } from '@/view-models/app.service';
 
   @Component
   export default class WordsUnit extends Vue {
