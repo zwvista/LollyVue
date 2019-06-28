@@ -83,16 +83,6 @@
         path: '/phrases-unit2',
       },
       {
-        icon: 'fa fa-plane fa-lg',
-        title: 'Words in Language',
-        path: '/words-lang2',
-      },
-      {
-        icon: 'fa fa-rocket fa-lg',
-        title: 'Phrases in Language',
-        path: '/phrases-lang2',
-      },
-      {
         icon: 'fa fa-car fa-lg',
         title: 'Words in Textbook',
         path: '/words-textbook2',
@@ -101,6 +91,16 @@
         icon: 'fa fa-taxi fa-lg',
         title: 'Phrases in Textbook',
         path: '/phrases-textbook2',
+      },
+      {
+        icon: 'fa fa-plane fa-lg',
+        title: 'Words in Language',
+        path: '/words-lang2',
+      },
+      {
+        icon: 'fa fa-rocket fa-lg',
+        title: 'Phrases in Language',
+        path: '/phrases-lang2',
       },
       {
         icon: 'fa fa-cog fa-lg',

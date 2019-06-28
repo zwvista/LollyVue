@@ -107,16 +107,6 @@ export default class App extends Vue {
       path: '/phrases-unit',
     },
     {
-      icon: 'fa-plane fa-lg',
-      title: 'Words in Language',
-      path: '/words-lang',
-    },
-    {
-      icon: 'fa-rocket fa-lg',
-      title: 'Phrases in Language',
-      path: '/phrases-lang',
-    },
-    {
       icon: 'fa-car fa-lg',
       title: 'Words in Textbook',
       path: '/words-textbook',
@@ -125,6 +115,16 @@ export default class App extends Vue {
       icon: 'fa-taxi fa-lg',
       title: 'Phrases in Textbook',
       path: '/phrases-textbook',
+    },
+    {
+      icon: 'fa-plane fa-lg',
+      title: 'Words in Language',
+      path: '/words-lang',
+    },
+    {
+      icon: 'fa-rocket fa-lg',
+      title: 'Phrases in Language',
+      path: '/phrases-lang',
     },
     {
       icon: 'fa-cog fa-lg',
