@@ -1,6 +1,6 @@
 import { injectable } from 'vue-typescript-inject';
 import { EMPTY as empty, interval, Observable, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HtmlService } from '@/services/html.service';
 import { SettingsService } from '@/view-models/settings.service';
 
@@ -16,7 +16,7 @@ export class NoteService {
     if (!dictNote) return empty;
     const url = dictNote.urlString(word, this.settingsService.autoCorrects);
     return this.htmlService.getHtml(url).pipe(
-      mergeMap(html => {
+      map(html => {
         console.log(html);
         return HtmlService.extractTextFrom(html, dictNote.TRANSFORM, '', (text, _) => text);
       }));
