@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-btn color="info" @click="goBack()">Back</v-btn>
-      <v-select :items="settingsService.dictItems" item-text="DICTNAME" v-model="selectedDictItem"
+      <v-select :items="settingsService.dictsReference" item-text="DICTNAME" v-model="selectedDictReference"
                 return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
@@ -15,7 +15,7 @@
   import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
-  import { MDictItem } from '@/models/dictionary';
+  import { MDictionary } from '@/models/dictionary';
   import DictBrowser from '../components/DictBrowser.vue';
   import { HtmlService } from '@/services/html.service';
   import { WordsLangService } from '@/view-models/words-lang.service';
@@ -33,7 +33,7 @@
     selectedWord: string | null = null;
     dictUrl = 'about:blank';
     dictSrc: string | null = null;
-    selectedDictItem: MDictItem | null = null;
+    selectedDictReference: MDictionary | null = null;
 
     created() {
       const dictType = this.$route.params['type'];
@@ -42,7 +42,7 @@
         dictType === 'textbook' ? this.wordsUnitService.textbookWords.map(v  => v.WORD) :
         this.wordsLangService.langWords.map(v  => v.WORD);
       this.selectedWord = this.words[+this.$route.params['index']];
-      this.selectedDictItem = this.settingsService.selectedDictItem;
+      this.selectedDictReference = this.settingsService.selectedDictReference;
       if (this.selectedWord) this.refreshDict();
     }
 
@@ -51,7 +51,7 @@
     }
 
     refreshDict() {
-      const item = this.selectedDictItem!!;
+      const item = this.selectedDictReference!!;
       const item2 = this.settingsService.dictsReference.find(v => v.DICTNAME === item.DICTNAME)!!;
       const url = item2.urlString(this.selectedWord!, this.settingsService.autoCorrects);
       if (item2.DICTTYPENAME === 'OFFLINE') {

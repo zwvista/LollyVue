@@ -59,7 +59,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { DictReferenceService, DictNoteService, DictTranslationService } from '@/services/dictionary.service';
+  import { DictionaryService } from '@/services/dictionary.service';
   import { HtmlService } from '@/services/html.service';
   import { LanguageService } from '@/services/language.service';
   import { TextbookService } from '@/services/textbook.service';
@@ -83,7 +83,7 @@
 
   @Component({
   providers: [
-    DictReferenceService, DictNoteService, DictTranslationService, HtmlService, LanguageService,
+    DictionaryService, HtmlService, LanguageService,
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,

@@ -13,9 +13,9 @@
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
-      <label for="dictItem" class="col-2 control-label">Dictionary(Reference):</label>
-      <b-form-select id="dictItem" class="col-4 form-control" :value="settingsService.selectedDictItem" @change="onDictItemChange($event)">
-        <option v-for="o in settingsService.dictItems" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
+      <label for="dictReference" class="col-2 control-label">Dictionary(Reference):</label>
+      <b-form-select id="dictReference" class="col-4 form-control" :value="settingsService.selectedDictReference" @change="onDictReferenceChange($event)">
+        <option v-for="o in settingsService.dictsReference" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
@@ -71,7 +71,7 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsListener, SettingsService } from '@/view-models/settings.service';
   import { MLanguage } from '@/models/language';
-  import { MDictItem, DictReference, MDictNote, MDictTranslation } from '@/models/dictionary';
+  import { MDictionary } from '@/models/dictionary';
   import { MTextbook } from '@/models/textbook';
   import { MVoice } from '@/models/voice';
 
@@ -106,17 +106,17 @@
       this.settingsService.updateVoice().subscribe();
     }
 
-    onDictItemChange(value: MDictItem) {
-      this.settingsService.selectedDictItem = value;
-      this.settingsService.updateDictItem().subscribe();
+    onDictReferenceChange(value: MDictionary) {
+      this.settingsService.selectedDictReference = value;
+      this.settingsService.updateDictReference().subscribe();
     }
 
-    onDictNoteChange(value: MDictNote) {
+    onDictNoteChange(value: MDictionary) {
       this.settingsService.selectedDictNote = value;
       this.settingsService.updateDictNote().subscribe();
     }
 
-    onDictTranslationChange(value: MDictTranslation) {
+    onDictTranslationChange(value: MDictionary) {
       this.settingsService.selectedDictTranslation = value;
       this.settingsService.updateDictTranslation().subscribe();
     }
@@ -157,7 +157,7 @@
     onGetData(): void {
     }
 
-    onUpdateDictItem(): void {
+    onUpdateDictReference(): void {
     }
 
     onUpdateDictNote(): void {
