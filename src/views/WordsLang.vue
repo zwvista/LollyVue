@@ -32,7 +32,7 @@
     <v-data-table
       :headers="headers"
       :items="wordsLangService.langWords"
-      hide-actions
+      hide-default-footer
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">

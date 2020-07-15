@@ -5,7 +5,9 @@
         <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
+        <template v-slot:activator="{ on, attrs }">
         <v-btn slot="activator" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
+        </template>
         <span>Speak</span>
       </v-tooltip>
       <v-flex xs6 md2>
@@ -27,7 +29,7 @@
     <v-data-table
       :headers="headers"
       :items="wordsUnitService.unitWords"
-      hide-actions
+      hide-default-footer
       class="elevation-1"
       ref="sortableTable"
       item-key="ID"
@@ -48,38 +50,54 @@
           <td>{{ props.item.ACCURACY }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
+              </template>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: props.item.ID }}">
               <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
                 <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip top v-show="settingsService.selectedVoice">
+              <template v-slot:activator="{ on, attrs }">
               <v-btn slot="activator" icon color="info" @click="settingsService.speak(props.item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+              </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
               <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+              </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
               <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              </template>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
               <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              </template>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
+              <template v-slot:activator="{ on, attrs }">
               <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+              </template>
               <span>Google Word</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: props.index }}">
               <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
                 <v-btn slot="activator" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                </template>
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>

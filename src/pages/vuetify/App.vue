@@ -51,9 +51,9 @@
         <v-btn color="info">4. Element</v-btn>
       </a>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

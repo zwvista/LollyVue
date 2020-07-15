@@ -22,7 +22,7 @@
     <v-data-table
       :headers="headers"
       :items="phrasesUnitService.textbookPhrases"
-      hide-actions
+      hide-default-footer
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">

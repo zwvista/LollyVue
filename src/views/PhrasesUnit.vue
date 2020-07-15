@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers"
       :items="phrasesUnitService.unitPhrases"
-      hide-actions
+      hide-default-footer
       class="elevation-1"
       ref="sortableTable"
       item-key="ID"
