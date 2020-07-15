@@ -1,6 +1,6 @@
 import '@babel/polyfill';
 import Vue from 'vue';
-import '@/plugins/plugin-vuetify';
+import vuetify from '@/plugins/plugin-vuetify';
 import '@/plugins/plugin-vue-typescript-inject';
 import '@/plugins/plugin-bootstrap-vue';
 import '@/plugins/plugin-vue-clipboard2';
@@ -16,6 +16,7 @@ import 'font-awesome/css/font-awesome.min.css';
 Vue.config.productionTip = false;
 
 new Vue({
+  vuetify,
   router,
   store,
   render: (h) => h(App),
