@@ -29,6 +29,7 @@
     <v-data-table
       :headers="headers"
       :items="wordsUnitService.unitWords"
+      :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
       ref="sortableTable"

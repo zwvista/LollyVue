@@ -15,6 +15,7 @@
     <v-data-table
       :headers="headers"
       :items="phrasesUnitService.unitPhrases"
+      :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
       ref="sortableTable"

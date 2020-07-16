@@ -23,15 +23,28 @@
       </router-link>
     </v-toolbar>
     <div class="text-xs-center">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-        @input="pageChange"
-      ></v-pagination>
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="3">
+          <v-select
+            :items="settingsService.USROWSPERPAGEOPTIONS"
+            v-model="rows"
+            label="Rows per page"
+            style="width: 125px"
+            @change="rowsChange"
+          ></v-select>
+        </v-col>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          :total-visible="20"
+          @input="onRefresh"
+        ></v-pagination>
+      </v-row>
     </div>
     <v-data-table
       :headers="headers"
       :items="wordsLangService.langWords"
+      :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
     >
@@ -103,11 +116,23 @@
       </template>
     </v-data-table>
     <div class="text-xs-center">
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-        @input="pageChange"
-      ></v-pagination>
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="3">
+          <v-select
+            :items="settingsService.USROWSPERPAGEOPTIONS"
+            v-model="rows"
+            label="Rows per page"
+            style="width: 125px"
+            @change="rowsChange"
+          ></v-select>
+        </v-col>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          :total-visible="20"
+          @input="onRefresh"
+        ></v-pagination>
+      </v-row>
     </div>
   </div>
 </template>
@@ -151,11 +176,6 @@
       });
     }
 
-    pageChange(page: number) {
-      this.page = page;
-      this.onRefresh();
-    }
-
     onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
@@ -165,6 +185,11 @@
         o.ID = id as number;
         this.wordsLangService.langWords.push(o);
       });
+    }
+
+    rowsChange(rows: number) {
+      this.page = 1;
+      this.onRefresh();
     }
 
     onRefresh() {
