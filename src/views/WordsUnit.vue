@@ -6,7 +6,7 @@
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn slot="activator" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
+          <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
         </template>
         <span>Speak</span>
       </v-tooltip>
@@ -39,7 +39,7 @@
         <tbody>
         <tr class="sortableRow" v-for="(item, index) in items" :key="item.ID" :style="item.colorStyle">
           <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart && filterType === 0" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+            <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ item.ID }}</td>
           <td>{{ item.UNITSTR }}</td>
@@ -53,52 +53,52 @@
           <td>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="error" @click="deleteWord(item)"><v-icon>fa-trash</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deleteWord(item)"><v-icon>fa-trash</v-icon></v-btn>
               </template>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
                 </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip top v-show="settingsService.selectedVoice">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="info" @click="settingsService.speak(item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
               </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-              <v-btn slot="activator" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+              <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
                 </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="warning" @click="updateLevel(item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
               </template>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="warning" @click="updateLevel(item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
               </template>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="info" @click="googleWord(item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="googleWord(item.WORD)"><v-icon>fa-google</v-icon></v-btn>
               </template>
               <span>Google Word</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn slot="activator" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-book</v-icon></v-btn>
                 </template>
                 <span>Dictionary</span>
               </v-tooltip>

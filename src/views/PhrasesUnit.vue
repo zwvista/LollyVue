@@ -25,7 +25,7 @@
         <tbody>
         <tr v-for="(item, index) in items" class="sortableRow" :key="item.ID">
           <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart && filterType === 0" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+            <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
           </td>
           <td>{{ item.ID }}</td>
           <td>{{ item.UNITSTR }}</td>
@@ -37,33 +37,33 @@
           <td>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="error" @click="deletePhrase(item)"><v-icon>fa-trash</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deletePhrase(item)"><v-icon>fa-trash</v-icon></v-btn>
               </template>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'phrases-unit-detail', params: { id: item.ID }}">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
                 </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip v-show="settingsService.selectedVoice" top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="info" @click="settingsService.speak(item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
               </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="info" v-clipboard:copy="item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
               </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn slot="activator" icon color="info" @click="googlePhrase(item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="googlePhrase(item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
               </template>
               <span>Google Phrase</span>
             </v-tooltip>
