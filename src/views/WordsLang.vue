@@ -35,53 +35,71 @@
       hide-default-footer
       class="elevation-1"
     >
-      <template slot="items" slot-scope="props">
-        <tr :key="props.item.ID" :style="props.item.colorStyle">
-          <td>{{ props.item.ID }}</td>
-          <td>{{ props.item.WORD }}</td>
-          <td>{{ props.item.NOTE }}</td>
-          <td>{{ props.item.LEVEL }}</td>
-          <td>{{ props.item.ACCURACY }}</td>
+      <template v-slot:body="{items}">
+        <tbody>
+        <tr v-for="(item, index) in items" :key="item.ID" :style="item.colorStyle">
+          <td>{{ item.ID }}</td>
+          <td>{{ item.WORD }}</td>
+          <td>{{ item.NOTE }}</td>
+          <td>{{ item.LEVEL }}</td>
+          <td>{{ item.ACCURACY }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="deleteWord(props.item)"><v-icon>fa-trash</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="error" @click="deleteWord(item)"><v-icon>fa-trash</v-icon></v-btn>
+              </template>
               <span>Delete</span>
             </v-tooltip>
-            <router-link :to="{ name: 'words-lang-detail', params: { id: props.item.ID }}">
+            <router-link :to="{ name: 'words-lang-detail', params: { id: item.ID }}">
               <v-tooltip top>
-                <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip top v-show="settingsService.selectedVoice">
-              <v-btn slot="activator" icon color="info" @click="settingsService.speak(props.item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" @click="settingsService.speak(item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+              </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+              </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="warning" @click="updateLevel(item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
+              </template>
               <span>Level Up</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="warning" @click="updateLevel(props.item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="warning" @click="updateLevel(item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
+              </template>
               <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" @click="googleWord(props.item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" @click="googleWord(item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+              </template>
               <span>Google Word</span>
             </v-tooltip>
-            <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: props.index }}">
+            <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: index }}">
               <v-tooltip top>
-                <v-btn slot="activator" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn slot="activator" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                </template>
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(props.index)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
           </td>
         </tr>
+        </tbody>
       </template>
     </v-data-table>
     <div class="text-xs-center">

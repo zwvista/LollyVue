@@ -25,36 +25,48 @@
       hide-default-footer
       class="elevation-1"
     >
-      <template slot="items" slot-scope="props">
-        <tr :key="props.item.ID">
-          <td>{{ props.item.ID }}</td>
-          <td>{{ props.item.PHRASE }}</td>
-          <td>{{ props.item.TRANSLATION }}</td>
+      <template v-slot:body="{items}">
+        <tbody>
+        <tr v-for="(item, index) in items" :key="item.ID">
+          <td>{{ item.ID }}</td>
+          <td>{{ item.PHRASE }}</td>
+          <td>{{ item.TRANSLATION }}</td>
           <td>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="error" @click="deletePhrase(props.item.ID)"><v-icon>fa-trash</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+               <v-btn slot="activator" icon color="error" @click="deletePhrase(item.ID)"><v-icon>fa-trash</v-icon></v-btn>
+              </template>
               <span>Delete</span>
             </v-tooltip>
-            <router-link :to="{ name: 'phrases-lang-detail', params: { id: props.item.ID }}">
+            <router-link :to="{ name: 'phrases-lang-detail', params: { id: item.ID }}">
               <v-tooltip top>
-                <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn slot="activator" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip v-show="settingsService.selectedVoice" top>
-              <v-btn slot="activator" icon color="info" @click="settingsService.speak(props.item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" @click="settingsService.speak(item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
+              </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" v-clipboard:copy="props.item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" v-clipboard:copy="item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
+              </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
-              <v-btn slot="activator" icon color="info" @click="googlePhrase(props.item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn slot="activator" icon color="info" @click="googlePhrase(item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
+              </template>
               <span>Google Phrase</span>
             </v-tooltip>
           </td>
         </tr>
+        </tbody>
       </template>
     </v-data-table>
     <div class="text-xs-center">
