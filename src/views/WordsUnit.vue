@@ -11,10 +11,10 @@
         <span>Speak</span>
       </v-tooltip>
       <v-flex xs6 md2>
-        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onEnterFilter"></v-select>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       </v-flex>
       <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onEnterFilter"></v-text-field>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
       </v-flex>
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
@@ -204,14 +204,6 @@
 
     onRefresh() {
       this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
-    }
-
-    onEnterFilter() {
-      if (this.filter && this.filterType === 0)
-        this.filterType = 1;
-      else if (!this.filter && this.filterType !== 0)
-        this.filterType = 0;
-      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

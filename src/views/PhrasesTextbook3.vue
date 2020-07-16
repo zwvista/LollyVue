@@ -12,7 +12,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="filterType" @md-selected="onEnterFilter">
+              <md-select v-model="filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.phraseFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>
@@ -22,7 +22,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>Filter</label>
-              <md-input v-model="filter" @keyup.enter="onEnterFilter"></md-input>
+              <md-input v-model="filter" @keyup.enter="onRefresh"></md-input>
             </md-field>
           </div>
         </div>
@@ -125,14 +125,6 @@
         this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
         this.$forceUpdate();
       });
-    }
-
-    onEnterFilter() {
-      if (this.filter && this.filterType === 0)
-        this.filterType = 1;
-      else if (!this.filter && this.filterType !== 0)
-        this.filterType = 0;
-      this.onRefresh();
     }
 
     deletePhrase(item: MUnitPhrase) {

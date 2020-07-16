@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onEnterFilter" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onEnterFilter">
+        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.wordFilterTypes"
               :key="item.value"
@@ -146,14 +146,6 @@
       this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
         this.$forceUpdate();
       });
-    }
-
-    onEnterFilter() {
-      if (this.filter && this.filterType === 0)
-        this.filterType = 1;
-      else if (!this.filter && this.filterType !== 0)
-        this.filterType = 0;
-      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

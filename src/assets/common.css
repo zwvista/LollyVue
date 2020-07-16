@@ -1,3 +1,6 @@
 .v-btn {
     margin-right: 0;
 }
+.p-float-label {
+    display: inline !important;
+}

@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
+      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
       <q-select :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/textbook/0">
@@ -124,14 +124,6 @@
         this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
         this.$forceUpdate();
       });
-    }
-
-    onEnterFilter() {
-      if (this.filter && this.filterType === 0)
-        this.filterType = 1;
-      else if (!this.filter && this.filterType !== 0)
-        this.filterType = 0;
-      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {

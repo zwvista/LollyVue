@@ -62,37 +62,37 @@ export default class App extends Vue {
   // @inject() appService!: AppService;
   items = [
     {
-      icon: 'fa-bus fa-lg',
+      icon: 'fa fa-bus fa-lg',
       label: 'Words in Unit',
       to: '/words-unit5',
     },
     {
-      icon: 'fa-train fa-lg',
+      icon: 'fa fa-train fa-lg',
       label: 'Phrases in Unit',
       to: '/phrases-unit5',
     },
     {
-      icon: 'fa-car fa-lg',
+      icon: 'fa fa-car fa-lg',
       label: 'Words in Textbook',
       to: '/words-textbook5',
     },
     {
-      icon: 'fa-taxi fa-lg',
+      icon: 'fa fa-taxi fa-lg',
       label: 'Phrases in Textbook',
       to: '/phrases-textbook5',
     },
     {
-      icon: 'fa-plane fa-lg',
+      icon: 'fa fa-plane fa-lg',
       label: 'Words in Language',
       to: '/words-lang5',
     },
     {
-      icon: 'fa-rocket fa-lg',
+      icon: 'fa fa-rocket fa-lg',
       label: 'Phrases in Language',
       to: '/phrases-lang5',
     },
     {
-      icon: 'fa-cog fa-lg',
+      icon: 'fa fa-cog fa-lg',
       label: 'Settings',
       path: '/settings',
     },

@@ -6,8 +6,8 @@
              @click="settingsService.speak(newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
-      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onEnterFilter"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onEnterFilter"></q-input>
+      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/words-unit-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -130,14 +130,6 @@
 
     onRefresh() {
       this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
-    }
-
-    onEnterFilter() {
-      if (this.filter && this.filterType === 0)
-        this.filterType = 1;
-      else if (!this.filter && this.filterType !== 0)
-        this.filterType = 0;
-      this.onRefresh();
     }
 
     deleteWord(item: MUnitWord) {
