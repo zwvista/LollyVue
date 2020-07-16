@@ -16,6 +16,9 @@
         <a href="/element">
           <q-btn color="primary" label="4. Element"></q-btn>
         </a>
+        <a href="/primevue">
+          <q-btn color="primary" label="5. PrimeVUE"></q-btn>
+        </a>
       </q-toolbar>
     </q-layout-header>
     <q-layout-drawer side="left" v-model="showLeft">

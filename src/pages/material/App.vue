@@ -18,6 +18,9 @@
         <a href="/element">
           <md-button class="md-raised md-primary">4. Element</md-button>
         </a>
+        <a href="/primevue">
+          <md-button class="md-raised md-primary">5. PrimeVUE</md-button>
+        </a>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible">
         <md-list>

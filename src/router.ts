@@ -29,6 +29,11 @@ export default new Router({
       component: () => import('./views/WordsUnit4.vue'),
     },
     {
+      path: '/primevue',
+      name: 'home5',
+      component: () => import('./views/WordsUnit5.vue'),
+    },
+    {
       path: '/words-unit',
       name: 'words-unit',
       component: WordsUnit,
@@ -47,6 +52,11 @@ export default new Router({
       path: '/words-unit4',
       name: 'words-unit4',
       component: () => import('./views/WordsUnit4.vue'),
+    },
+    {
+      path: '/words-unit5',
+      name: 'words-unit5',
+      component: () => import('./views/WordsUnit5.vue'),
     },
     {
       path: '/words-unit-detail/:id',
@@ -74,6 +84,11 @@ export default new Router({
       component: () => import('./views/WordsTextbook4.vue'),
     },
     {
+      path: '/words-textbook5',
+      name: 'words-textbook5',
+      component: () => import('./views/WordsTextbook5.vue'),
+    },
+    {
       path: '/words-textbook-detail/:id',
       name: 'words-textbook-detail',
       component: () => import('./views/WordsTextbookDetail.vue'),
@@ -97,6 +112,11 @@ export default new Router({
       path: '/words-lang4',
       name: 'words-lang4',
       component: () => import('./views/WordsLang4.vue'),
+    },
+    {
+      path: '/words-lang5',
+      name: 'words-lang5',
+      component: () => import('./views/WordsLang5.vue'),
     },
     {
       path: '/words-lang-detail/:id',
@@ -127,6 +147,11 @@ export default new Router({
       component: () => import('./views/PhrasesUnit4.vue'),
     },
     {
+      path: '/phrases-unit5',
+      name: 'phrases-unit5',
+      component: () => import('./views/PhrasesUnit5.vue'),
+    },
+    {
       path: '/phrases-unit-detail/:id',
       name: 'phrases-unit-detail',
       component: () => import('./views/PhrasesUnitDetail.vue'),
@@ -152,6 +177,11 @@ export default new Router({
       component: () => import('./views/PhrasesTextbook4.vue'),
     },
     {
+      path: '/phrases-textbook5',
+      name: 'phrases-textbook5',
+      component: () => import('./views/PhrasesTextbook5.vue'),
+    },
+    {
       path: '/phrases-textbook-detail/:id',
       name: 'phrases-textbook-detail',
       component: () => import('./views/PhrasesTextbookDetail.vue'),
@@ -175,6 +205,11 @@ export default new Router({
       path: '/phrases-lang4',
       name: 'phrases-lang4',
       component: () => import('./views/PhrasesLang4.vue'),
+    },
+    {
+      path: '/phrases-lang5',
+      name: 'phrases-lang5',
+      component: () => import('./views/PhrasesLang5.vue'),
     },
     {
       path: '/phrases-lang-detail/:id',
