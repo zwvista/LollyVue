@@ -14,30 +14,12 @@
         </router-link>
       </template>
     </Toolbar>
-    <div class="text-xs-center">
-      <v-row justify="center" align="center">
-        <v-col cols="12" md="3">
-          <DropDown
-            :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
-            label="Rows per page"
-            style="width: 125px"
-            @change="rowsChange"
-           />
-        </v-col>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :total-visible="20"
-          @input="onRefresh"
-        ></v-pagination>
-      </v-row>
-    </div>
+    <Paginator :rows.sync="rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="wordsUnitService.textbookWords"
     >
       <Column headerStyle="width: 80px" field="ID" header="ID" />
-      <Column headerStyle="width: 80px" field="TEXTBOOKNAME" header="TEXTBOOKNAME" />
+      <Column headerStyle="width: 150px" field="TEXTBOOKNAME" header="TEXTBOOKNAME" />
       <Column headerStyle="width: 80px" field="UNITSTR" header="UNIT" />
       <Column headerStyle="width: 80px" field="PARTSTR" header="PART" />
       <Column headerStyle="width: 80px" field="SEQNUM" header="SEQNUM" />
@@ -57,32 +39,14 @@
           <Button v-tooltip.top="'Level Up'" icon="fa fa-arrow-up" class="p-button-warning" @click="updateLevel(slotProps.data, 1)"><v-icon>fa-arrow-up</v-icon></Button>
           <Button v-tooltip.top="'Level Down'"icon="fa fa-arrow-down" class="p-button-warning" @click="updateLevel(slotProps.data, -1)"><v-icon>fa-arrow-down</v-icon></Button>
           <Button v-tooltip.top="'Google Word'" icon="fa fa-google" @click="googleWord(slotProps.data.WORD)" />
-          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: index }}">
+          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: slotProps.index }}">
             <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
           </router-link>
-          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(index)" />
+          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(slotProps.index)" />
         </template>
       </Column>
     </DataTable>
-    <div class="text-xs-center">
-      <v-row justify="center" align="center">
-        <v-col cols="12" md="3">
-          <DropDown
-            :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
-            label="Rows per page"
-            style="width: 125px"
-            @change="rowsChange"
-           />
-        </v-col>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :total-visible="20"
-          @input="onRefresh"
-        ></v-pagination>
-      </v-row>
-    </div>
+    <Paginator :rows.sync="rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -115,11 +79,6 @@
         this.rows = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
-    }
-
-    rowsChange(rows: number) {
-      this.page = 1;
-      this.onRefresh();
     }
 
     onRefresh() {

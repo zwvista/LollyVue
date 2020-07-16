@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <Toolbar>
+      <template slot="left">
+        {{ title }}
+      </template>
       <template slot="right">
         <a href="/">
           <Button label="1. Veutify" />
@@ -94,7 +97,7 @@ export default class App extends Vue {
     {
       icon: 'fa fa-cog fa-lg',
       label: 'Settings',
-      path: '/settings',
+      to: '/settings',
     },
   ];
   title = 'Lolly Vue';

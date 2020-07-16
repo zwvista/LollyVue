@@ -13,25 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <div class="text-xs-center">
-      <v-row justify="center" align="center">
-        <v-col cols="12" md="3">
-          <DropDown
-            :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
-            label="Rows per page"
-            style="width: 125px"
-            @change="rowsChange"
-           />
-        </v-col>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :total-visible="20"
-          @input="onRefresh"
-        ></v-pagination>
-      </v-row>
-    </div>
+    <Paginator :rows.sync="rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="phrasesLangService.langPhrases"
     >
@@ -50,25 +32,7 @@
         </template>
       </Column>
     </DataTable>
-    <div class="text-xs-center">
-      <v-row justify="center" align="center">
-        <v-col cols="12" md="3">
-          <DropDown
-            :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
-            label="Rows per page"
-            style="width: 125px"
-            @change="rowsChange"
-           />
-        </v-col>
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-          :total-visible="20"
-          @input="onRefresh"
-        ></v-pagination>
-      </v-row>
-    </div>
+    <Paginator :rows.sync="rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
