@@ -1,37 +1,36 @@
 <template>
   <div>
-    <v-toolbar>
-      <v-flex xs6 md2>
-        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
-      </v-flex>
-      <v-tooltip top v-show="settingsService.selectedVoice">
-        <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
-        <span>Speak</span>
-      </v-tooltip>
-      <v-flex xs6 md2>
-        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
-      </v-flex>
-      <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      </v-flex>
-      <router-link to="/words-lang-detail/0">
-        <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
-      </router-link>
-      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <router-link to="/words-dict/lang/0">
-        <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
-      </router-link>
-    </v-toolbar>
+    <Toolbar>
+      <template slot="left">
+        <span class="p-float-label">
+          <InputText id="word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
+          <label for="word">New Word</label>
+        </span>
+        <Button v-tooltip.top="'Speak'" v-show="settingsService.selectedVoice" icon="fa fa-volume-up" @click="settingsService.speak(newWord)" />
+        <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <span class="p-float-label">
+          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <label for="filter">Filter</label>
+        </span>
+        <router-link to="/words-lang-detail/0">
+          <Button icon="fa fa-plus" label="Add" />
+        </router-link>
+        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+        <router-link to="/words-dict/lang/0">
+          <Button icon="fa fa-book" label="Dictionary" />
+        </router-link>
+      </template>
+    </Toolbar>
     <div class="text-xs-center">
       <v-row justify="center" align="center">
         <v-col cols="12" md="3">
-          <v-select
+          <DropDown
             :items="settingsService.USROWSPERPAGEOPTIONS"
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"
@@ -41,90 +40,42 @@
         ></v-pagination>
       </v-row>
     </div>
-    <v-data-table
-      :headers="headers"
-      :items="wordsLangService.langWords"
-      :items-per-page="-1"
-      hide-default-footer
-      class="elevation-1"
+    <DataTable
+      :value="wordsLangService.langWords"
     >
-      <template v-slot:body="{items}">
-        <tbody>
-        <tr v-for="(item, index) in items" :key="item.ID" :style="item.colorStyle">
-          <td>{{ item.ID }}</td>
-          <td>{{ item.WORD }}</td>
-          <td>{{ item.NOTE }}</td>
-          <td>{{ item.LEVEL }}</td>
-          <td>{{ item.ACCURACY }}</td>
-          <td>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deleteWord(item)"><v-icon>fa-trash</v-icon></v-btn>
-              </template>
-              <span>Delete</span>
-            </v-tooltip>
-            <router-link :to="{ name: 'words-lang-detail', params: { id: item.ID }}">
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
-                </template>
-                <span>Edit</span>
-              </v-tooltip>
-            </router-link>
-            <v-tooltip top v-show="settingsService.selectedVoice">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
-              </template>
-              <span>Speak</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
-              </template>
-              <span>Copy</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
-              </template>
-              <span>Level Up</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
-              </template>
-              <span>Level Down</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="googleWord(item.WORD)"><v-icon>fa-google</v-icon></v-btn>
-              </template>
-              <span>Google Word</span>
-            </v-tooltip>
-            <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: index }}">
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-book</v-icon></v-btn>
-                </template>
-                <span>Dictionary</span>
-              </v-tooltip>
-            </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
-          </td>
-        </tr>
-        </tbody>
-      </template>
-    </v-data-table>
+      <Column headerStyle="width: 80px" field="ID" header="ID" />
+      <Column field="WORD" header="WORD" />
+      <Column field="NOTE" header="NOTE" />
+      <Column headerStyle="width: 80px" field="LEVEL" header="LEVEL" />
+      <Column headerStyle="width: 80px" field="ACCURACY" header="ACCURACY" />
+      <Column headerStyle="width: 30%" header="ACTIONS">
+        <template #body="slotProps">
+          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deleteWord(slotProps.data)" />
+          <router-link :to="{ name: 'words-lang-detail', params: { id: slotProps.data.ID }}">
+            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
+          </router-link>
+          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.WORD)" />
+          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.WORD" />
+          <Button v-tooltip.top="'Level Up'" icon="fa fa-arrow-up" class="p-button-warning" @click="updateLevel(slotProps.data, 1)"><v-icon>fa-arrow-up</v-icon></Button>
+          <Button v-tooltip.top="'Level Down'"icon="fa fa-arrow-down" class="p-button-warning" @click="updateLevel(slotProps.data, -1)"><v-icon>fa-arrow-down</v-icon></Button>
+          <Button v-tooltip.top="'Google Word'" icon="fa fa-google" @click="googleWord(slotProps.data.WORD)" />
+          <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: index }}">
+            <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
+          </router-link>
+          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(index)" />
+        </template>
+      </Column>
+    </DataTable>
     <div class="text-xs-center">
       <v-row justify="center" align="center">
         <v-col cols="12" md="3">
-          <v-select
+          <DropDown
             :items="settingsService.USROWSPERPAGEOPTIONS"
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"
@@ -152,14 +103,6 @@
     @inject() wordsLangService!: WordsLangService;
     @inject() settingsService!: SettingsService;
 
-    headers = [
-      { text: 'ID', sortable: false, value: 'ID' },
-      { text: 'WORD', sortable: false, value: 'WORD' },
-      { text: 'NOTE', sortable: false, value: 'NOTE' },
-      { text: 'LEVEL', sortable: false, value: 'LEVEL' },
-      { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
-      { text: 'ACTIONS', sortable: false },
-    ];
     newWord = '';
     page = 1;
     pageCount = 1;

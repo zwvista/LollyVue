@@ -39,19 +39,19 @@
       <Column headerStyle="width: 80px" field="ACCURACY" header="ACCURACY" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" color="error" @click="deleteWord(slotProps.data)" />
+          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deleteWord(slotProps.data)" />
           <router-link :to="{ name: 'words-unit-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" color="info" />
+            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
           </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" color="info" @click="settingsService.speak(slotProps.data.WORD)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" color="info" v-clipboard:copy="slotProps.data.WORD" />
-          <Button v-tooltip.top="'Level Up'" icon="fa fa-arrow-up" color="warning" @click="updateLevel(slotProps.data, 1)" />
-          <Button v-tooltip.top="'Level Down'"icon="fa fa-arrow-down" color="warning" @click="updateLevel(slotProps.data, -1)" />
-          <Button v-tooltip.top="'Google Word'" icon="fa fa-google" color="info" @click="googleWord(slotProps.data.WORD)" />
+          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.WORD)" />
+          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.WORD" />
+          <Button v-tooltip.top="'Level Up'" icon="fa fa-arrow-up" class="p-button-warning" @click="updateLevel(slotProps.data, 1)" />
+          <Button v-tooltip.top="'Level Down'"icon="fa fa-arrow-down" class="p-button-warning" @click="updateLevel(slotProps.data, -1)" />
+          <Button v-tooltip.top="'Google Word'" icon="fa fa-google" @click="googleWord(slotProps.data.WORD)" />
           <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: slotProps.index }}">
-            <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" color="info" />
+            <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
           </router-link>
-          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" color="warning" @click="getNote(slotProps.index)">Retrieve Note</Button>
+          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(slotProps.index)" />
         </template>
       </Column>
     </DataTable>
@@ -84,8 +84,6 @@
         this.onRefresh();
       });
     }
-
-    expandRow = null;
 
     mounted() {
     }

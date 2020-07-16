@@ -1,27 +1,28 @@
 <template>
   <div>
-    <v-toolbar>
-      <v-flex xs6 md2>
-        <v-select :items="settingsService.phraseFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
-      </v-flex>
-      <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      </v-flex>
-      <router-link to="/phrases-lang-detail/0">
-        <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
-      </router-link>
-      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-    </v-toolbar>
+    <Toolbar>
+      <template slot="left">
+        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <span class="p-float-label">
+          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <label for="filter">Filter</label>
+        </span>
+        <router-link to="/phrases-lang-detail/0">
+          <Button icon="fa fa-plus" label="Add" />
+        </router-link>
+        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+      </template>
+    </Toolbar>
     <div class="text-xs-center">
       <v-row justify="center" align="center">
         <v-col cols="12" md="3">
-          <v-select
+          <DropDown
             :items="settingsService.USROWSPERPAGEOPTIONS"
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"
@@ -31,67 +32,34 @@
         ></v-pagination>
       </v-row>
     </div>
-    <v-data-table
-      :headers="headers"
-      :items="phrasesLangService.langPhrases"
-      :items-per-page="-1"
-      hide-default-footer
-      class="elevation-1"
+    <DataTable
+      :value="phrasesLangService.langPhrases"
     >
-      <template v-slot:body="{items}">
-        <tbody>
-        <tr v-for="(item, index) in items" :key="item.ID">
-          <td>{{ item.ID }}</td>
-          <td>{{ item.PHRASE }}</td>
-          <td>{{ item.TRANSLATION }}</td>
-          <td>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-               <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deletePhrase(item.ID)"><v-icon>fa-trash</v-icon></v-btn>
-              </template>
-              <span>Delete</span>
-            </v-tooltip>
-            <router-link :to="{ name: 'phrases-lang-detail', params: { id: item.ID }}">
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
-                </template>
-                <span>Edit</span>
-              </v-tooltip>
-            </router-link>
-            <v-tooltip v-show="settingsService.selectedVoice" top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(item.PHRASE)"><v-icon>fa-volume-up</v-icon></v-btn>
-              </template>
-              <span>Speak</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.PHRASE"><v-icon>fa-copy</v-icon></v-btn>
-              </template>
-              <span>Copy</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="googlePhrase(item.PHRASE)"><v-icon>fa-google</v-icon></v-btn>
-              </template>
-              <span>Google Phrase</span>
-            </v-tooltip>
-          </td>
-        </tr>
-        </tbody>
-      </template>
-    </v-data-table>
+      <Column headerStyle="width: 80px" field="ID" header="ID" />
+      <Column field="PHRASE" header="PHRASE" />
+      <Column field="TRANSLATION" header="TRANSLATION" />
+      <Column headerStyle="width: 30%" header="ACTIONS">
+        <template #body="slotProps">
+         <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data.ID)" />
+          <router-link :to="{ name: 'phrases-lang-detail', params: { id: slotProps.data.ID }}">
+            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
+          </router-link>
+          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PHRASE)" />
+          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PHRASE" />
+          <Button v-tooltip.top="'Google Phrase'" icon="fa fa-google" @click="googlePhrase(slotProps.data.PHRASE)" />
+        </template>
+      </Column>
+    </DataTable>
     <div class="text-xs-center">
       <v-row justify="center" align="center">
         <v-col cols="12" md="3">
-          <v-select
+          <DropDown
             :items="settingsService.USROWSPERPAGEOPTIONS"
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"
@@ -118,12 +86,6 @@
     @inject() phrasesLangService!: PhrasesLangService;
     @inject() settingsService!: SettingsService;
 
-    headers = [
-      { text: 'ID', sortable: false, value: 'ID' },
-      { text: 'PHRASE', sortable: false, value: 'PHRASE' },
-      { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
-      { text: 'ACTIONS', sortable: false },
-    ];
     page = 1;
     pageCount = 1;
     rows = 0;
