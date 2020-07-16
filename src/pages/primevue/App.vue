@@ -1,23 +1,27 @@
 <template>
-  <Toolbar>
-    <template slot="right">
-      <a href="/">
-        <Button label="1. Veutify" />
-      </a>
-      <a href="/quasar">
-        <Button label="2. Quasar" />
-      </a>
-      <a href="/material">
-        <Button label="3. Material" />
-      </a>
-      <a href="/element">
-        <Button label="4. Element" />
-      </a>
-      <a href="/primevue">
-        <Button label="5. PrimeVUE" />
-      </a>
-    </template>
-  </Toolbar>
+  <div id="app">
+    <Toolbar>
+      <template slot="right">
+        <a href="/">
+          <Button label="1. Veutify" />
+        </a>
+        <a href="/quasar">
+          <Button label="2. Quasar" />
+        </a>
+        <a href="/material">
+          <Button label="3. Material" />
+        </a>
+        <a href="/element">
+          <Button label="4. Element" />
+        </a>
+        <a href="/primevue">
+          <Button label="5. PrimeVUE" />
+        </a>
+      </template>
+    </Toolbar>
+    <TabMenu :model="items" />
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
