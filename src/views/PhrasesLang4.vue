@@ -132,4 +132,5 @@
 </script>
 
 <style scoped>
+  @import '../assets/common.css';
 </style>
