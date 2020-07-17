@@ -1,4 +1,5 @@
-import '@babel/polyfill';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import Vue from 'vue';
 import vuetify from '@/plugins/plugin-vuetify';
 import '@/plugins/plugin-vue-typescript-inject';
