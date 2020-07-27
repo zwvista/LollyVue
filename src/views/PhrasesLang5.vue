@@ -22,7 +22,7 @@
       <Column field="TRANSLATION" header="TRANSLATION" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-         <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data.ID)" />
+         <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data)" />
           <router-link :to="{ name: 'phrases-lang-detail', params: { id: slotProps.data.ID }}">
             <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
           </router-link>
@@ -43,6 +43,7 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { AppService } from '@/view-models/app.service';
+  import { MLangPhrase } from '@/models/lang-phrase';
 
   @Component
   export default class PhrasesLang5 extends Vue {
@@ -78,8 +79,8 @@
       });
     }
 
-    deletePhrase(id: number) {
-      this.phrasesLangService.delete(id);
+    deletePhrase(item: MLangPhrase) {
+      this.phrasesLangService.delete(item);
     }
 
     googlePhrase(phrase: string) {

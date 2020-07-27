@@ -7,7 +7,6 @@ import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
 import { LangWordService } from '@/services/lang-word.service';
-import { MLangWord } from '@/models/lang-word';
 import { WordsFamiService } from '@/view-models/words-fami.service';
 
 @injectable()

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { MTextbook } from '@/models/textbook';
-import { MSPResult } from '../models/sp-result';
-import { toParameters } from '../common/common';
+import { MSPResult } from '@/common/sp-result';
+import { toParameters } from '@/common/common';
 
 @injectable()
 export class UnitWordService extends BaseService {

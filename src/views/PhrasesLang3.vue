@@ -40,7 +40,7 @@
         <md-table-cell md-label="PHRASE">{{item.PHRASE}}</md-table-cell>
         <md-table-cell md-label="TRANSLATION">{{item.TRANSLATION}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
-          <md-button class="md-raised md-icon-button md-accent" @click="deletePhrase(item.ID)">
+          <md-button class="md-raised md-icon-button md-accent" @click="deletePhrase(item)">
             <md-icon class="fa fa-trash"></md-icon>
             <md-tooltip>Delete</md-tooltip>
           </md-button>
@@ -83,6 +83,7 @@
   import { MUnitPhrase } from '@/models/unit-phrase';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { AppService } from '@/view-models/app.service';
+  import { MLangPhrase } from '@/models/lang-phrase';
 
   @Component
   export default class PhrasesLang3 extends Vue {
@@ -117,8 +118,8 @@
       });
     }
 
-    deletePhrase(id: number) {
-      this.phrasesLangService.delete(id);
+    deletePhrase(item: MLangPhrase) {
+      this.phrasesLangService.delete(item);
     }
 
     googlePhrase(phrase: string) {

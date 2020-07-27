@@ -21,7 +21,7 @@
         <q-td key="PHRASE" :props="props">{{props.row.PHRASE}}</q-td>
         <q-td key="TRANSLATION" :props="props">{{props.row.TRANSLATION}}</q-td>
         <q-td key="ACTIONS" :props="props">
-          <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePhrase(props.row.ID)">
+          <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePhrase(props.row)">
             <q-tooltip>Delete</q-tooltip>
           </q-btn>
           <router-link :to="{ name: 'phrases-lang-detail', params: { id: props.row.ID }}">
@@ -53,6 +53,7 @@
   import { MUnitPhrase } from '@/models/unit-phrase';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { AppService } from '@/view-models/app.service';
+  import { MLangPhrase } from '@/models/lang-phrase';
 
   @Component
   export default class PhrasesLang2 extends Vue {
@@ -96,8 +97,8 @@
       });
     }
 
-    deletePhrase(id: number) {
-      this.phrasesLangService.delete(id);
+    deletePhrase(item: MLangPhrase) {
+      this.phrasesLangService.delete(item);
     }
 
     googlePhrase(phrase: string) {

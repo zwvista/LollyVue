@@ -6,7 +6,6 @@ import { UnitPhraseService } from '@/services/unit-phrase.service';
 import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { LangPhraseService } from '@/services/lang-phrase.service';
-import { MLangPhrase } from '@/models/lang-phrase';
 
 
 @injectable()

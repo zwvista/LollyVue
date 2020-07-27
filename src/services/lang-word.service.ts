@@ -3,6 +3,8 @@ import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { MLangWord, MLangWords } from '@/models/lang-word';
 import { map } from 'rxjs/operators';
+import { MSPResult } from '@/common/sp-result';
+import { toParameters } from '@/common/common';
 
 @injectable()
 export class LangWordService extends BaseService {
@@ -59,10 +61,10 @@ export class LangWordService extends BaseService {
     );
   }
 
-  delete(id: number): Observable<number> {
-    const url = `${this.baseUrlAPI}LANGWORDS/${id}`;
-
-    return (this.http.delete(url) as Observable<number>).pipe(
+  delete(item: MLangWord): Observable<string> {
+    const url = `${this.baseUrlSP}LANGWORDS_DELETE`;
+    return this.http.post<MSPResult[][]>(url, toParameters(item)).pipe(
+      map(result => result[0][0].result),
     );
   }
 }

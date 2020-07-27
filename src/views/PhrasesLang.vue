@@ -47,7 +47,7 @@
           <td>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-               <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deletePhrase(item.ID)"><v-icon>fa-trash</v-icon></v-btn>
+               <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deletePhrase(item)"><v-icon>fa-trash</v-icon></v-btn>
               </template>
               <span>Delete</span>
             </v-tooltip>
@@ -111,6 +111,7 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { AppService } from '@/view-models/app.service';
+  import { MLangPhrase } from '@/models/lang-phrase';
 
   @Component
   export default class PhrasesLang extends Vue {
@@ -152,8 +153,8 @@
       });
     }
 
-    deletePhrase(id: number) {
-      this.phrasesLangService.delete(id);
+    deletePhrase(item: MLangPhrase) {
+      this.phrasesLangService.delete(item);
     }
 
     googlePhrase(phrase: string) {

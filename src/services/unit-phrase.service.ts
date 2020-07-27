@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 import { MUnitPhrase, MUnitPhrases } from '@/models/unit-phrase';
 import { BaseService } from './base.service';
 import { MTextbook } from '@/models/textbook';
-import { MSPResult } from '../models/sp-result';
-import { toParameters } from '../common/common';
+import { MSPResult } from '@/common/sp-result';
+import { toParameters } from '@/common/common';
 
 @injectable()
 export class UnitPhraseService extends BaseService {

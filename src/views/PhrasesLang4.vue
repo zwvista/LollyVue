@@ -43,7 +43,7 @@
       <el-table-column label="ACTIONS" width="300">
         <template slot-scope="scope">
           <el-tooltip content="Delete">
-            <el-button circle type="danger" icon="fa fa-trash" @click="deletePhrase(scope.row.ID)"></el-button>
+            <el-button circle type="danger" icon="fa fa-trash" @click="deletePhrase(scope.row)"></el-button>
           </el-tooltip>
           <router-link :to="{ name: 'phrases-lang-detail', params: { id: scope.row.ID }}">
             <el-tooltip content="Edit">
@@ -84,6 +84,7 @@
   import { googleString } from '@/common/common';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { AppService } from '@/view-models/app.service';
+  import { MLangPhrase } from '@/models/lang-phrase';
 
   @Component
   export default class PhrasesLang4 extends Vue {
@@ -121,8 +122,8 @@
       });
     }
 
-    deletePhrase(id: number) {
-      this.phrasesLangService.delete(id);
+    deletePhrase(item: MLangPhrase) {
+      this.phrasesLangService.delete(item);
     }
 
     googlePhrase(phrase: string) {
