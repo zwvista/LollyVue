@@ -35,7 +35,6 @@
       <Column headerStyle="width: 80px" field="WORDID" header="WORDID" />
       <Column field="WORD" header="WORD" />
       <Column field="NOTE" header="NOTE" />
-      <Column headerStyle="width: 80px" field="LEVEL" header="LEVEL" />
       <Column headerStyle="width: 80px" field="ACCURACY" header="ACCURACY" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
@@ -45,8 +44,6 @@
           </router-link>
           <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.WORD)" />
           <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.WORD" />
-          <Button v-tooltip.top="'Level Up'" icon="fa fa-arrow-up" class="p-button-warning" @click="updateLevel(slotProps.data, 1)" />
-          <Button v-tooltip.top="'Level Down'"icon="fa fa-arrow-down" class="p-button-warning" @click="updateLevel(slotProps.data, -1)" />
           <Button v-tooltip.top="'Google Word'" icon="fa fa-google" @click="googleWord(slotProps.data.WORD)" />
           <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: slotProps.index }}">
             <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
@@ -125,10 +122,6 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-    }
-
-    updateLevel(item: MUnitWord, delta: number) {
-      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
     }
   }
 </script>

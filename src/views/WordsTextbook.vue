@@ -54,7 +54,6 @@
           <td>{{ item.WORDID }}</td>
           <td>{{ item.WORD }}</td>
           <td>{{ item.NOTE }}</td>
-          <td>{{ item.LEVEL }}</td>
           <td>{{ item.ACCURACY }}</td>
           <td>
             <v-tooltip top>
@@ -82,18 +81,6 @@
                 <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
               </template>
               <span>Copy</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, 1)"><v-icon>fa-arrow-up</v-icon></v-btn>
-              </template>
-              <span>Level Up</span>
-            </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="warning" @click="updateLevel(item, -1)"><v-icon>fa-arrow-down</v-icon></v-btn>
-              </template>
-              <span>Level Down</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
@@ -161,7 +148,6 @@
       { text: 'WORDID', sortable: false, value: 'WORDID' },
       { text: 'WORD', sortable: false, value: 'WORD' },
       { text: 'NOTE', sortable: false, value: 'NOTE' },
-      { text: 'LEVEL', sortable: false, value: 'LEVEL' },
       { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
       { text: 'ACTIONS', sortable: false },
     ];
@@ -205,10 +191,6 @@
 
     googleWord(word: string) {
       googleString(word);
-    }
-
-    updateLevel(item: MUnitWord, delta: number) {
-      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
     }
   }
 </script>

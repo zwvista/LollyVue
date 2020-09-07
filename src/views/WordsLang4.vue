@@ -48,7 +48,6 @@
       <el-table-column prop="ID" label="ID"></el-table-column>
       <el-table-column prop="WORD" label="WORD"></el-table-column>
       <el-table-column prop="NOTE" label="NOTE"></el-table-column>
-      <el-table-column prop="LEVEL" label="LEVEL"></el-table-column>
       <el-table-column prop="ACCURACY" label="ACCURACY"></el-table-column>
       <el-table-column label="ACTIONS" width="500">
         <template slot-scope="scope">
@@ -66,12 +65,6 @@
           </el-tooltip>
           <el-tooltip content="Copy">
             <el-button circle type="primary" icon="fa fa-copy" v-clipboard:copy="scope.row.WORD"></el-button>
-          </el-tooltip>
-          <el-tooltip content="Level Up">
-            <el-button circle type="warning" icon="fa fa-arrow-up" @click="updateLevel(scope.row, 1)"></el-button>
-          </el-tooltip>
-          <el-tooltip content="Level Down">
-            <el-button circle type="warning" icon="fa fa-arrow-down" @click="updateLevel(scope.row, -1)"></el-button>
           </el-tooltip>
           <el-tooltip content="Google Word">
             <el-button circle type="primary" icon="fa fa-google" @click="googleWord(scope.row.WORD)"></el-button>
@@ -168,10 +161,6 @@
 
     googleWord(word: string) {
       googleString(word);
-    }
-
-    updateLevel(item: MLangWord, delta: number) {
-      this.settingsService.updateLevel(item, item.ID, delta).subscribe();
     }
   }
 </script>

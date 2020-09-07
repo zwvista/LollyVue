@@ -58,7 +58,6 @@
         <md-table-cell md-label="WORDID">{{item.WORDID}}</md-table-cell>
         <md-table-cell md-label="WORD">{{item.WORD}}</md-table-cell>
         <md-table-cell md-label="NOTE">{{item.NOTE}}</md-table-cell>
-        <md-table-cell md-label="LEVEL">{{item.LEVEL}}</md-table-cell>
         <md-table-cell md-label="ACCURACY">{{item.ACCURACY}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
           <md-button class="md-raised md-icon-button md-accent" @click="deleteWord(item)">
@@ -78,14 +77,6 @@
           <md-button class="md-raised md-icon-button md-primary" v-clipboard:copy="item.WORD">
             <md-icon class="fa fa-copy"></md-icon>
             <md-tooltip>Copy</md-tooltip>
-          </md-button>
-          <md-button class="md-raised md-icon-button" @click="updateLevel(item, 1)">
-            <md-icon class="fa fa-arrow-up"></md-icon>
-            <md-tooltip>Level Up</md-tooltip>
-          </md-button>
-          <md-button class="md-raised md-icon-button" @click="updateLevel(item, -1)">
-            <md-icon class="fa fa-arrow-down"></md-icon>
-            <md-tooltip>Level Down</md-tooltip>
           </md-button>
           <md-button class="md-raised md-icon-button md-primary" @click="googleWord(item.WORD)">
             <md-icon class="fa fa-google"></md-icon>
@@ -163,10 +154,6 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-    }
-
-    updateLevel(item: MUnitWord, delta: number) {
-      this.settingsService.updateLevel(item, item.WORDID, delta).subscribe();
     }
   }
 </script>

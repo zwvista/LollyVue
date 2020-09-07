@@ -4,7 +4,6 @@
     <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
     <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
     <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
-    <v-text-field label="LEVEL" type="text" v-model="item.LEVEL"></v-text-field>
     <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></v-text-field>
     <v-btn color="info" @click="goBack()">Back</v-btn>
     <v-btn color="info" @click="save()">Save</v-btn>

@@ -32,7 +32,6 @@
         <q-td key="WORDID" :props="props">{{props.row.WORDID}}</q-td>
         <q-td key="WORD" :props="props">{{props.row.WORD}}</q-td>
         <q-td key="NOTE" :props="props">{{props.row.NOTE}}</q-td>
-        <q-td key="LEVEL" :props="props">{{props.row.LEVEL}}</q-td>
         <q-td key="ACCURACY" :props="props">{{props.row.ACCURACY}}</q-td>
         <q-td key="ACTIONS" :props="props">
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deleteWord(props.row)">
@@ -49,12 +48,6 @@
           </q-btn>
           <q-btn round color="primary" icon="fa fa-copy" size="xs" v-clipboard:copy="props.row.WORD">
             <q-tooltip>Copy</q-tooltip>
-          </q-btn>
-          <q-btn round color="secondary" icon="fa fa-arrow-up" size="xs" @click="updateLevel(props.row, 1)">
-            <q-tooltip>Level Up</q-tooltip>
-          </q-btn>
-          <q-btn round color="secondary" icon="fa fa-arrow-down" size="xs" @click="updateLevel(props.row, -1)">
-            <q-tooltip>Level Down</q-tooltip>
           </q-btn>
           <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.WORD)">
             <q-tooltip>Google Word</q-tooltip>
@@ -93,7 +86,6 @@
       { name: 'ID', field: 'ID', label: 'ID' },
       { name: 'WORD', field: 'WORD', label: 'WORD' },
       { name: 'NOTE', field: 'NOTE', label: 'NOTE' },
-      { name: 'LEVEL', field: 'LEVEL', label: 'LEVEL' },
       { name: 'ACCURACY', field: 'ACCURACY', label: 'ACCURACY' },
       { name: 'ACTIONS', label: 'ACTIONS' },
     ];
@@ -150,10 +142,6 @@
 
     googleWord(word: string) {
       googleString(word);
-    }
-
-    updateLevel(item: MLangWord, delta: number) {
-      this.settingsService.updateLevel(item, item.ID, delta).subscribe();
     }
   }
 </script>

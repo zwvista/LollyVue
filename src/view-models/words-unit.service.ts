@@ -30,7 +30,6 @@ export class WordsUnitService {
       concatMap(_ => this.unitWordService.getDataByTextbookUnitPart(this.settingsService.selectedTextbook,
         this.settingsService.USUNITPARTFROM, this.settingsService.USUNITPARTTO, filter, filterType)),
       map(res => {
-        this.settingsService.setColorStyles(res);
         this.unitWords = res;
       }),
     );
@@ -41,7 +40,6 @@ export class WordsUnitService {
       concatMap(_ => this.unitWordService.getDataByLang(this.settingsService.selectedLang.ID,
         this.settingsService.textbooks, page, rows, filter, filterType, textbookFilter)),
       map(res => {
-        this.settingsService.setColorStyles(res.records);
         this.textbookWords = res.records;
         this.textbookWordCount = res.results;
       }),
