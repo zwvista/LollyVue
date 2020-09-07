@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="text-xs-center">
-      <v-pagination
+      <md-table-pagination
         v-model="page"
         :length="pageCount"
         @input="pageChange"
-      ></v-pagination>
+      ></md-table-pagination>
     </div>
     <md-table v-model="wordsLangService.langWords">
       <md-table-toolbar>
@@ -102,11 +102,11 @@
       </md-table-row>
     </md-table>
     <div class="text-xs-center">
-      <v-pagination
+      <md-table-pagination
         v-model="page"
         :length="pageCount"
         @input="pageChange"
-      ></v-pagination>
+      ></md-table-pagination>
     </div>
   </div>
 </template>
