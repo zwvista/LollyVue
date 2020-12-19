@@ -17,7 +17,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/words-unit.service';
-  import { MUnitWord } from '@/models/misc/unit-word';
+  import { MUnitWord } from '@/models/wpp/unit-word';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component

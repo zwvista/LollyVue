@@ -1,4 +1,4 @@
-import { autoCorrect, MAutoCorrect } from '@/models/wpp/autocorrect';
+import { autoCorrect, MAutoCorrect } from '@/models/misc/autocorrect';
 import { HtmlService } from '@/services/misc/html.service';
 
 export class MDictionary {

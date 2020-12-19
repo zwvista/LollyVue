@@ -2,7 +2,7 @@ import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MTextbook, MTextbooks } from '@/models/wpp/textbook';
+import { MTextbook, MTextbooks } from '@/models/misc/textbook';
 import { MSelectItem } from '@/common/selectitem';
 
 @injectable()

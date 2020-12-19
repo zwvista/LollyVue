@@ -5,7 +5,7 @@ import { BaseService } from './base.service';
 import {
   MDictionary,
   MDictionaries,
-} from '@/models/wpp/dictionary';
+} from '@/models/misc/dictionary';
 
 @injectable()
 export class DictionaryService extends BaseService {

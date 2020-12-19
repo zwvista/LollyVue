@@ -84,7 +84,7 @@
   import { googleString } from '@/common/common';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { AppService } from '@/view-models/app.service';
-  import { MLangPhrase } from '@/models/misc/lang-phrase';
+  import { MLangPhrase } from '@/models/wpp/lang-phrase';
 
   @Component
   export default class PhrasesLang4 extends Vue {

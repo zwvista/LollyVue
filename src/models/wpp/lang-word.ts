@@ -1,4 +1,4 @@
-import { MUnitWord } from '@/models/misc/unit-word';
+import { MUnitWord } from '@/models/wpp/unit-word';
 
 export class MLangWords {
   records!: MLangWord[];
@@ -8,7 +8,7 @@ export class MLangWord {
   ID = 0;
   LANGID = 0;
   WORD = '';
-  NOTE: string | null = null;
+  NOTE = '';
   FAMIID = 0;
   CORRECT = 0;
   TOTAL = 0;

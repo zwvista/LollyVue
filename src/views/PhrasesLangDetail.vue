@@ -12,7 +12,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
-  import { MLangPhrase } from '@/models/misc/lang-phrase';
+  import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component

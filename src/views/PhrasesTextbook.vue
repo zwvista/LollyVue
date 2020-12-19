@@ -115,7 +115,7 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
-  import { MUnitPhrase } from '@/models/misc/unit-phrase';
+  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { AppService } from '@/view-models/app.service';
 
   @Component

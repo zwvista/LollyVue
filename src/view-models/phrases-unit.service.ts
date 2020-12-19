@@ -1,7 +1,7 @@
 import { injectable } from 'vue-typescript-inject';
 import { AppService } from './app.service';
 import { SettingsService } from './settings.service';
-import { MUnitPhrase } from '@/models/misc/unit-phrase';
+import { MUnitPhrase } from '@/models/wpp/unit-phrase';
 import { UnitPhraseService } from '@/services/wpp/unit-phrase.service';
 import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';

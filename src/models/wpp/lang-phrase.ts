@@ -1,4 +1,4 @@
-import { MUnitPhrase } from '@/models/misc/unit-phrase';
+import { MUnitPhrase } from '@/models/wpp/unit-phrase';
 
 export class MLangPhrases {
   records!: MLangPhrase[];
@@ -8,7 +8,7 @@ export class MLangPhrase {
   ID = 0;
   LANGID = 0;
   PHRASE = '';
-  TRANSLATION: string | null = null;
+  TRANSLATION = '';
 
   constructor() {}
 

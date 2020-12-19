@@ -1,9 +1,9 @@
 import { injectable } from 'vue-typescript-inject';
-import { MUnitWord, MUnitWords } from '@/models/misc/unit-word';
+import { MUnitWord, MUnitWords } from '@/models/wpp/unit-word';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from '../misc/base.service';
-import { MTextbook } from '@/models/wpp/textbook';
+import { MTextbook } from '@/models/misc/textbook';
 import { MSPResult } from '@/common/sp-result';
 import { toParameters } from '@/common/common';
 

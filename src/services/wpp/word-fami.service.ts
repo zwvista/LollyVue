@@ -2,7 +2,7 @@ import { injectable } from 'vue-typescript-inject';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from '../misc/base.service';
-import { MWordFami, MWordsFami } from '@/models/misc/word-fami';
+import { MWordFami, MWordsFami } from '@/models/wpp/word-fami';
 
 @injectable()
 export class WordFamiService extends BaseService {
