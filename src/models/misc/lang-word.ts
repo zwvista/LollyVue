@@ -1,4 +1,4 @@
-import { MUnitWord } from '@/models/unit-word';
+import { MUnitWord } from '@/models/misc/unit-word';
 
 export class MLangWords {
   records!: MLangWord[];

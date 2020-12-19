@@ -70,10 +70,10 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { SettingsListener, SettingsService } from '@/view-models/settings.service';
-  import { MLanguage } from '@/models/language';
-  import { MDictionary } from '@/models/dictionary';
-  import { MTextbook } from '@/models/textbook';
-  import { MVoice } from '@/models/voice';
+  import { MLanguage } from '@/models/wpp/language';
+  import { MDictionary } from '@/models/wpp/dictionary';
+  import { MTextbook } from '@/models/wpp/textbook';
+  import { MVoice } from '@/models/wpp/voice';
 
   @Component
   export default class Settings2 extends Vue implements SettingsListener {

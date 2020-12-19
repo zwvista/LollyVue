@@ -3,7 +3,7 @@ import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { LangWordService } from '@/services/lang-word.service';
 import { Observable } from 'rxjs';
-import { MLangWord } from '@/models/lang-word';
+import { MLangWord } from '@/models/misc/lang-word';
 import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
 import { WordsFamiService } from '@/view-models/words-fami.service';

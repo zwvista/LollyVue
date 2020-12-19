@@ -1,9 +1,9 @@
 import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
-import { MLangPhrase, MLangPhrases } from '@/models/lang-phrase';
+import { MLangPhrase, MLangPhrases } from '@/models/misc/lang-phrase';
 import { map } from 'rxjs/operators';
-import { MLangWord } from '@/models/lang-word';
+import { MLangWord } from '@/models/misc/lang-word';
 import { MSPResult } from '@/common/sp-result';
 import { toParameters } from '@/common/common';
 

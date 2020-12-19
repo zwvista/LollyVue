@@ -111,7 +111,7 @@
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/settings.service';
   import { AppService } from '@/view-models/app.service';
-  import { MLangPhrase } from '@/models/lang-phrase';
+  import { MLangPhrase } from '@/models/misc/lang-phrase';
 
   @Component
   export default class PhrasesLang extends Vue {

@@ -2,7 +2,7 @@ import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MLanguage, MLanguages } from '@/models/language';
+import { MLanguage, MLanguages } from '@/models/wpp/language';
 
 @injectable()
 export class LanguageService extends BaseService {

@@ -104,7 +104,7 @@
   import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/unit-word';
+  import { MUnitWord } from '@/models/misc/unit-word';
   import { AppService } from '@/view-models/app.service';
 
   @Component

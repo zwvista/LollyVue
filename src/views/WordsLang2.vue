@@ -71,9 +71,9 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/unit-word';
+  import { MUnitWord } from '@/models/misc/unit-word';
   import { WordsLangService } from '@/view-models/words-lang.service';
-  import { MLangWord } from '@/models/lang-word';
+  import { MLangWord } from '@/models/misc/lang-word';
   import { AppService } from '@/view-models/app.service';
 
   @Component

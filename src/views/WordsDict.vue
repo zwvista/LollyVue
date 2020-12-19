@@ -15,7 +15,7 @@
   import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/words-unit.service';
   import { SettingsService } from '@/view-models/settings.service';
-  import { MDictionary } from '@/models/dictionary';
+  import { MDictionary } from '@/models/wpp/dictionary';
   import DictBrowser from '../components/DictBrowser.vue';
   import { HtmlService } from '@/services/html.service';
   import { WordsLangService } from '@/view-models/words-lang.service';

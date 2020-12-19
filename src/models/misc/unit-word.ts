@@ -1,4 +1,4 @@
-import { MTextbook } from '@/models/textbook';
+import { MTextbook } from '@/models/wpp/textbook';
 
 export class MUnitWords {
   records!: MUnitWord[];

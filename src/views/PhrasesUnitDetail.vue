@@ -16,7 +16,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
-  import { MUnitPhrase } from '@/models/unit-phrase';
+  import { MUnitPhrase } from '@/models/misc/unit-phrase';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component

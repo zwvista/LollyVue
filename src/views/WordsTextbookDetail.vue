@@ -19,7 +19,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/settings.service';
-  import { MUnitWord } from '@/models/unit-word';
+  import { MUnitWord } from '@/models/misc/unit-word';
   import { WordsUnitService } from '@/view-models/words-unit.service';
 
   @Component

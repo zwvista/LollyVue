@@ -3,7 +3,7 @@ import { LangPhraseService } from '@/services/lang-phrase.service';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { concatMap, map } from 'rxjs/operators';
-import { MLangPhrase } from '@/models/lang-phrase';
+import { MLangPhrase } from '@/models/misc/lang-phrase';
 import { Observable } from 'rxjs';
 
 @injectable()

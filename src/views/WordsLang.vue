@@ -130,7 +130,7 @@
   import { WordsLangService } from '@/view-models/words-lang.service';
   import { SettingsService } from '@/view-models/settings.service';
   import { googleString } from '@/common/common';
-  import { MLangWord } from '@/models/lang-word';
+  import { MLangWord } from '@/models/misc/lang-word';
   import { AppService } from '@/view-models/app.service';
 
   @Component

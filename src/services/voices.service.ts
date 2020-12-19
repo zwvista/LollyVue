@@ -1,7 +1,7 @@
 import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
-import { MVoice, MVoices } from '@/models/voice';
+import { MVoice, MVoices } from '@/models/wpp/voice';
 import { map } from 'rxjs/operators';
 
 @injectable()

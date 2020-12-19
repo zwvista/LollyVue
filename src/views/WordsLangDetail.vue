@@ -14,7 +14,7 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
   import { WordsLangService } from '@/view-models/words-lang.service';
-  import { MLangWord } from '@/models/lang-word';
+  import { MLangWord } from '@/models/misc/lang-word';
   import { SettingsService } from '@/view-models/settings.service';
 
   @Component

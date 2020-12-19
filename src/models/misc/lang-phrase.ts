@@ -1,4 +1,4 @@
-import { MUnitPhrase } from '@/models/unit-phrase';
+import { MUnitPhrase } from '@/models/misc/unit-phrase';
 
 export class MLangPhrases {
   records!: MLangPhrase[];

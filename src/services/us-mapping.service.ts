@@ -2,7 +2,7 @@ import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { MUSMapping, MUSMappings } from '@/models/usmapping';
+import { MUSMapping, MUSMappings } from '@/models/wpp/usmapping';
 
 @injectable()
 export class UsMappingService extends BaseService {
