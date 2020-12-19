@@ -1,4 +1,4 @@
-import { Rxios } from '../common/rxios';
+import { Rxios } from '../../common/rxios';
 
 export class BaseService {
   protected readonly baseUrlAPI = 'https://zwvista.tk/lolly/api.php/records/';

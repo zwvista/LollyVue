@@ -1,7 +1,7 @@
 import { injectable } from 'vue-typescript-inject';
 import { EMPTY as empty, interval, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HtmlService } from '@/services/html.service';
+import { HtmlService } from '@/services/misc/html.service';
 import { SettingsService } from '@/view-models/settings.service';
 
 @injectable()

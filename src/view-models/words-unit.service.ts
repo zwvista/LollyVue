@@ -1,12 +1,12 @@
 import { injectable } from 'vue-typescript-inject';
-import { UnitWordService } from '@/services/unit-word.service';
+import { UnitWordService } from '@/services/wpp/unit-word.service';
 import { SettingsService } from './settings.service';
 import { MUnitWord } from '@/models/misc/unit-word';
 import { AppService } from './app.service';
 import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { NoteService } from '@/view-models/note.service';
-import { LangWordService } from '@/services/lang-word.service';
+import { LangWordService } from '@/services/wpp/lang-word.service';
 import { WordsFamiService } from '@/view-models/words-fami.service';
 
 @injectable()

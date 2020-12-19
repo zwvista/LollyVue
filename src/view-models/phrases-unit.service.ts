@@ -2,10 +2,10 @@ import { injectable } from 'vue-typescript-inject';
 import { AppService } from './app.service';
 import { SettingsService } from './settings.service';
 import { MUnitPhrase } from '@/models/misc/unit-phrase';
-import { UnitPhraseService } from '@/services/unit-phrase.service';
+import { UnitPhraseService } from '@/services/wpp/unit-phrase.service';
 import { EMPTY as empty, Observable, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
-import { LangPhraseService } from '@/services/lang-phrase.service';
+import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
 
 
 @injectable()

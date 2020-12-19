@@ -1,5 +1,5 @@
 import { autoCorrect, MAutoCorrect } from '@/models/wpp/autocorrect';
-import { HtmlService } from '@/services/html.service';
+import { HtmlService } from '@/services/misc/html.service';
 
 export class MDictionary {
   ID = 0;

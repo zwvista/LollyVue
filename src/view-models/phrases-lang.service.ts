@@ -1,5 +1,5 @@
 import { injectable } from 'vue-typescript-inject';
-import { LangPhraseService } from '@/services/lang-phrase.service';
+import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
 import { concatMap, map } from 'rxjs/operators';

@@ -1,5 +1,5 @@
 import { injectable } from 'vue-typescript-inject';
-import { WordFamiService } from '@/services/word-fami.service';
+import { WordFamiService } from '@/services/wpp/word-fami.service';
 import { MWordFami } from '@/models/misc/word-fami';
 import { EMPTY as empty, Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';

@@ -1,5 +1,5 @@
 import { injectable } from 'vue-typescript-inject';
-import { BaseService } from './base.service';
+import { BaseService } from '../misc/base.service';
 import { Observable } from 'rxjs';
 import { MLangWord, MLangWords } from '@/models/misc/lang-word';
 import { map } from 'rxjs/operators';

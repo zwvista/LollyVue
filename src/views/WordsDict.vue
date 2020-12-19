@@ -17,7 +17,7 @@
   import { SettingsService } from '@/view-models/settings.service';
   import { MDictionary } from '@/models/wpp/dictionary';
   import DictBrowser from '../components/DictBrowser.vue';
-  import { HtmlService } from '@/services/html.service';
+  import { HtmlService } from '@/services/misc/html.service';
   import { WordsLangService } from '@/view-models/words-lang.service';
 
   @Component({
