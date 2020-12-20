@@ -56,6 +56,8 @@
   import { WordFamiService } from '@/services/wpp/word-fami.service';
   import { WordsFamiService } from '@/view-models/words-fami.service';
   import { UsMappingService } from '@/services/misc/us-mapping.service';
+  import { PatternService } from '@/services/wpp/pattern.service';
+  import { PatternsService } from '@/view-models/patterns.service';
 
   @Component({
     providers: [
@@ -64,7 +66,7 @@
       PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
       LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
       NoteService, WordFamiService, WordsFamiService,
-      VoicesService, UsMappingService,
+      VoicesService, UsMappingService, PatternService, PatternsService,
     ],
   })
   export default class App extends Vue {
@@ -100,6 +102,11 @@
         icon: 'fa fa-rocket fa-lg',
         title: 'Phrases in Language',
         path: '/phrases-lang4',
+      },
+      {
+        icon: 'fa fa-motorcycle fa-lg',
+        title: 'Patterns in Language',
+        path: '/patterns4',
       },
       {
         icon: 'fa fa-cog fa-lg',

@@ -217,6 +217,36 @@ export default new Router({
       component: () => import('./views/PhrasesLangDetail.vue'),
     },
     {
+      path: '/patterns',
+      name: 'patterns',
+      component: () => import('./views/Patterns.vue'),
+    },
+    {
+      path: '/patterns2',
+      name: 'patterns2',
+      component: () => import('./views/Patterns2.vue'),
+    },
+    {
+      path: '/patterns3',
+      name: 'patterns3',
+      component: () => import('./views/Patterns3.vue'),
+    },
+    {
+      path: '/patterns4',
+      name: 'patterns4',
+      component: () => import('./views/Patterns4.vue'),
+    },
+    {
+      path: '/patterns5',
+      name: 'patterns5',
+      component: () => import('./views/Patterns5.vue'),
+    },
+    {
+      path: '/pattern-detail/:id',
+      name: 'pattern-detail',
+      component: () => import('./views/PatternsDetail.vue'),
+    },
+    {
       path: '/settings',
       name: 'settings',
       component: () => import('./views/Settings.vue'),
