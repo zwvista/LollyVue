@@ -19,7 +19,8 @@
       <q-tr slot="body" slot-scope="props" :props="props" :style="props.row.colorStyle">
         <q-td key="ID" :props="props">{{props.row.ID}}</q-td>
         <q-td key="PATTERN" :props="props">{{props.row.PATTERN}}</q-td>
-        <q-td key="TRANSLATION" :props="props">{{props.row.TRANSLATION}}</q-td>
+        <q-td key="NOTE" :props="props">{{props.row.NOTE}}</q-td>
+        <q-td key="TAGS" :props="props">{{props.row.TAGS}}</q-td>
         <q-td key="ACTIONS" :props="props">
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePattern(props.row.ID)">
             <q-tooltip>Delete</q-tooltip>

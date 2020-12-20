@@ -123,7 +123,8 @@
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },
       { text: 'PATTERN', sortable: false, value: 'PATTERN' },
-      { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
+      { text: 'NOTE', sortable: false, value: 'NOTE' },
+      { text: 'TAGS', sortable: false, value: 'TAGS' },
       { text: 'ACTIONS', sortable: false },
     ];
     page = 1;
