@@ -242,8 +242,8 @@ export default new Router({
       component: () => import('./views/Patterns5.vue'),
     },
     {
-      path: '/pattern-detail/:id',
-      name: 'pattern-detail',
+      path: '/patterns-detail/:id',
+      name: 'patterns-detail',
       component: () => import('./views/PatternsDetail.vue'),
     },
     {

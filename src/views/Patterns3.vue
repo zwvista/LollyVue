@@ -26,7 +26,7 @@
             </md-field>
           </div>
         </div>
-        <router-link to="/patterns-unit-detail/0">
+        <router-link to="/patterns-detail/0">
           <md-button class="md-raised md-primary">
             <span><md-icon class="fa fa-plus"></md-icon>Add</span>
           </md-button>
