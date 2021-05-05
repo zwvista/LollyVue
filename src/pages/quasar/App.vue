@@ -56,7 +56,7 @@
   import { PhrasesLangService } from '@/view-models/phrases-lang.service';
   import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
   import { NoteService } from '@/view-models/note.service';
-  import { VoicesService } from '@/services/misc/voices.service';
+  import { VoiceService } from '@/services/misc/voice.service';
   import { WordFamiService } from '@/services/wpp/word-fami.service';
   import { WordsFamiService } from '@/view-models/words-fami.service';
   import { UsMappingService } from '@/services/misc/us-mapping.service';
@@ -70,7 +70,7 @@
       PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
       LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
       NoteService, WordFamiService, WordsFamiService,
-      VoicesService, UsMappingService, PatternService, PatternsService,
+      VoiceService, UsMappingService, PatternService, PatternsService,
     ],
   })
   export default class App extends Vue {

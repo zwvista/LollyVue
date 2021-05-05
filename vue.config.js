@@ -5,5 +5,6 @@ module.exports = {
     material: 'src/pages/material/main.ts',
     primevue: 'src/pages/primevue/main.ts',
     quasar: 'src/pages/quasar/main.ts',
+    login: 'src/pages/login/main.ts',
   }
 };

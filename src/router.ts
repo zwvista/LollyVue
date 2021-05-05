@@ -4,7 +4,7 @@ import WordsUnit from './views/WordsUnit.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -32,6 +32,11 @@ export default new Router({
       path: '/primevue',
       name: 'home5',
       component: () => import('./views/WordsUnit5.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./pages/login/Login.vue'),
     },
     {
       path: '/words-unit',
@@ -263,3 +268,16 @@ export default new Router({
     },
   ],
 });
+
+// https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('userid');
+
+  if (authRequired && !loggedIn)
+    window.location.href = '/login';
+  return next();
+});
+
+export default router;
