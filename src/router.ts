@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import WordsUnit from './views/WordsUnit.vue';
+import { GlobalVars } from '@/common/common';
 
 Vue.use(Router);
 
@@ -277,6 +278,8 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !loggedIn)
     window.location.href = '/login';
+  else
+    GlobalVars.userid = loggedIn!;
   return next();
 });
 

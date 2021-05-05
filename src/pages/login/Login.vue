@@ -21,6 +21,7 @@
   import { inject } from 'vue-typescript-inject';
   import { LoginService } from '@/view-models/login.service';
   import { UserService } from '@/services/misc/user.service';
+  import { GlobalVars } from '@/common/common';
 
   @Component({
     providers: [
@@ -39,6 +40,7 @@
       this.loginService.login().subscribe(userid => {
         if (userid) {
           localStorage.setItem('userid', userid);
+          GlobalVars.userid = userid;
           window.location.href = '/';
         }
       });

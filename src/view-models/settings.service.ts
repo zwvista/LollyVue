@@ -18,8 +18,7 @@ import { MVoice } from '@/models/misc/voice';
 import { WordsFamiService } from '@/view-models/words-fami.service';
 import { UsMappingService } from '@/services/misc/us-mapping.service';
 import { MUSMapping } from '@/models/misc/usmapping';
-
-const userid = 1;
+import { GlobalVars } from '@/common/common';
 
 @injectable()
 export class SettingsService {
@@ -258,7 +257,7 @@ export class SettingsService {
   getData(): Observable<number> {
     return forkJoin([this.langService.getData(),
       this.usMappingService.getData(),
-      this.userSettingService.getDataByUser(userid)]).pipe(
+      this.userSettingService.getDataByUser()]).pipe(
       concatMap(res => {
         this.languages = res[0] as MLanguage[];
         this.usMappings = res[1] as MUSMapping[];

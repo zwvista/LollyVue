@@ -7,8 +7,6 @@ import { concatMap } from 'rxjs/operators';
 @injectable()
 export class WordsFamiService {
 
-  userid = 1;
-
   constructor(private wordFamiService: WordFamiService) { }
 
   delete(id: number): Observable<number> {
