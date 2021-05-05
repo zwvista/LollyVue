@@ -10,10 +10,9 @@ export class UserSettingService extends BaseService {
 
   getDataByUser(): Observable<MUserSetting[]> {
     const url = `${this.baseUrlAPI}USERSETTINGS?filter=USERID,eq,${GlobalVars.userid}`;
-    return this.http.get<MUserSettings>(url)
-      .pipe(
-        map(result => result.records.map(value => Object.assign(new MUserSetting(), value))),
-      );
+    return this.http.get<MUserSettings>(url).pipe(
+      map(result => result.records.map(value => Object.assign(new MUserSetting(), value))),
+    );
   }
 
   updateIntValue(info: MUserSettingInfo, intValue: number): Observable<number> {
