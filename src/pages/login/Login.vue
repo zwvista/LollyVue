@@ -25,7 +25,7 @@
 
   @Component({
     providers: [
-        UserService, LoginService
+        UserService, LoginService,
     ],
   })
   export default class Login extends Vue {

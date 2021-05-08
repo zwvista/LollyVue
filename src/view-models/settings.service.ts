@@ -15,10 +15,9 @@ import { MSelectItem } from '@/common/selectitem';
 import * as Speech from 'speak-tts';
 import { VoiceService } from '@/services/misc/voice.service';
 import { MVoice } from '@/models/misc/voice';
-import { WordsFamiService } from '@/view-models/words-fami.service';
 import { UsMappingService } from '@/services/misc/us-mapping.service';
 import { MUSMapping } from '@/models/misc/usmapping';
-import { GlobalVars } from '@/common/common';
+import { WordFamiService } from '@/services/wpp/word-fami.service';
 
 @injectable()
 export class SettingsService {
@@ -237,7 +236,7 @@ export class SettingsService {
               private textbookService: TextbookService,
               private autoCorrectService: AutoCorrectService,
               private voiceService: VoiceService,
-              private wordsFamiService: WordsFamiService) {
+              private wordFamiService: WordFamiService) {
     this.speech.init();
   }
 

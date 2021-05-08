@@ -14,7 +14,7 @@ export class LoginService {
 
   login(): Observable<string> {
     return this.userService.getDataByLang(this.item.USERNAME, this.item.PASSWORD).pipe(
-      map(res => res.length === 0 ? '' : res[0].USERID)
+      map(res => res.length === 0 ? '' : res[0].USERID),
     );
   }
 }

@@ -81,7 +81,6 @@
   import { NoteService } from '@/view-models/note.service';
   import { VoiceService } from '@/services/misc/voice.service';
   import { WordFamiService } from '@/services/wpp/word-fami.service';
-  import { WordsFamiService } from '@/view-models/words-fami.service';
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
   import { PatternsService } from '@/view-models/patterns.service';
@@ -92,7 +91,7 @@
     TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
     PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
     LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
-    NoteService, WordFamiService, WordsFamiService,
+    NoteService, WordFamiService,
     VoiceService, UsMappingService, PatternService, PatternsService,
   ],
 })
