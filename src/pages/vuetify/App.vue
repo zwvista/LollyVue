@@ -69,20 +69,20 @@
   import { UnitWordService } from '@/services/wpp/unit-word.service';
   import { UnitPhraseService } from '@/services/wpp/unit-phrase.service';
   import { UserSettingService } from '@/services/misc/user-setting.service';
-  import { AppService } from '@/view-models/app.service';
-  import { PhrasesUnitService } from '@/view-models/phrases-unit.service';
-  import { WordsUnitService } from '@/view-models/words-unit.service';
-  import { SettingsService } from '@/view-models/settings.service';
+  import { AppService } from '@/view-models/misc/app.service';
+  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
+  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
+  import { SettingsService } from '@/view-models/misc/settings.service';
   import { AutoCorrectService } from '@/services/misc/autocorrect.service';
-  import { WordsLangService } from '@/view-models/words-lang.service';
+  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
   import { LangWordService } from '@/services/wpp/lang-word.service';
-  import { PhrasesLangService } from '@/view-models/phrases-lang.service';
+  import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
   import { VoiceService } from '@/services/misc/voice.service';
   import { WordFamiService } from '@/services/wpp/word-fami.service';
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
-  import { PatternsService } from '@/view-models/patterns.service';
+  import { PatternsService } from '@/view-models/misc/patterns.service';
 
   @Component({
   providers: [

@@ -19,7 +19,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { inject } from 'vue-typescript-inject';
-  import { LoginService } from '@/view-models/login.service';
+  import { LoginService } from '@/view-models/misc/login.service';
   import { UserService } from '@/services/misc/user.service';
   import { GlobalVars } from '@/common/common';
 
