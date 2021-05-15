@@ -97,7 +97,7 @@
     }
 
     onLangChange(value: MLanguage) {
-      this.settingsService.setSelectedLang(value).subscribe();
+      this.settingsService.selectedLang = value;
       this.settingsService.updateLang().subscribe();
     }
 
