@@ -260,6 +260,11 @@ export class SettingsService {
     const newVal = this.selectedTextbook.ID;
     const dirty = this.USTEXTBOOK !== newVal;
     this.USTEXTBOOK = newVal;
+    this.INFO_USUNITFROM = this.getUSInfo(MUSMapping.NAME_USUNITFROM);
+    this.INFO_USPARTFROM = this.getUSInfo(MUSMapping.NAME_USPARTFROM);
+    this.INFO_USUNITTO = this.getUSInfo(MUSMapping.NAME_USUNITTO);
+    this.INFO_USPARTTO = this.getUSInfo(MUSMapping.NAME_USPARTTO);
+    this.toType = this.isSingleUnit ? 0 : this.isSingleUnitPart ? 1 : 2;
     return this.userSettingService.updateIntValue(this.INFO_USTEXTBOOK, this.USTEXTBOOK).pipe(
       map( _ => {
         if (this.settingsListener) this.settingsListener.onUpdateTextbook();
