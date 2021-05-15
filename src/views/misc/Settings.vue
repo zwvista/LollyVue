@@ -15,19 +15,19 @@
     <div class="form-inline mb-2">
       <label for="dictReference" class="col-2 control-label">Dictionary(Reference):</label>
       <b-form-select id="dictReference" class="col-4 form-control" :value="settingsService.selectedDictReference" @change="onDictReferenceChange($event)">
-        <option v-for="o in settingsService.dictsReference" :value="o" :key="o.DICTID">{{o.DICTNAME}}</option>
+        <option v-for="o in settingsService.dictsReference" :value="o" :key="o.DICTID">{{o.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictNote" class="col-2 control-label">Dictionary(Note):</label>
       <b-form-select id="dictNote" class="col-4 form-control" :value="settingsService.selectedDictNote" @change="onDictNoteChange($event)">
-        <option v-for="o in settingsService.dictsNote" :value="o" :key="o.ID">{{o.DICTNAME}}</option>
+        <option v-for="o in settingsService.dictsNote" :value="o" :key="o.ID">{{o.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">
       <label for="dictTranslation" class="col-2 control-label">Dictionary(Translation):</label>
       <b-form-select id="dictTranslation" class="col-4 form-control" :value="settingsService.selectedDictTranslation" @change="onDictTranslationChange($event)">
-        <option v-for="o in settingsService.dictsTranslation" :value="o" :key="o.ID">{{o.DICTNAME}}</option>
+        <option v-for="o in settingsService.dictsTranslation" :value="o" :key="o.ID">{{o.NAME}}</option>
       </b-form-select>
     </div>
     <div class="form-inline mb-2">

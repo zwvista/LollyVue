@@ -15,19 +15,19 @@
     <div class="row mb-2">
       <label for="dictReference" class="col-2 control-label">Dictionary(Reference):</label>
       <q-select id="dictReference" class="col-4 form-control" :value="settingsService.selectedDictReference" @change="onDictReferenceChange($event)"
-                :options="settingsService.dictsReference.map(o => {return {label:o.DICTNAME, value:o};})">
+                :options="settingsService.dictsReference.map(o => {return {label:o.NAME, value:o};})">
       </q-select>
     </div>
     <div class="row mb-2">
       <label for="dictNote" class="col-2 control-label">Dictionary(Note):</label>
       <q-select id="dictNote" class="col-4 form-control" :value="settingsService.selectedDictNote" @change="onDictNoteChange($event)"
-                :options="settingsService.dictsNote.map(o => {return {label:o.DICTNAME, value:o};})">
+                :options="settingsService.dictsNote.map(o => {return {label:o.NAME, value:o};})">
       </q-select>
     </div>
     <div class="row mb-2">
       <label for="dictTranslation" class="col-2 control-label">Dictionary(Translation):</label>
       <q-select id="dictTranslation" class="col-4 form-control" :value="settingsService.selectedDictTranslation" @change="onDictTranslationChange($event)"
-                :options="settingsService.dictsTranslation.map(o => {return {label:o.DICTNAME, value:o};})">
+                :options="settingsService.dictsTranslation.map(o => {return {label:o.NAME, value:o};})">
       </q-select>
     </div>
     <div class="row mb-2">
