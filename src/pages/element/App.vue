@@ -56,6 +56,7 @@
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
   import { PatternsService } from '@/view-models/misc/patterns.service';
+  import {inject} from "vue-typescript-inject";
 
   @Component({
     providers: [
@@ -67,7 +68,7 @@
     ],
   })
   export default class App extends Vue {
-    // @inject() appService!: AppService;
+    @inject() appService!: AppService;
     activeIndex = 0;
     items = [
       {
@@ -112,6 +113,11 @@
       },
     ];
     title = 'Lolly Vue';
+
+    constructor() {
+      super();
+      this.appService.getData();
+    }
   }
 </script>
 

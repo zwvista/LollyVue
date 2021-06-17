@@ -83,63 +83,69 @@
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
   import { PatternsService } from '@/view-models/misc/patterns.service';
+  import {inject} from "vue-typescript-inject";
 
   @Component({
-  providers: [
-    DictionaryService, HtmlService, LanguageService,
-    TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
-    PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
-    LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
-    WordFamiService, VoiceService, UsMappingService, PatternService, PatternsService,
-  ],
-})
-export default class App extends Vue {
-  // @inject() appService!: AppService;
-  clipped = true;
-  drawer = true;
-  items = [
-    {
-      icon: 'fa-bus fa-lg',
-      title: 'Words in Unit',
-      path: '/words-unit',
-    },
-    {
-      icon: 'fa-train fa-lg',
-      title: 'Phrases in Unit',
-      path: '/phrases-unit',
-    },
-    {
-      icon: 'fa-car fa-lg',
-      title: 'Words in Textbook',
-      path: '/words-textbook',
-    },
-    {
-      icon: 'fa-taxi fa-lg',
-      title: 'Phrases in Textbook',
-      path: '/phrases-textbook',
-    },
-    {
-      icon: 'fa-plane fa-lg',
-      title: 'Words in Language',
-      path: '/words-lang',
-    },
-    {
-      icon: 'fa-rocket fa-lg',
-      title: 'Phrases in Language',
-      path: '/phrases-lang',
-    },
-    {
-      icon: 'fa-motorcycle fa-lg',
-      title: 'Patterns in Language',
-      path: '/patterns',
-    },
-    {
-      icon: 'fa-cog fa-lg',
-      title: 'Settings',
-      path: '/settings',
-    },
-  ];
-  miniVariant = false;
-  title = 'Lolly Vue';
-}
+    providers: [
+      DictionaryService, HtmlService, LanguageService,
+      TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
+      PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
+      LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
+      WordFamiService, VoiceService, UsMappingService, PatternService, PatternsService,
+    ],
+  })
+  export default class App extends Vue {
+    @inject() appService!: AppService;
+    clipped = true;
+    drawer = true;
+    items = [
+      {
+        icon: 'fa-bus fa-lg',
+        title: 'Words in Unit',
+        path: '/words-unit',
+      },
+      {
+        icon: 'fa-train fa-lg',
+        title: 'Phrases in Unit',
+        path: '/phrases-unit',
+      },
+      {
+        icon: 'fa-car fa-lg',
+        title: 'Words in Textbook',
+        path: '/words-textbook',
+      },
+      {
+        icon: 'fa-taxi fa-lg',
+        title: 'Phrases in Textbook',
+        path: '/phrases-textbook',
+      },
+      {
+        icon: 'fa-plane fa-lg',
+        title: 'Words in Language',
+        path: '/words-lang',
+      },
+      {
+        icon: 'fa-rocket fa-lg',
+        title: 'Phrases in Language',
+        path: '/phrases-lang',
+      },
+      {
+        icon: 'fa-motorcycle fa-lg',
+        title: 'Patterns in Language',
+        path: '/patterns',
+      },
+      {
+        icon: 'fa-cog fa-lg',
+        title: 'Settings',
+        path: '/settings',
+      },
+    ];
+    miniVariant = false;
+    title = 'Lolly Vue';
+
+    constructor() {
+      super();
+      this.appService.getData();
+    }
+  }
 </script>
