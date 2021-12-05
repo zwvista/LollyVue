@@ -22,7 +22,7 @@
     "element-ui": "^2.13.2",
     "font-awesome": "^4.7.0",
     "primeflex": "^2.0.0-rc.1",
-    "primeicons": "^4.0.0",
+    "primeicons": "^5.0.0",
     "primevue": "^2.0.2",
     "quasar-framework": "^0.17.20",
     "reflect-metadata": "^0.1.13",
@@ -38,7 +38,7 @@
     "vue-property-decorator": "^9.0.0",
     "vue-router": "^3.3.4",
     "vue-typescript-inject": "^0.3.0",
-    "vuetify": "^2.3.4",
+    "vuetify": "^2.6.1",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
@@ -47,18 +47,19 @@
     "@types/clipboard": "^2.0.1",
     "@types/mocha": "^8.0.0",
     "@types/sortablejs": "^1.10.5",
-    "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-e2e-cypress": "^4.4.6",
-    "@vue/cli-plugin-pwa": "^4.4.6",
-    "@vue/cli-plugin-typescript": "^4.4.6",
-    "@vue/cli-plugin-unit-mocha": "^4.4.6",
-    "@vue/cli-service": "^4.4.6",
+    "@vue/cli-plugin-babel": "^4.5.15",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.15",
+    "@vue/cli-plugin-pwa": "^4.5.15",
+    "@vue/cli-plugin-typescript": "^4.5.15",
+    "@vue/cli-plugin-unit-mocha": "^4.5.15",
+    "@vue/cli-service": "^4.5.15",
     "@vue/test-utils": "^1.0.3",
     "chai": "^4.2.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.2.0",
     "typescript": "^3.9.6",
     "vue-cli-plugin-vuetify": "^2.0.6",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0"
   }
 }
