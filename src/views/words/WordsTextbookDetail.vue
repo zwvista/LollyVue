@@ -34,11 +34,11 @@
       this.item = this.wordsUnitService.textbookWords.find(value => value.ID === id)!;
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    save() {
       this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
       this.wordsUnitService.update(this.item);
     }

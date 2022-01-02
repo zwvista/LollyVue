@@ -135,19 +135,18 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
+      this.$forceUpdate();
     }
 
     deleteWord(item: MUnitWord) {
       this.wordsUnitService.delete(item);
     }
 
-    getNote(index: number) {
+    async getNote(index: number) {
       console.log(index);
-      this.wordsUnitService.getNote(index).subscribe();
+      await this.wordsUnitService.getNote(index);
     }
 
     googleWord(word: string) {

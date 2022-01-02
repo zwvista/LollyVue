@@ -15,11 +15,10 @@ export class AppService {
   constructor(private settingsService: SettingsService) {
   }
 
-  getData() {
-    this.settingsService.getData().subscribe(_ => {
-      this.isInitialized = true;
-      this._initializeObject.next();
-    });
+  async getData() {
+    await this.settingsService.getData();
+    this.isInitialized = true;
+    this._initializeObject.next();
   }
 
 }

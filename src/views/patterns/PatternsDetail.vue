@@ -29,16 +29,16 @@
       this.pattern = o ? {...o} as MPattern : this.patternsService.newPattern();
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    async save() {
       this.pattern.PATTERN = this.settingsService.autoCorrectInput(this.pattern.PATTERN);
       if (this.pattern.ID) {
-        this.patternsService.update(this.pattern).subscribe(_ => this.goBack());
+        await this.patternsService.update(this.pattern); this.goBack();
       } else {
-        this.patternsService.create(this.pattern).subscribe(_ => this.goBack());
+        await this.patternsService.create(this.pattern); this.goBack();
       }
     }
   }

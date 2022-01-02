@@ -111,11 +111,10 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.patternsService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
+      this.$forceUpdate();
     }
 
     deletePattern(id: number) {

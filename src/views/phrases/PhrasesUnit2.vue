@@ -89,8 +89,8 @@
       });
     }
 
-    onRefresh() {
-      this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    async onRefresh() {
+      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
     }
 
     deletePhrase(item: MUnitPhrase) {

@@ -36,15 +36,13 @@
       this.$set(this.services, 'loginService', this.loginService);
     }
 
-    login() {
-      this.loginService.login().subscribe(userid => {
-        if (userid) {
-          localStorage.setItem('userid', userid);
-          GlobalVars.userid = userid;
-          window.location.href = '/';
-        }
-      });
-    }
+    async login() {
+      const userid = await this.loginService.login();
+      if (userid) {
+        localStorage.setItem('userid', userid);
+        GlobalVars.userid = userid;
+        window.location.href = '/';
+      }
   }
 </script>
 

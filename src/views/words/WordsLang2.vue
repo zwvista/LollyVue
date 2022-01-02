@@ -124,20 +124,19 @@
       });
     }
 
-    onRefresh() {
-      this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType).subscribe(_ => {
-        this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType);
+      this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
+      this.$forceUpdate();
     }
 
     deleteWord(item: MLangWord) {
       this.wordsLangService.delete(item);
     }
 
-    getNote(index: number) {
+    async getNote(index: number) {
       console.log(index);
-      this.wordsLangService.getNote(index).subscribe();
+      await this.wordsLangService.getNote(index);
     }
 
     googleWord(word: string) {

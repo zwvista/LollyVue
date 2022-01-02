@@ -96,21 +96,20 @@
       this.onRefresh();
     }
 
-    onRefresh() {
+    async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
-        this.$forceUpdate();
-      });
+      await this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+      this.$forceUpdate();
     }
 
     deleteWord(item: MLangWord) {
       this.wordsLangService.delete(item);
     }
 
-    getNote(index: number) {
+    async getNote(index: number) {
       console.log(index);
-      this.wordsLangService.getNote(index).subscribe();
+      await this.wordsLangService.getNote(index);
     }
 
     googleWord(word: string) {

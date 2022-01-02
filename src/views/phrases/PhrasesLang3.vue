@@ -111,11 +111,10 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
+      this.$forceUpdate();
     }
 
     deletePhrase(item: MLangPhrase) {

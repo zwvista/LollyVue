@@ -147,12 +147,11 @@
       this.onRefresh();
     }
 
-    onRefresh() {
+    async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.patternsService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
-        this.$forceUpdate();
-      });
+      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
+      this.$forceUpdate();
     }
 
     deletePattern(id: number) {

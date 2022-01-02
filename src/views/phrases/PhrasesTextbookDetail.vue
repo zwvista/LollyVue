@@ -31,13 +31,13 @@
       this.item = this.phrasesUnitService.textbookPhrases.find(value => value.ID === id)!;
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    async save() {
       this.item.PHRASE = this.settingsService.autoCorrectInput(this.item.PHRASE);
-      this.phrasesUnitService.update(this.item).subscribe(_ => this.goBack());
+      await this.phrasesUnitService.update(this.item); this.goBack();
     }
   }
 </script>

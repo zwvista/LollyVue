@@ -32,16 +32,16 @@
       this.item = o ? {...o} as MUnitPhrase : this.phrasesUnitService.newUnitPhrase();
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    async save() {
       this.item.PHRASE = this.settingsService.autoCorrectInput(this.item.PHRASE);
       if (this.item.ID) {
-        this.phrasesUnitService.update(this.item).subscribe(_ => this.goBack());
+        await this.phrasesUnitService.update(this.item); this.goBack();
       } else {
-        this.phrasesUnitService.create(this.item).subscribe(_ => this.goBack());
+        await this.phrasesUnitService.create(this.item); this.goBack();
       }
     }
   }

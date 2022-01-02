@@ -28,16 +28,16 @@
       this.langPhrase = o ? {...o} as MLangPhrase : this.phrasesLangService.newLangPhrase();
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    async save() {
       this.langPhrase.PHRASE = this.settingsService.autoCorrectInput(this.langPhrase.PHRASE);
       if (this.langPhrase.ID) {
-        this.phrasesLangService.update(this.langPhrase).subscribe(_ => this.goBack());
+        await this.phrasesLangService.update(this.langPhrase); this.goBack();
       } else {
-        this.phrasesLangService.create(this.langPhrase).subscribe(_ => this.goBack());
+        await this.phrasesLangService.create(this.langPhrase); this.goBack();
       }
     }
   }

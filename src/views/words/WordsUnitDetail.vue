@@ -33,16 +33,16 @@
       this.item = o || this.wordsUnitService.newUnitWord();
     }
 
-    goBack(): void {
+    goBack() {
       this.$router.go(-1);
     }
 
-    save(): void {
+    async save() {
       this.item.WORD = this.settingsService.autoCorrectInput(this.item.WORD);
       if (this.item.ID) {
-        this.wordsUnitService.update(this.item).subscribe(_ => this.goBack());
+        await this.wordsUnitService.update(this.item); this.goBack();
       } else {
-        this.wordsUnitService.create(this.item).subscribe(_ => this.goBack());
+        await this.wordsUnitService.create(this.item); this.goBack();
       }
     }
   }

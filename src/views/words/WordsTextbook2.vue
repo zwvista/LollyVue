@@ -111,20 +111,19 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
-        this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter);
+      this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
+      this.$forceUpdate();
     }
 
     deleteWord(item: MUnitWord) {
       this.wordsUnitService.delete(item);
     }
 
-    getNote(index: number) {
+    async getNote(index: number) {
       console.log(index);
-      this.wordsUnitService.getNote(index).subscribe();
+      await this.wordsUnitService.getNote(index);
     }
 
     googleWord(word: string) {

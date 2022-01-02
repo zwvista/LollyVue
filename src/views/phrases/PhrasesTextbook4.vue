@@ -124,10 +124,9 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
+      this.$forceUpdate();
     }
 
     deletePhrase(item: MUnitPhrase) {

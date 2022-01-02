@@ -50,16 +50,15 @@
       this.$router.go(-1);
     }
 
-    refreshDict() {
+    async refreshDict() {
       const item = this.selectedDictReference!!;
       const url = item.urlString(this.selectedWord!, this.settingsService.autoCorrects);
       if (item.DICTTYPENAME === 'OFFLINE') {
         this.dictUrl = 'about:blank';
-        this.htmlService.getHtml(url).subscribe(html => {
-          this.dictSrc = item.htmlString(html, this.selectedWord!)
-            .replace(/\n/g, ' ').replace(/"/g, '&quot;');
-          console.log(this.dictSrc);
-        });
+        const html = await this.htmlService.getHtml(url);
+        this.dictSrc = item.htmlString(html, this.selectedWord!)
+          .replace(/\n/g, ' ').replace(/"/g, '&quot;');
+        console.log(this.dictSrc);
       } else {
         this.dictSrc = null;
         this.dictUrl = url;

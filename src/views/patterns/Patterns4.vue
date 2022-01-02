@@ -117,10 +117,9 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.patternsService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.$forceUpdate();
     }
 
     deletePattern(id: number) {

@@ -71,12 +71,11 @@
       this.onRefresh();
     }
 
-    onRefresh() {
+    async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType).subscribe(_ => {
-        this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
-        this.$forceUpdate();
-      });
+      await this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType);
+      this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
+      this.$forceUpdate();
     }
 
     deletePhrase(item: MLangPhrase) {

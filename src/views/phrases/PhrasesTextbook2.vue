@@ -99,11 +99,10 @@
       this.onRefresh();
     }
 
-    onRefresh() {
-      this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter).subscribe(_ => {
-        this.pagination.rowsNumber = this.phrasesUnitService.textbookPhraseCount;
-        this.$forceUpdate();
-      });
+    async onRefresh() {
+      await this.phrasesUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType, this.textbookFilter);
+      this.pagination.rowsNumber = this.phrasesUnitService.textbookPhraseCount;
+      this.$forceUpdate();
     }
 
     deletePhrase(item: MUnitPhrase) {

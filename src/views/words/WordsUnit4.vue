@@ -104,28 +104,27 @@
       });
     }
 
-    onEnterNewWord() {
+    async onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsUnitService.newUnitWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
       this.newWord = '';
-      this.wordsUnitService.create(o).subscribe(id => {
-        o.ID = id as number;
-        this.wordsUnitService.unitWords.push(o);
-      });
+      const id = await this.wordsUnitService.create(o);
+      o.ID = id as number;
+      this.wordsUnitService.unitWords.push(o);
     }
 
-    onRefresh() {
-      this.wordsUnitService.getDataInTextbook(this.filter, this.filterType).subscribe();
+    async onRefresh() {
+      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
     }
 
-    deleteWord(item: MUnitWord) {
-      this.wordsUnitService.delete(item);
+    async deleteWord(item: MUnitWord) {
+      await this.wordsUnitService.delete(item);
     }
 
-    getNote(index: number) {
+    async getNote(index: number) {
       console.log(index);
-      this.wordsUnitService.getNote(index).subscribe();
+      await this.wordsUnitService.getNote(index);
     }
 
     googleWord(word: string) {

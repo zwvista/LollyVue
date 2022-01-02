@@ -90,68 +90,68 @@
     }
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'settingsService', this.settingsService);
       this.settingsService.settingsListener = this;
-      this.settingsService.getData().subscribe();
+      await this.settingsService.getData();
     }
 
-    onLangChange(value: MLanguage) {
+    async onLangChange(value: MLanguage) {
       this.settingsService.selectedLang = value;
-      this.settingsService.updateLang().subscribe();
+      await this.settingsService.updateLang();
     }
 
-    onVoiceChange(value: MVoice) {
+    async onVoiceChange(value: MVoice) {
       this.settingsService.selectedVoice = value;
-      this.settingsService.updateVoice().subscribe();
+      this.settingsService.updateVoice();
     }
 
-    onDictReferenceChange(value: MDictionary) {
+    async onDictReferenceChange(value: MDictionary) {
       this.settingsService.selectedDictReference = value;
-      this.settingsService.updateDictReference().subscribe();
+      await this.settingsService.updateDictReference();
     }
 
-    onDictNoteChange(value: MDictionary) {
+    async onDictNoteChange(value: MDictionary) {
       this.settingsService.selectedDictNote = value;
-      this.settingsService.updateDictNote().subscribe();
+      await this.settingsService.updateDictNote();
     }
 
-    onDictTranslationChange(value: MDictionary) {
+    async onDictTranslationChange(value: MDictionary) {
       this.settingsService.selectedDictTranslation = value;
-      this.settingsService.updateDictTranslation().subscribe();
+      await this.settingsService.updateDictTranslation();
     }
 
-    onTextbookChange(value: MTextbook) {
+    async onTextbookChange(value: MTextbook) {
       this.settingsService.selectedTextbook = value;
-      this.settingsService.updateTextbook().subscribe();
+      await this.settingsService.updateTextbook();
     }
 
-    onUnitFromChange(value: number) {
-      this.settingsService.updateUnitFrom(value).subscribe();
+    async onUnitFromChange(value: number) {
+      await this.settingsService.updateUnitFrom(value);
     }
 
-    onPartFromChange(value: number) {
-      this.settingsService.updatePartFrom(value).subscribe();
+    async onPartFromChange(value: number) {
+      await this.settingsService.updatePartFrom(value);
     }
 
-    onToTypeChange(value: number) {
-      this.settingsService.updateToType(value).subscribe();
+    async onToTypeChange(value: number) {
+      await this.settingsService.updateToType(value);
     }
 
-    previousUnitPart() {
-      this.settingsService.previousUnitPart().subscribe();
+    async previousUnitPart() {
+      await this.settingsService.previousUnitPart();
     }
 
-    nextUnitPart() {
-      this.settingsService.nextUnitPart().subscribe();
+    async nextUnitPart() {
+      await this.settingsService.nextUnitPart();
     }
 
-    onUnitToChange(value: number) {
-      this.settingsService.updateUnitTo(value).subscribe();
+    async onUnitToChange(value: number) {
+      await this.settingsService.updateUnitTo(value);
     }
 
-    onPartToChange(value: number) {
-      this.settingsService.updateUnitTo(value).subscribe();
+    async onPartToChange(value: number) {
+      await this.settingsService.updateUnitTo(value);
     }
 
     onGetData(): void {
