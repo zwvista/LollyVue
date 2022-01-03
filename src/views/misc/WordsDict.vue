@@ -2,8 +2,8 @@
   <div>
     <v-toolbar>
       <v-btn color="info" @click="goBack()">Back</v-btn>
-      <v-select :items="settingsService.dictsReference" item-text="DICTNAME" v-model="selectedDictReference"
-                return-object="true" @change="refreshDict()"></v-select>
+      <v-select :items="settingsService.dictsReference" item-text="NAME" v-model="selectedDictReference"
+                :return-object="true" @change="refreshDict()"></v-select>
     </v-toolbar>
     <v-select :items="words" v-model="selectedWord" @change="refreshDict()"></v-select>
     <DictBrowser :url="dictUrl" :htmlString="dictSrc"></DictBrowser>
