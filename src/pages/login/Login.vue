@@ -43,6 +43,7 @@
         GlobalVars.userid = userid;
         window.location.href = '/';
       }
+    }
   }
 </script>
 
