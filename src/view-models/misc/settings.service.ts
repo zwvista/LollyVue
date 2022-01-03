@@ -324,7 +324,7 @@ export class SettingsService {
   async updateToType(value: number) {
     this.toType = value;
     if (this.toType === 0)
-      await this.doUpdateSingleUnit()
+      await this.doUpdateSingleUnit();
     else if (this.toType === 1)
       await this.doUpdateUnitPartTo();
   }
@@ -408,7 +408,7 @@ export class SettingsService {
     const dictNote = this.selectedDictNote;
     if (!dictNote) return "";
     const url = dictNote.urlString(word, this.autoCorrects);
-    const html = await this.htmlService.getHtml(url)
+    const html = await this.htmlService.getHtml(url);
     console.log(html);
     return HtmlService.extractTextFrom(html, dictNote.TRANSFORM, '', (text, _) => text);
   }

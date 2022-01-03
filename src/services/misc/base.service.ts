@@ -14,9 +14,9 @@ export class BaseService {
     const result = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
     const data = await result.json();
     return data as T;
@@ -27,7 +27,7 @@ export class BaseService {
     const result = await fetch(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(body)
     });
@@ -38,7 +38,7 @@ export class BaseService {
   async httpDelete(url: string): Promise<number> {
     console.log(`[RestApi]DELETE:${url}`);
     const result = await fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
     });
     const data = await result.text();
     return +data;

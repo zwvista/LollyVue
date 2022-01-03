@@ -38,7 +38,7 @@ export class HtmlService extends BaseService {
   }
 
   async getHtml(url: string): Promise<string> {
-    const result = await fetch(url)
+    const result = await fetch(url);
     return await result.text();
   }
 
