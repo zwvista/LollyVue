@@ -1,7 +1,7 @@
 <template>
   <div>
     <Toolbar>
-      <template slot="left">
+      <template #start>
         <span class="p-float-label">
           <InputText id="word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
           <label for="word">New Word</label>

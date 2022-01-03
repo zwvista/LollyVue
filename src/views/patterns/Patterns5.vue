@@ -1,7 +1,7 @@
 <template>
   <div>
     <Toolbar>
-      <template slot="left">
+      <template #start>
         <DropDown :options="settingsService.patternFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <span class="p-float-label">
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />

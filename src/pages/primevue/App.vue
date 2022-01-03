@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Toolbar>
-      <template slot="left">
+      <template #start>
         {{ title }}
       </template>
-      <template slot="right">
+      <template #end>
         <a href="/">
           <Button label="1. Veutify" />
         </a>
