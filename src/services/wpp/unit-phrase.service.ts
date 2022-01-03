@@ -49,7 +49,7 @@ export class UnitPhraseService extends BaseService {
 
   async updateSeqNum(id: number, seqnum: number): Promise<number> {
     const url = `${this.baseUrlAPI}UNITPHRASES/${id}`;
-    return this.httpPut<number>(url, {ID: id, SEQNUM: seqnum} as MUnitPhrase);
+    return await this.httpPut<number>(url, {ID: id, SEQNUM: seqnum} as MUnitPhrase);
   }
 
   async update(item: MUnitPhrase): Promise<string> {

@@ -1,10 +1,10 @@
 import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from './settings.service';
 import { AppService } from './app.service';
-import { MPattern } from '../../models/wpp/pattern';
-import {concatMap, map, take} from 'rxjs/operators';
+import { MPattern } from '@/models/wpp/pattern';
+import { take } from 'rxjs/operators';
 import { Promise } from 'rxjs';
-import { PatternService } from '../../services/wpp/pattern.service';
+import { PatternService } from '@/services/wpp/pattern.service';
 
 @injectable()
 export class PatternsService {

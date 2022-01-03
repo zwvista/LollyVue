@@ -334,8 +334,7 @@ export class SettingsService {
       if (this.USUNITFROM > 1)
         await Promise.all([this.doUpdateUnitFrom(this.USUNITFROM - 1),
             this.doUpdateUnitTo(this.USUNITFROM)]);
-    }
-    else if (this.USPARTFROM > 1)
+    } else if (this.USPARTFROM > 1)
       await Promise.all([this.doUpdatePartFrom(this.USPARTFROM - 1),
         this.doUpdateUnitPartTo()]);
     else if (this.USUNITFROM > 1)

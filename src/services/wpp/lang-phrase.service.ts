@@ -35,17 +35,17 @@ export class LangPhraseService extends BaseService {
   async create(item: MLangPhrase): Promise<number | any[]> {
     const url = `${this.baseUrlAPI}LANGPHRASES`;
     (item as any).ID = null;
-    return this.httpPost<number | any[]>(url, item);
+    return await this.httpPost<number | any[]>(url, item);
   }
 
   async update(item: MLangPhrase): Promise<number> {
     const url = `${this.baseUrlAPI}LANGPHRASES/${item.ID}`;
-    return this.httpPut<number>(url, item);
+    return await this.httpPut<number>(url, item);
   }
 
   async updateTranslation(id: number, translation: string): Promise<number> {
     const url = `${this.baseUrlAPI}LANGPHRASES/${id}`;
-    return this.httpPut<number>(url, {ID: id, TRANSLATION: translation} as MLangPhrase);
+    return await this.httpPut<number>(url, {ID: id, TRANSLATION: translation} as MLangPhrase);
   }
 
   async delete(item: MLangPhrase): Promise<string> {

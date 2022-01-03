@@ -27,16 +27,16 @@ export class WebpageService extends BaseService {
   async create(item: MWebPage): Promise<number | any[]> {
     const url = `${this.baseUrlAPI}WEBPAGES`;
     (item as any).ID = null;
-    return this.httpPost<number | any[]>(url, item);
+    return await this.httpPost<number | any[]>(url, item);
   }
 
   async update(item: MWebPage): Promise<number> {
     const url = `${this.baseUrlAPI}WEBPAGES/${item.ID}`;
-    return this.httpPut<number>(url, item);
+    return await this.httpPut<number>(url, item);
   }
 
   async delete(id: number): Promise<number> {
     const url = `${this.baseUrlAPI}WEBPAGES/${id}`;
-    return this.httpDelete(url);
+    return await this.httpDelete(url);
   }
 }

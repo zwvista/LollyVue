@@ -38,7 +38,6 @@ export class HtmlService extends BaseService {
   }
 
   async getHtml(url: string): Promise<string> {
-    // https://www.concretepage.com/angular-2/angular-httpclient-get-example#Text
     const result = await fetch(url)
     return await result.text();
   }

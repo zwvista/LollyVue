@@ -13,13 +13,13 @@ export class UserSettingService extends BaseService {
   }
 
   async updateIntValue(info: MUserSettingInfo, intValue: number): Promise<number> {
-    return this.updateStringValue(info, String(intValue));
+    return await this.updateStringValue(info, String(intValue));
   }
 
   async updateStringValue(info: MUserSettingInfo, stringValue: string): Promise<number> {
     const url = `${this.baseUrlAPI}USERSETTINGS/${info.USERSETTINGID}`;
     const o = {};
     o['VALUE' + info.VALUEID] = stringValue;
-    return this.httpPut<number>(url, o as MUserSetting);
+    return await this.httpPut<number>(url, o as MUserSetting);
   }
 }

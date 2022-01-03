@@ -35,17 +35,17 @@ export class LangWordService extends BaseService {
   async create(item: MLangWord): Promise<number | any[]> {
     const url = `${this.baseUrlAPI}LANGWORDS`;
     (item as any).ID = null;
-    return this.httpPost<number | any[]>(url, item);
+    return await this.httpPost<number | any[]>(url, item);
   }
 
   async update(item: MLangWord): Promise<number> {
     const url = `${this.baseUrlAPI}LANGWORDS/${item.ID}`;
-    return this.httpPut<number>(url, item);
+    return await this.httpPut<number>(url, item);
   }
 
   async updateNote(id: number, note: string): Promise<number> {
     const url = `${this.baseUrlAPI}LANGWORDS/${id}`;
-    return this.httpPut<number>(url, {ID: id, NOTE: note} as MLangWord);
+    return await this.httpPut<number>(url, {ID: id, NOTE: note} as MLangWord);
   }
 
   async delete(item: MLangWord): Promise<string> {

@@ -20,21 +20,21 @@ export class PatternWebpageService extends BaseService {
   async create(item: MPatternWebPage): Promise<number | any[]> {
     const url = `${this.baseUrlAPI}PATTERNSWEBPAGES`;
     (item as any).ID = null;
-    return this.httpPost<number | any[]>(url, item);
+    return await this.httpPost<number | any[]>(url, item);
   }
 
   async updateSeqNum(id: number, seqnum: number): Promise<number> {
     const url = `${this.baseUrlAPI}PATTERNSWEBPAGES/${id}`;
-    return this.httpPut<number>(url, {ID: id, SEQNUM: seqnum} as MPatternWebPage);
+    return await this.httpPut<number>(url, {ID: id, SEQNUM: seqnum} as MPatternWebPage);
   }
 
   async update(item: MPatternWebPage): Promise<number> {
     const url = `${this.baseUrlAPI}PATTERNSWEBPAGES/${item.ID}`;
-    return this.httpPut<number>(url, item);
+    return await this.httpPut<number>(url, item);
   }
 
   async delete(id: number): Promise<number> {
     const url = `${this.baseUrlAPI}PATTERNSWEBPAGES/${id}`;
-    return this.httpDelete(url);
+    return await this.httpDelete(url);
   }
 }
