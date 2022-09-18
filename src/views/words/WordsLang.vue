@@ -162,15 +162,14 @@
       });
     }
 
-    onEnterNewWord() {
+    async onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
       this.newWord = '';
-      this.wordsLangService.create(o).subscribe(id => {
-        o.ID = id as number;
-        this.wordsLangService.langWords.push(o);
-      });
+      const id = await this.wordsLangService.create(o);
+      o.ID = id as number;
+      this.wordsLangService.langWords.push(o);
     }
 
     rowsChange(rows: number) {

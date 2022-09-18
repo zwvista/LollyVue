@@ -84,8 +84,7 @@
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { AppService } from '@/view-models/misc/app.service';
-  import { MPattern } from '@/models/wpp/pattern';
-  import { PatternsService } from '@/view-models/misc/patterns.service';
+  import { PatternsService } from '@/view-models/wpp/patterns.service';
 
   @Component
   export default class Patterns4 extends Vue {

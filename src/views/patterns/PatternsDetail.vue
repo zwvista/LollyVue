@@ -14,7 +14,7 @@
   import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MPattern } from '@/models/wpp/pattern';
-  import { PatternsService } from '@/view-models/misc/patterns.service';
+  import { PatternsService } from '@/view-models/wpp/patterns.service';
 
   @Component
   export default class PatternDetail extends Vue {

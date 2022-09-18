@@ -1,6 +1,6 @@
 import { injectable } from 'vue-typescript-inject';
-import { SettingsService } from './settings.service';
-import { AppService } from './app.service';
+import { SettingsService } from '../misc/settings.service';
+import { AppService } from '../misc/app.service';
 import { MPattern } from '@/models/wpp/pattern';
 import { take } from 'rxjs/operators';
 import { Promise } from 'rxjs';

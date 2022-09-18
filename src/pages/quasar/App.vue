@@ -59,7 +59,7 @@
   import { WordFamiService } from '@/services/wpp/word-fami.service';
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
-  import { PatternsService } from '@/view-models/misc/patterns.service';
+  import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { inject } from 'vue-typescript-inject';
 
   @Component({
