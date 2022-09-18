@@ -1,6 +1,6 @@
 import { injectable } from 'vue-typescript-inject';
 import { BaseService } from '../misc/base.service';
-import { MWebPage, MWebPages } from '../../models/wpp/webpage';
+import { MWebPage, MWebPages } from '@/models/wpp/webpage';
 
 @injectable()
 export class WebpageService extends BaseService {

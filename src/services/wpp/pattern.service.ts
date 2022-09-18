@@ -1,8 +1,8 @@
 import { injectable } from 'vue-typescript-inject';
 import { BaseService } from '../misc/base.service';
-import { MPattern, MPatterns } from '../../models/wpp/pattern';
-import { MSPResult } from '../../common/sp-result';
-import { toParameters } from '../../common/common';
+import { MPattern, MPatterns } from '@/models/wpp/pattern';
+import { MSPResult } from '@/common/sp-result';
+import { toParameters } from '@/common/common';
 
 @injectable()
 export class PatternService extends BaseService {

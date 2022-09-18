@@ -103,7 +103,7 @@
 
     async onVoiceChange(value: MVoice) {
       this.settingsService.selectedVoice = value;
-      this.settingsService.updateVoice();
+      await this.settingsService.updateVoice();
     }
 
     async onDictReferenceChange(value: MDictionary) {
