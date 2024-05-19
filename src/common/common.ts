@@ -6,6 +6,7 @@ export function googleString(str: string) {
 }
 
 export function toParameters(item: Object): Object {
+  // @ts-ignore
   return _.mapKeys(item, (v, k) => 'P_' + k);
 }
 
