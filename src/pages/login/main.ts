@@ -11,13 +11,8 @@ import '@/registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'font-awesome/css/font-awesome.min.css';
-import { container } from "tsyringe";
-import { UserService } from "@/services/misc/user.service";
-import { LoginService } from "@/view-models/misc/login.service";
 
 Vue.config.productionTip = false;
-container.registerSingleton('UserService', UserService);
-container.registerSingleton('LoginService', LoginService);
 
 new Vue({
   router,

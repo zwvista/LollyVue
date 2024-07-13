@@ -18,10 +18,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { container, inject } from 'tsyringe';
   import { LoginService } from '@/view-models/misc/login.service';
-  import { UserService } from '@/services/misc/user.service';
   import { GlobalVars } from '@/common/common';
+  import { container } from 'tsyringe';
 
   @Component
   export default class Login extends Vue {
