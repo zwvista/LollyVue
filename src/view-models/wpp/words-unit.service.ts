@@ -1,12 +1,12 @@
-import { injectable } from 'vue-typescript-inject';
 import { UnitWordService } from '@/services/wpp/unit-word.service';
 import { SettingsService } from '../misc/settings.service';
 import { MUnitWord } from '@/models/wpp/unit-word';
 import { AppService } from '../misc/app.service';
 import { take } from 'rxjs/operators';
 import { LangWordService } from '@/services/wpp/lang-word.service';
+import { inject, singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class WordsUnitService {
 
   unitWords: MUnitWord[] = [];
@@ -14,10 +14,10 @@ export class WordsUnitService {
   textbookWords: MUnitWord[] = [];
   textbookWordCount = 0;
 
-  constructor(private unitWordService: UnitWordService,
-              private langWordService: LangWordService,
-              private settingsService: SettingsService,
-              private appService: AppService) {
+  constructor(@inject(UnitWordService) private unitWordService: UnitWordService,
+              @inject(LangWordService) private langWordService: LangWordService,
+              @inject(SettingsService) private settingsService: SettingsService,
+              @inject(AppService) private appService: AppService) {
   }
 
   async getDataInTextbook(filter: string, filterType: number): Promise<void> {

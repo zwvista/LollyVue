@@ -1,8 +1,8 @@
-import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { MVoice, MVoices } from '@/models/misc/voice';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class VoiceService extends BaseService {
 
   async getDataByLang(langid: number): Promise<MVoice[]> {

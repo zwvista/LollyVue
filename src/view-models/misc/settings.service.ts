@@ -1,4 +1,3 @@
-import { injectable } from 'vue-typescript-inject';
 import { LanguageService } from '@/services/misc/language.service';
 import { UserSettingService } from '@/services/misc/user-setting.service';
 import { MUserSetting, MUserSettingInfo } from '@/models/misc/user-setting';
@@ -11,23 +10,25 @@ import { TextbookService } from '@/services/misc/textbook.service';
 import { autoCorrect, MAutoCorrect } from '@/models/misc/autocorrect';
 import { AutoCorrectService } from '@/services/misc/autocorrect.service';
 import { MSelectItem } from '@/common/selectitem';
+// @ts-ignore
 import * as Speech from 'speak-tts';
 import { VoiceService } from '@/services/misc/voice.service';
 import { MVoice } from '@/models/misc/voice';
 import { UsMappingService } from '@/services/misc/us-mapping.service';
 import { MUSMapping } from '@/models/misc/usmapping';
 import { HtmlService } from '@/services/misc/html.service';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class SettingsService {
 
   usMappings: MUSMapping[] = [];
   userSettings: MUserSetting[] = [];
   private getUSValue(info: MUserSettingInfo): string | null {
-    return this.userSettings.find(v => v.ID === info.USERSETTINGID)!['VALUE' + info.VALUEID]!;
+    return (this.userSettings.find(v => v.ID === info.USERSETTINGID)! as any)['VALUE' + info.VALUEID]!;
   }
   private setUSValue(info: MUserSettingInfo, value: string) {
-    this.userSettings.find(v => v.ID === info.USERSETTINGID)!['VALUE' + info.VALUEID]! = value;
+    (this.userSettings.find(v => v.ID === info.USERSETTINGID)! as any)['VALUE' + info.VALUEID]! = value;
   }
   private INFO_USLANG: MUserSettingInfo = new MUserSettingInfo();
   private get USLANG(): number {

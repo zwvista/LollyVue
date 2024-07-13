@@ -1,8 +1,8 @@
-import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { MUSMapping, MUSMappings } from '@/models/misc/usmapping';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class UsMappingService extends BaseService {
 
   async getData(): Promise<MUSMapping[]> {

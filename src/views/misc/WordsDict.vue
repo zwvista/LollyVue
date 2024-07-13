@@ -12,22 +12,22 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MDictionary } from '@/models/misc/dictionary';
   import DictBrowser from '../../components/DictBrowser.vue';
   import { HtmlService } from '@/services/misc/html.service';
   import { WordsLangService } from '@/view-models/wpp/words-lang.service';
+  import { container } from 'tsyringe';
 
   @Component({
     components: {DictBrowser},
   })
   export default class WordsDict extends Vue {
-    @inject() wordsUnitService!: WordsUnitService;
-    @inject() wordsLangService!: WordsLangService;
-    @inject() settingsService!: SettingsService;
-    @inject() htmlService!: HtmlService;
+    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
+    wordsLangService: WordsLangService = container.resolve(WordsLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
+    htmlService: HtmlService = container.resolve(HtmlService);
 
     words: string[] | null = null;
     selectedWord: string | null = null;

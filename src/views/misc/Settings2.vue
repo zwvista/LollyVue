@@ -68,16 +68,16 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsListener, SettingsService } from '@/view-models/misc/settings.service';
   import { MLanguage } from '@/models/misc/language';
   import { MDictionary } from '@/models/misc/dictionary';
   import { MTextbook } from '@/models/misc/textbook';
   import { MVoice } from '@/models/misc/voice';
+  import { container } from 'tsyringe';
 
   @Component
   export default class Settings2 extends Vue implements SettingsListener {
-    @inject() settingsService!: SettingsService;
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     get toTypeIsUnit() {
       return this.settingsService.toType === 0;

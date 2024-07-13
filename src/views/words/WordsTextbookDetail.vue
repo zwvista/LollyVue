@@ -17,15 +17,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MUnitWord } from '@/models/wpp/unit-word';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class WordsTextbookDetail extends Vue {
-    @inject() wordsUnitService!: WordsUnitService;
-    @inject() settingsService!: SettingsService;
+    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     item!: MUnitWord;
 

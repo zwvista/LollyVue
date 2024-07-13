@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import '@/plugins/plugin-primevue';
-import '@/plugins/plugin-vue-typescript-inject';
+import "reflect-metadata";
 import '@/plugins/plugin-bootstrap-vue';
 import '@/plugins/plugin-vue-clipboard2';
 import App from './App.vue';

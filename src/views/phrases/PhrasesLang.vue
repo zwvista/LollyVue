@@ -106,18 +106,18 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { AppService } from '@/view-models/misc/app.service';
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PhrasesLang extends Vue {
-    @inject() appService!: AppService;
-    @inject() phrasesLangService!: PhrasesLangService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },

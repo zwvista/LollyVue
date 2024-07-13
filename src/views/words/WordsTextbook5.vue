@@ -49,18 +49,18 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { MUnitWord } from '@/models/wpp/unit-word';
   import { AppService } from '@/view-models/misc/app.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class WordsTextbook5 extends Vue {
-    @inject() appService!: AppService;
-    @inject() wordsUnitService!: WordsUnitService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     page = 1;
     pageCount = 1;

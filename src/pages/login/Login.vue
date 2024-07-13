@@ -18,18 +18,14 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
+  import { container, inject } from 'tsyringe';
   import { LoginService } from '@/view-models/misc/login.service';
   import { UserService } from '@/services/misc/user.service';
   import { GlobalVars } from '@/common/common';
 
-  @Component({
-    providers: [
-        UserService, LoginService,
-    ],
-  })
+  @Component
   export default class Login extends Vue {
-    @inject() loginService!: LoginService;
+    loginService: LoginService = container.resolve(LoginService);
 
     services = {};
     created() {

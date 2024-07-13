@@ -51,18 +51,18 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { WordsLangService } from '@/view-models/wpp/words-lang.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { MLangWord } from '@/models/wpp/lang-word';
   import { AppService } from '@/view-models/misc/app.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class WordsLang5 extends Vue {
-    @inject() appService!: AppService;
-    @inject() wordsLangService!: WordsLangService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    wordsLangService: WordsLangService = container.resolve(WordsLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     newWord = '';
     page = 1;
@@ -80,15 +80,14 @@
       });
     }
 
-    onEnterNewWord() {
+    async onEnterNewWord() {
       if (!this.newWord) return;
       const o = this.wordsLangService.newLangWord();
       o.WORD = this.settingsService.autoCorrectInput(this.newWord);
       this.newWord = '';
-      this.wordsLangService.create(o).subscribe(id => {
-        o.ID = id as number;
-        this.wordsLangService.langWords.push(o);
-      });
+      const id = await this.wordsLangService.create(o);
+      o.ID = id as number;
+      this.wordsLangService.langWords.push(o);
     }
 
     rowsChange(rows: number) {

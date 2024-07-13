@@ -60,7 +60,7 @@
   import { UsMappingService } from '@/services/misc/us-mapping.service';
   import { PatternService } from '@/services/wpp/pattern.service';
   import { PatternsService } from '@/view-models/wpp/patterns.service';
-  import { inject } from "vue-typescript-inject";
+  import { container } from "tsyringe";
 
   @Component({
     providers: [
@@ -72,7 +72,7 @@
     ],
   })
   export default class App extends Vue {
-    @inject() appService!: AppService;
+    appService: AppService = container.resolve(AppService);
     menuVisible = false;
     items = [
       {

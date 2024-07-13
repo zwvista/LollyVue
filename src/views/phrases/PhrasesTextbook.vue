@@ -111,18 +111,18 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { AppService } from '@/view-models/misc/app.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PhrasesTextbook extends Vue {
-    @inject() appService!: AppService;
-    @inject() phrasesUnitService!: PhrasesUnitService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    phrasesUnitService: PhrasesUnitService = container.resolve(PhrasesUnitService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },

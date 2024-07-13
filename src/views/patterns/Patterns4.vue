@@ -80,17 +80,17 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { AppService } from '@/view-models/misc/app.service';
   import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class Patterns4 extends Vue {
-    @inject() appService!: AppService;
-    @inject() patternsService!: PatternsService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    patternsService: PatternsService = container.resolve(PatternsService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     page = 1;
     rows = 0;

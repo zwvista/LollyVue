@@ -14,15 +14,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { SettingsService } from '@/view-models/misc/settings.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PhrasesUnitDetail extends Vue {
-    @inject() phrasesUnitService!: PhrasesUnitService;
-    @inject() settingsService!: SettingsService;
+    phrasesUnitService: PhrasesUnitService = container.resolve(PhrasesUnitService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     item!: MUnitPhrase;
 

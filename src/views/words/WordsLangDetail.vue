@@ -12,15 +12,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { WordsLangService } from '@/view-models/wpp/words-lang.service';
   import { MLangWord } from '@/models/wpp/lang-word';
   import { SettingsService } from '@/view-models/misc/settings.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class WordsLangDetail extends Vue {
-    @inject() wordsLangService!: WordsLangService;
-    @inject() settingsService!: SettingsService;
+    wordsLangService: WordsLangService = container.resolve(WordsLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     item!: MLangWord;
 

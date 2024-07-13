@@ -1,9 +1,9 @@
-import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { MTextbook, MTextbooks } from '@/models/misc/textbook';
 import { MSelectItem } from '@/common/selectitem';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class TextbookService extends BaseService {
 
   async getDataByLang(langid: number): Promise<MTextbook[]> {

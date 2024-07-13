@@ -77,19 +77,19 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { AppService } from '@/view-models/misc/app.service';
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PhrasesLang3 extends Vue {
-    @inject() appService!: AppService;
-    @inject() phrasesLangService!: PhrasesLangService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     page = 1;
     pageCount = 1;

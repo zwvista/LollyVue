@@ -11,15 +11,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MPattern } from '@/models/wpp/pattern';
   import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PatternDetail extends Vue {
-    @inject() patternsService!: PatternsService;
-    @inject() settingsService!: SettingsService;
+    patternsService: PatternsService = container.resolve(PatternsService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     pattern!: MPattern;
 

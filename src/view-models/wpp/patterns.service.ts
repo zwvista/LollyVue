@@ -1,20 +1,19 @@
-import { injectable } from 'vue-typescript-inject';
 import { SettingsService } from '../misc/settings.service';
 import { AppService } from '../misc/app.service';
 import { MPattern } from '@/models/wpp/pattern';
 import { take } from 'rxjs/operators';
-import { Promise } from 'rxjs';
 import { PatternService } from '@/services/wpp/pattern.service';
+import { inject, singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class PatternsService {
 
   patterns: MPattern[] = [];
   patternCount = 0;
 
-  constructor(private patternService: PatternService,
-              private settingsService: SettingsService,
-              private appService: AppService) {
+  constructor(@inject(PatternService) private patternService: PatternService,
+              @inject(SettingsService) private settingsService: SettingsService,
+              @inject(AppService) private appService: AppService) {
   }
 
   async getData(page: number, rows: number, filter: string, filterType: number) {

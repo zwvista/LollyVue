@@ -1,8 +1,8 @@
-import { injectable } from 'vue-typescript-inject';
 import { ReplaySubject } from 'rxjs';
 import { SettingsService } from './settings.service';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class AppService {
 
   private _initializeObject: ReplaySubject<void> = new ReplaySubject<void>();

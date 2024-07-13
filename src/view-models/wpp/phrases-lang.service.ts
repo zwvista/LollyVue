@@ -1,19 +1,19 @@
-import { injectable } from 'vue-typescript-inject';
 import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
 import { SettingsService } from '../misc/settings.service';
 import { AppService } from '../misc/app.service';
 import { take } from 'rxjs/operators';
 import { MLangPhrase } from '@/models/wpp/lang-phrase';
+import { inject, singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class PhrasesLangService {
 
   langPhrases: MLangPhrase[] = [];
   langPhraseCount = 0;
 
-  constructor(private langPhraseService: LangPhraseService,
-              private settingsService: SettingsService,
-              private appService: AppService) {
+  constructor(@inject(LangPhraseService) private langPhraseService: LangPhraseService,
+              @inject(SettingsService) private settingsService: SettingsService,
+              @inject(AppService) private appService: AppService) {
   }
 
   async getData(page: number, rows: number, filter: string, filterType: number) {

@@ -1,9 +1,9 @@
-import { injectable } from 'vue-typescript-inject';
 import { BaseService } from './base.service';
 import { MUserSetting, MUserSettingInfo, MUserSettings } from '@/models/misc/user-setting';
 import { GlobalVars } from '@/common/common';
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class UserSettingService extends BaseService {
 
   async getDataByUser(): Promise<MUserSetting[]> {
@@ -18,7 +18,7 @@ export class UserSettingService extends BaseService {
 
   async updateStringValue(info: MUserSettingInfo, stringValue: string): Promise<number> {
     const url = `${this.baseUrlAPI}USERSETTINGS/${info.USERSETTINGID}`;
-    const o = {};
+    const o: any = {};
     o['VALUE' + info.VALUEID] = stringValue;
     return await this.httpPut<number>(url, o as MUserSetting);
   }

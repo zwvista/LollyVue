@@ -10,15 +10,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { SettingsService } from '@/view-models/misc/settings.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class PhrasesLangDetail extends Vue {
-    @inject() phrasesLangService!: PhrasesLangService;
-    @inject() settingsService!: SettingsService;
+    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     langPhrase!: MLangPhrase;
 

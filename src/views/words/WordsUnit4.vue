@@ -79,18 +79,18 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { inject } from 'vue-typescript-inject';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { MUnitWord } from '@/models/wpp/unit-word';
   import { AppService } from '@/view-models/misc/app.service';
+  import { container } from 'tsyringe';
 
   @Component
   export default class WordsUnit4 extends Vue {
-    @inject() appService!: AppService;
-    @inject() wordsUnitService!: WordsUnitService;
-    @inject() settingsService!: SettingsService;
+    appService: AppService = container.resolve(AppService);
+    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
+    settingsService: SettingsService = container.resolve(SettingsService);
 
     newWord = '';
     filter = '';

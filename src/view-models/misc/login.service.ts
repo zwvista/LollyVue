@@ -1,13 +1,13 @@
-import { injectable } from 'vue-typescript-inject';
 import { UserService } from '@/services/misc/user.service';
 import { MUser } from '@/models/misc/user';
+import { inject, singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class LoginService {
 
   item = new MUser();
 
-  constructor(private userService: UserService) {
+  constructor(@inject(UserService) private userService: UserService) {
   }
 
   async login(): Promise<string> {
