@@ -60,9 +60,9 @@
 
   @Component
   export default class WordsLang5 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsLangService: WordsLangService = container.resolve(WordsLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsLangService = container.resolve(WordsLangService);
+    settingsService = container.resolve(SettingsService);
 
     newWord = '';
     page = 1;

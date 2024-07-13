@@ -47,9 +47,9 @@
 
   @Component
   export default class Patterns5 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    patternsService: PatternsService = container.resolve(PatternsService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    patternsService = container.resolve(PatternsService);
+    settingsService = container.resolve(SettingsService);
 
     page = 1;
     pageCount = 1;

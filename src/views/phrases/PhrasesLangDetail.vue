@@ -17,8 +17,8 @@
 
   @Component
   export default class PhrasesLangDetail extends Vue {
-    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    phrasesLangService = container.resolve(PhrasesLangService);
+    settingsService = container.resolve(SettingsService);
 
     langPhrase!: MLangPhrase;
 

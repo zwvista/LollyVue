@@ -115,9 +115,9 @@
 
   @Component
   export default class PhrasesLang extends Vue {
-    appService: AppService = container.resolve(AppService);
-    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    phrasesLangService = container.resolve(PhrasesLangService);
+    settingsService = container.resolve(SettingsService);
 
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },

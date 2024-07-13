@@ -135,9 +135,9 @@
 
   @Component
   export default class WordsTextbook extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    settingsService = container.resolve(SettingsService);
 
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },

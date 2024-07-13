@@ -52,17 +52,9 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from "tsyringe";
 
-  @Component({
-    providers: [
-      DictionaryService, HtmlService, LanguageService,
-      TextbookService, UnitPhraseService, UnitWordService, UserSettingService, AppService,
-      PhrasesUnitService, SettingsService, WordsUnitService, AutoCorrectService,
-      LangPhraseService, LangWordService, PhrasesLangService, WordsLangService,
-      WordFamiService, VoiceService, UsMappingService, PatternService, PatternsService,
-    ],
-  })
+  @Component
   export default class App extends Vue {
-    appService: AppService = container.resolve(AppService);
+    appService = container.resolve(AppService);
     items = [
       {
         icon: 'fa fa-bus fa-lg',

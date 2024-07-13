@@ -56,9 +56,9 @@
 
   @Component
   export default class Patterns2 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    patternsService: PatternsService = container.resolve(PatternsService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    patternsService = container.resolve(PatternsService);
+    settingsService = container.resolve(SettingsService);
 
     columns = [
       { name: 'ID', field: 'ID', label: 'ID' },

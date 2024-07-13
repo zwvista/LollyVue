@@ -18,8 +18,8 @@
 
   @Component
   export default class PatternDetail extends Vue {
-    patternsService: PatternsService = container.resolve(PatternsService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    patternsService = container.resolve(PatternsService);
+    settingsService = container.resolve(SettingsService);
 
     pattern!: MPattern;
 

@@ -109,9 +109,9 @@
 
   @Component
   export default class WordsUnit3 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    settingsService = container.resolve(SettingsService);
     newWord = '';
     filter = '';
     filterType = 0;

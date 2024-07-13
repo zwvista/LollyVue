@@ -67,7 +67,7 @@
 
   @Component
   export default class App extends Vue {
-    appService: AppService = container.resolve(AppService);
+    appService = container.resolve(AppService);
     clipped = true;
     drawer = true;
     items = [

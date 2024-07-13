@@ -60,9 +60,9 @@
 
   @Component
   export default class PhrasesTextbook2 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    phrasesUnitService: PhrasesUnitService = container.resolve(PhrasesUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    phrasesUnitService = container.resolve(PhrasesUnitService);
+    settingsService = container.resolve(SettingsService);
 
     columns = [
       { name: 'ID', field: 'ID', label: 'ID' },

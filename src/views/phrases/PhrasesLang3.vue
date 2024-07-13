@@ -87,9 +87,9 @@
 
   @Component
   export default class PhrasesLang3 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    phrasesLangService: PhrasesLangService = container.resolve(PhrasesLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    phrasesLangService = container.resolve(PhrasesLangService);
+    settingsService = container.resolve(SettingsService);
 
     page = 1;
     pageCount = 1;

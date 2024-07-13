@@ -24,7 +24,7 @@
 
   @Component
   export default class Login extends Vue {
-    loginService: LoginService = container.resolve(LoginService);
+    loginService = container.resolve(LoginService);
 
     services = {};
     created() {

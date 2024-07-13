@@ -24,8 +24,8 @@
 
   @Component
   export default class WordsTextbookDetail extends Vue {
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    settingsService = container.resolve(SettingsService);
 
     item!: MUnitWord;
 

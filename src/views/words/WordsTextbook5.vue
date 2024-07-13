@@ -58,9 +58,9 @@
 
   @Component
   export default class WordsTextbook5 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    settingsService = container.resolve(SettingsService);
 
     page = 1;
     pageCount = 1;

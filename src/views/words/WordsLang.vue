@@ -135,9 +135,9 @@
 
   @Component
   export default class WordsLang extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsLangService: WordsLangService = container.resolve(WordsLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsLangService = container.resolve(WordsLangService);
+    settingsService = container.resolve(SettingsService);
 
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },

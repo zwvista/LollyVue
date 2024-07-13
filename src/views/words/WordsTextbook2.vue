@@ -71,9 +71,9 @@
 
   @Component
   export default class WordsTextbook2 extends Vue {
-    appService: AppService = container.resolve(AppService);
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    appService = container.resolve(AppService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    settingsService = container.resolve(SettingsService);
 
     columns = [
       { name: 'ID', field: 'ID', label: 'ID' },

@@ -77,7 +77,7 @@
 
   @Component
   export default class Settings2 extends Vue implements SettingsListener {
-    settingsService: SettingsService = container.resolve(SettingsService);
+    settingsService = container.resolve(SettingsService);
 
     get toTypeIsUnit() {
       return this.settingsService.toType === 0;

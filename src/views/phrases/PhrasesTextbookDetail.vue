@@ -21,8 +21,8 @@
 
   @Component
   export default class PhrasesTextbookDetail extends Vue {
-    phrasesUnitService: PhrasesUnitService = container.resolve(PhrasesUnitService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    phrasesUnitService = container.resolve(PhrasesUnitService);
+    settingsService = container.resolve(SettingsService);
 
     item!: MUnitPhrase;
 

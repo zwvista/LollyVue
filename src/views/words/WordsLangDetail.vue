@@ -19,8 +19,8 @@
 
   @Component
   export default class WordsLangDetail extends Vue {
-    wordsLangService: WordsLangService = container.resolve(WordsLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
+    wordsLangService = container.resolve(WordsLangService);
+    settingsService = container.resolve(SettingsService);
 
     item!: MLangWord;
 

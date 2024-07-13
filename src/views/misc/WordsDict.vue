@@ -24,10 +24,10 @@
     components: {DictBrowser},
   })
   export default class WordsDict extends Vue {
-    wordsUnitService: WordsUnitService = container.resolve(WordsUnitService);
-    wordsLangService: WordsLangService = container.resolve(WordsLangService);
-    settingsService: SettingsService = container.resolve(SettingsService);
-    htmlService: HtmlService = container.resolve(HtmlService);
+    wordsUnitService = container.resolve(WordsUnitService);
+    wordsLangService = container.resolve(WordsLangService);
+    settingsService = container.resolve(SettingsService);
+    htmlService = container.resolve(HtmlService);
 
     words: string[] | null = null;
     selectedWord: string | null = null;
