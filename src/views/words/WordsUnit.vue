@@ -1,21 +1,21 @@
 <template>
   <div>
     <v-toolbar>
-      <v-flex xs6 md2>
+      <div class="xs-6 md-2">
         <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
-      </v-flex>
+      </div>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
+          <v-btn v-bind="attrs" v-on="on" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)"></v-btn>
         </template>
         <span>Speak</span>
       </v-tooltip>
-      <v-flex xs6 md2>
+      <div class="xs-6 md-2">
         <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
-      </v-flex>
-      <v-flex xs6 md2>
+      </div>
+      <div class="xs-6 md-2">
         <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      </v-flex>
+      </div>
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
@@ -39,7 +39,7 @@
         <tbody>
         <tr class="sortableRow" v-for="(item, index) in items" :key="item.ID" :style="item.colorStyle">
           <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon class="sortHandle"><v-icon>fa-bars</v-icon></v-btn>
+            <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
           </td>
           <td>{{ item.ID }}</td>
           <td>{{ item.UNITSTR }}</td>
@@ -52,40 +52,40 @@
           <td>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="error" @click="deleteWord(item)"><v-icon>fa-trash</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
               </template>
               <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-edit</v-icon></v-btn>
+                  <v-btn v-bind="attrs" v-on="on" icon="fa-edit" color="info"></v-btn>
                 </template>
                 <span>Edit</span>
               </v-tooltip>
             </router-link>
             <v-tooltip top v-show="settingsService.selectedVoice">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(item.WORD)"><v-icon>fa-volume-up</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon="fa-volume-up" color="info" @click="settingsService.speak(item.WORD)"></v-btn>
               </template>
               <span>Speak</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon color="info" v-clipboard:copy="item.WORD"><v-icon>fa-copy</v-icon></v-btn>
+              <v-btn v-bind="attrs" v-on="on" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
                 </template>
               <span>Copy</span>
             </v-tooltip>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon color="info" @click="googleWord(item.WORD)"><v-icon>fa-google</v-icon></v-btn>
+                <v-btn v-bind="attrs" v-on="on" icon="fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
               </template>
               <span>Google Word</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon color="info"><v-icon>fa-book</v-icon></v-btn>
+                  <v-btn v-bind="attrs" v-on="on" icon="fa-book" color="info"></v-btn>
                 </template>
                 <span>Dictionary</span>
               </v-tooltip>
@@ -99,118 +99,115 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+
+  // import Sortable from 'sortablejs';
   import "reflect-metadata";
-  import { Component, Vue } from 'vue-property-decorator';
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
-  import Sortable from 'sortablejs';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/wpp/unit-word';
-  import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
+  import { WordsUnitService } from "@/view-models/wpp/words-unit.service";
+  import { onMounted, ref } from "vue";
+  import { AppService } from "@/view-models/misc/app.service";
+  import { MUnitWord } from "@/models/wpp/unit-word";
+  import { googleString } from "@/common/common";
+  import { SettingsService } from "@/view-models/misc/settings.service";
 
-  @Component
-  export default class WordsUnit extends Vue {
-    appService = container.resolve(AppService);
-    wordsUnitService = container.resolve(WordsUnitService);
-    settingsService = container.resolve(SettingsService);
+  const appService = ref(container.resolve(AppService));
+  const wordsUnitService = ref(container.resolve(WordsUnitService));
+  const settingsService = ref(container.resolve(SettingsService));
+  console.log(appService.value);
 
-    headers = [
-      { sortable: false },
-      { text: 'ID', sortable: false, value: 'ID' },
-      { text: 'UNIT', sortable: false, value: 'UNIT' },
-      { text: 'PART', sortable: false, value: 'PART' },
-      { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-      { text: 'WORDID', sortable: false, value: 'WORDID' },
-      { text: 'WORD', sortable: false, value: 'WORD' },
-      { text: 'NOTE', sortable: false, value: 'NOTE' },
-      { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
-      { text: 'ACTIONS', sortable: false },
-    ];
-    newWord = '';
-    filter = '';
-    filterType = 0;
+  const headers = ref([
+    { sortable: false },
+    { text: 'ID', sortable: false, value: 'ID' },
+    { text: 'UNIT', sortable: false, value: 'UNIT' },
+    { text: 'PART', sortable: false, value: 'PART' },
+    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
+    { text: 'WORDID', sortable: false, value: 'WORDID' },
+    { text: 'WORD', sortable: false, value: 'WORD' },
+    { text: 'NOTE', sortable: false, value: 'NOTE' },
+    { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
+    { text: 'ACTIONS', sortable: false },
+  ]);
+  const newWord = ref('');
+  const filter = ref('');
+  const filterType = ref(0);
 
-    services = {};
-    created() {
-      this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.onRefresh();
-      });
+  (() => {
+    appService.value.initializeObject.subscribe(_ => {
+      onRefresh();
+    });
+  })();
+
+  const expandRow = ref(null);
+
+  onMounted(() => {
+    // /* eslint-disable no-new */
+    // new Sortable(
+    //   ($refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
+    //   {
+    //     draggable: '.sortableRow',
+    //     handle: '.sortHandle',
+    //     onStart: dragStart,
+    //     onEnd: dragReorder,
+    //   },
+    // );
+  });
+
+  function dragStart({item}: any) {
+    const nextSib = item.nextSibling;
+    if (nextSib &&
+      nextSib.classList.contains('datatable__expand-row')) {
+      expandRow.value = nextSib;
+    } else {
+      expandRow.value = null;
     }
+  }
 
-    expandRow = null;
-
-    mounted() {
-      /* eslint-disable no-new */
-      new Sortable(
-        (this.$refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
-        {
-          draggable: '.sortableRow',
-          handle: '.sortHandle',
-          onStart: this.dragStart,
-          onEnd: this.dragReorder,
-        },
-      );
+  function dragReorder({item, oldIndex, newIndex}: any) {
+    console.log('reorder', item, oldIndex, newIndex);
+    const nextSib = item.nextSibling;
+    if (nextSib &&
+      nextSib.classList.contains('datatable__expand-row') &&
+      nextSib !== expandRow) {
+      item.parentNode.insertBefore(item, nextSib.nextSibling);
     }
+    const movedItem = wordsUnitService.value.unitWords.splice(oldIndex, 1)[0];
+    wordsUnitService.value.unitWords.splice(newIndex, 0, movedItem);
+    wordsUnitService.value.reindex(index => {});
+  }
 
-    dragStart({item}: any) {
-      const nextSib = item.nextSibling;
-      if (nextSib &&
-        nextSib.classList.contains('datatable__expand-row')) {
-        this.expandRow = nextSib;
-      } else {
-        this.expandRow = null;
-      }
-    }
+  async function onEnterNewWord() {
+    if (!newWord.value) return;
+    const o = wordsUnitService.value.newUnitWord();
+    o.WORD = settingsService.value.autoCorrectInput(newWord.value);
+    newWord.value = '';
+    const id = await wordsUnitService.value.create(o);
+    o.ID = id as number;
+    wordsUnitService.value.unitWords.push(o);
+  }
 
-    dragReorder({item, oldIndex, newIndex}: any) {
-      console.log('reorder', item, oldIndex, newIndex);
-      const nextSib = item.nextSibling;
-      if (nextSib &&
-        nextSib.classList.contains('datatable__expand-row') &&
-        nextSib !== this.expandRow) {
-        item.parentNode.insertBefore(item, nextSib.nextSibling);
-      }
-      const movedItem = this.wordsUnitService.unitWords.splice(oldIndex, 1)[0];
-      this.wordsUnitService.unitWords.splice(newIndex, 0, movedItem);
-      this.wordsUnitService.reindex(index => {});
-    }
+  async function onRefresh() {
+    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  }
 
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsUnitService.create(o);
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
-    }
+  async function deleteWord(item: MUnitWord) {
+    await wordsUnitService.value.delete(item);
+  }
 
-    async onRefresh() {
-      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
-    }
+  async function getNote(index: number) {
+    console.log(index);
+    await wordsUnitService.value.getNote(index);
+  }
 
-    async deleteWord(item: MUnitWord) {
-      await this.wordsUnitService.delete(item);
-    }
+  function googleWord(word: string) {
+    googleString(word);
+  }
 
-    async getNote(index: number) {
-      console.log(index);
-      await this.wordsUnitService.getNote(index);
-    }
-
-    googleWord(word: string) {
-      googleString(word);
-    }
-
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
-    }
+  function getNotes(ifEmpty: boolean) {
+    wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
   }
 </script>
 
 <style>
-  @import '../../assets/common.css';
+  /*@import '../../assets/common.css';*/
 </style>
