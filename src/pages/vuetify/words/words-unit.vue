@@ -102,7 +102,6 @@
 <script setup lang="ts">
 
   // import Sortable from 'sortablejs';
-  import "reflect-metadata";
   import { container } from 'tsyringe';
   import { WordsUnitService } from "@/view-models/wpp/words-unit.service";
   import { onMounted, ref } from "vue";

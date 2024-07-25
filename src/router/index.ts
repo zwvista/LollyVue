@@ -7,17 +7,17 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
-import WordsUnit from '../views/words/WordsUnit.vue';
+import { GlobalVars } from "@/common/common";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // routes,
   routes: [
+    ...routes,
     {
       path: '/',
-      name: 'home',
-      component: WordsUnit,
-    }
+      redirect: { path: "/vuetify/words-unit" }
+    },
   ]
 })
 
@@ -39,5 +39,18 @@ router.onError((err, to) => {
 router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')
 })
+
+// https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('userid');
+
+  if (authRequired && !loggedIn)
+    window.location.href = '/login';
+  else
+    GlobalVars.userid = loggedIn!;
+  return next();
+});
 
 export default router

@@ -5,14 +5,16 @@
  */
 
 // Plugins
-import vuetify from './vuetify'
 import router from '../router'
+import VueClipboard from 'vue3-clipboard'
+import "reflect-metadata";
+
 
 // Types
 import type { App } from 'vue'
 
 export function registerPlugins (app: App) {
   app
-    .use(vuetify)
     .use(router)
+    .use(VueClipboard)
 }
