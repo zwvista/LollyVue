@@ -9,7 +9,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import typescript from "@rollup/plugin-typescript";
-import { join, parse, resolve } from "path";
+import { resolve } from "path";
 import { BootstrapVueNextResolver } from "bootstrap-vue-next";
 
 // https://vitejs.dev/config/
@@ -59,24 +59,10 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: entryPoints(
-        "index.html",
-        "pages/vuetify/index.html",
-        "pages/login/index.html",
-      ),
+      input: {
+        app: resolve(__dirname, 'src/pages/vuetify/index.html'),
+        login: resolve(__dirname, 'src/pages/login/index.html'),
+      }
     },
   },
 });
-
-// https://github.com/chriscalo/vite-multipage/blob/main/vite.config.js
-function entryPoints(...paths) {
-  const entries = paths.map(parse).map(entry => {
-    const { dir, base, name, ext } = entry;
-    const key = join(dir, name);
-    const path = resolve(__dirname, dir, base);
-    return [key, path];
-  });
-
-  const config = Object.fromEntries(entries);
-  return config;
-}

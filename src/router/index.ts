@@ -42,12 +42,12 @@ router.isReady().then(() => {
 
 // https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login'];
+  const publicPages = ['/src/pages/login/'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('userid');
 
   if (authRequired && !loggedIn)
-    window.location.href = '/login';
+    window.location.href = '/src/pages/login/';
   else
     GlobalVars.userid = loggedIn!;
   return next();
