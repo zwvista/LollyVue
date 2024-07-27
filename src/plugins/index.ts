@@ -16,5 +16,8 @@ import type { App } from 'vue'
 export function registerPlugins (app: App) {
   app
     .use(router)
-    .use(VueClipboard)
+    .use(VueClipboard, {
+      autoSetContainer: true,
+      appendToBody: true,
+    })
 }

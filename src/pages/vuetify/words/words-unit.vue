@@ -34,59 +34,45 @@
       ref="sortableTable"
       item-key="ID"
     >
-      <template v-slot:body="{items}">
-        <tbody>
-        <tr class="sortableRow" v-for="(item, index) in items" :key="item.ID" :style="item.colorStyle">
-          <td class="px-1" style="width: 0.1%">
-            <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
-          </td>
-          <td>{{ item.ID }}</td>
-          <td>{{ item.UNITSTR }}</td>
-          <td>{{ item.PARTSTR }}</td>
-          <td>{{ item.SEQNUM }}</td>
-          <td>{{ item.WORDID }}</td>
-          <td>{{ item.WORD }}</td>
-          <td>{{ item.NOTE }}</td>
-          <td>{{ item.ACCURACY }}</td>
-          <td>
-            <v-tooltip text="Delete" location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
-              </template>
-            </v-tooltip>
-            <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
-              <v-tooltip text="Edit" location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
-                </template>
-              </v-tooltip>
-            </router-link>
-            <v-tooltip text="Speak" location="top" v-show="settingsService.selectedVoice">
-              <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(item.WORD)"></v-btn>
-              </template>
-            </v-tooltip>
-            <v-tooltip text="Copy" location="top">
-              <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
-                </template>
-            </v-tooltip>
-            <v-tooltip text="Google Word" location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" icon="fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
-              </template>
-            </v-tooltip>
-            <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">
-              <v-tooltip text="Dictionary" location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn v-bind="props" icon="fa-book" color="info"></v-btn>
-                </template>
-              </v-tooltip>
-            </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
-          </td>
-        </tr>
-        </tbody>
+      <template v-slot:item.DD="{ item }">
+        <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
+      </template>
+      <template v-slot:item.ACTIONS="{ item, index }">
+        <v-tooltip text="Delete" location="top">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
+          </template>
+        </v-tooltip>
+<!--        <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">-->
+          <v-tooltip text="Edit" location="top">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
+            </template>
+          </v-tooltip>
+<!--        </router-link>-->
+        <v-tooltip text="Speak" location="top">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(item.WORD)" v-show="settingsService.selectedVoice"></v-btn>
+          </template>
+        </v-tooltip>
+        <v-tooltip text="Copy" location="top">
+          <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
+            </template>
+        </v-tooltip>
+        <v-tooltip text="Google Word" location="top">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon="fa-brands fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
+          </template>
+        </v-tooltip>
+<!--        <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">-->
+          <v-tooltip text="Dictionary" location="top">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="fa-book" color="info"></v-btn>
+            </template>
+          </v-tooltip>
+<!--        </router-link>-->
+        <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
       </template>
     </v-data-table>
   </div>
@@ -109,16 +95,16 @@
   console.log(appService.value);
 
   const headers = ref([
-    { sortable: false },
-    { text: 'ID', sortable: false, value: 'ID' },
-    { text: 'UNIT', sortable: false, value: 'UNIT' },
-    { text: 'PART', sortable: false, value: 'PART' },
-    { text: 'SEQNUM', sortable: false, value: 'SEQNUM' },
-    { text: 'WORDID', sortable: false, value: 'WORDID' },
-    { text: 'WORD', sortable: false, value: 'WORD' },
-    { text: 'NOTE', sortable: false, value: 'NOTE' },
-    { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
-    { text: 'ACTIONS', sortable: false },
+    { title: '', sortable: false, key: 'DD' },
+    { title: 'ID', sortable: false, key: 'ID' },
+    { title: 'UNIT', sortable: false, key: 'UNITSTR' },
+    { title: 'PART', sortable: false, key: 'PARTSTR' },
+    { title: 'SEQNUM', sortable: false, key: 'SEQNUM' },
+    { title: 'WORDID', sortable: false, key: 'WORDID' },
+    { title: 'WORD', sortable: false, key: 'WORD' },
+    { title: 'NOTE', sortable: false, key: 'NOTE' },
+    { title: 'ACCURACY', sortable: false, key: 'ACCURACY' },
+    { title: 'ACTIONS', sortable: false, key: 'ACTIONS' },
   ]);
   const newWord = ref('');
   const filter = ref('');
