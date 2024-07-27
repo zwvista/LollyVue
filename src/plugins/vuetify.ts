@@ -7,6 +7,7 @@
 // Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
+import 'bootstrap/dist/css/bootstrap.css';
 import { aliases, fa } from 'vuetify/iconsets/fa-svg'
 
 // Composables
