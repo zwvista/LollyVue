@@ -16,7 +16,7 @@ const router = createRouter({
     ...routes,
     {
       path: '/',
-      redirect: { path: "/vuetify/words-unit" }
+      redirect: { path: "/vuetify/words/words-unit" }
     },
   ]
 })
@@ -42,12 +42,12 @@ router.isReady().then(() => {
 
 // https://jasonwatmore.com/post/2018/07/14/vue-vuex-user-registration-and-login-tutorial-example
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/src/pages/login/'];
+  const publicPages = ['/login'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('userid');
 
   if (authRequired && !loggedIn)
-    window.location.href = '/src/pages/login/';
+    window.location.href = 'login';
   else
     GlobalVars.userid = loggedIn!;
   return next();

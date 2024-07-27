@@ -60,8 +60,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        app: resolve(__dirname, 'src/pages/vuetify/index.html'),
-        login: resolve(__dirname, 'src/pages/login/index.html'),
+        app: resolve(__dirname, 'index.html'),
+        login: resolve(__dirname, 'login.html'),
       }
     },
   },

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import { container } from "tsyringe";
   import { AppService } from "@/view-models/misc/app.service";
   import { GlobalVars } from "@/common/common";
@@ -46,7 +46,7 @@
     {
       icon: 'fa-bus',
       title: 'Words in Unit',
-      path: '/words-unit',
+      path: '/vuetify/words/words-unit',
     },
     {
       icon: 'fa-train',
@@ -87,9 +87,8 @@
   const rail = ref(false);
   const title = ref('Lolly Vue');
   const appService = ref(container.resolve(AppService));
-  (() => {
-    if (GlobalVars.userid) {
-      appService.value.getData();
-    }
-  })();
+  onMounted(() => {
+    GlobalVars.userid = localStorage.getItem('userid');
+    appService.value.getData();
+  });
 </script>

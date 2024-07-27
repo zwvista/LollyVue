@@ -4,14 +4,13 @@
       <div class="xs-6 md-2">
         <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
       </div>
-      <v-tooltip top v-show="settingsService.selectedVoice">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)"></v-btn>
+      <v-tooltip text="Speak" location="top">
+        <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)" v-show="settingsService.selectedVoice"></v-btn>
         </template>
-        <span>Speak</span>
       </v-tooltip>
       <div class="xs-6 md-2">
-        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+        <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       </div>
       <div class="xs-6 md-2">
         <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
@@ -50,44 +49,38 @@
           <td>{{ item.NOTE }}</td>
           <td>{{ item.ACCURACY }}</td>
           <td>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
+            <v-tooltip text="Delete" location="top">
+              <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
               </template>
-              <span>Delete</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon="fa-edit" color="info"></v-btn>
+              <v-tooltip text="Edit" location="top">
+                <template v-slot:activator="{ props }">
+                  <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
                 </template>
-                <span>Edit</span>
               </v-tooltip>
             </router-link>
-            <v-tooltip top v-show="settingsService.selectedVoice">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon="fa-volume-up" color="info" @click="settingsService.speak(item.WORD)"></v-btn>
+            <v-tooltip text="Speak" location="top" v-show="settingsService.selectedVoice">
+              <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(item.WORD)"></v-btn>
               </template>
-              <span>Speak</span>
             </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
+            <v-tooltip text="Copy" location="top">
+              <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
                 </template>
-              <span>Copy</span>
             </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" icon="fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
+            <v-tooltip text="Google Word" location="top">
+              <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" icon="fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
               </template>
-              <span>Google Word</span>
             </v-tooltip>
             <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" icon="fa-book" color="info"></v-btn>
+              <v-tooltip text="Dictionary" location="top">
+                <template v-slot:activator="{ props }">
+                  <v-btn v-bind="props" icon="fa-book" color="info"></v-btn>
                 </template>
-                <span>Dictionary</span>
               </v-tooltip>
             </router-link>
             <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
