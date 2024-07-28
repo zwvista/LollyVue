@@ -67,7 +67,7 @@
     {
       icon: 'fa-train',
       title: 'Phrases in Unit',
-      path: '/phrases-unit',
+      path: '/vuetify/phrases/phrases-unit',
     },
     {
       icon: 'fa-car',

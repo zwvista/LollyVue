@@ -86,7 +86,6 @@
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
-  console.log(appService.value);
 
   const headers = ref([
     { title: '', sortable: false, key: 'DD' },
