@@ -72,32 +72,32 @@
     {
       icon: 'fa-car',
       title: 'Words in Textbook',
-      path: '/words-textbook',
+      path: '/vuetify/words/words-textbook',
     },
     {
       icon: 'fa-taxi',
       title: 'Phrases in Textbook',
-      path: '/phrases-textbook',
+      path: '/vuetify/phrases/phrases-textbook',
     },
     {
       icon: 'fa-plane',
       title: 'Words in Language',
-      path: '/words-lang',
+      path: '/vuetify/words/words-lang',
     },
     {
       icon: 'fa-rocket',
       title: 'Phrases in Language',
-      path: '/phrases-lang',
+      path: '/vuetify/phrases/phrases-lang',
     },
     {
       icon: 'fa-motorcycle',
       title: 'Patterns in Language',
-      path: '/patterns',
+      path: '/vuetify/patterns',
     },
     {
       icon: 'fa-cog',
       title: 'Settings',
-      path: '/settings',
+      path: '/vuetify/settings',
     },
   ]);
   const rail = ref(false);

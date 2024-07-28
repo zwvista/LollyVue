@@ -7,37 +7,50 @@
           <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)" v-show="settingsService.selectedVoice"></v-btn>
         </template>
       </v-tooltip>
-      <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
-      <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-<!--      <router-link to="/words-unit-detail/0">-->
+        <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
+<!--      <router-link to="/words-lang-detail/0">-->
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
 <!--      </router-link>-->
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve Notes If Empty</v-btn>
-<!--      <router-link to="/words-dict/unit/0">-->
+<!--      <router-link to="/words-dict/lang/0">-->
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
 <!--      </router-link>-->
     </v-toolbar>
+    <div class="text-xs-center">
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="3">
+          <v-select
+            :items="settingsService.USROWSPERPAGEOPTIONS"
+            v-model="rows"
+            label="Rows per page"
+            style="width: 125px"
+            @change="rowsChange"
+          ></v-select>
+        </v-col>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          :total-visible="20"
+          @input="onRefresh"
+        ></v-pagination>
+      </v-row>
+    </div>
     <v-data-table
       :headers="headers"
-      :items="wordsUnitService.unitWords"
+      :items="wordsLangService.langWords"
       :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
-      ref="sortableTable"
-      item-key="ID"
     >
-      <template v-slot:item.DD="{ item }">
-        <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
-      </template>
       <template v-slot:item.ACTIONS="{ item, index }">
-        <v-tooltip text="Delete" location="top">
+        <v-tooltip text="Speak" location="top">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="fa-trash" color="error" @click="deleteWord(item)"></v-btn>
           </template>
+          <span>Delete</span>
         </v-tooltip>
-<!--        <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">-->
+<!--        <router-link :to="{ name: 'words-lang-detail', params: { id: item.ID }}">-->
           <v-tooltip text="Edit" location="top">
             <template v-slot:activator="{ props }">
               <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
@@ -51,15 +64,15 @@
         </v-tooltip>
         <v-tooltip text="Copy" location="top">
           <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
-            </template>
+            <v-btn v-bind="props" icon="fa-copy" color="info" v-clipboard:copy="item.WORD"></v-btn>
+          </template>
         </v-tooltip>
         <v-tooltip text="Google Word" location="top">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="fa-brands fa-google" color="info" @click="googleWord(item.WORD)"></v-btn>
           </template>
         </v-tooltip>
-<!--        <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: index }}">-->
+<!--        <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: index }}">-->
           <v-tooltip text="Dictionary" location="top">
             <template v-slot:activator="{ props }">
               <v-btn v-bind="props" icon="fa-book" color="info"></v-btn>
@@ -69,113 +82,95 @@
         <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
       </template>
     </v-data-table>
+    <div class="text-xs-center">
+      <v-row justify="center" align="center">
+        <v-col cols="12" md="3">
+          <v-select
+            :items="settingsService.USROWSPERPAGEOPTIONS"
+            v-model="rows"
+            label="Rows per page"
+            style="width: 125px"
+            @change="rowsChange"
+          ></v-select>
+        </v-col>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          :total-visible="20"
+          @input="onRefresh"
+        ></v-pagination>
+      </v-row>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
-  // import Sortable from 'sortablejs';
+  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
+  import { SettingsService } from '@/view-models/misc/settings.service';
+  import { googleString } from '@/common/common';
+  import { MLangWord } from '@/models/wpp/lang-word';
+  import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
-  import { WordsUnitService } from "@/view-models/wpp/words-unit.service";
-  import { onMounted, ref } from "vue";
-  import { AppService } from "@/view-models/misc/app.service";
-  import { MUnitWord } from "@/models/wpp/unit-word";
-  import { googleString } from "@/common/common";
-  import { SettingsService } from "@/view-models/misc/settings.service";
+  import { ref } from "vue";
 
   const appService = ref(container.resolve(AppService));
-  const wordsUnitService = ref(container.resolve(WordsUnitService));
+  const wordsLangService = ref(container.resolve(WordsLangService));
   const settingsService = ref(container.resolve(SettingsService));
 
   const headers = ref([
-    { title: '', sortable: false, key: 'DD' },
     { title: 'ID', sortable: false, key: 'ID' },
-    { title: 'UNIT', sortable: false, key: 'UNITSTR' },
-    { title: 'PART', sortable: false, key: 'PARTSTR' },
-    { title: 'SEQNUM', sortable: false, key: 'SEQNUM' },
-    { title: 'WORDID', sortable: false, key: 'WORDID' },
     { title: 'WORD', sortable: false, key: 'WORD' },
     { title: 'NOTE', sortable: false, key: 'NOTE' },
     { title: 'ACCURACY', sortable: false, key: 'ACCURACY' },
     { title: 'ACTIONS', sortable: false, key: 'ACTIONS' },
   ]);
   const newWord = ref('');
+  const page = ref(1);
+  const pageCount = ref(1);
+  const rows = ref(0);
   const filter = ref('');
   const filterType = ref(0);
 
   (() => {
     appService.value.initializeObject.subscribe(_ => {
+      rows.value = settingsService.value.USROWSPERPAGE;
       onRefresh();
     });
   })();
 
-  const expandRow = ref(null);
-
-  onMounted(() => {
-    // /* eslint-disable no-new */
-    // new Sortable(
-    //   ($refs.sortableTable as any).$el.getElementsByTagName('tbody')[0],
-    //   {
-    //     draggable: '.sortableRow',
-    //     handle: '.sortHandle',
-    //     onStart: dragStart,
-    //     onEnd: dragReorder,
-    //   },
-    // );
-  });
-
-  function dragStart({item}: any) {
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row')) {
-      expandRow.value = nextSib;
-    } else {
-      expandRow.value = null;
-    }
-  }
-
-  function dragReorder({item, oldIndex, newIndex}: any) {
-    console.log('reorder', item, oldIndex, newIndex);
-    const nextSib = item.nextSibling;
-    if (nextSib &&
-      nextSib.classList.contains('datatable__expand-row') &&
-      nextSib !== expandRow) {
-      item.parentNode.insertBefore(item, nextSib.nextSibling);
-    }
-    const movedItem = wordsUnitService.value.unitWords.splice(oldIndex, 1)[0];
-    wordsUnitService.value.unitWords.splice(newIndex, 0, movedItem);
-    wordsUnitService.value.reindex(index => {});
-  }
-
   async function onEnterNewWord() {
     if (!newWord.value) return;
-    const o = wordsUnitService.value.newUnitWord();
+    const o = wordsLangService.value.newLangWord();
     o.WORD = settingsService.value.autoCorrectInput(newWord.value);
     newWord.value = '';
-    const id = await wordsUnitService.value.create(o);
+    const id = await wordsLangService.value.create(o);
     o.ID = id as number;
-    wordsUnitService.value.unitWords.push(o);
+    wordsLangService.value.langWords.push(o);
+  }
+
+  function rowsChange(rows: number) {
+    page.value = 1;
+    onRefresh();
   }
 
   async function onRefresh() {
-    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await wordsLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
+    pageCount.value = (wordsLangService.value.langWordsCount + rows.value - 1) / rows.value >> 0;
+    // $forceUpdate();
   }
 
-  async function deleteWord(item: MUnitWord) {
-    await wordsUnitService.value.delete(item);
+  function deleteWord(item: MLangWord) {
+    wordsLangService.value.delete(item);
   }
 
   async function getNote(index: number) {
     console.log(index);
-    await wordsUnitService.value.getNote(index);
+    await wordsLangService.value.getNote(index);
   }
 
   function googleWord(word: string) {
     googleString(word);
-  }
-
-  function getNotes(ifEmpty: boolean) {
-    wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
   }
 </script>
 
