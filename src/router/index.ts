@@ -18,6 +18,14 @@ const router = createRouter({
       path: '/',
       redirect: { path: "/vuetify/words/words-unit" }
     },
+    {
+      path: '/vuetify/',
+      redirect: { path: "/vuetify/words/words-unit" },
+    },
+    {
+      path: '/primevue/',
+      redirect: { path: "/primevue/words/words-unit" }
+    },
   ]
 })
 

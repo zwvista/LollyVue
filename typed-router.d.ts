@@ -19,6 +19,15 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
+    '/primevue/': RouteRecordInfo<'/primevue/', '/primevue', Record<never, never>, Record<never, never>>,
+    '/primevue/patterns': RouteRecordInfo<'/primevue/patterns', '/primevue/patterns', Record<never, never>, Record<never, never>>,
+    '/primevue/phrases/phrases-lang': RouteRecordInfo<'/primevue/phrases/phrases-lang', '/primevue/phrases/phrases-lang', Record<never, never>, Record<never, never>>,
+    '/primevue/phrases/phrases-textbook': RouteRecordInfo<'/primevue/phrases/phrases-textbook', '/primevue/phrases/phrases-textbook', Record<never, never>, Record<never, never>>,
+    '/primevue/phrases/phrases-unit': RouteRecordInfo<'/primevue/phrases/phrases-unit', '/primevue/phrases/phrases-unit', Record<never, never>, Record<never, never>>,
+    '/primevue/words/words-lang': RouteRecordInfo<'/primevue/words/words-lang', '/primevue/words/words-lang', Record<never, never>, Record<never, never>>,
+    '/primevue/words/words-textbook': RouteRecordInfo<'/primevue/words/words-textbook', '/primevue/words/words-textbook', Record<never, never>, Record<never, never>>,
+    '/primevue/words/words-unit': RouteRecordInfo<'/primevue/words/words-unit', '/primevue/words/words-unit', Record<never, never>, Record<never, never>>,
+    '/quasar/': RouteRecordInfo<'/quasar/', '/quasar', Record<never, never>, Record<never, never>>,
     '/vuetify/': RouteRecordInfo<'/vuetify/', '/vuetify', Record<never, never>, Record<never, never>>,
     '/vuetify/patterns': RouteRecordInfo<'/vuetify/patterns', '/vuetify/patterns', Record<never, never>, Record<never, never>>,
     '/vuetify/phrases/phrases-lang': RouteRecordInfo<'/vuetify/phrases/phrases-lang', '/vuetify/phrases/phrases-lang', Record<never, never>, Record<never, never>>,

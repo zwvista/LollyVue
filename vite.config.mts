@@ -11,6 +11,7 @@ import { fileURLToPath, URL } from 'node:url'
 import typescript from "@rollup/plugin-typescript";
 import { resolve } from "path";
 import { BootstrapVueNextResolver } from "bootstrap-vue-next";
+import { quasar, transformAssetUrls } from "@quasar/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +28,11 @@ export default defineConfig({
         configFile: 'src/styles/settings.scss',
       },
     }),
+    // @quasar/plugin-vite options list:
+    // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
+    // quasar({
+    //   sassVariables: 'src/quasar-variables.sass'
+    // }),
     Components({
       resolvers: [BootstrapVueNextResolver()],
     }),
@@ -62,6 +68,8 @@ export default defineConfig({
       input: {
         app: resolve(__dirname, 'index.html'),
         login: resolve(__dirname, 'login.html'),
+        primevue: resolve(__dirname, 'primevue.html'),
+        quasar: resolve(__dirname, 'quasar.html'),
       }
     },
   },
