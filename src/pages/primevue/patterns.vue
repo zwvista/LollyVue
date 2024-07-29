@@ -2,7 +2,7 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.patternFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.patternFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
@@ -37,54 +37,51 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { AppService } from '@/view-models/misc/app.service';
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
+  import { ref } from "vue";
 
-  @Component
-  export default class Patterns5 extends Vue {
-    appService = container.resolve(AppService);
-    patternsService = container.resolve(PatternsService);
-    settingsService = container.resolve(SettingsService);
+  appService = container.resolve(AppService);
+  patternsService = container.resolve(PatternsService);
+  settingsService = container.resolve(SettingsService);
 
+  page = 1;
+  pageCount = 1;
+  rows = 0;
+  filter = '';
+  filterType = 0;
+
+  services = {};
+  created() {
+    $set(services, 'patternsService', patternsService);
+    appService.initializeObject.subscribe(_ => {
+      rows = settingsService.USROWSPERPAGE;
+      onRefresh();
+    });
+  }
+
+  rowsChange(rows: number) {
     page = 1;
-    pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
+    onRefresh();
+  }
 
-    services = {};
-    created() {
-      this.$set(this.services, 'patternsService', this.patternsService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.rows = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
-    }
+  async onRefresh() {
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await patternsService.getData(page, rows, filter, filterType);
+    pageCount = (patternsService.patternCount + rows - 1) / rows >> 0;
+    $forceUpdate();
+  }
 
-    rowsChange(rows: number) {
-      this.page = 1;
-      this.onRefresh();
-    }
+  deletePattern(id: number) {
+    patternsService.delete(id);
+  }
 
-    async onRefresh() {
-      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
-      this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
-      this.$forceUpdate();
-    }
-
-    deletePattern(id: number) {
-      this.patternsService.delete(id);
-    }
-
-    googlePattern(pattern: string) {
-      googleString(pattern);
-    }
+  googlePattern(pattern: string) {
+    googleString(pattern);
   }
 </script>
 

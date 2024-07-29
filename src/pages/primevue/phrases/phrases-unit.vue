@@ -2,15 +2,15 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-        <router-link to="/phrases-unit-detail/0">
-          <Button icon="fa fa-plus" label="Add" />
-        </router-link>
-        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+<!--        <router-link to="/phrases-unit-detail/0">-->
+        <Button><font-awesome-icon icon="fa-plus"/>Add</Button>
+<!--        </router-link>-->
+        <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
       </template>
     </Toolbar>
     <DataTable
@@ -27,70 +27,62 @@
       <Column field="TRANSLATION" header="TRANSLATION" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data)" />
-          <router-link :to="{ name: 'phrases-unit-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
-          </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PHRASE)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PHRASE" />
-          <Button v-tooltip.top="'Google Phrase'" icon="fa fa-google" @click="googlePhrase(slotProps.data.PHRASE)" />
+          <Button v-tooltip2.top="'Delete'" severity="danger" @click="deletePhrase(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
+<!--          <router-link :to="{ name: 'phrases-unit-detail', params: { id: slotProps.data.ID }}">-->
+            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
+<!--          </router-link>-->
+          <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-volume-up"/></Button>
+          <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.PHRASE"><font-awesome-icon icon="fa-copy"/></Button>
+          <Button v-tooltip2.top="'Google Phrase'" @click="googlePhrase(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
         </template>
       </Column>
     </DataTable>
   </div>
 </template>
 
-<script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
   import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
-  import Sortable from 'sortablejs';
+  // import Sortable from 'sortablejs';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
+  import { ref } from "vue";
 
-  @Component
-  export default class PhrasesUnit5 extends Vue {
-    appService = container.resolve(AppService);
-    phrasesUnitService = container.resolve(PhrasesUnitService);
-    settingsService = container.resolve(SettingsService);
+  const appService = ref(container.resolve(AppService));
+  const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
+  const settingsService = ref(container.resolve(SettingsService));
 
-    filter = '';
-    filterType = 0;
+  const filter = ref('');
+  const filterType = ref(0);
 
-    services = {};
-    created() {
-      this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.onRefresh();
-      });
-    }
+  (() => {
+    appService.value.initializeObject.subscribe(_ => {
+      onRefresh();
+    });
+  })();
 
-    mounted() {
-    }
+  function onReorder({dragIndex, dropIndex}: any) {
+    console.log('reorder', dragIndex, dropIndex);
+    const movedItem = phrasesUnitService.unitPhrases.splice(dragIndex, 1)[0];
+    phrasesUnitService.unitPhrases.splice(dropIndex, 0, movedItem);
+    phrasesUnitService.reindex(index => {});
+  }
 
-    onReorder({dragIndex, dropIndex}: any) {
-      console.log('reorder', dragIndex, dropIndex);
-      const movedItem = this.phrasesUnitService.unitPhrases.splice(dragIndex, 1)[0];
-      this.phrasesUnitService.unitPhrases.splice(dropIndex, 0, movedItem);
-      this.phrasesUnitService.reindex(index => {});
-    }
+  async function onRefresh() {
+    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  }
 
-    async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
-    }
+  function deletePhrase(item: MUnitPhrase) {
+    phrasesUnitService.value.delete(item);
+  }
 
-    deletePhrase(item: MUnitPhrase) {
-      this.phrasesUnitService.delete(item);
-    }
-
-    googlePhrase(phrase: string) {
-      googleString(phrase);
-    }
+  function googlePhrase(phrase: string) {
+    googleString(phrase);
   }
 </script>
 
 <style>
-  @import '../../assets/common.css';
+  /*@import '../../assets/common.css';*/
 </style>

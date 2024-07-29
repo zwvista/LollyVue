@@ -2,16 +2,16 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-        <DropDown :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
-        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
-        <router-link to="/words-dict/textbook/0">
-          <Button icon="fa fa-book" label="Dictionary" />
-        </router-link>
+        <Select :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
+        <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
+<!--        <router-link to="/words-dict/textbook/0">-->
+          <Button><font-awesome-icon icon="fa-book"/>Dictionary</Button>
+<!--        </router-link>-->
       </template>
     </Toolbar>
     <Paginator :rows.sync="rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
@@ -29,17 +29,17 @@
       <Column headerStyle="width: 80px" field="ACCURACY" header="ACCURACY" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deleteWord(slotProps.data)" />
-          <router-link :to="{ name: 'words-textbook-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
-          </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.WORD)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.WORD" />
-          <Button v-tooltip.top="'Google Word'" icon="fa fa-google" @click="googleWord(slotProps.data.WORD)" />
-          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: slotProps.index }}">
-            <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
-          </router-link>
-          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(slotProps.index)" />
+          <Button v-tooltip2.top="'Delete'" severity="danger" @click="deleteWord(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
+<!--          <router-link :to="{ name: 'words-textbook-detail', params: { id: slotProps.data.ID }}">-->
+            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
+<!--          </router-link>-->
+          <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.WORD)"><font-awesome-icon icon="fa-volume-up"/></Button>
+          <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.WORD"><font-awesome-icon icon="fa-copy"/></Button>
+          <Button v-tooltip2.top="'Google Word'" @click="googleWord(slotProps.data.WORD)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
+<!--          <router-link :to="{ name: 'words-dict', params: { type: 'textbook', index: slotProps.index }}">-->
+            <Button v-tooltip2.top="'Dictionary'"><font-awesome-icon icon="fa-book"/></Button>
+<!--          </router-link>-->
+          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" severity="warn" @click="getNote(slotProps.index)" />
         </template>
       </Column>
     </DataTable>
@@ -47,54 +47,53 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { googleString } from '@/common/common';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { MUnitWord } from '@/models/wpp/unit-word';
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
+  import { ref } from "vue";
 
-  appService = container.resolve(AppService);
-  wordsUnitService = container.resolve(WordsUnitService);
-  settingsService = container.resolve(SettingsService);
+  const appService = ref(container.resolve(AppService));
+  const wordsUnitService = ref(container.resolve(WordsUnitService));
+  const settingsService = ref(container.resolve(SettingsService));
 
-  page = 1;
-  pageCount = 1;
-  rows = 0;
-  filter = '';
-  filterType = 0;
-  textbookFilter = 0;
+  const page = ref(1);
+  const pageCount = ref(1);
+  const rows = ref(0);
+  const filter = ref('');
+  const filterType = ref(0);
+  const textbookFilter = ref(0);
 
-  created() {
-    this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-    this.appService.initializeObject.subscribe(_ => {
-      this.rows = this.settingsService.USROWSPERPAGE;
-      this.onRefresh();
+  (() => {
+    appService.value.initializeObject.subscribe(_ => {
+      rows.value = settingsService.value.USROWSPERPAGE;
+      onRefresh();
     });
-  }
+  })();
 
-  async onRefresh() {
+  async function onRefresh() {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
-    this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
-    this.$forceUpdate();
+    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
+    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
   }
 
-  deleteWord(item: MUnitWord) {
-    this.wordsUnitService.delete(item);
+  async function deleteWord(item: MUnitWord) {
+    await wordsUnitService.value.delete(item);
   }
 
-  async getNote(index: number) {
+  async function getNote(index: number) {
     console.log(index);
-    await this.wordsUnitService.getNote(index);
+    await wordsUnitService.value.getNote(index);
   }
 
-  googleWord(word: string) {
+  function googleWord(word: string) {
     googleString(word);
   }
 </script>
 
 <style>
-  @import '../../assets/common.css';
+  /*@import '../../assets/common.css';*/
 </style>

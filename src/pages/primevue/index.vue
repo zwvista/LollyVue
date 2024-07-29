@@ -22,7 +22,16 @@
         </a>
       </template>
     </Toolbar>
-    <TabMenu :model="items" />
+    <TabMenu :model="items">
+      <template #item="{ item, props }">
+        <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+          <a :href="href" v-bind="props.action" @click="navigate">
+            <font-awesome-icon :icon="item.icon" />
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </router-link>
+      </template>
+    </TabMenu>
     <router-view />
   </div>
 </template>
@@ -39,42 +48,42 @@
     {
       icon: 'fa fa-bus fa-lg',
       label: 'Words in Unit',
-      to: '/primevue/words/words-unit',
+      route: '/primevue/words/words-unit',
     },
     {
       icon: 'fa fa-train fa-lg',
       label: 'Phrases in Unit',
-      to: '/primevue/phrases/phrases-unit',
+      route: '/primevue/phrases/phrases-unit',
     },
     {
       icon: 'fa fa-car fa-lg',
       label: 'Words in Textbook',
-      to: '/primevue/words/words-textbook',
+      route: '/primevue/words/words-textbook',
     },
     {
       icon: 'fa fa-taxi fa-lg',
       label: 'Phrases in Textbook',
-      to: '/primevue/phrases/phrases-textbook',
+      route: '/primevue/phrases/phrases-textbook',
     },
     {
       icon: 'fa fa-plane fa-lg',
       label: 'Words in Language',
-      to: '/primevue/words/words-lang',
+      route: '/primevue/words/words-lang',
     },
     {
       icon: 'fa fa-rocket fa-lg',
       label: 'Phrases in Language',
-      to: '/primevue/phrases/phrases-lang',
+      route: '/primevue/phrases/phrases-lang',
     },
     {
       icon: 'fa fa-motorcycle fa-lg',
       label: 'Patterns in Language',
-      to: '/primevue/patterns',
+      route: '/primevue/patterns',
     },
     {
       icon: 'fa fa-cog fa-lg',
       label: 'Settings',
-      to: '/settings',
+      route: '/settings',
     },
   ]);
   const title = ref('Lolly Vue');

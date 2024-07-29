@@ -2,13 +2,13 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-        <DropDown :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
-        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+        <Select :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
+        <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
       </template>
     </Toolbar>
     <Paginator :rows.sync="rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
@@ -25,13 +25,13 @@
       <Column field="TRANSLATION" header="TRANSLATION" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-          <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data)" />
-          <router-link :to="{ name: 'phrases-textbook-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
-          </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PHRASE)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PHRASE" />
-          <Button v-tooltip.top="'Google Phrase'" icon="fa fa-google" @click="googlePhrase(slotProps.data.PHRASE)" />
+          <Button v-tooltip2.top="'Delete'" severity="danger" @click="deletePhrase(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
+<!--          <router-link :to="{ name: 'phrases-textbook-detail', params: { id: slotProps.data.ID }}">-->
+            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
+<!--          </router-link>-->
+          <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-volume-up"/></Button>
+          <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.PHRASE"><font-awesome-icon icon="fa-copy"/></Button>
+          <Button v-tooltip2.top="'Google Phrase'" @click="googlePhrase(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
         </template>
       </Column>
     </DataTable>
@@ -39,59 +39,53 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
+  import { ref } from "vue";
 
-  @Component
-  export default class PhrasesTextbook5 extends Vue {
-    appService = container.resolve(AppService);
-    phrasesUnitService = container.resolve(PhrasesUnitService);
-    settingsService = container.resolve(SettingsService);
+  const appService = ref(container.resolve(AppService));
+  const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
+  const settingsService = ref(container.resolve(SettingsService));
 
-    page = 1;
-    pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
-    textbookFilter = 0;
+  const page = ref(1);
+  const pageCount = ref(1);
+  const rows = ref(0);
+  const filter = ref('');
+  const filterType = ref(0);
+  const textbookFilter = ref(0);
 
-    services = {};
-    created() {
-      this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.rows = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
-    }
+  (() => {
+    appService.value.initializeObject.subscribe(_ => {
+      rows.value = settingsService.value.USROWSPERPAGE;
+      onRefresh();
+    });
+  })();
 
-    rowsChange(rows: number) {
-      this.page = 1;
-      this.onRefresh();
-    }
+  function rowsChange(rows: number) {
+    page.value = 1;
+    onRefresh();
+  }
 
-    async onRefresh() {
-      // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
-      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
-      this.$forceUpdate();
-    }
+  async function onRefresh() {
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await phrasesUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
+    pageCount.value = (phrasesUnitService.value.textbookPhraseCount + rows.value - 1) / rows.value >> 0;
+  }
 
-    deletePhrase(item: MUnitPhrase) {
-      this.phrasesUnitService.delete(item);
-    }
+  function deletePhrase(item: MUnitPhrase) {
+    phrasesUnitService.value.delete(item);
+  }
 
-    googlePhrase(phrase: string) {
-      googleString(phrase);
-    }
+  function googlePhrase(phrase: string) {
+    googleString(phrase);
   }
 </script>
 
 <style>
-  @import '../../assets/common.css';
+  /*@import '../../assets/common.css';*/
 </style>

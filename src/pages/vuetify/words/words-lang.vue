@@ -157,7 +157,6 @@
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
     await wordsLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
     pageCount.value = (wordsLangService.value.langWordsCount + rows.value - 1) / rows.value >> 0;
-    // $forceUpdate();
   }
 
   function deleteWord(item: MLangWord) {

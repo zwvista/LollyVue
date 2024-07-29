@@ -22,13 +22,13 @@
       <Column field="TRANSLATION" header="TRANSLATION" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-         <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data)" />
+         <Button v-tooltip2.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePhrase(slotProps.data)" />
           <router-link :to="{ name: 'phrases-lang-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
+            <Button v-tooltip2.top="'Edit'" icon="fa fa-edit" />
           </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PHRASE)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PHRASE" />
-          <Button v-tooltip.top="'Google Phrase'" icon="fa fa-google" @click="googlePhrase(slotProps.data.PHRASE)" />
+          <Button v-tooltip2.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PHRASE)" />
+          <Button v-tooltip2.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PHRASE" />
+          <Button v-tooltip2.top="'Google Phrase'" icon="fa fa-google" @click="googlePhrase(slotProps.data.PHRASE)" />
         </template>
       </Column>
     </DataTable>
@@ -36,13 +36,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { googleString } from '@/common/common';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { AppService } from '@/view-models/misc/app.service';
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
+  import { ref } from "vue";
 
   appService = container.resolve(AppService);
   phrasesLangService = container.resolve(PhrasesLangService);
@@ -56,27 +57,26 @@
 
   services = {};
   created() {
-    this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-    this.appService.initializeObject.subscribe(_ => {
-      this.rows = this.settingsService.USROWSPERPAGE;
-      this.onRefresh();
+    appService.initializeObject.subscribe(_ => {
+      rows = settingsService.USROWSPERPAGE;
+      onRefresh();
     });
   }
 
   rowsChange(rows: number) {
-    this.page = 1;
-    this.onRefresh();
+    page = 1;
+    onRefresh();
   }
 
   async onRefresh() {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType);
-    this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
-    this.$forceUpdate();
+    await phrasesLangService.getData(page, rows, filter, filterType);
+    pageCount = (phrasesLangService.langPhraseCount + rows - 1) / rows >> 0;
+    $forceUpdate();
   }
 
   deletePhrase(item: MLangPhrase) {
-    this.phrasesLangService.delete(item);
+    phrasesLangService.delete(item);
   }
 
   googlePhrase(phrase: string) {
