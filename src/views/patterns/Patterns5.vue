@@ -13,7 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.langPatternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="patternsService.patterns"
     >
@@ -33,7 +33,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.langPatternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 

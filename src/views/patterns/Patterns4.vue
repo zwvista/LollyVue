@@ -29,7 +29,7 @@
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
         :page-size="rows"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="patternsService.langPatternCount">
+        :total="patternsService.patternCount">
       </el-pagination>
     </div>
     <el-table
@@ -72,7 +72,7 @@
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
         :page-size="rows"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="patternsService.langPatternCount">
+        :total="patternsService.patternCount">
       </el-pagination>
     </div>
   </div>

@@ -39,27 +39,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { DictionaryService } from '@/services/misc/dictionary.service';
-  import { HtmlService } from '@/services/misc/html.service';
-  import { LanguageService } from '@/services/misc/language.service';
-  import { TextbookService } from '@/services/misc/textbook.service';
-  import { UnitWordService } from '@/services/wpp/unit-word.service';
-  import { UnitPhraseService } from '@/services/wpp/unit-phrase.service';
-  import { UserSettingService } from '@/services/misc/user-setting.service';
   import { AppService } from '@/view-models/misc/app.service';
-  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { AutoCorrectService } from '@/services/misc/autocorrect.service';
-  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
-  import { LangWordService } from '@/services/wpp/lang-word.service';
-  import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
-  import { LangPhraseService } from '@/services/wpp/lang-phrase.service';
-  import { VoiceService } from '@/services/misc/voice.service';
-  import { WordFamiService } from '@/services/wpp/word-fami.service';
-  import { UsMappingService } from '@/services/misc/us-mapping.service';
-  import { PatternService } from '@/services/wpp/pattern.service';
-  import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
 
   @Component
