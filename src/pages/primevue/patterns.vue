@@ -7,13 +7,13 @@
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-        <router-link to="/patterns-detail/0">
-          <Button icon="fa fa-plus" label="Add" />
-        </router-link>
-        <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+<!--        <router-link to="/patterns-detail/0">-->
+          <Button><font-awesome-icon icon="fa-plus"/>Add</Button>
+<!--        </router-link>-->
+        <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.langPatternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="patternsService.patterns"
     >
@@ -23,17 +23,17 @@
       <Column field="TAGS" header="TAGS" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
-         <Button v-tooltip.top="'Delete'" icon="fa fa-trash" class="p-button-danger" @click="deletePattern(slotProps.data.ID)" />
-          <router-link :to="{ name: 'patterns-detail', params: { id: slotProps.data.ID }}">
-            <Button v-tooltip.top="'Edit'" icon="fa fa-edit" />
-          </router-link>
-          <Button v-tooltip.top="'Speak'" icon="fa fa-volume-up" @click="settingsService.speak(slotProps.data.PATTERN)" />
-          <Button v-tooltip.top="'Copy'" icon="fa fa-copy" v-clipboard:copy="slotProps.data.PATTERN" />
-          <Button v-tooltip.top="'Google Pattern'" icon="fa fa-google" @click="googlePattern(slotProps.data.PATTERN)" />
+         <Button v-tooltip2.top="'Delete'"  severity="danger" @click="deletePattern(slotProps.data.ID)"><font-awesome-icon icon="fa-trash"/></Button>
+<!--          <router-link :to="{ name: 'patterns-detail', params: { id: slotProps.data.ID }}">-->
+            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
+<!--          </router-link>-->
+          <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.PATTERN)"><font-awesome-icon icon="fa-volume-up"/></Button>
+          <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.PATTERN"><font-awesome-icon icon="fa-copy"/></Button>
+          <Button v-tooltip2.top="'Google Pattern'" @click="googlePattern(slotProps.data.PATTERN)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.langPatternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -45,46 +45,43 @@
   import { container } from 'tsyringe';
   import { ref } from "vue";
 
-  appService = container.resolve(AppService);
-  patternsService = container.resolve(PatternsService);
-  settingsService = container.resolve(SettingsService);
+  const appService = ref(container.resolve(AppService));
+  const patternsService = ref(container.resolve(PatternsService));
+  const settingsService = ref(container.resolve(SettingsService));
 
-  page = 1;
-  pageCount = 1;
-  rows = 0;
-  filter = '';
-  filterType = 0;
+  const page = ref(1);
+  const pageCount = ref(1);
+  const rows = ref(0);
+  const filter = ref('');
+  const filterType = ref(0);
 
-  services = {};
-  created() {
-    $set(services, 'patternsService', patternsService);
-    appService.initializeObject.subscribe(_ => {
-      rows = settingsService.USROWSPERPAGE;
+  (() => {
+    appService.value.initializeObject.subscribe(_ => {
+      rows.value = settingsService.value.USROWSPERPAGE;
       onRefresh();
     });
-  }
+  })();
 
-  rowsChange(rows: number) {
-    page = 1;
+  function rowsChange(rows: number) {
+    page.value = 1;
     onRefresh();
   }
 
-  async onRefresh() {
+  async function onRefresh() {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await patternsService.getData(page, rows, filter, filterType);
-    pageCount = (patternsService.patternCount + rows - 1) / rows >> 0;
-    $forceUpdate();
+    await patternsService.value.getData(page.value, rows.value, filter.value, filterType.value);
+    pageCount.value = (patternsService.value.patternCount + rows.value - 1) / rows.value >> 0;
   }
 
-  deletePattern(id: number) {
-    patternsService.delete(id);
+  function deletePattern(id: number) {
+    patternsService.value.delete(id);
   }
 
-  googlePattern(pattern: string) {
+  function googlePattern(pattern: string) {
     googleString(pattern);
   }
 </script>
 
 <style>
-  @import '../../assets/common.css';
+  /*@import '../../assets/common.css';*/
 </style>
