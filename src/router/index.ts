@@ -26,6 +26,10 @@ const router = createRouter({
       path: '/primevue/',
       redirect: { path: "/primevue/words/words-unit" }
     },
+    {
+      path: '/element/',
+      redirect: { path: "/element/words/words-unit" }
+    },
   ]
 })
 

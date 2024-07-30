@@ -12,6 +12,8 @@ import typescript from "@rollup/plugin-typescript";
 import { resolve } from "path";
 import { BootstrapVueNextResolver } from "bootstrap-vue-next";
 import { quasar, transformAssetUrls } from "@quasar/vite-plugin";
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -33,8 +35,11 @@ export default defineConfig({
     // quasar({
     //   sassVariables: 'src/quasar-variables.sass'
     // }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
     Components({
-      resolvers: [BootstrapVueNextResolver()],
+      resolvers: [BootstrapVueNextResolver(), ElementPlusResolver()],
     }),
     ViteFonts({
       google: {
@@ -68,8 +73,9 @@ export default defineConfig({
       input: {
         app: resolve(__dirname, 'index.html'),
         login: resolve(__dirname, 'login.html'),
-        primevue: resolve(__dirname, 'primevue.html'),
         quasar: resolve(__dirname, 'quasar.html'),
+        element: resolve(__dirname, 'element.html'),
+        primevue: resolve(__dirname, 'primevue.html'),
       }
     },
   },
