@@ -1,11 +1,6 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-input float-label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></q-input>
-      <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
-             @click="settingsService.speak(newWord)">
-        <q-tooltip>Speak</q-tooltip>
-      </q-btn>
       <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
       <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/words-lang-detail/0">
@@ -94,7 +89,6 @@
       rowsPerPage: 0,
       rowsNumber: 10,
     };
-    newWord = '';
     filter = '';
     filterType = 0;
 
@@ -111,16 +105,6 @@
       this.pagination.page = pagination.page;
       this.pagination.rowsPerPage = pagination.rowsPerPage;
       this.onRefresh();
-    }
-
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsLangService.newLangWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsLangService.create(o);
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
     }
 
     async onRefresh() {

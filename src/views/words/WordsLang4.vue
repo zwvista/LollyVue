@@ -2,14 +2,6 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord">
-          <el-tooltip slot="append" content="Speak">
-            <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
-                       @click="settingsService.speak(newWord)"></el-button>
-          </el-tooltip>
-        </el-input>
-      </el-col>
-      <el-col :span="4">
         <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
           <el-select v-model="filterType" slot="prepend" @change="onRefresh">
             <el-option
@@ -108,7 +100,6 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    newWord = '';
     page = 1;
     rows = 0;
     filter = '';
@@ -131,16 +122,6 @@
     handleCurrentChange(val) {
       this.page = val;
       this.onRefresh();
-    }
-
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsLangService.newLangWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsLangService.create(o);
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
     }
 
     async onRefresh() {

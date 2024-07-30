@@ -12,17 +12,6 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <label>New Word</label>
-              <md-input v-model="newWord" @keyup.enter="onEnterNewWord"></md-input>
-            </md-field>
-          </div>
-        </div>
-        <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(newWord)">
-          <md-icon class="fa fa-volume-up"></md-icon>
-        </md-button>
-        <div class="md-layout md-gutter">
-          <div class="md-layout-item">
-            <md-field>
               <md-select v-model="filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.wordFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
@@ -126,7 +115,6 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    newWord = '';
     page = 1;
     pageCount = 1;
     rows = 0;
@@ -143,16 +131,6 @@
     }
 
     mounted() {
-    }
-
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsLangService.newLangWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsLangService.create(o);
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
     }
 
     async onRefresh() {

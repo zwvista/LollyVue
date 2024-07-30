@@ -22,7 +22,7 @@
       <el-menu :default-active="activeIndex" mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item v-for="(item, i) in items" :to="item.path" :index="i">
           <router-link :to="item.path">
-            {{item.title}}
+            <i :class="item.icon"></i>{{item.title}}
           </router-link>
         </el-menu-item>
       </el-menu>

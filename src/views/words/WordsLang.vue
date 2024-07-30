@@ -2,13 +2,6 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
-      </v-flex>
-      <v-tooltip top v-show="settingsService.selectedVoice">
-        <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
-        <span>Speak</span>
-      </v-tooltip>
-      <v-flex xs6 md2>
         <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       </v-flex>
       <v-flex xs6 md2>
@@ -146,7 +139,6 @@
       { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
       { text: 'ACTIONS', sortable: false },
     ];
-    newWord = '';
     page = 1;
     pageCount = 1;
     rows = 0;
@@ -160,16 +152,6 @@
         this.rows = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
-    }
-
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsLangService.newLangWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsLangService.create(o);
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
     }
 
     rowsChange(rows: number) {

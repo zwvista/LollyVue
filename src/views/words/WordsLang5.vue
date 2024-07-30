@@ -2,11 +2,6 @@
   <div>
     <Toolbar>
       <template #start>
-        <span class="p-float-label">
-          <InputText id="word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
-          <label for="word">New Word</label>
-        </span>
-        <Button v-tooltip.top="'Speak'" v-show="settingsService.selectedVoice" icon="fa fa-volume-up" @click="settingsService.speak(newWord)" />
         <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <span class="p-float-label">
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
@@ -64,7 +59,6 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    newWord = '';
     page = 1;
     pageCount = 1;
     rows = 0;
@@ -78,16 +72,6 @@
         this.rows = this.settingsService.USROWSPERPAGE;
         this.onRefresh();
       });
-    }
-
-    async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsLangService.newLangWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsLangService.create(o);
-      o.ID = id as number;
-      this.wordsLangService.langWords.push(o);
     }
 
     rowsChange(rows: number) {
