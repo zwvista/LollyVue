@@ -2,11 +2,6 @@
   <div>
     <Toolbar>
       <template #start>
-        <FloatLabel>
-          <InputText id="word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
-          <label for="word">New Word</label>
-        </FloatLabel>
-        <Button v-tooltip2.top="'Speak'" v-show="settingsService.selectedVoice" @click="settingsService.speak(newWord)"><font-awesome-icon icon="fa-volume-up"/></Button>
         <Select :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
@@ -62,7 +57,6 @@
   const wordsLangService = ref(container.resolve(WordsLangService));
   const settingsService = ref(container.resolve(SettingsService));
 
-  const newWord = ref('');
   const page = ref(1);
   const pageCount = ref(1);
   const rows = ref(0);
@@ -75,16 +69,6 @@
       onRefresh();
     });
   })();
-
-  async function onEnterNewWord() {
-    if (!newWord.value) return;
-    const o = wordsLangService.value.newLangWord();
-    o.WORD = settingsService.value.autoCorrectInput(newWord.value);
-    newWord.value = '';
-    const id = await wordsLangService.value.create(o);
-    o.ID = id as number;
-    wordsLangService.value.langWords.push(o);
-  }
 
   function rowsChange(rows: number) {
     page.value = 1;

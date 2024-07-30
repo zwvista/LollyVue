@@ -1,12 +1,6 @@
 <template>
   <div>
     <v-toolbar>
-      <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
-      <v-tooltip text="Speak" location="top">
-        <template v-slot:activator="{ props }">
-          <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)" v-show="settingsService.selectedVoice"></v-btn>
-        </template>
-      </v-tooltip>
         <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
         <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/words-lang-detail/0">-->
@@ -124,7 +118,6 @@
     { title: 'ACCURACY', sortable: false, key: 'ACCURACY' },
     { title: 'ACTIONS', sortable: false, key: 'ACTIONS' },
   ]);
-  const newWord = ref('');
   const page = ref(1);
   const pageCount = ref(1);
   const rows = ref(0);
@@ -137,16 +130,6 @@
       onRefresh();
     });
   })();
-
-  async function onEnterNewWord() {
-    if (!newWord.value) return;
-    const o = wordsLangService.value.newLangWord();
-    o.WORD = settingsService.value.autoCorrectInput(newWord.value);
-    newWord.value = '';
-    const id = await wordsLangService.value.create(o);
-    o.ID = id as number;
-    wordsLangService.value.langWords.push(o);
-  }
 
   function rowsChange(rows: number) {
     page.value = 1;
