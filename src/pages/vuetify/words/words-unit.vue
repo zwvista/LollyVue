@@ -10,13 +10,13 @@
       <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/words-unit-detail/0">-->
-        <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
+        <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>
 <!--      </router-link>-->
-      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve Notes If Empty</v-btn>
+      <v-btn variant="elevated" prepend-icon="fa-refresh" color="info" @click="onRefresh()">Refresh</v-btn>
+      <v-btn variant="elevated" v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>
+      <v-btn variant="elevated" v-show="settingsService.selectedDictNote" color="warning">Retrieve Notes If Empty</v-btn>
 <!--      <router-link to="/words-dict/unit/0">-->
-        <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
+        <v-btn variant="elevated" prepend-icon="fa-book" color="info">Dictionary</v-btn>
 <!--      </router-link>-->
     </v-toolbar>
     <v-data-table

@@ -4,9 +4,9 @@
       <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
       <v-select :items="settingsService.textbookFilters" item-title="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
-      <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn variant="elevated" prepend-icon="fa-refresh" color="info">Refresh</v-btn>
 <!--      <router-link to="/words-dict/textbook/0">-->
-        <v-btn color="info" @click="onRefresh()"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
+        <v-btn variant="elevated" prepend-icon="fa-book" color="info" @click="onRefresh()">Dictionary</v-btn>
 <!--      </router-link>-->
     </v-toolbar>
     <div class="text-xs-center">

@@ -4,7 +4,7 @@
       <v-select :items="settingsService.phraseFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
       <v-select :items="settingsService.textbookFilters" item-title="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
-      <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
+      <v-btn variant="elevated" prepend-icon="fa-refresh" color="info" @click="onRefresh()">Refresh</v-btn>
     </v-toolbar>
     <div class="text-xs-center">
       <v-row justify="center" align="center">

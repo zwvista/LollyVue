@@ -10,19 +10,19 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <a href="/">
-        <v-btn color="info">1. Veutify</v-btn>
+        <v-btn variant="elevated" color="info">1. Veutify</v-btn>
       </a>
       <a href="/quasar">
-        <v-btn color="info">2. Quasar</v-btn>
+        <v-btn variant="elevated" color="info">2. Quasar</v-btn>
       </a>
       <a href="/material">
-        <v-btn color="info">3. Material</v-btn>
+        <v-btn variant="elevated" color="info">3. Material</v-btn>
       </a>
       <a href="/element">
-        <v-btn color="info">4. Element</v-btn>
+        <v-btn variant="elevated" color="info">4. Element</v-btn>
       </a>
       <a href="/primevue">
-        <v-btn color="info">5. PrimeVUE</v-btn>
+        <v-btn variant="elevated" color="info">5. PrimeVUE</v-btn>
       </a>
     </v-app-bar>
     <v-navigation-drawer
