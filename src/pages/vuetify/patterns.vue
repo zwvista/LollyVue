@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.patternFilterTypes" item-text="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
+      <v-select :items="settingsService.patternFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/patterns-detail/0">-->
         <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>
@@ -23,7 +23,7 @@
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @@update:modelValue="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -80,7 +80,7 @@
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @@update:modelValue="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -113,15 +113,15 @@
   const filterType = ref(0);
 
   (() => {
-    appService.value.initializeObject.subscribe(_ => {
+    appService.value.initializeObject.subscribe(async _ => {
       rows.value = settingsService.value.USROWSPERPAGE;
-      onRefresh();
+      await onRefresh();
     });
   })();
 
-  function rowsChange(rows: number) {
+  async function rowsChange(rows: number) {
     page.value = 1;
-    onRefresh();
+    await onRefresh();
   }
 
   async function onRefresh() {

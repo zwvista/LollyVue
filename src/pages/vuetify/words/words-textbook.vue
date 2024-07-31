@@ -129,15 +129,15 @@
   const textbookFilter = ref(0);
 
   (() => {
-    appService.value.initializeObject.subscribe(_ => {
+    appService.value.initializeObject.subscribe(async _ => {
       rows.value = settingsService.value.USROWSPERPAGE;
-      onRefresh();
+      await onRefresh();
     });
   })();
 
-  function rowsChange(rows: number) {
+  async function rowsChange(rows: number) {
     page.value = 1;
-    onRefresh();
+    await onRefresh();
   }
 
   async function onRefresh() {

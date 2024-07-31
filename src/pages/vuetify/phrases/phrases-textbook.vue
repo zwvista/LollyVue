@@ -21,7 +21,7 @@
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @@update:modelValue="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -78,7 +78,7 @@
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @@update:modelValue="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -123,9 +123,9 @@
     });
   })();
 
-  function rowsChange(rows: number) {
+  async function rowsChange(rows: number) {
     page.value = 1;
-    onRefresh();
+    await onRefresh();
   }
 
   async function onRefresh() {

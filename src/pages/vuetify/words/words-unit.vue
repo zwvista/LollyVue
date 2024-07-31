@@ -104,8 +104,8 @@
   const filterType = ref(0);
 
   (() => {
-    appService.value.initializeObject.subscribe(_ => {
-      onRefresh();
+    appService.value.initializeObject.subscribe(async _ => {
+      await onRefresh();
     });
   })();
 
