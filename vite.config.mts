@@ -32,9 +32,9 @@ export default defineConfig({
     }),
     // @quasar/plugin-vite options list:
     // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
-    // quasar({
-    //   sassVariables: 'src/quasar-variables.sass'
-    // }),
+    quasar({
+      sassVariables: 'src/quasar-variables.sass'
+    }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),

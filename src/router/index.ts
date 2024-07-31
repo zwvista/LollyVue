@@ -30,6 +30,10 @@ const router = createRouter({
       path: '/element/',
       redirect: { path: "/element/words/words-unit" }
     },
+    {
+      path: '/quasar/',
+      redirect: { path: "/quasar/words/words-unit" }
+    },
   ]
 })
 

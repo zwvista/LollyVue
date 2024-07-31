@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHr LpR lFf">
-    <q-layout-header>
+    <q-header>
       <q-toolbar :inverted="false">
         <q-btn flat round dense icon="menu" @click="showLeft=!showLeft"></q-btn>
         <q-toolbar-title>{{title}}</q-toolbar-title>
@@ -20,15 +20,19 @@
           <q-btn color="primary" label="5. PrimeVUE"></q-btn>
         </a>
       </q-toolbar>
-    </q-layout-header>
-    <q-layout-drawer side="left" v-model="showLeft">
+    </q-header>
+    <q-drawer side="left" v-model="showLeft">
       <q-list no-border link inset-separator>
         <q-item v-for="item in items" :to="item.path">
-          <q-item-side :icon="item.icon"></q-item-side>
-          <q-item-main :label="item.title"></q-item-main>
+          <q-item-section avatar>
+            <q-icon :name="item.icon" />
+          </q-item-section>
+          <q-item-section>
+            {{item.title}}
+          </q-item-section>
         </q-item>
       </q-list>
-    </q-layout-drawer>
+    </q-drawer>
     <q-page-container>
       <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
         <router-view />
@@ -50,42 +54,42 @@
     {
       icon: 'fa fa-bus fa-lg',
       title: 'Words in Unit',
-      path: '/words-unit2',
+      path: '/quasar/words/words-unit',
     },
     {
       icon: 'fa fa-train fa-lg',
       title: 'Phrases in Unit',
-      path: '/phrases-unit2',
+      path: '/quasar/phrases/phrases-unit',
     },
     {
       icon: 'fa fa-car fa-lg',
       title: 'Words in Textbook',
-      path: '/words-textbook2',
+      path: '/quasar/words/words-textbook',
     },
     {
       icon: 'fa fa-taxi fa-lg',
       title: 'Phrases in Textbook',
-      path: '/phrases-textbook2',
+      path: '/quasar/phrases/phrases-textbook',
     },
     {
       icon: 'fa fa-plane fa-lg',
       title: 'Words in Language',
-      path: '/words-lang2',
+      path: '/quasar/words/words-lang',
     },
     {
       icon: 'fa fa-rocket fa-lg',
       title: 'Phrases in Language',
-      path: '/phrases-lang2',
+      path: '/quasar/phrases/phrases-lang',
     },
     {
       icon: 'fa fa-motorcycle fa-lg',
       title: 'Patterns in Language',
-      path: '/patterns2',
+      path: '/quasar/patterns',
     },
     {
       icon: 'fa fa-cog fa-lg',
       title: 'Settings',
-      path: '/settings2',
+      path: '/settings',
     },
   ]);
   const title = ref('Lolly Vue');
