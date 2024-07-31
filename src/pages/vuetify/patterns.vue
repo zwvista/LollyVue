@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.patternFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+      <v-select :items="settingsService.patternFilterTypes" item-text="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/patterns-detail/0">-->
         <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>
@@ -16,14 +16,14 @@
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
-            @change="rowsChange"
+            @update:modelValue="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @input="onRefresh"
+          @@update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -33,6 +33,7 @@
       :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
+      item-key="ID"
     >
       <template v-slot:item.ACTIONS="{ item, index }">
         <v-tooltip text="Delete" location="top">
@@ -72,14 +73,14 @@
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
-            @change="rowsChange"
+            @update:modelValue="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @input="onRefresh"
+          @@update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>

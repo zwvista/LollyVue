@@ -7,7 +7,7 @@
           <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)" v-show="settingsService.selectedVoice"></v-btn>
         </template>
       </v-tooltip>
-      <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/words-unit-detail/0">-->
         <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>

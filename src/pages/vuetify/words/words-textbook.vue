@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.wordFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      <v-select :items="settingsService.textbookFilters" item-title="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
+      <v-select :items="settingsService.textbookFilters" item-title="label" v-model="textbookFilter" @update:modelValue="onRefresh"></v-select>
       <v-btn variant="elevated" prepend-icon="fa-refresh" color="info">Refresh</v-btn>
 <!--      <router-link to="/words-dict/textbook/0">-->
         <v-btn variant="elevated" prepend-icon="fa-book" color="info" @click="onRefresh()">Dictionary</v-btn>
@@ -17,14 +17,14 @@
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
-            @change="rowsChange"
+            @update:modelValue="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @input="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>
@@ -34,7 +34,6 @@
       :items-per-page="-1"
       hide-default-footer
       class="elevation-1"
-      ref="sortableTable"
       item-key="ID"
     >
       <template v-slot:item.ACTIONS="{ item, index }">
@@ -83,14 +82,14 @@
             v-model="rows"
             label="Rows per page"
             style="width: 125px"
-            @change="rowsChange"
+            @update:modelValue="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
           v-model="page"
           :length="pageCount"
           :total-visible="20"
-          @input="onRefresh"
+          @update:modelValue="onRefresh"
         ></v-pagination>
       </v-row>
     </div>

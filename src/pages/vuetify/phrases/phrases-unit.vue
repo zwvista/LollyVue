@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.phraseFilterTypes" item-title="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+      <v-select :items="settingsService.phraseFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
 <!--      <router-link to="/phrases-unit-detail/0">-->
         <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>
