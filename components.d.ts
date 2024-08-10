@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BButton: typeof import('bootstrap-vue-next')['BButton']
+    BForm: typeof import('bootstrap-vue-next')['BForm']
     BFormInput: typeof import('bootstrap-vue-next')['BFormInput']
     BFormSelect: typeof import('bootstrap-vue-next')['BFormSelect']
     BFormSelectOption: typeof import('bootstrap-vue-next')['BFormSelectOption']
@@ -37,5 +38,6 @@ declare module 'vue' {
     WordsLangDetail: typeof import('./src/components/vuetify/WordsLangDetail.vue')['default']
     WordsTextbookDetail: typeof import('./src/components/vuetify/WordsTextbookDetail.vue')['default']
     WordsUnitDetail: typeof import('./src/components/vuetify/WordsUnitDetail.vue')['default']
+    WordsUnitDetail2: typeof import('./src/components/quasar/WordsUnitDetail2.vue')['default']
   }
 }

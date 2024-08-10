@@ -8,9 +8,7 @@
       </q-btn>
       <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
       <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-<!--      <router-link to="/words-unit-detail/0">-->
-        <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
-<!--      </router-link>-->
+      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)"></q-btn>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve All Notes"></q-btn>
       <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Notes If Empty"></q-btn>
@@ -30,11 +28,9 @@
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deleteWord(props.row)">
             <q-tooltip>Delete</q-tooltip>
           </q-btn>
-<!--          <router-link :to="{ name: 'words-unit-detail', params: { id: props.row.ID }}">-->
-            <q-btn round color="primary" icon="fa fa-edit" size="xs">
-              <q-tooltip>Edit</q-tooltip>
-            </q-btn>
-<!--          </router-link>-->
+          <q-btn round color="primary" icon="fa fa-edit" size="xs" @click.stop="showDetailDialog(props.row.ID)">
+            <q-tooltip>Edit</q-tooltip>
+          </q-btn>
           <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up" size="xs"
                  @click="settingsService.speak(props.row.WORD)">
             <q-tooltip>Speak</q-tooltip>
@@ -56,6 +52,7 @@
         </q-td>
       </template>
     </q-table>
+    <WordsUnitDetail2 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsUnitDetail2>
   </div>
 </template>
 
@@ -67,10 +64,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import WordsUnitDetail2 from '@/components/quasar/WordsUnitDetail2'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const columns = ref([
     { name: 'ID', field: 'ID', label: 'ID' },
@@ -126,6 +126,11 @@
 
   const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

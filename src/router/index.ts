@@ -23,16 +23,16 @@ const router = createRouter({
       redirect: { path: "/vuetify/words-unit" },
     },
     {
-      path: '/primevue/',
-      redirect: { path: "/primevue/words-unit" }
+      path: '/quasar/',
+      redirect: { path: "/quasar/words-unit2" }
     },
     {
       path: '/element/',
       redirect: { path: "/element/words-unit" }
     },
     {
-      path: '/quasar/',
-      redirect: { path: "/quasar/words-unit" }
+      path: '/primevue/',
+      redirect: { path: "/primevue/words-unit" }
     },
   ]
 })

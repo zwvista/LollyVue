@@ -54,37 +54,37 @@
     {
       icon: 'fa fa-bus fa-lg',
       title: 'Words in Unit',
-      path: '/quasar/words-unit',
+      path: '/quasar/words-unit2',
     },
     {
       icon: 'fa fa-train fa-lg',
       title: 'Phrases in Unit',
-      path: '/quasar/phrases-unit',
+      path: '/quasar/phrases-unit2',
     },
     {
       icon: 'fa fa-car fa-lg',
       title: 'Words in Textbook',
-      path: '/quasar/words-textbook',
+      path: '/quasar/words-textbook2',
     },
     {
       icon: 'fa fa-taxi fa-lg',
       title: 'Phrases in Textbook',
-      path: '/quasar/phrases-textbook',
+      path: '/quasar/phrases-textbook2',
     },
     {
       icon: 'fa fa-plane fa-lg',
       title: 'Words in Language',
-      path: '/quasar/words-lang',
+      path: '/quasar/words-lang2',
     },
     {
       icon: 'fa fa-rocket fa-lg',
       title: 'Phrases in Language',
-      path: '/quasar/phrases-lang',
+      path: '/quasar/phrases-lang2',
     },
     {
       icon: 'fa fa-motorcycle fa-lg',
       title: 'Patterns in Language',
-      path: '/quasar/patterns',
+      path: '/quasar/patterns2',
     },
     {
       icon: 'fa fa-cog fa-lg',
