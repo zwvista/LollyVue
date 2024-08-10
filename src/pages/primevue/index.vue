@@ -48,37 +48,37 @@
     {
       icon: 'fa fa-bus fa-lg',
       label: 'Words in Unit',
-      route: '/primevue/words-unit',
+      route: '/primevue/words-unit5',
     },
     {
       icon: 'fa fa-train fa-lg',
       label: 'Phrases in Unit',
-      route: '/primevue/phrases-unit',
+      route: '/primevue/phrases-unit5',
     },
     {
       icon: 'fa fa-car fa-lg',
       label: 'Words in Textbook',
-      route: '/primevue/words-textbook',
+      route: '/primevue/words-textbook5',
     },
     {
       icon: 'fa fa-taxi fa-lg',
       label: 'Phrases in Textbook',
-      route: '/primevue/phrases-textbook',
+      route: '/primevue/phrases-textbook5',
     },
     {
       icon: 'fa fa-plane fa-lg',
       label: 'Words in Language',
-      route: '/primevue/words-lang',
+      route: '/primevue/words-lang5',
     },
     {
       icon: 'fa fa-rocket fa-lg',
       label: 'Phrases in Language',
-      route: '/primevue/phrases-lang',
+      route: '/primevue/phrases-lang5',
     },
     {
       icon: 'fa fa-motorcycle fa-lg',
       label: 'Patterns in Language',
-      route: '/primevue/patterns',
+      route: '/primevue/patterns5',
     },
     {
       icon: 'fa fa-cog fa-lg',

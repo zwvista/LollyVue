@@ -28,11 +28,11 @@ const router = createRouter({
     },
     {
       path: '/element/',
-      redirect: { path: "/element/words-unit" }
+      redirect: { path: "/element/words-unit4" }
     },
     {
       path: '/primevue/',
-      redirect: { path: "/primevue/words-unit" }
+      redirect: { path: "/primevue/words-unit5" }
     },
   ]
 })
