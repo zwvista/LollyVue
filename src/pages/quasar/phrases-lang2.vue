@@ -3,9 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select map-options :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
       <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-<!--      <router-link to="/phrases-lang-detail/0">-->
-        <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
-<!--      </router-link>-->
+      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)"></q-btn>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table
@@ -20,11 +18,9 @@
         <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePhrase(props.row)">
           <q-tooltip>Delete</q-tooltip>
         </q-btn>
-<!--        <router-link :to="{ name: 'phrases-lang-detail', params: { id: props.row.ID }}">-->
-          <q-btn round color="primary" icon="fa fa-edit" size="xs">
-            <q-tooltip>Edit</q-tooltip>
-          </q-btn>
-<!--        </router-link>-->
+        <q-btn round color="primary" icon="fa fa-edit" size="xs" @click.stop="showDetailDialog(props.row.ID)">
+          <q-tooltip>Edit</q-tooltip>
+        </q-btn>
         <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up" size="xs"
                @click="settingsService.speak(props.row.PHRASE)">
           <q-tooltip>Speak</q-tooltip>
@@ -37,6 +33,7 @@
         </q-btn>
       </template>
     </q-table>
+    <PhrasesLangDetail2 v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesLangDetail2>
   </div>
 </template>
 
@@ -48,10 +45,13 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesLangDetail2 from '@/components/quasar/PhrasesLangDetail2'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const columns = ref([
     { name: 'ID', field: 'ID', label: 'ID' },
@@ -91,6 +91,11 @@
 
   const googlePhrase = (phrase: string) => {
     googleString(phrase);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

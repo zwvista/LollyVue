@@ -3,9 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select map-options :options="settingsService.patternFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
       <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-<!--      <router-link to="/patterns-detail/0">-->
-        <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
-<!--      </router-link>-->
+      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)"></q-btn>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table
@@ -20,11 +18,9 @@
         <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePattern(props.row.ID)">
           <q-tooltip>Delete</q-tooltip>
         </q-btn>
-<!--        <router-link :to="{ name: 'patterns-detail', params: { id: props.row.ID }}">-->
-          <q-btn round color="primary" icon="fa fa-edit" size="xs">
-            <q-tooltip>Edit</q-tooltip>
-          </q-btn>
-<!--        </router-link>-->
+        <q-btn round color="primary" icon="fa fa-edit" size="xs" @click.stop="showDetailDialog(props.row.ID)">
+          <q-tooltip>Edit</q-tooltip>
+        </q-btn>
         <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up" size="xs"
                @click="settingsService.speak(props.row.PATTERN)">
           <q-tooltip>Speak</q-tooltip>
@@ -37,6 +33,7 @@
         </q-btn>
       </template>
     </q-table>
+    <PatternsDetail2 v-if="showDetail" v-model="showDetail" :id="detailId"></PatternsDetail2>
   </div>
 </template>
 
@@ -47,10 +44,13 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PatternsDetail2 from '@/components/quasar/PatternsDetail2'
 
   const appService = ref(container.resolve(AppService));
   const patternsService = ref(container.resolve(PatternsService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const columns = ref([
     { name: 'ID', field: 'ID', label: 'ID' },
@@ -91,6 +91,11 @@
 
   const googlePattern = (pattern: string) => {
     googleString(pattern);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

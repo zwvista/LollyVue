@@ -18,11 +18,9 @@
         <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePhrase(props.row)">
           <q-tooltip>Delete</q-tooltip>
         </q-btn>
-<!--        <router-link :to="{ name: 'phrases-textbook-detail', params: { id: props.row.ID }}">-->
-          <q-btn round color="primary" icon="fa fa-edit" size="xs">
-            <q-tooltip>Edit</q-tooltip>
-          </q-btn>
-<!--        </router-link>-->
+        <q-btn round color="primary" icon="fa fa-edit" size="xs" @click.stop="showDetailDialog(props.row.ID)">
+          <q-tooltip>Edit</q-tooltip>
+        </q-btn>
         <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up" size="xs"
                @click="settingsService.speak(props.row.PHRASE)">
           <q-tooltip>Speak</q-tooltip>
@@ -35,6 +33,7 @@
         </q-btn>
       </template>
     </q-table>
+    <PhrasesTextbookDetail2 v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesTextbookDetail2>
   </div>
 </template>
 
@@ -46,10 +45,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesTextbookDetail2 from '@/components/quasar/PhrasesTextbookDetail2'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const columns = ref([
     { name: 'ID', field: 'ID', label: 'ID' },
@@ -95,6 +97,11 @@
 
   const googlePhrase = (phrase: string) => {
     googleString(phrase);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 
