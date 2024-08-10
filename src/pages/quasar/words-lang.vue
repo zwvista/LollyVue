@@ -79,6 +79,11 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    await wordsLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
+    pagination.value.rowsNumber = wordsLangService.value.langWordsCount;
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
@@ -90,11 +95,6 @@
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  };
-
-  const onRefresh = async () => {
-    await wordsLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
-    pagination.value.rowsNumber = wordsLangService.value.langWordsCount;
   };
 
   const deleteWord = (item: MLangWord) => {

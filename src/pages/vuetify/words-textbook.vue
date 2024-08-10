@@ -130,6 +130,12 @@
   const filterType = ref(0);
   const textbookFilter = ref(0);
 
+  const onRefresh = async () => {
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
+    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(async _ => {
       rows.value = settingsService.value.USROWSPERPAGE;
@@ -140,12 +146,6 @@
   const rowsChange = async (rows: number) => {
     page.value = 1;
     await onRefresh();
-  };
-
-  const onRefresh = async () => {
-    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
-    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
   };
 
   const deleteWord = async (item: MUnitWord) => {

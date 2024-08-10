@@ -57,6 +57,10 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       onRefresh();
@@ -65,13 +69,9 @@
 
   const onReorder = ({dragIndex, dropIndex}: any) => {
     console.log('reorder', dragIndex, dropIndex);
-    const movedItem = phrasesUnitService.unitPhrases.splice(dragIndex, 1)[0];
-    phrasesUnitService.unitPhrases.splice(dropIndex, 0, movedItem);
-    phrasesUnitService.reindex(index => {});
-  };
-
-  const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    const movedItem = phrasesUnitService.value.unitPhrases.splice(dragIndex, 1)[0];
+    phrasesUnitService.value.unitPhrases.splice(dropIndex, 0, movedItem);
+    phrasesUnitService.value.reindex(index => {});
   };
 
   const deletePhrase = (item: MUnitPhrase) => {

@@ -103,6 +103,10 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(async _ => {
       await onRefresh();
@@ -155,10 +159,6 @@
     const id = await wordsUnitService.value.create(o);
     o.ID = id as number;
     wordsUnitService.value.unitWords.push(o);
-  };
-
-  const onRefresh = async () => {
-    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
   };
 
   const deleteWord = async (item: MUnitWord) => {

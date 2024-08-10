@@ -69,15 +69,15 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       onRefresh();
     });
   })();
-
-  const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  };
 
   const deletePhrase = (item: MUnitPhrase) => {
     phrasesUnitService.value.delete(item);

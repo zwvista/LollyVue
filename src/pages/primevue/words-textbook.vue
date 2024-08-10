@@ -67,18 +67,18 @@
   const filterType = ref(0);
   const textbookFilter = ref(0);
 
+  const onRefresh = async () => {
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
+    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       rows.value = settingsService.value.USROWSPERPAGE;
       onRefresh();
     });
   })();
-
-  const onRefresh = async () => {
-    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
-    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
-  };
 
   const deleteWord = async (item: MUnitWord) => {
     await wordsUnitService.value.delete(item);

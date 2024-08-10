@@ -83,6 +83,10 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(async _ => {
       await onRefresh();
@@ -125,10 +129,6 @@
     const movedItem = phrasesUnitService.value.unitPhrases.splice(oldIndex, 1)[0];
     phrasesUnitService.value.unitPhrases.splice(newIndex, 0, movedItem);
     phrasesUnitService.value.reindex(index => {});
-  };
-
-  const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
   };
 
   const deletePhrase = (item: MUnitPhrase) => {

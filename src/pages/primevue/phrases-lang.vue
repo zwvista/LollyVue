@@ -55,6 +55,12 @@
   const filter = ref('');
   const filterType = ref(0);
 
+  const onRefresh = async () => {
+    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
+    await phrasesLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
+    pageCount.value = (phrasesLangService.value.langPhraseCount + rows.value - 1) / rows.value >> 0;
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       rows.value = settingsService.value.USROWSPERPAGE;
@@ -65,12 +71,6 @@
   const rowsChange = (rows: number) => {
     page.value = 1;
     onRefresh();
-  };
-
-  const onRefresh = async () => {
-    // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await phrasesLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
-    pageCount.value = (phrasesLangService.value.langPhraseCount + rows.value - 1) / rows.value >> 0;
   };
 
   const deletePhrase = (item: MLangPhrase) => {

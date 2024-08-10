@@ -71,6 +71,11 @@
   const filterType = ref(0);
   const textbookFilter = ref(0);
 
+  const onRefresh = async () => {
+    await phrasesUnitService.value.getDataInLang(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value, textbookFilter.value);
+    pagination.value.rowsNumber = phrasesUnitService.value.textbookPhraseCount;
+  };
+
   (() => {
     appService.value.initializeObject.subscribe(_ => {
       pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
@@ -82,11 +87,6 @@
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  };
-
-  const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInLang(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value, textbookFilter.value);
-    pagination.value.rowsNumber = phrasesUnitService.value.textbookPhraseCount;
   };
 
   const deletePhrase = (item: MUnitPhrase) => {
