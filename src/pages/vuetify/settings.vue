@@ -73,80 +73,74 @@
   import { MTextbook } from '@/models/misc/textbook';
   import { MVoice } from '@/models/misc/voice';
   import { container } from 'tsyringe';
+  import { computed, ref } from "vue";
 
-  settingsService = container.resolve(SettingsService);
+  const settingsService = ref(container.resolve(SettingsService));
 
-  get toTypeIsUnit() {
-    return settingsService.toType === 0;
-  };
-  get toTypeIsPart() {
-    return settingsService.toType === 1;
-  };
-  get toTypeIsTo() {
-    return settingsService.toType === 2;
-  };
+  const toTypeIsUnit = computed(() => settingsService.value.toType === 0);
+  const toTypeIsPart = computed(() => settingsService.value.toType === 1);
+  const toTypeIsTo = computed(() => settingsService.value.toType === 2);
 
-  async created() {
-    settingsService.settingsListener = this;
-    await settingsService.getData();
-  };
+  (async () => {
+    await settingsService.value.getData();
+  })();
 
-  async onLangChange(value: MLanguage) {
-    settingsService.selectedLang = value;
-    await settingsService.updateLang();
+  const onLangChange = async (value: MLanguage) => {
+    settingsService.value.selectedLang = value;
+    await settingsService.value.updateLang();
   };
 
-  async onVoiceChange(value: MVoice) {
-    settingsService.selectedVoice = value;
-    await settingsService.updateVoice();
+  const onVoiceChange = async (value: MVoice) => {
+    settingsService.value.selectedVoice = value;
+    await settingsService.value.updateVoice();
   };
 
-  async onDictReferenceChange(value: MDictionary) {
-    settingsService.selectedDictReference = value;
-    await settingsService.updateDictReference();
+  const onDictReferenceChange = async (value: MDictionary) => {
+    settingsService.value.selectedDictReference = value;
+    await settingsService.value.updateDictReference();
   };
 
-  async onDictNoteChange(value: MDictionary) {
-    settingsService.selectedDictNote = value;
-    await settingsService.updateDictNote();
+  const onDictNoteChange = async (value: MDictionary) => {
+    settingsService.value.selectedDictNote = value;
+    await settingsService.value.updateDictNote();
   };
 
-  async onDictTranslationChange(value: MDictionary) {
-    settingsService.selectedDictTranslation = value;
-    await settingsService.updateDictTranslation();
+  const onDictTranslationChange = async (value: MDictionary) => {
+    settingsService.value.selectedDictTranslation = value;
+    await settingsService.value.updateDictTranslation();
   };
 
-  async onTextbookChange(value: MTextbook) {
-    settingsService.selectedTextbook = value;
-    await settingsService.updateTextbook();
+  const onTextbookChange = async (value: MTextbook) => {
+    settingsService.value.selectedTextbook = value;
+    await settingsService.value.updateTextbook();
   };
 
-  async onUnitFromChange(value: number) {
-    await settingsService.updateUnitFrom(value);
+  const onUnitFromChange = async (value: number) => {
+    await settingsService.value.updateUnitFrom(value);
   };
 
-  async onPartFromChange(value: number) {
-    await settingsService.updatePartFrom(value);
+  const onPartFromChange = async (value: number) => {
+    await settingsService.value.updatePartFrom(value);
   };
 
-  async onToTypeChange(value: number) {
-    await settingsService.updateToType(value);
+  const onToTypeChange = async (value: number) => {
+    await settingsService.value.updateToType(value);
   };
 
-  async previousUnitPart() {
-    await settingsService.previousUnitPart();
+  const previousUnitPart = async () => {
+    await settingsService.value.previousUnitPart();
   };
 
-  async nextUnitPart() {
-    await settingsService.nextUnitPart();
+  const nextUnitPart = async () => {
+    await settingsService.value.nextUnitPart();
   };
 
-  async onUnitToChange(value: number) {
-    await settingsService.updateUnitTo(value);
+  const onUnitToChange = async (value: number) => {
+    await settingsService.value.updateUnitTo(value);
   };
 
-  async onPartToChange(value: number) {
-    await settingsService.updateUnitTo(value);
+  const onPartToChange = async (value: number) => {
+    await settingsService.value.updateUnitTo(value);
   };
 </script>
 
