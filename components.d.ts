@@ -26,8 +26,14 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    PatternsDetail: typeof import('./src/components/vuetify/PatternsDetail.vue')['default']
+    PhrasesLangDetail: typeof import('./src/components/vuetify/PhrasesLangDetail.vue')['default']
+    PhrasesTextbookDetail: typeof import('./src/components/vuetify/PhrasesTextbookDetail.vue')['default']
+    PhrasesUnitDetail: typeof import('./src/components/vuetify/PhrasesUnitDetail.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WordsLangDetail: typeof import('./src/components/vuetify/WordsLangDetail.vue')['default']
+    WordsTextbookDetail: typeof import('./src/components/vuetify/WordsTextbookDetail.vue')['default']
     WordsUnitDetail: typeof import('./src/components/vuetify/WordsUnitDetail.vue')['default']
   }
 }

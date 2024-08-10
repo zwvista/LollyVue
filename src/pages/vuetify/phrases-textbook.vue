@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.phraseFilterTypes" item-title="label" item-value="value" v-model="filterType" @update:modelValue="onRefresh"></v-select>
+      <v-select :items="settingsService.phraseFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      <v-select :items="settingsService.textbookFilters" item-title="label" item-value="value" v-model="textbookFilter" @update:modelValue="onRefresh"></v-select>
+      <v-select :items="settingsService.textbookFilters" item-title="label" v-model="textbookFilter" @update:modelValue="onRefresh"></v-select>
       <v-btn variant="elevated" prepend-icon="fa-refresh" color="info" @click="onRefresh()">Refresh</v-btn>
     </v-toolbar>
     <div class="text-xs-center">

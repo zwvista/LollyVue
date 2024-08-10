@@ -5,10 +5,9 @@
       <v-select label="UNIT" :items="settingsService.units" item-title="label" v-model="item.UNIT"></v-select>
       <v-select label="PART" :items="settingsService.parts" item-title="label" v-model="item.PART"></v-select>
       <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
-      <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
-      <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
-      <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
-      <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></v-text-field>
+      <v-text-field label="PHRASEID" type="text" v-model="item.PHRASEID" disabled></v-text-field>
+      <v-text-field label="PHRASE" type="text" v-model="item.PHRASE"></v-text-field>
+      <v-text-field label="TRANSLATION" type="text" v-model="item.TRANSLATION"></v-text-field>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
@@ -18,28 +17,28 @@
   </v-dialog>
 </template>
 
-<script setup lang="ts">
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
+<script lang="ts">
+  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { container } from 'tsyringe';
   import { defineModel, defineProps, ref } from "vue";
-  import { MUnitWord } from "@/models/wpp/unit-word";
+  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
 
-  const wordsUnitService = ref(container.resolve(WordsUnitService));
+  const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
   const props = defineProps({id: Number});
-  const itemOld = wordsUnitService.value.unitWords.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MUnitWord : wordsUnitService.value.newUnitWord());
+  const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === props.id);
+  const item = ref(itemOld ? {...itemOld} as MUnitPhrase : phrasesUnitService.value.newUnitPhrase());
 
   async function save() {
-    item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
-    if (item.value.ID) {
-      await wordsUnitService.value.update(item.value);
+    item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
+    if (item.ID) {
+      await phrasesUnitService.value.update(item.value);
       showDialog.value = false;
     } else {
-      await wordsUnitService.value.create(item.value);
+      await phrasesUnitService.value.create(item.value);
       showDialog.value = false;
     }
   }

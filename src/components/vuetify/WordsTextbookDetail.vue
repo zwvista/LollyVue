@@ -2,9 +2,11 @@
   <v-dialog v-model="showDialog" max-width="750px">
     <v-card>
       <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
+      <v-text-field label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" disabled></v-text-field>
       <v-select label="UNIT" :items="settingsService.units" item-title="label" v-model="item.UNIT"></v-select>
       <v-select label="PART" :items="settingsService.parts" item-title="label" v-model="item.PART"></v-select>
       <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
       <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
       <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
       <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
@@ -18,30 +20,22 @@
   </v-dialog>
 </template>
 
-<script setup lang="ts">
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
+<script lang="ts">
   import { SettingsService } from '@/view-models/misc/settings.service';
+  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { container } from 'tsyringe';
   import { defineModel, defineProps, ref } from "vue";
-  import { MUnitWord } from "@/models/wpp/unit-word";
 
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
   const props = defineProps({id: Number});
-  const itemOld = wordsUnitService.value.unitWords.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MUnitWord : wordsUnitService.value.newUnitWord());
+  const item = ref(wordsUnitService.value.textbookWords.find(value => value.ID === props.id)!);
 
   async function save() {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
-    if (item.value.ID) {
-      await wordsUnitService.value.update(item.value);
-      showDialog.value = false;
-    } else {
-      await wordsUnitService.value.create(item.value);
-      showDialog.value = false;
-    }
+    await wordsUnitService.value.update(item.value);
   }
 </script>
 
