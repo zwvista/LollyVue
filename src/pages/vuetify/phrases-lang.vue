@@ -3,9 +3,7 @@
     <v-toolbar>
       <v-select :items="settingsService.phraseFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
       <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-<!--      <router-link to="/phrases-lang-detail/0">-->
-        <v-btn variant="elevated" prepend-icon="fa-plus" color="info">Add</v-btn>
-<!--      </router-link>-->
+      <v-btn variant="elevated" prepend-icon="fa-plus" color="info" @click.stop="showDetailDialog(0)">Add</v-btn>
       <v-btn variant="elevated" prepend-icon="fa-refresh" color="info" @click="onRefresh()">Refresh</v-btn>
     </v-toolbar>
     <div class="text-xs-center">
@@ -41,13 +39,11 @@
            <v-btn v-bind="props" icon="fa-trash" color="error" @click="deletePhrase(item)"></v-btn>
           </template>
         </v-tooltip>
-<!--        <router-link :to="{ name: 'phrases-lang-detail', params: { id: item.ID }}">-->
-          <v-tooltip text="Edit" location="top">
-            <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
-            </template>
-          </v-tooltip>
-<!--        </router-link>-->
+        <v-tooltip text="Edit" location="top">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon="fa-edit" color="info" @click.stop="showDetailDialog(item.ID)"></v-btn>
+          </template>
+        </v-tooltip>
         <v-tooltip text="Speak" location="top">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(item.PHRASE)" v-show="settingsService.selectedVoice"></v-btn>
@@ -84,6 +80,7 @@
         ></v-pagination>
       </v-row>
     </div>
+    <PhrasesLangDetail v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesLangDetail>
   </div>
 </template>
 
@@ -95,10 +92,13 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesLangDetail from '@/components/vuetify/PhrasesLangDetail'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const headers = ref([
     { title: 'ID', sortable: false, key: 'ID' },
@@ -136,6 +136,11 @@
 
   function googlePhrase(phrase: string) {
     googleString(phrase);
+  }
+
+  function showDetailDialog(id: number) {
+    detailId.value = id;
+    showDetail.value = true;
   }
 </script>
 

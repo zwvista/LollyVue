@@ -39,13 +39,11 @@
             <v-btn v-bind="props" icon="fa-trash" color="error" @click="deletePhrase(item)"></v-btn>
           </template>
         </v-tooltip>
-<!--        <router-link :to="{ name: 'phrases-textbook-detail', params: { id: item.ID }}">-->
-          <v-tooltip text="Edit" location="top">
-            <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
-            </template>
-          </v-tooltip>
-<!--        </router-link>-->
+        <v-tooltip text="Edit" location="top">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon="fa-edit" color="info" @click.stop="showDetailDialog(item.ID)"></v-btn>
+          </template>
+        </v-tooltip>
         <v-tooltip text="Speak" location="top">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(item.PHRASE)" v-show="settingsService.selectedVoice"></v-btn>
@@ -82,6 +80,7 @@
         ></v-pagination>
       </v-row>
     </div>
+    <PhrasesTextbookDetail v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesTextbookDetail>
   </div>
 </template>
 
@@ -93,10 +92,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesTextbookDetail from '@/components/vuetify/PhrasesTextbookDetail'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const headers = ref([
     { title: 'ID', sortable: false, key: 'ID' },
@@ -140,6 +142,11 @@
 
   function googlePhrase(phrase: string) {
     googleString(phrase);
+  }
+
+  function showDetailDialog(id: number) {
+    detailId.value = id;
+    showDetail.value = true;
   }
 </script>
 
