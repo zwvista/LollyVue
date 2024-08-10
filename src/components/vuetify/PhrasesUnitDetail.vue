@@ -30,7 +30,7 @@
   const showDialog = defineModel();
   const props = defineProps({id: Number});
   const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MUnitPhrase : phrasesUnitService.value.newUnitPhrase());
+  const item = ref(itemOld ? Object.create(itemOld) as MUnitPhrase : phrasesUnitService.value.newUnitPhrase());
 
   async function save() {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);

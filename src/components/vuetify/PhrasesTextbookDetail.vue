@@ -29,7 +29,7 @@
 
   const showDialog = defineModel();
   const props = defineProps({id: Number});
-  const item = ref(phrasesUnitService.value.textbookPhrases.find(value => value.ID === props.id)!);
+  const item = ref(Object.create(phrasesUnitService.value.textbookPhrases.find(value => value.ID === props.id)!) as MUnitPhrase);
 
   async function save() {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);

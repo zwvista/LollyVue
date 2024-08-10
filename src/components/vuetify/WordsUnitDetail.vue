@@ -31,7 +31,7 @@
   const showDialog = defineModel();
   const props = defineProps({id: Number});
   const itemOld = wordsUnitService.value.unitWords.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MUnitWord : wordsUnitService.value.newUnitWord());
+  const item = ref(itemOld ? Object.create(itemOld) as MUnitWord : wordsUnitService.value.newUnitWord());
 
   async function save() {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);

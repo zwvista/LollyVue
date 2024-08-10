@@ -28,7 +28,7 @@
   const showDialog = defineModel();
   const props = defineProps({id: Number});
   const itemOld = wordsLangService.value.langWords.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MLangWord : wordsLangService.value.newLangWord());
+  const item = ref(itemOld ? Object.create(itemOld) as MLangWord : wordsLangService.value.newLangWord());
 
   async function save() {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);

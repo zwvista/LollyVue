@@ -27,7 +27,7 @@
   const showDialog = defineModel();
   const props = defineProps({id: Number});
   const itemOld = patternsService.value.patterns.find(value => value.ID === props.id);
-  const item = ref(itemOld ? {...itemOld} as MPattern : patternsService.value.newPattern());
+  const item = ref(itemOld ? Object.create(itemOld) as MPattern : patternsService.value.newPattern());
 
   async function save() {
     item.value.PATTERN = settingsService.value.autoCorrectInput(item.value.PATTERN);
