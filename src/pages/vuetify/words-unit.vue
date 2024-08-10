@@ -65,7 +65,7 @@
         <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
       </template>
     </v-data-table>
-    <WordsUnitDetail v-if="showDetail" v-model="showDetail" id="detailId"></WordsUnitDetail>
+    <WordsUnitDetail v-if="showDetail" v-model="showDetail" :id="detailId"></WordsUnitDetail>
   </div>
 </template>
 

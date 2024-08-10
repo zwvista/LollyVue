@@ -28,11 +28,9 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const id = defineProps<{id: number}>();
-  const item = ref((() => {
-      const o = wordsUnitService.value.unitWords.find(value => value.ID === id);
-      return o || wordsUnitService.value.newUnitWord();
-  })());
+  const props = defineProps({id: Number});
+  const item = ref(wordsUnitService.value.unitWords.find(value => value.ID === props.id) ||
+    wordsUnitService.value.newUnitWord());
 
   async function save() {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
