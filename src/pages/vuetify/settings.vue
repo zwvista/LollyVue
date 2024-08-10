@@ -2,61 +2,50 @@
   <div class="container" v-if="settingsService.selectedLang">
     <div class="form-inline mb-2">
       <label for="lang" class="col-2 control-label">Language:</label>
-      <b-form-select id="lang" class="col-4 form-control" :model-value="settingsService.selectedLang" @update:model-value="onLangChange($event)">
-        <option v-for="o in settingsService.languages" :value="o" :key="o.ID">{{o.NAME}}</option>
-      </b-form-select>
+      <b-form-select id="lang" class="col-4 form-control" :model-value="settingsService.selectedLang" @update:model-value="onLangChange($event)"
+        :options="settingsService.languages" value-field="" text-field="NAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="voice" class="col-2 control-label">Voice:</label>
-      <b-form-select id="voice" class="col-4 form-control" :model-value="settingsService.selectedVoice" @update:model-value="onVoiceChange($event)">
-        <option v-for="o in settingsService.voices" :value="o" :key="o.ID">{{o.VOICENAME}}</option>
-      </b-form-select>
+      <b-form-select id="voice" class="col-4 form-control" :model-value="settingsService.selectedVoice" @update:model-value="onVoiceChange($event)"
+        :options="settingsService.voices" value-field="" text-field="VOICENAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="dictReference" class="col-2 control-label">Dictionary(Reference):</label>
-      <b-form-select id="dictReference" class="col-4 form-control" :model-value="settingsService.selectedDictReference" @update:model-value="onDictReferenceChange($event)">
-        <option v-for="o in settingsService.dictsReference" :value="o" :key="o.DICTID">{{o.NAME}}</option>
-      </b-form-select>
+      <b-form-select id="dictReference" class="col-4 form-control" :model-value="settingsService.selectedDictReference" @update:model-value="onDictReferenceChange($event)"
+        :options="settingsService.dictsReference" value-field="" text-field="NAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="dictNote" class="col-2 control-label">Dictionary(Note):</label>
-      <b-form-select id="dictNote" class="col-4 form-control" :model-value="settingsService.selectedDictNote" @update:model-value="onDictNoteChange($event)">
-        <option v-for="o in settingsService.dictsNote" :value="o" :key="o.ID">{{o.NAME}}</option>
-      </b-form-select>
+      <b-form-select id="dictNote" class="col-4 form-control" :model-value="settingsService.selectedDictNote" @update:model-value="onDictNoteChange($event)"
+        :options="settingsService.dictsNote" value-field="" text-field="NAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="dictTranslation" class="col-2 control-label">Dictionary(Translation):</label>
-      <b-form-select id="dictTranslation" class="col-4 form-control" :model-value="settingsService.selectedDictTranslation" @update:model-value="onDictTranslationChange($event)">
-        <option v-for="o in settingsService.dictsTranslation" :value="o" :key="o.ID">{{o.NAME}}</option>
-      </b-form-select>
+      <b-form-select id="dictTranslation" class="col-4 form-control" :model-value="settingsService.selectedDictTranslation" @update:model-value="onDictTranslationChange($event)"
+        :options="settingsService.dictsTranslation" value-field="" text-field="NAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="textbook" class="col-2 control-label">Textbook:</label>
-      <b-form-select id="textbook" class="col-4 form-control" :model-value="settingsService.selectedTextbook" @update:model-value="onTextbookChange($event)">
-        <option v-for="o in settingsService.textbooks" :value="o" :key="o.ID">{{o.NAME}}</option>
-      </b-form-select>
+      <b-form-select id="textbook" class="col-4 form-control" :model-value="settingsService.selectedTextbook" @update:model-value="onTextbookChange($event)"
+        :options="settingsService.textbooks" value-field="" text-field="NAME" />
     </div>
     <div class="form-inline mb-2">
       <label for="unitFrom" class="col-2 control-label">Unit:</label>
-      <b-form-select id="unitFrom" class="col-2 form-control" :model-value="settingsService.USUNITFROM" @update:model-value="onUnitFromChange($event)">
-        <option v-for="o in settingsService.units" :value="o.value" :key="o.value">{{o.label}}</option>
-      </b-form-select>
-      <b-form-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :model-value="settingsService.USPARTFROM" @update:model-value="onPartFromChange($event)">
-        <option v-for="o in settingsService.parts" :value="o.value" :key="o.value">{{o.label}}</option>
-      </b-form-select>
+      <b-form-select id="unitFrom" class="col-2 form-control" :model-value="settingsService.USUNITFROM" @update:model-value="onUnitFromChange($event)"
+        :options="settingsService.units" text-field="label" />
+      <b-form-select id="partFrom" class="col-2 form-control" :disabled="toTypeIsUnit" :model-value="settingsService.USPARTFROM" @update:model-value="onPartFromChange($event)"
+        :options="settingsService.parts" text-field="label" />
     </div>
     <div class="form-inline mb-2">
-      <b-form-select id="toType" class="col-1 form-control" :model-value="settingsService.toType" @update:model-value="onToTypeChange($event)">
-        <option v-for="o in settingsService.toTypes" :value="o.value" :key="o.value">{{o.label}}</option>
-      </b-form-select>
+      <b-form-select id="toType" class="col-1 form-control" :model-value="settingsService.toType" @update:model-value="onToTypeChange($event)"
+        :options="settingsService.toTypes" text-field="label" />
       <label class="col-1 control-label">
       </label>
-      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :model-value="settingsService.USUNITTO" @update:model-value="onUnitToChange($event)">
-        <option v-for="o in settingsService.units" :value="o.value" :key="o.value">{{o.label}}</option>
-      </b-form-select>
-      <b-form-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :model-value="settingsService.USPARTTO" @update:model-value="onPartToChange($event)">
-        <option v-for="o in settingsService.parts" :value="o.value" :key="o.value">{{o.label}}</option>
-      </b-form-select>
+      <b-form-select id="unitTo" class="col-2 form-control" :disabled="!toTypeIsTo" :model-value="settingsService.USUNITTO" @update:model-value="onUnitToChange($event)"
+        :options="settingsService.units" text-field="label" />
+      <b-form-select id="partTo" class="col-2 form-control" :disabled="!toTypeIsTo" :model-value="settingsService.USPARTTO" @update:model-value="onPartToChange($event)"
+        :options="settingsService.parts" text-field="label" />
     </div>
     <div class="form-inline mb-2">
       <label class="col-2 control-label"></label>
