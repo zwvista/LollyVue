@@ -32,13 +32,8 @@
 
   const save = async () => {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
-    if (item.value.ID) {
-      await wordsLangService.value.update(item.value);
-      showDialog.value = false;
-    } else {
-      await wordsLangService.value.create(item.value);
-      showDialog.value = false;
-    }
+    await (item.value.ID ? wordsLangService.value.update(item.value) : wordsLangService.value.create(item.value));
+    showDialog.value = false;
   };
 </script>
 

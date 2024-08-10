@@ -31,13 +31,8 @@
 
   const save = async () => {
     item.value.PATTERN = settingsService.value.autoCorrectInput(item.value.PATTERN);
-    if (item.value.ID) {
-      await patternsService.value.update(item.value);
-      showDialog.value = false;
-    } else {
-      await patternsService.value.create(item.value);
-      showDialog.value = false;
-    }
+    await (item.value.ID ? patternsService.value.update(item.value) : patternsService.value.create(item.value));
+    showDialog.value = false;
   };
 </script>
 

@@ -37,6 +37,7 @@
   const save = async () => {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
     await wordsUnitService.value.update(item.value);
+    showDialog.value = false;
   };
 </script>
 

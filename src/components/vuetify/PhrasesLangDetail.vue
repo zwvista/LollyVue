@@ -30,13 +30,8 @@
 
   const save = async () => {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
-    if (item.value.ID) {
-      await phrasesLangService.value.update(item.value);
-      showDialog.value = false;
-    } else {
-      await phrasesLangService.value.create(item.value);
-      showDialog.value = false;
-    }
+    await (item.value.ID ? phrasesLangService.value.update(item.value) : phrasesLangService.value.create(item.value));
+    showDialog.value = false;
   };
 </script>
 
