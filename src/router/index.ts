@@ -16,11 +16,11 @@ const router = createRouter({
     ...routes,
     {
       path: '/',
-      redirect: { path: "/vuetify/words/words-unit" }
+      redirect: { path: "/vuetify/words-unit" }
     },
     {
       path: '/vuetify/',
-      redirect: { path: "/vuetify/words/words-unit" },
+      redirect: { path: "/vuetify/words-unit" },
     },
     {
       path: '/primevue/',

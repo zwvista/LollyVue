@@ -40,7 +40,7 @@
 <!--        <router-link :to="{ name: 'words-unit-detail', params: { id: item.ID }}">-->
           <v-tooltip text="Edit" location="top">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props" icon="fa-edit" color="info"></v-btn>
+              <v-btn v-bind="props" icon="fa-edit" color="info" @click.stop="showDetailDialog(item.ID)"></v-btn>
             </template>
           </v-tooltip>
 <!--        </router-link>-->
@@ -69,6 +69,7 @@
         <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
       </template>
     </v-data-table>
+    <WordsUnitDetail v-if="showDetail" v-model="showDetail" id="detailId"></WordsUnitDetail>
   </div>
 </template>
 
@@ -82,10 +83,13 @@
   import { MUnitWord } from "@/models/wpp/unit-word";
   import { googleString } from "@/common/common";
   import { SettingsService } from "@/view-models/misc/settings.service";
+  import WordsUnitDetail from '@/components/vuetify/WordsUnitDetail'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const headers = ref([
     { title: '', sortable: false, key: 'DD' },
@@ -176,6 +180,11 @@
 
   function getNotes(ifEmpty: boolean) {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  }
+
+  function showDetailDialog(id: number) {
+    detailId.value = id;
+    showDetail.value = true;
   }
 </script>
 

@@ -62,32 +62,32 @@
     {
       icon: 'fa-bus',
       title: 'Words in Unit',
-      path: '/vuetify/words/words-unit',
+      path: '/vuetify/words-unit',
     },
     {
       icon: 'fa-train',
       title: 'Phrases in Unit',
-      path: '/vuetify/phrases/phrases-unit',
+      path: '/vuetify/phrases-unit',
     },
     {
       icon: 'fa-car',
       title: 'Words in Textbook',
-      path: '/vuetify/words/words-textbook',
+      path: '/vuetify/words-textbook',
     },
     {
       icon: 'fa-taxi',
       title: 'Phrases in Textbook',
-      path: '/vuetify/phrases/phrases-textbook',
+      path: '/vuetify/phrases-textbook',
     },
     {
       icon: 'fa-plane',
       title: 'Words in Language',
-      path: '/vuetify/words/words-lang',
+      path: '/vuetify/words-lang',
     },
     {
       icon: 'fa-rocket',
       title: 'Phrases in Language',
-      path: '/vuetify/phrases/phrases-lang',
+      path: '/vuetify/phrases-lang',
     },
     {
       icon: 'fa-motorcycle',
