@@ -63,24 +63,24 @@
     });
   })();
 
-  function onReorder({dragIndex, dropIndex}: any) {
+  const onReorder = ({dragIndex, dropIndex}: any) => {
     console.log('reorder', dragIndex, dropIndex);
     const movedItem = phrasesUnitService.unitPhrases.splice(dragIndex, 1)[0];
     phrasesUnitService.unitPhrases.splice(dropIndex, 0, movedItem);
     phrasesUnitService.reindex(index => {});
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  }
+  };
 
-  function deletePhrase(item: MUnitPhrase) {
+  const deletePhrase = (item: MUnitPhrase) => {
     phrasesUnitService.value.delete(item);
-  }
+  };
 
-  function googlePhrase(phrase: string) {
+  const googlePhrase = (phrase: string) => {
     googleString(phrase);
-  }
+  };
 </script>
 
 <style>

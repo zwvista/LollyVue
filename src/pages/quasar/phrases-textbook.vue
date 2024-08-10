@@ -78,24 +78,24 @@
     });
   })();
 
-  function request(props) {
+  const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await phrasesUnitService.value.getDataInLang(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value, textbookFilter.value);
     pagination.value.rowsNumber = phrasesUnitService.value.textbookPhraseCount;
-  }
+  };
 
-  function deletePhrase(item: MUnitPhrase) {
+  const deletePhrase = (item: MUnitPhrase) => {
     phrasesUnitService.value.delete(item);
-  }
+  };
 
-  function googlePhrase(phrase: string) {
+  const googlePhrase = (phrase: string) => {
     googleString(phrase);
-  }
+  };
 </script>
 
 <style scoped>

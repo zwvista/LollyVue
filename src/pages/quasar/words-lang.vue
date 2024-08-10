@@ -86,29 +86,29 @@
     });
   })();
 
-  function request(props) {
+  const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await wordsLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
     pagination.value.rowsNumber = wordsLangService.value.langWordsCount;
-  }
+  };
 
-  function deleteWord(item: MLangWord) {
+  const deleteWord = (item: MLangWord) => {
     wordsLangService.value.delete(item);
-  }
+  };
 
-  async function getNote(index: number) {
+  const getNote = async (index: number) => {
     console.log(index);
     await wordsLangService.value.getNote(index);
-  }
+  };
 
-  function googleWord(word: string) {
+  const googleWord = (word: string) => {
     googleString(word);
-  }
+  };
 </script>
 
 <style scoped>

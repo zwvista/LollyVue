@@ -30,7 +30,7 @@
   const itemOld = wordsLangService.value.langWords.find(value => value.ID === props.id);
   const item = ref(itemOld ? Object.create(itemOld) as MLangWord : wordsLangService.value.newLangWord());
 
-  async function save() {
+  const save = async () => {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
     if (item.value.ID) {
       await wordsLangService.value.update(item.value);
@@ -39,7 +39,7 @@
       await wordsLangService.value.create(item.value);
       showDialog.value = false;
     }
-  }
+  };
 </script>
 
 <style>

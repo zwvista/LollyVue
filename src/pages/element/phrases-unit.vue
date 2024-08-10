@@ -96,17 +96,17 @@
     });
   })();
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  }
+  };
 
-  function deletePhrase(item: MUnitPhrase) {
+  const deletePhrase = (item: MUnitPhrase) => {
     phrasesUnitService.value.delete(item);
-  }
+  };
 
-  function googlePhrase(phrase: string) {
+  const googlePhrase = (phrase: string) => {
     googleString(phrase);
-  }
+  };
 </script>
 
 <style scoped>

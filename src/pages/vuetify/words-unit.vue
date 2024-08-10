@@ -124,7 +124,7 @@
     // );
   });
 
-  function dragStart({item}: any) {
+  const dragStart = ({item}: any) => {
     const nextSib = item.nextSibling;
     if (nextSib &&
       nextSib.classList.contains('datatable__expand-row')) {
@@ -132,9 +132,9 @@
     } else {
       expandRow.value = null;
     }
-  }
+  };
 
-  function dragReorder({item, oldIndex, newIndex}: any) {
+  const dragReorder = ({item, oldIndex, newIndex}: any) => {
     console.log('reorder', item, oldIndex, newIndex);
     const nextSib = item.nextSibling;
     if (nextSib &&
@@ -145,9 +145,9 @@
     const movedItem = wordsUnitService.value.unitWords.splice(oldIndex, 1)[0];
     wordsUnitService.value.unitWords.splice(newIndex, 0, movedItem);
     wordsUnitService.value.reindex(index => {});
-  }
+  };
 
-  async function onEnterNewWord() {
+  const onEnterNewWord = async () => {
     if (!newWord.value) return;
     const o = wordsUnitService.value.newUnitWord();
     o.WORD = settingsService.value.autoCorrectInput(newWord.value);
@@ -155,33 +155,33 @@
     const id = await wordsUnitService.value.create(o);
     o.ID = id as number;
     wordsUnitService.value.unitWords.push(o);
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  }
+  };
 
-  async function deleteWord(item: MUnitWord) {
+  const deleteWord = async (item: MUnitWord) => {
     await wordsUnitService.value.delete(item);
-  }
+  };
 
-  async function getNote(index: number) {
+  const getNote = async (index: number) => {
     console.log(index);
     await wordsUnitService.value.getNote(index);
-  }
+  };
 
-  function googleWord(word: string) {
+  const googleWord = (word: string) => {
     googleString(word);
-  }
+  };
 
-  function getNotes(ifEmpty: boolean) {
+  const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
-  }
+  };
 
-  function showDetailDialog(id: number) {
+  const showDetailDialog = (id: number) => {
     detailId.value = id;
     showDetail.value = true;
-  }
+  };
 </script>
 
 <style>

@@ -33,7 +33,7 @@
   const itemOld = wordsUnitService.value.unitWords.find(value => value.ID === props.id);
   const item = ref(itemOld ? Object.create(itemOld) as MUnitWord : wordsUnitService.value.newUnitWord());
 
-  async function save() {
+  const save = async () => {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);
     if (item.value.ID) {
       await wordsUnitService.value.update(item.value);
@@ -42,7 +42,7 @@
       await wordsUnitService.value.create(item.value);
       showDialog.value = false;
     }
-  }
+  };
 </script>
 
 <style>

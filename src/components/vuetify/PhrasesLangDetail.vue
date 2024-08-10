@@ -28,7 +28,7 @@
   const itemOld = phrasesLangService.value.langPhrases.find(value => value.ID === props.id);
   const item = ref(itemOld ? Object.create(itemOld) as MLangPhrase : phrasesLangService.value.newLangPhrase());
 
-  async function save() {
+  const save = async () => {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
     if (item.value.ID) {
       await phrasesLangService.value.update(item.value);
@@ -37,7 +37,7 @@
       await phrasesLangService.value.create(item.value);
       showDialog.value = false;
     }
-  }
+  };
 </script>
 
 <style>

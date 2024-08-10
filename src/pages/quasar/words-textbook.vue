@@ -90,29 +90,29 @@
     });
   })();
 
-  function request(props) {
+  const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await wordsUnitService.value.getDataInLang(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value, textbookFilter.value);
     pagination.value.rowsNumber = wordsUnitService.value.textbookWordCount;
-  }
+  };
 
-  async function deleteWord(item: MUnitWord) {
+  const deleteWord = async (item: MUnitWord) => {
     await wordsUnitService.value.delete(item);
-  }
+  };
 
-  async function getNote(index: number) {
+  const getNote = async (index: number) => {
     console.log(index);
     await wordsUnitService.value.getNote(index);
-  }
+  };
 
-  function googleWord(word: string) {
+  const googleWord = (word: string) => {
     googleString(word);
-  }
+  };
 </script>
 
 <style scoped>

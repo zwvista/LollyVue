@@ -131,34 +131,34 @@
     });
   })();
 
-  function handleSizeChange(val: number) {
+  const handleSizeChange = (val: number) => {
     rows.value = val;
     onRefresh();
-  }
+  };
 
-  function handleCurrentChange(val: number) {
+  const handleCurrentChange = (val: number) => {
     page.value = val;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
     await wordsLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
     pageCount.value = (wordsLangService.value.langWordsCount + rows.value - 1) / rows.value >> 0;
-  }
+  };
 
-  function deleteWord(item: MLangWord) {
+  const deleteWord = (item: MLangWord) => {
     wordsLangService.value.delete(item);
-  }
+  };
 
-  async function getNote(index: number) {
+  const getNote = async (index: number) => {
     console.log(index);
     await wordsLangService.value.getNote(index);
-  }
+  };
 
-  function googleWord(word: string) {
+  const googleWord = (word: string) => {
     googleString(word);
-  }
+  };
 </script>
 
 <style scoped>

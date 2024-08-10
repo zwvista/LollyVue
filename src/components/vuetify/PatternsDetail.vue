@@ -29,7 +29,7 @@
   const itemOld = patternsService.value.patterns.find(value => value.ID === props.id);
   const item = ref(itemOld ? Object.create(itemOld) as MPattern : patternsService.value.newPattern());
 
-  async function save() {
+  const save = async () => {
     item.value.PATTERN = settingsService.value.autoCorrectInput(item.value.PATTERN);
     if (item.value.ID) {
       await patternsService.value.update(item.value);
@@ -38,7 +38,7 @@
       await patternsService.value.create(item.value);
       showDialog.value = false;
     }
-  }
+  };
 </script>
 
 <style>

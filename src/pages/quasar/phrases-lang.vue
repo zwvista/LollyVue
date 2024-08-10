@@ -74,24 +74,24 @@
     });
   })();
 
-  function request(props) {
+  const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await phrasesLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
     pagination.value.rowsNumber = phrasesLangService.value.langPhraseCount;
-  }
+  };
 
-  function deletePhrase(item: MLangPhrase) {
+  const deletePhrase = (item: MLangPhrase) => {
     phrasesLangService.value.delete(item);
-  }
+  };
 
-  function googlePhrase(phrase: string) {
+  const googlePhrase = (phrase: string) => {
     googleString(phrase);
-  }
+  };
 </script>
 
 <style scoped>

@@ -78,76 +78,76 @@
 
   get toTypeIsUnit() {
     return settingsService.toType === 0;
-  }
+  };
   get toTypeIsPart() {
     return settingsService.toType === 1;
-  }
+  };
   get toTypeIsTo() {
     return settingsService.toType === 2;
-  }
+  };
 
   async created() {
     settingsService.settingsListener = this;
     await settingsService.getData();
-  }
+  };
 
   async onLangChange(value: MLanguage) {
     settingsService.selectedLang = value;
     await settingsService.updateLang();
-  }
+  };
 
   async onVoiceChange(value: MVoice) {
     settingsService.selectedVoice = value;
     await settingsService.updateVoice();
-  }
+  };
 
   async onDictReferenceChange(value: MDictionary) {
     settingsService.selectedDictReference = value;
     await settingsService.updateDictReference();
-  }
+  };
 
   async onDictNoteChange(value: MDictionary) {
     settingsService.selectedDictNote = value;
     await settingsService.updateDictNote();
-  }
+  };
 
   async onDictTranslationChange(value: MDictionary) {
     settingsService.selectedDictTranslation = value;
     await settingsService.updateDictTranslation();
-  }
+  };
 
   async onTextbookChange(value: MTextbook) {
     settingsService.selectedTextbook = value;
     await settingsService.updateTextbook();
-  }
+  };
 
   async onUnitFromChange(value: number) {
     await settingsService.updateUnitFrom(value);
-  }
+  };
 
   async onPartFromChange(value: number) {
     await settingsService.updatePartFrom(value);
-  }
+  };
 
   async onToTypeChange(value: number) {
     await settingsService.updateToType(value);
-  }
+  };
 
   async previousUnitPart() {
     await settingsService.previousUnitPart();
-  }
+  };
 
   async nextUnitPart() {
     await settingsService.nextUnitPart();
-  }
+  };
 
   async onUnitToChange(value: number) {
     await settingsService.updateUnitTo(value);
-  }
+  };
 
   async onPartToChange(value: number) {
     await settingsService.updateUnitTo(value);
-  }
+  };
 </script>
 
 <style>

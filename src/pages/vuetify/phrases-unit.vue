@@ -104,7 +104,7 @@
     // );
   });
 
-  function dragStart({item}: any) {
+  const dragStart = ({item}: any) => {
     const nextSib = item.nextSibling;
     if (nextSib &&
       nextSib.classList.contains('datatable__expand-row')) {
@@ -112,9 +112,9 @@
     } else {
       expandRow.value = null;
     }
-  }
+  };
 
-  function dragReorder({item, oldIndex, newIndex}: any) {
+  const dragReorder = ({item, oldIndex, newIndex}: any) => {
     console.log('reorder', item, oldIndex, newIndex);
     const nextSib = item.nextSibling;
     if (nextSib &&
@@ -125,24 +125,24 @@
     const movedItem = phrasesUnitService.value.unitPhrases.splice(oldIndex, 1)[0];
     phrasesUnitService.value.unitPhrases.splice(newIndex, 0, movedItem);
     phrasesUnitService.value.reindex(index => {});
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  }
+  };
 
-  function deletePhrase(item: MUnitPhrase) {
+  const deletePhrase = (item: MUnitPhrase) => {
     phrasesUnitService.value.delete(item);
-  }
+  };
 
-  function googlePhrase(phrase: string) {
+  const googlePhrase = (phrase: string) => {
     googleString(phrase);
-  }
+  };
 
-  function showDetailDialog(id: number) {
+  const showDetailDialog = (id: number) => {
     detailId.value = id;
     showDetail.value = true;
-  }
+  };
 </script>
 
 <style>

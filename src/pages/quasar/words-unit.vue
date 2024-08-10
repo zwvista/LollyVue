@@ -97,7 +97,7 @@
     });
   })();
 
-  async function onEnterNewWord() {
+  const onEnterNewWord = async () => {
     if (!newWord.value) return;
     const o = wordsUnitService.value.newUnitWord();
     o.WORD = settingsService.value.autoCorrectInput(newWord.value);
@@ -105,28 +105,28 @@
     const id = await wordsUnitService.value.create(o);
     o.ID = id as number;
     wordsUnitService.value.unitWords.push(o);
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
-  }
+  };
 
-  async function deleteWord(item: MUnitWord) {
+  const deleteWord = async (item: MUnitWord) => {
     await wordsUnitService.value.delete(item);
-  }
+  };
 
-  async function getNote(index: number) {
+  const getNote = async (index: number) => {
     console.log(index);
     await wordsUnitService.value.getNote(index);
-  }
+  };
 
-  function googleWord(word: string) {
+  const googleWord = (word: string) => {
     googleString(word);
-  }
+  };
 
-  function getNotes(ifEmpty: boolean) {
+  const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
-  }
+  };
 </script>
 
 <style scoped>

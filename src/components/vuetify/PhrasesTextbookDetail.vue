@@ -31,11 +31,11 @@
   const props = defineProps({id: Number});
   const item = ref(Object.create(phrasesUnitService.value.textbookPhrases.find(value => value.ID === props.id)!) as MUnitPhrase);
 
-  async function save() {
+  const save = async () => {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
     await phrasesUnitService.value.update(item.value);
     showDialog.value = false;
-  }
+  };
 </script>
 
 <style>

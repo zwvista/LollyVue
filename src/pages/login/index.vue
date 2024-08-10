@@ -25,14 +25,14 @@
 
   const loginService = ref(container.resolve(LoginService));
 
-  async function login() {
+  const login = async () => {
     const userid = await loginService.value.login();
     if (userid) {
       localStorage.setItem('userid', userid);
       GlobalVars.userid = userid;
       window.location.href = '/';
     }
-  }
+  };
 </script>
 
 <style>

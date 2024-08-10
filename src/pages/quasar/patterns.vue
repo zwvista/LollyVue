@@ -74,24 +74,24 @@
     });
   })();
 
-  function request(props) {
+  const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     onRefresh();
-  }
+  };
 
-  async function onRefresh() {
+  const onRefresh = async () => {
     await patternsService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
     pagination.value.rowsNumber = patternsService.value.patternCount;
-  }
+  };
 
-  function deletePattern(id: number) {
+  const deletePattern = (id: number) => {
     patternsService.value.delete(id);
-  }
+  };
 
-  function googlePattern(pattern: string) {
+  const googlePattern = (pattern: string) => {
     googleString(pattern);
-  }
+  };
 </script>
 
 <style scoped>
