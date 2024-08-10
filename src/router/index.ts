@@ -24,15 +24,15 @@ const router = createRouter({
     },
     {
       path: '/primevue/',
-      redirect: { path: "/primevue/words/words-unit" }
+      redirect: { path: "/primevue/words-unit" }
     },
     {
       path: '/element/',
-      redirect: { path: "/element/words/words-unit" }
+      redirect: { path: "/element/words-unit" }
     },
     {
       path: '/quasar/',
-      redirect: { path: "/quasar/words/words-unit" }
+      redirect: { path: "/quasar/words-unit" }
     },
   ]
 })

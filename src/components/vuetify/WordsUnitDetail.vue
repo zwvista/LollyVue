@@ -1,17 +1,20 @@
 <template>
-  <v-dialog v-if="showDialog" v-model="showDialog" max-width="500px">
-  <div>
-    <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
-    <v-select label="UNIT" :items="settingsService.units" item-text="label" item-value="value" v-model="item.UNIT"></v-select>
-    <v-select label="PART" :items="settingsService.parts" item-text="label" item-value="value" v-model="item.PART"></v-select>
-    <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
-    <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
-    <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
-    <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
-    <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></v-text-field>
-    <v-btn color="info" @click="goBack()">Back</v-btn>
-    <v-btn color="info" @click="save()">Save</v-btn>
-  </div>
+  <v-dialog v-model="showDialog" max-width="750px">
+    <v-card>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
+      <v-select label="UNIT" :items="settingsService.units" item-title="label" v-model="item.UNIT"></v-select>
+      <v-select label="PART" :items="settingsService.parts" item-title="label" v-model="item.PART"></v-select>
+      <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
+      <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
+      <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
+      <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
+      <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></v-text-field>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
+        <v-btn variant="elevated" color="info" @click="save()">Save</v-btn>
+      </v-card-actions>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -30,11 +33,6 @@
       const o = wordsUnitService.value.unitWords.find(value => value.ID === id);
       return o || wordsUnitService.value.newUnitWord();
   })());
-
-  function goBack() {
-    showDialog.value = false;
-    // $router.go(-1);
-  }
 
   async function save() {
     item.value.WORD = settingsService.value.autoCorrectInput(item.value.WORD);

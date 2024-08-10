@@ -27,8 +27,7 @@
   },
   "include": [
     "src/**/*",
-    "src/**/*.vue",
-    "node_modules/@vue/runtime-core/dist/runtime-core.d.ts"
+    "src/**/*.vue"
   ],
   "exclude": ["dist", "node_modules", "cypress"],
   "references": [{ "path": "./tsconfig.node.json" }]

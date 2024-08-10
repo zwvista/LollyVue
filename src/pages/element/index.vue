@@ -46,32 +46,32 @@
     {
       icon: 'fa fa-bus fa-lg',
       title: 'Words in Unit',
-      path: '/element/words/words-unit',
+      path: '/element/words-unit',
     },
     {
       icon: 'fa fa-train fa-lg',
       title: 'Phrases in Unit',
-      path: '/element/phrases/phrases-unit',
+      path: '/element/phrases-unit',
     },
     {
       icon: 'fa fa-car fa-lg',
       title: 'Words in Textbook',
-      path: '/element/words/words-textbook',
+      path: '/element/words-textbook',
     },
     {
       icon: 'fa fa-taxi fa-lg',
       title: 'Phrases in Textbook',
-      path: '/element/phrases/phrases-textbook',
+      path: '/element/phrases-textbook',
     },
     {
       icon: 'fa fa-plane fa-lg',
       title: 'Words in Language',
-      path: '/element/words/words-lang',
+      path: '/element/words-lang',
     },
     {
       icon: 'fa fa-rocket fa-lg',
       title: 'Phrases in Language',
-      path: '/element/phrases/phrases-lang',
+      path: '/element/phrases-lang',
     },
     {
       icon: 'fa fa-motorcycle fa-lg',
