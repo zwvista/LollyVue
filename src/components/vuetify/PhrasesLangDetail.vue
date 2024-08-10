@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
     <v-card>
-      <v-text-field label="ID" type="text" v-model="langPhrase.ID" disabled></v-text-field>
-      <v-text-field label="PHRASE" type="text" v-model="langPhrase.PHRASE"></v-text-field>
-      <v-text-field label="TRANSLATION" type="text" v-model="langPhrase.TRANSLATION"></v-text-field>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
+      <v-text-field label="PHRASE" type="text" v-model="item.PHRASE"></v-text-field>
+      <v-text-field label="TRANSLATION" type="text" v-model="item.TRANSLATION"></v-text-field>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
@@ -13,7 +13,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { container } from 'tsyringe';

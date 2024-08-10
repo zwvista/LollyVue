@@ -15,7 +15,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { WordsLangService } from '@/view-models/wpp/words-lang.service';
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { container } from 'tsyringe';

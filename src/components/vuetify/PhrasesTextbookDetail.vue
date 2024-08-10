@@ -17,7 +17,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { MUnitPhrase } from '@/models/wpp/unit-phrase';
   import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';

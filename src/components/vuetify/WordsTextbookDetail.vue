@@ -20,7 +20,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import { container } from 'tsyringe';

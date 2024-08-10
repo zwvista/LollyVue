@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
     <v-card>
-      <v-text-field label="ID" type="text" v-model="pattern.ID" disabled></v-text-field>
-      <v-text-field label="PATTERN" type="text" v-model="pattern.PATTERN"></v-text-field>
-      <v-text-field label="NOTE" type="text" v-model="pattern.NOTE"></v-text-field>
-      <v-text-field label="TAGS" type="text" v-model="pattern.TAGS"></v-text-field>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
+      <v-text-field label="PATTERN" type="text" v-model="item.PATTERN"></v-text-field>
+      <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
+      <v-text-field label="TAGS" type="text" v-model="item.TAGS"></v-text-field>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
@@ -14,7 +14,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { SettingsService } from '@/view-models/misc/settings.service';
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
