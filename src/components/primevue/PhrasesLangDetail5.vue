@@ -1,15 +1,15 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="ID">ID</label>
+      <label class="w-24" for="ID">ID:</label>
       <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PHRASE">PHRASE</label>
+      <label class="w-24" for="PHRASE">PHRASE:</label>
       <InputText id="PHRASE" class="flex-auto" type="text" v-model="item.PHRASE"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="TRANSLATION">TRANSLATION</label>
+      <label class="w-24" for="TRANSLATION">TRANSLATION:</label>
       <InputText id="TRANSLATION" class="flex-auto" type="text" v-model="item.TRANSLATION"></InputText>
     </div>
     <template #footer>

@@ -1,19 +1,19 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="ID">ID</label>
+      <label class="w-24" for="ID">ID:</label>
       <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PATTERN">PATTERN</label>
+      <label class="w-24" for="PATTERN">PATTERN:</label>
       <InputText id="PATTERN" class="flex-auto" type="text" v-model="item.PATTERN"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="NOTE">NOTE</label>
+      <label class="w-24" for="NOTE">NOTE:</label>
       <InputText id="NOTE" class="flex-auto" type="text" v-model="item.NOTE"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="TAGS">TAGS</label>
+      <label class="w-24" for="TAGS">TAGS:</label>
       <InputText id="TAGS" class="flex-auto" type="text" v-model="item.TAGS"></InputText>
     </div>
     <template #footer>

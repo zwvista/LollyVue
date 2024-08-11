@@ -1,17 +1,33 @@
 <template>
   <el-dialog v-model="showDialog" width="750">
     <el-card>
-      <el-input label="ID" type="text" v-model="item.ID" :disable="true"></el-input>
-      <el-select map-options emit-value label="UNIT" v-model="item.UNIT">
-        <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select map-options emit-value label="PART" v-model="item.PART">
-        <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-input label="SEQNUM" type="text" v-model="item.SEQNUM"></el-input>
-      <el-input label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true"></el-input>
-      <el-input label="PHRASE" type="text" v-model="item.PHRASE"></el-input>
-      <el-input label="TRANSLATION" type="text" v-model="item.TRANSLATION"></el-input>
+      <el-form label-width="auto" >
+        <el-form-item label="ID:">
+          <el-input type="text" v-model="item.ID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="UNIT:">
+          <el-select map-options emit-value v-model="item.UNIT">
+            <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="PART:">
+          <el-select map-options emit-value v-model="item.PART">
+            <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="SEQNUM:">
+          <el-input type="text" v-model="item.SEQNUM"></el-input>
+        </el-form-item>
+        <el-form-item label="PHRASEID:">
+          <el-input type="text" v-model="item.PHRASEID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="PHRASE:">
+          <el-input type="text" v-model="item.PHRASE"></el-input>
+        </el-form-item>
+        <el-form-item label="TRANSLATION:">
+          <el-input type="text" v-model="item.TRANSLATION"></el-input>
+        </el-form-item>
+      </el-form>
       <template #footer>
         <el-button type="info" @click="showDialog=false">Cancel</el-button>
         <el-button type="info" @click="save()">Save</el-button>

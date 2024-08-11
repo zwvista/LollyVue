@@ -1,11 +1,23 @@
 <template>
   <el-dialog v-model="showDialog" width="750">
     <el-card>
-      <el-input label="ID" type="text" v-model="item.ID" :disable="true"></el-input>
-      <el-input label="WORD" type="text" v-model="item.WORD"></el-input>
-      <el-input label="NOTE" type="text" v-model="item.NOTE"></el-input>
-      <el-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true"></el-input>
-      <el-input label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true"></el-input>
+      <el-form label-width="auto" >
+        <el-form-item label="ID:">
+          <el-input type="text" v-model="item.ID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="WORD:">
+          <el-input type="text" v-model="item.WORD"></el-input>
+        </el-form-item>
+        <el-form-item label="NOTE:">
+          <el-input type="text" v-model="item.NOTE"></el-input>
+        </el-form-item>
+        <el-form-item label="FAMIID:">
+          <el-input type="text" v-model="item.FAMIID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="ACCURACY:">
+          <el-input type="text" v-model="item.ACCURACY" disabled></el-input>
+        </el-form-item>
+      </el-form>
       <template #footer>
         <el-button type="info" @click="showDialog=false">Cancel</el-button>
         <el-button type="info" @click="save()">Save</el-button>

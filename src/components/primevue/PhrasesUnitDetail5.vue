@@ -1,31 +1,31 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="ID">ID</label>
+      <label class="w-24" for="ID">ID:</label>
       <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="UNIT">UNIT</label>
+      <label class="w-24" for="UNIT">UNIT:</label>
       <Select id="UNIT" class="flex-auto" :options="settingsService.units" optionLabel="label" optionValue="value" v-model="item.UNIT"></Select>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PART">PART</label>
+      <label class="w-24" for="PART">PART:</label>
       <Select id="PART" class="flex-auto" :options="settingsService.parts" optionLabel="label" optionValue="value" v-model="item.PART"></Select>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="SEQNUM">SEQNUM</label>
+      <label class="w-24" for="SEQNUM">SEQNUM:</label>
       <InputText id="SEQNUM" class="flex-auto" type="text" v-model="item.SEQNUM"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PHRASEID">PHRASEID</label>
+      <label class="w-24" for="PHRASEID">PHRASEID:</label>
       <InputText id="PHRASEID" class="flex-auto" type="text" v-model="item.PHRASEID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PHRASE">PHRASE</label>
+      <label class="w-24" for="PHRASE">PHRASE:</label>
       <InputText id="PHRASE" class="flex-auto" type="text" v-model="item.PHRASE"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="TRANSLATION">TRANSLATION</label>
+      <label class="w-24" for="TRANSLATION">TRANSLATION:</label>
       <InputText id="TRANSLATION" class="flex-auto" type="text" v-model="item.TRANSLATION"></InputText>
     </div>
     <template #footer>

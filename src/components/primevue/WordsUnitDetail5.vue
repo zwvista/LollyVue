@@ -1,35 +1,35 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="ID">ID</label>
+      <label class="w-24" for="ID">ID:</label>
       <InputText id="ID" class="flex-auto" v-model="item.ID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="UNIT">UNIT</label>
+      <label class="w-24" for="UNIT">UNIT:</label>
       <Select id="UNIT" class="flex-auto" :options="settingsService.units" optionLabel="label" optionValue="value" v-model="item.UNIT"></Select>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="PART">PART</label>
+      <label class="w-24" for="PART">PART:</label>
       <Select id="PART" class="flex-auto" :options="settingsService.parts" optionLabel="label" optionValue="value" v-model="item.PART"></Select>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="SEQNUM">SEQNUM</label>
+      <label class="w-24" for="SEQNUM">SEQNUM:</label>
       <InputText id="SEQNUM" class="flex-auto" v-model="item.SEQNUM"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="WORD">WORD</label>
+      <label class="w-24" for="WORD">WORD:</label>
       <InputText id="WORD" class="flex-auto" v-model="item.WORD"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="NOTE">NOTE</label>
+      <label class="w-24" for="NOTE">NOTE:</label>
       <InputText id="NOTE" class="flex-auto" v-model="item.NOTE"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="FAMIID">FAMIID</label>
+      <label class="w-24" for="FAMIID">FAMIID:</label>
       <InputText id="FAMIID" class="flex-auto" v-model="item.FAMIID" disabled></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="ACCURACY">ACCURACY</label>
+      <label class="w-24" for="ACCURACY">ACCURACY:</label>
       <InputText id="ACCURACY" class="flex-auto" v-model="item.ACCURACY" disabled></InputText>
     </div>
     <template #footer>

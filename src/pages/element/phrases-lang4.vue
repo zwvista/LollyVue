@@ -100,7 +100,7 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesLangDetail4 from '@/components/element/PhrasesLangDetail44'
+  import PhrasesLangDetail4 from '@/components/element/PhrasesLangDetail4'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));

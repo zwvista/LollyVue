@@ -1,18 +1,36 @@
 <template>
   <el-dialog v-model="showDialog" width="750">
     <el-card>
-      <el-input label="ID" v-model="item.ID" :disable="true"></el-input>
-      <el-select map-options emit-value label="UNIT" v-model="item.UNIT">
-        <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-select map-options emit-value label="PART" v-model="item.PART">
-        <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select>
-      <el-input label="SEQNUM" v-model="item.SEQNUM"></el-input>
-      <el-input label="WORD" v-model="item.WORD"></el-input>
-      <el-input label="NOTE" v-model="item.NOTE"></el-input>
-      <el-input label="FAMIID" v-model="item.FAMIID" :disable="true"></el-input>
-      <el-input label="ACCURACY" v-model="item.ACCURACY" :disable="true"></el-input>
+      <el-form label-width="auto" >
+        <el-form-item label="ID:">
+          <el-input v-model="item.ID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="UNIT:">
+          <el-select map-options emit-value v-model="item.UNIT">
+            <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="PART:">
+          <el-select map-options emit-value v-model="item.PART">
+            <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="SEQNUM:">
+          <el-input v-model="item.SEQNUM"></el-input>
+        </el-form-item>
+        <el-form-item label="WORD:">
+          <el-input v-model="item.WORD"></el-input>
+        </el-form-item>
+        <el-form-item label="NOTE:">
+          <el-input v-model="item.NOTE"></el-input>
+        </el-form-item>
+        <el-form-item label="FAMIID:">
+          <el-input v-model="item.FAMIID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="ACCURACY:">
+          <el-input v-model="item.ACCURACY" disabled></el-input>
+        </el-form-item>
+      </el-form>
       <template #footer>
         <el-button type="info" @click="showDialog=false">Cancel</el-button>
         <el-button type="info" @click="save()">Save</el-button>

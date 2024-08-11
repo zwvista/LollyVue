@@ -1,10 +1,20 @@
 <template>
   <el-dialog v-model="showDialog" width="750">
     <el-card>
-      <el-input label="ID" type="text" v-model="item.ID" :disable="true"></el-input>
-      <el-input label="PATTERN" type="text" v-model="item.PATTERN"></el-input>
-      <el-input label="NOTE" type="text" v-model="item.NOTE"></el-input>
-      <el-input label="TAGS" type="text" v-model="item.TAGS"></el-input>
+      <el-form label-width="auto" >
+        <el-form-item label="ID:">
+          <el-input type="text" v-model="item.ID" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="PATTERN:">
+          <el-input type="text" v-model="item.PATTERN"></el-input>
+        </el-form-item>
+        <el-form-item label="NOTE:">
+          <el-input type="text" v-model="item.NOTE"></el-input>
+        </el-form-item>
+        <el-form-item label="TAGS:">
+          <el-input type="text" v-model="item.TAGS"></el-input>
+        </el-form-item>
+      </el-form>
       <template #footer>
         <el-button type="info" @click="showDialog=false">Cancel</el-button>
         <el-button type="info" @click="save()">Save</el-button>
