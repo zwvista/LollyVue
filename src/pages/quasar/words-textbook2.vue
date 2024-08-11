@@ -1,12 +1,12 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-      <q-select map-options :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
-      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
+      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh" />
+      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
 <!--      <router-link to="/words-dict/textbook/0">-->
-        <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
+        <q-btn color="primary" icon="fa fa-book" label="Dictionary" />
 <!--      </router-link>-->
     </q-toolbar>
     <q-table

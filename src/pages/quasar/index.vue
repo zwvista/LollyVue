@@ -2,22 +2,22 @@
   <q-layout view="hHr LpR lFf">
     <q-header>
       <q-toolbar :inverted="false">
-        <q-btn flat round dense icon="menu" @click="showLeft=!showLeft"></q-btn>
+        <q-btn flat round dense icon="menu" @click="showLeft=!showLeft" />
         <q-toolbar-title>{{title}}</q-toolbar-title>
         <a href="/">
-          <q-btn color="primary" label="1. Veutify"></q-btn>
+          <q-btn color="primary" label="1. Veutify" />
         </a>
         <a href="/quasar">
-          <q-btn color="primary" label="2. Quasar"></q-btn>
+          <q-btn color="primary" label="2. Quasar" />
         </a>
         <a href="/material">
-          <q-btn color="primary" label="3. Material"></q-btn>
+          <q-btn color="primary" label="3. Material" />
         </a>
         <a href="/element">
-          <q-btn color="primary" label="4. Element"></q-btn>
+          <q-btn color="primary" label="4. Element" />
         </a>
         <a href="/primevue">
-          <q-btn color="primary" label="5. PrimeVUE"></q-btn>
+          <q-btn color="primary" label="5. PrimeVUE" />
         </a>
       </q-toolbar>
     </q-header>

@@ -15,8 +15,8 @@
       </q-card-section>
       <q-card-actions>
         <q-space />
-        <q-btn variant="elevated" color="info" @click="showDialog=false" label="Cancel" />
-        <q-btn variant="elevated" color="info" @click="save()" label="Save" />
+        <q-btn variant="elevated" color="info" label="Cancel" @click="showDialog=false" />
+        <q-btn variant="elevated" color="info" label="Save" @click="save()" />
       </q-card-actions>
     </q-card>
   </q-dialog>

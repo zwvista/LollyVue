@@ -1,19 +1,19 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-input label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></q-input>
+      <q-input label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord" />
       <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
              @click="settingsService.speak(newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
-      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)"></q-btn>
-      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve All Notes"></q-btn>
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Notes If Empty"></q-btn>
+      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
+      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve All Notes" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Notes If Empty" />
 <!--      <router-link to="/words-dict/unit/0">-->
-        <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>
+        <q-btn color="primary" icon="fa fa-book" label="Dictionary" />
 <!--      </router-link>-->
     </q-toolbar>
     <q-table

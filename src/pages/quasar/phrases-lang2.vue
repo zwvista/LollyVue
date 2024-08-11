@@ -1,10 +1,10 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
-      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)"></q-btn>
-      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
+      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
+      <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
     </q-toolbar>
     <q-table
       :rows="phrasesLangService.langPhrases"
