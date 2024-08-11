@@ -6,16 +6,13 @@
           <InputText id="word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
           <label for="word">New Word</label>
         </FloatLabel>
-
         <Button v-tooltip2.top="'Speak'" v-show="settingsService.selectedVoice" @click="settingsService.speak(newWord)"><font-awesome-icon icon="fa-volume-up"/></Button>
         <Select :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
         <FloatLabel>
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-<!--        <router-link to="/words-unit-detail/0">-->
-          <Button><font-awesome-icon icon="fa-plus"/>Add</Button>
-<!--        </router-link>-->
+        <Button @click.stop="showDetailDialog(0)"><font-awesome-icon icon="fa-plus"/>Add</Button>
         <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
         <Button v-show="settingsService.selectedDictNote" label="Retrieve All Notes" severity="warn" />
         <Button v-show="settingsService.selectedDictNote" label="Retrieve Notes If Empty" severity="warn" />
@@ -40,9 +37,7 @@
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
           <Button v-tooltip2.top="'Delete'" severity="danger" @click="deleteWord(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
-<!--          <router-link :to="{ name: 'words-unit-detail', params: { id: slotProps.data.ID }}">-->
-            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
-<!--          </router-link>-->
+          <Button v-tooltip2.top="'Edit'" @click.stop="showDetailDialog(slotProps.data.ID)"><font-awesome-icon icon="fa-edit"/></Button>
           <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.WORD)"><font-awesome-icon icon="fa-volume-up"/></Button>
           <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.WORD"><font-awesome-icon icon="fa-copy"/></Button>
           <Button v-tooltip2.top="'Google Word'" @click="googleWord(slotProps.data.WORD)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
@@ -53,6 +48,7 @@
         </template>
       </Column>
     </DataTable>
+    <WordsUnitDetail5 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsUnitDetail5>
   </div>
 </template>
 
@@ -64,10 +60,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import WordsUnitDetail5 from '@/components/primevue/WordsUnitDetail5'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const newWord = ref('');
   const filter = ref('');
@@ -115,6 +114,11 @@
 
   const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

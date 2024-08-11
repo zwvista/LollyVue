@@ -26,9 +26,7 @@
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
           <Button v-tooltip2.top="'Delete'" severity="danger" @click="deletePhrase(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
-<!--          <router-link :to="{ name: 'phrases-textbook-detail', params: { id: slotProps.data.ID }}">-->
-            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
-<!--          </router-link>-->
+          <Button v-tooltip2.top="'Edit'" @click.stop="showDetailDialog(slotProps.data.ID)"><font-awesome-icon icon="fa-edit"/></Button>
           <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-volume-up"/></Button>
           <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.PHRASE"><font-awesome-icon icon="fa-copy"/></Button>
           <Button v-tooltip2.top="'Google Phrase'" @click="googlePhrase(slotProps.data.PHRASE)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
@@ -36,6 +34,7 @@
       </Column>
     </DataTable>
     <Paginator :rows.sync="rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <PhrasesTextbookDetail5 v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesTextbookDetail5>
   </div>
 </template>
 
@@ -47,10 +46,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesTextbookDetail5 from '@/components/primevue/PhrasesTextbookDetail5'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const page = ref(1);
   const pageCount = ref(1);
@@ -83,6 +85,11 @@
 
   const googlePhrase = (phrase: string) => {
     googleString(phrase);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

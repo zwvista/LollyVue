@@ -24,8 +24,10 @@ import Tooltip from 'primevue/tooltip';
 
 const app = createApp(App)
 app.component('Button', Button);
+app.component('Card', Card);
 app.component('Column', Column);
 app.component('DataTable', DataTable);
+app.component('Dialog', Dialog);
 app.component('FloatLabel', FloatLabel);
 app.component('InputText', InputText);
 app.component('Paginator', Paginator);

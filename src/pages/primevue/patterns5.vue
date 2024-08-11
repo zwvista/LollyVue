@@ -7,9 +7,7 @@
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-<!--        <router-link to="/patterns-detail/0">-->
-          <Button><font-awesome-icon icon="fa-plus"/>Add</Button>
-<!--        </router-link>-->
+        <Button @click.stop="showDetailDialog(0)"><font-awesome-icon icon="fa-plus"/>Add</Button>
         <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
       </template>
     </Toolbar>
@@ -24,9 +22,7 @@
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
          <Button v-tooltip2.top="'Delete'"  severity="danger" @click="deletePattern(slotProps.data.ID)"><font-awesome-icon icon="fa-trash"/></Button>
-<!--          <router-link :to="{ name: 'patterns-detail', params: { id: slotProps.data.ID }}">-->
-            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
-<!--          </router-link>-->
+          <Button v-tooltip2.top="'Edit'" @click.stop="showDetailDialog(slotProps.data.ID)"><font-awesome-icon icon="fa-edit"/></Button>
           <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.PATTERN)"><font-awesome-icon icon="fa-volume-up"/></Button>
           <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.PATTERN"><font-awesome-icon icon="fa-copy"/></Button>
           <Button v-tooltip2.top="'Google Pattern'" @click="googlePattern(slotProps.data.PATTERN)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
@@ -34,6 +30,7 @@
       </Column>
     </DataTable>
     <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <PatternsDetail5 v-if="showDetail" v-model="showDetail" :id="detailId"></PatternsDetail5>
   </div>
 </template>
 
@@ -44,10 +41,13 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PatternsDetail5 from '@/components/primevue/PatternsDetail5'
 
   const appService = ref(container.resolve(AppService));
   const patternsService = ref(container.resolve(PatternsService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const page = ref(1);
   const pageCount = ref(1);
@@ -79,6 +79,11 @@
 
   const googlePattern = (pattern: string) => {
     googleString(pattern);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

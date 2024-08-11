@@ -7,9 +7,7 @@
           <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-<!--        <router-link to="/words-lang-detail/0">-->
-          <Button><font-awesome-icon icon="fa-plus"/>Add</Button>
-<!--        </router-link>-->
+        <Button @click.stop="showDetailDialog(0)"><font-awesome-icon icon="fa-plus"/>Add</Button>
         <Button @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
 <!--        <router-link to="/words-dict/lang/0">-->
           <Button icon="fa fa-book" label="Dictionary" />
@@ -27,9 +25,7 @@
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
           <Button v-tooltip2.top="'Delete'" severity="danger" @click="deleteWord(slotProps.data)"><font-awesome-icon icon="fa-trash"/></Button>
-<!--          <router-link :to="{ name: 'words-lang-detail', params: { id: slotProps.data.ID }}">-->
-            <Button v-tooltip2.top="'Edit'"><font-awesome-icon icon="fa-edit"/></Button>
-<!--          </router-link>-->
+          <Button v-tooltip2.top="'Edit'" @click.stop="showDetailDialog(slotProps.data.ID)"><font-awesome-icon icon="fa-edit"/></Button>
           <Button v-tooltip2.top="'Speak'" @click="settingsService.speak(slotProps.data.WORD)"><font-awesome-icon icon="fa-volume-up"/></Button>
           <Button v-tooltip2.top="'Copy'" v-clipboard:copy="slotProps.data.WORD"><font-awesome-icon icon="fa-copy"/></Button>
           <Button v-tooltip2.top="'Google Word'" @click="googleWord(slotProps.data.WORD)"><font-awesome-icon icon="fa-brands fa-google"/></Button>
@@ -41,6 +37,7 @@
       </Column>
     </DataTable>
     <Paginator :rows.sync="rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <WordsLangDetail5 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsLangDetail5>
   </div>
 </template>
 
@@ -52,10 +49,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import WordsLangDetail5 from '@/components/primevue/WordsLangDetail5'
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const page = ref(1);
   const pageCount = ref(1);
@@ -92,6 +92,11 @@
 
   const googleWord = (word: string) => {
     googleString(word);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 
