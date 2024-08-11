@@ -1,19 +1,14 @@
 <template>
-  <Dialog v-model="showDialog">
-    <Card style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" :disable="true"></InputText>
-      <InputText label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" :disable="true"></InputText>
-      <Select label="UNIT" :options="settingsService.units" v-model="item.UNIT"></Select>
-      <Select label="PART" :options="settingsService.parts" v-model="item.PART"></Select>
-      <InputText label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true"></InputText>
+  <Dialog v-model:visible="showDialog" style="width: 750px">
+      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
+      <InputText label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" disabled></InputText>
+      <Select label="UNIT" :options="settingsService.units" optionLabel="label" optionValue="value" v-model="item.UNIT"></Select>
+      <Select label="PART" :options="settingsService.parts" optionLabel="label" optionValue="value" v-model="item.PART"></Select>
+      <InputText label="PHRASEID" type="text" v-model="item.PHRASEID" disabled></InputText>
       <InputText label="PHRASE" type="text" v-model="item.PHRASE"></InputText>
       <InputText label="TRANSLATION" type="text" v-model="item.TRANSLATION"></InputText>
-      <Card-actions>
-        <q-space></q-space>
-        <Button variant="elevated" color="info" @click="showDialog=false">Cancel</Button>
-        <Button variant="elevated" color="info" @click="save()">Save</Button>
-      </Card-actions>
-    </Card>
+      <Button severity="info" @click="showDialog=false">Cancel</Button>
+      <Button severity="info" @click="save()">Save</Button>
   </Dialog>
 </template>
 

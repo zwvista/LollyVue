@@ -1,17 +1,12 @@
 <template>
-  <Dialog v-model="showDialog">
-    <Card style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" :disable="true"></InputText>
+  <Dialog v-model:visible="showDialog" style="width: 750px">
+      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
       <InputText label="WORD" type="text" v-model="item.WORD"></InputText>
       <InputText label="NOTE" type="text" v-model="item.NOTE"></InputText>
-      <InputText label="FAMIID" type="text" v-model="item.FAMIID" :disable="true"></InputText>
-      <InputText label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true"></InputText>
-      <Card-actions>
-        <q-space></q-space>
-        <Button variant="elevated" color="info" @click="showDialog=false">Cancel</Button>
-        <Button variant="elevated" color="info" @click="save()">Save</Button>
-      </Card-actions>
-    </Card>
+      <InputText label="FAMIID" type="text" v-model="item.FAMIID" disabled></InputText>
+      <InputText label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></InputText>
+      <Button severity="info" @click="showDialog=false">Cancel</Button>
+      <Button severity="info" @click="save()">Save</Button>
   </Dialog>
 </template>
 

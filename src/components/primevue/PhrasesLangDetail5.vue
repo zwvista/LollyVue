@@ -1,15 +1,10 @@
 <template>
-  <Dialog v-model="showDialog">
-    <Card style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" :disable="true"></InputText>
+  <Dialog v-model:visible="showDialog" style="width: 750px">
+      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
       <InputText label="PHRASE" type="text" v-model="item.PHRASE"></InputText>
       <InputText label="TRANSLATION" type="text" v-model="item.TRANSLATION"></InputText>
-      <Card-actions>
-        <q-space></q-space>
-        <Button variant="elevated" color="info" @click="showDialog=false">Cancel</Button>
-        <Button variant="elevated" color="info" @click="save()">Save</Button>
-      </Card-actions>
-    </Card>
+      <Button severity="info" @click="showDialog=false">Cancel</Button>
+      <Button severity="info" @click="save()">Save</Button>
   </Dialog>
 </template>
 
