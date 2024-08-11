@@ -1,15 +1,17 @@
 <template>
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
-      <q-input label="ID" type="text" v-model="item.ID" :disable="true"></q-input>
-      <q-input label="WORD" type="text" v-model="item.WORD"></q-input>
-      <q-input label="NOTE" type="text" v-model="item.NOTE"></q-input>
-      <q-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true"></q-input>
-      <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true"></q-input>
+      <q-card-section>
+        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="WORD" type="text" v-model="item.WORD" />
+        <q-input label="NOTE" type="text" v-model="item.NOTE" />
+        <q-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true" />
+        <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true" />
+      </q-card-section>
       <q-card-actions>
-        <q-space></q-space>
-        <q-btn variant="elevated" color="info" @click="showDialog=false">Cancel</q-btn>
-        <q-btn variant="elevated" color="info" @click="save()">Save</q-btn>
+        <q-space />
+        <q-btn variant="elevated" color="info" @click="showDialog=false" label="Cancel" />
+        <q-btn variant="elevated" color="info" @click="save()" label="Save" />
       </q-card-actions>
     </q-card>
   </q-dialog>

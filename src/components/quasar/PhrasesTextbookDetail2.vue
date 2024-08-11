@@ -1,17 +1,19 @@
 <template>
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
-      <q-input label="ID" type="text" v-model="item.ID" :disable="true"></q-input>
-      <q-input label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" :disable="true"></q-input>
-      <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT"></q-select>
-      <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART"></q-select>
-      <q-input label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true"></q-input>
-      <q-input label="PHRASE" type="text" v-model="item.PHRASE"></q-input>
-      <q-input label="TRANSLATION" type="text" v-model="item.TRANSLATION"></q-input>
+      <q-card-section>
+        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" :disable="true" />
+        <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT" />
+        <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART" />
+        <q-input label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true" />
+        <q-input label="PHRASE" type="text" v-model="item.PHRASE" />
+        <q-input label="TRANSLATION" type="text" v-model="item.TRANSLATION" />
+      </q-card-section>
       <q-card-actions>
-        <q-space></q-space>
-        <q-btn variant="elevated" color="info" @click="showDialog=false">Cancel</q-btn>
-        <q-btn variant="elevated" color="info" @click="save()">Save</q-btn>
+        <q-space />
+        <q-btn variant="elevated" color="info" @click="showDialog=false" label="Cancel" />
+        <q-btn variant="elevated" color="info" @click="save()" label="Save" />
       </q-card-actions>
     </q-card>
   </q-dialog>

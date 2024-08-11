@@ -1,14 +1,16 @@
 <template>
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
-      <q-input label="ID" type="text" v-model="item.ID" :disable="true"></q-input>
-      <q-input label="PATTERN" type="text" v-model="item.PATTERN"></q-input>
-      <q-input label="NOTE" type="text" v-model="item.NOTE"></q-input>
-      <q-input label="TAGS" type="text" v-model="item.TAGS"></q-input>
+      <q-card-section>
+        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="PATTERN" type="text" v-model="item.PATTERN" />
+        <q-input label="NOTE" type="text" v-model="item.NOTE" />
+        <q-input label="TAGS" type="text" v-model="item.TAGS" />
+      </q-card-section>
       <q-card-actions>
-        <q-space></q-space>
-        <q-btn variant="elevated" color="info" @click="showDialog=false">Cancel</q-btn>
-        <q-btn variant="elevated" color="info" @click="save()">Save</q-btn>
+        <q-space />
+        <q-btn variant="elevated" color="info" @click="showDialog=false" label="Cancel" />
+        <q-btn variant="elevated" color="info" @click="save()" label="Save" />
       </q-card-actions>
     </q-card>
   </q-dialog>
