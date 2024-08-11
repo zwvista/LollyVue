@@ -15,11 +15,9 @@
           </template>
         </el-input>
       </el-col>
-<!--      <router-link to="/words-lang-detail/0">-->
-        <el-button type="primary">Add
-          <template #icon><font-awesome-icon icon="fa-plus" /></template>
-        </el-button>
-<!--      </router-link>-->
+      <el-button type="primary" @click.stop="showDetailDialog(0)">Add
+        <template #icon><font-awesome-icon icon="fa-plus" /></template>
+      </el-button>
       <el-button type="primary" @click="onRefresh()">Refresh
         <template #icon><font-awesome-icon icon="fa-refresh" /></template>
       </el-button>
@@ -56,13 +54,11 @@
               <template #icon><font-awesome-icon icon="fa-trash" /></template>
             </el-button>
           </el-tooltip>
-<!--          <router-link :to="{ name: 'words-unit-detail', params: { id: scope.row.ID }}">-->
-            <el-tooltip content="Edit">
-              <el-button circle type="primary">
-                <template #icon><font-awesome-icon icon="fa-edit" /></template>
-              </el-button>
-            </el-tooltip>
-<!--          </router-link>-->
+          <el-tooltip content="Edit">
+            <el-button circle type="primary" @click.stop="showDetailDialog(scope.row.ID)">
+              <template #icon><font-awesome-icon icon="fa-edit" /></template>
+            </el-button>
+          </el-tooltip>
           <el-tooltip content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary"
                  @click="settingsService.speak(scope.row.WORD)">
@@ -102,6 +98,7 @@
         :total="wordsLangService.langWordsCount">
       </el-pagination>
     </div>
+    <WordsLangDetail4 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsLangDetail4>
   </div>
 </template>
 
@@ -113,6 +110,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import WordsLangDetail4 from '@/components/element/WordsLangDetail4'
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));
@@ -123,6 +121,8 @@
   const rows = ref(0);
   const filter = ref('');
   const filterType = ref(0);
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
@@ -158,6 +158,11 @@
 
   const googleWord = (word: string) => {
     googleString(word);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

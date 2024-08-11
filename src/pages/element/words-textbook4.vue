@@ -66,13 +66,11 @@
               <template #icon><font-awesome-icon icon="fa-trash" /></template>
             </el-button>
           </el-tooltip>
-<!--          <router-link :to="{ name: 'words-textbook-detail', params: { id: scope.row.ID }}">-->
-            <el-tooltip content="Edit">
-              <el-button circle type="primary">
-                <template #icon><font-awesome-icon icon="fa-edit" /></template>
-              </el-button>
-            </el-tooltip>
-<!--          </router-link>-->
+          <el-tooltip content="Edit">
+            <el-button circle type="primary" @click.stop="showDetailDialog(scope.row.ID)">
+              <template #icon><font-awesome-icon icon="fa-edit" /></template>
+            </el-button>
+          </el-tooltip>
           <el-tooltip content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary"
                  @click="settingsService.speak(scope.row.WORD)">
@@ -112,6 +110,7 @@
         :total="wordsUnitService.textbookWordCount">
       </el-pagination>
     </div>
+    <WordsTextbookDetail4 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsTextbookDetail4>
   </div>
 </template>
 
@@ -123,10 +122,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import WordsTextbookDetail4 from '@/components/element/WordsTextbookDetail4'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const page = ref(1);
   const rows = ref(0);
@@ -167,6 +169,11 @@
 
   const googleWord = (word: string) => {
     googleString(word);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

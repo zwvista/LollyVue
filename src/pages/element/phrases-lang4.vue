@@ -15,11 +15,9 @@
           </template>
         </el-input>
       </el-col>
-<!--      <router-link to="/phrases-lang-detail/0">-->
-        <el-button type="primary">Add
-          <template #icon><font-awesome-icon icon="fa-plus" /></template>
-        </el-button>
-<!--      </router-link>-->
+      <el-button type="primary" @click.stop="showDetailDialog(0)">Add
+        <template #icon><font-awesome-icon icon="fa-plus" /></template>
+      </el-button>
       <el-button type="primary" @click="onRefresh()">Refresh
         <template #icon><font-awesome-icon icon="fa-refresh" /></template>
       </el-button>
@@ -55,13 +53,11 @@
               <template #icon><font-awesome-icon icon="fa-trash" /></template>
             </el-button>
           </el-tooltip>
-<!--          <router-link :to="{ name: 'phrases-lang-detail', params: { id: scope.row.ID }}">-->
-            <el-tooltip content="Edit">
-              <el-button circle type="primary">
-                <template #icon><font-awesome-icon icon="fa-edit" /></template>
-              </el-button>
-            </el-tooltip>
-<!--          </router-link>-->
+          <el-tooltip content="Edit">
+            <el-button circle type="primary" @click.stop="showDetailDialog(scope.row.ID)">
+              <template #icon><font-awesome-icon icon="fa-edit" /></template>
+            </el-button>
+          </el-tooltip>
           <el-tooltip content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary"
                  @click="settingsService.speak(scope.row.PHRASE)">
@@ -92,6 +88,7 @@
         :total="phrasesLangService.langPhraseCount">
       </el-pagination>
     </div>
+    <PhrasesLangDetail4 v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesLangDetail4>
   </div>
 </template>
 
@@ -103,10 +100,13 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesLangDetail4 from '@/components/element/PhrasesLangDetail44'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const page = ref(1);
   const rows = ref(0);
@@ -141,6 +141,11 @@
 
   const googlePhrase = (phrase: string) => {
     googleString(phrase);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

@@ -15,11 +15,9 @@
           </template>
         </el-input>
       </el-col>
-<!--      <router-link to="/phrases-unit-detail/0">-->
-        <el-button type="primary">Add
-          <template #icon><font-awesome-icon icon="fa-plus" /></template>
-        </el-button>
-<!--      </router-link>-->
+      <el-button type="primary" @click.stop="showDetailDialog(0)">Add
+        <template #icon><font-awesome-icon icon="fa-plus" /></template>
+      </el-button>
       <el-button type="primary" @click="onRefresh()">Refresh
         <template #icon><font-awesome-icon icon="fa-refresh" /></template>
       </el-button>
@@ -43,13 +41,11 @@
               <template #icon><font-awesome-icon icon="fa-trash" /></template>
             </el-button>
           </el-tooltip>
-<!--          <router-link :to="{ name: 'phrases-unit-detail', params: { id: scope.row.ID }}">-->
-            <el-tooltip content="Edit">
-              <el-button circle type="primary">
-                <template #icon><font-awesome-icon icon="fa-edit" /></template>
-              </el-button>
-            </el-tooltip>
-<!--          </router-link>-->
+          <el-tooltip content="Edit">
+            <el-button circle type="primary" @click.stop="showDetailDialog(scope.row.ID)">
+              <template #icon><font-awesome-icon icon="fa-edit" /></template>
+            </el-button>
+          </el-tooltip>
           <el-tooltip content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary"
                  @click="settingsService.speak(scope.row.PHRASE)">
@@ -71,6 +67,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <PhrasesUnitDetail4 v-if="showDetail" v-model="showDetail" :id="detailId"></PhrasesUnitDetail4>
   </div>
 </template>
 
@@ -82,10 +79,13 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
+  import PhrasesUnitDetail4 from '@/components/element/PhrasesUnitDetail4'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));
+  const showDetail = ref(false);
+  const detailId = ref(0);
 
   const filter = ref('');
   const filterType = ref(0);
@@ -106,6 +106,11 @@
 
   const googlePhrase = (phrase: string) => {
     googleString(phrase);
+  };
+
+  const showDetailDialog = (id: number) => {
+    detailId.value = id;
+    showDetail.value = true;
   };
 </script>
 

@@ -1,0 +1,46 @@
+<template>
+  <el-dialog v-model="showDialog" width="750">
+    <el-card>
+      <el-input label="ID" type="text" v-model="item.ID" :disable="true"></el-input>
+      <el-input label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" :disable="true"></el-input>
+      <el-select map-options emit-value label="UNIT" v-model="item.UNIT">
+        <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-select map-options emit-value label="PART" v-model="item.PART">
+        <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select>
+      <el-input label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true"></el-input>
+      <el-input label="PHRASE" type="text" v-model="item.PHRASE"></el-input>
+      <el-input label="TRANSLATION" type="text" v-model="item.TRANSLATION"></el-input>
+      <template #footer>
+        <el-button type="info" @click="showDialog=false">Cancel</el-button>
+        <el-button type="info" @click="save()">Save</el-button>
+      </template>
+    </el-card>
+  </el-dialog>
+</template>
+
+<script setup lang="ts">
+  import { SettingsService } from '@/view-models/misc/settings.service';
+  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
+  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
+  import { container } from 'tsyringe';
+  import { defineModel, defineProps, ref } from "vue";
+
+  const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
+  const settingsService = ref(container.resolve(SettingsService));
+
+  const showDialog = defineModel();
+  const props = defineProps({id: Number});
+  const item = ref(Object.create(phrasesUnitService.value.textbookPhrases.find(value => value.ID === props.id)!) as MUnitPhrase);
+
+  const save = async () => {
+    item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
+    await phrasesUnitService.value.update(item.value);
+    showDialog.value = false;
+  };
+</script>
+
+<style>
+  /*@import '../../assets/common.css';*/
+</style>
