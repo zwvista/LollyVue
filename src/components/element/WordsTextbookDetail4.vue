@@ -10,7 +10,7 @@
         <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
       <el-input label="SEQNUM" type="text" v-model="item.SEQNUM"></el-input>
-      <el-input label="ID" type="text" v-model="item.ID" :disable="true"></el-input>
+      <el-input label="WORDID" type="text" v-model="item.WORDID" :disable="true"></el-input>
       <el-input label="WORD" type="text" v-model="item.WORD"></el-input>
       <el-input label="NOTE" type="text" v-model="item.NOTE"></el-input>
       <el-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true"></el-input>

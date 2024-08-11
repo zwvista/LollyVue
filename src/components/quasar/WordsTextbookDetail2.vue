@@ -6,7 +6,7 @@
       <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT"></q-select>
       <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART"></q-select>
       <q-input label="SEQNUM" type="text" v-model="item.SEQNUM"></q-input>
-      <q-input label="ID" type="text" v-model="item.ID" :disable="true"></q-input>
+      <q-input label="WORDID" type="text" v-model="item.WORDID" :disable="true"></q-input>
       <q-input label="WORD" type="text" v-model="item.WORD"></q-input>
       <q-input label="NOTE" type="text" v-model="item.NOTE"></q-input>
       <q-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true"></q-input>

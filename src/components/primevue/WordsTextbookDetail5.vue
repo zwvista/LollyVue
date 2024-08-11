@@ -1,17 +1,49 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
-      <InputText label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" disabled></InputText>
-      <Select label="UNIT" :options="settingsService.units" optionLabel="label" optionValue="value" v-model="item.UNIT"></Select>
-      <Select label="PART" :options="settingsService.parts" optionLabel="label" optionValue="value" v-model="item.PART"></Select>
-      <InputText label="SEQNUM" type="text" v-model="item.SEQNUM"></InputText>
-      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
-      <InputText label="WORD" type="text" v-model="item.WORD"></InputText>
-      <InputText label="NOTE" type="text" v-model="item.NOTE"></InputText>
-      <InputText label="FAMIID" type="text" v-model="item.FAMIID" disabled></InputText>
-      <InputText label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></InputText>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="ID">ID</label>
+      <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="TEXTBOOK">TEXTBOOK</label>
+      <InputText id="TEXTBOOK" class="flex-auto" type="text" v-model="item.TEXTBOOKNAME" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="UNIT">UNIT</label>
+      <Select id="UNIT" class="flex-auto" :options="settingsService.units" optionLabel="label" optionValue="value" v-model="item.UNIT"></Select>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="PART">PART</label>
+      <Select id="PART" class="flex-auto" :options="settingsService.parts" optionLabel="label" optionValue="value" v-model="item.PART"></Select>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="SEQNUM">SEQNUM</label>
+      <InputText id="SEQNUM" class="flex-auto" type="text" v-model="item.SEQNUM"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="WORDID">WORDID</label>
+      <InputText id="WORDID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="WORD">WORD</label>
+      <InputText id="WORD" class="flex-auto" type="text" v-model="item.WORD"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="NOTE">NOTE</label>
+      <InputText id="NOTE" class="flex-auto" type="text" v-model="item.NOTE"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="FAMIID">FAMIID</label>
+      <InputText id="FAMIID" class="flex-auto" type="text" v-model="item.FAMIID" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="ACCURACY">ACCURACY</label>
+      <InputText id="ACCURACY" class="flex-auto" type="text" v-model="item.ACCURACY" disabled></InputText>
+    </div>
+    <template #footer>
       <Button severity="info" @click="showDialog=false">Cancel</Button>
       <Button severity="info" @click="save()">Save</Button>
+    </template>
   </Dialog>
 </template>
 

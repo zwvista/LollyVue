@@ -4,6 +4,7 @@ import { registerPlugins } from '@/plugins'
 
 // Components
 import "reflect-metadata";
+import '../../index.css'; // index.cssをインポート
 
 // Composables
 import { createApp } from 'vue'

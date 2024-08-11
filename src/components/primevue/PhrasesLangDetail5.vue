@@ -1,10 +1,21 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
-      <InputText label="PHRASE" type="text" v-model="item.PHRASE"></InputText>
-      <InputText label="TRANSLATION" type="text" v-model="item.TRANSLATION"></InputText>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="ID">ID</label>
+      <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="PHRASE">PHRASE</label>
+      <InputText id="PHRASE" class="flex-auto" type="text" v-model="item.PHRASE"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="TRANSLATION">TRANSLATION</label>
+      <InputText id="TRANSLATION" class="flex-auto" type="text" v-model="item.TRANSLATION"></InputText>
+    </div>
+    <template #footer>
       <Button severity="info" @click="showDialog=false">Cancel</Button>
       <Button severity="info" @click="save()">Save</Button>
+    </template>
   </Dialog>
 </template>
 

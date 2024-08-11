@@ -1,11 +1,25 @@
 <template>
   <Dialog v-model:visible="showDialog" style="width: 750px">
-      <InputText label="ID" type="text" v-model="item.ID" disabled></InputText>
-      <InputText label="PATTERN" type="text" v-model="item.PATTERN"></InputText>
-      <InputText label="NOTE" type="text" v-model="item.NOTE"></InputText>
-      <InputText label="TAGS" type="text" v-model="item.TAGS"></InputText>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="ID">ID</label>
+      <InputText id="ID" class="flex-auto" type="text" v-model="item.ID" disabled></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="PATTERN">PATTERN</label>
+      <InputText id="PATTERN" class="flex-auto" type="text" v-model="item.PATTERN"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="NOTE">NOTE</label>
+      <InputText id="NOTE" class="flex-auto" type="text" v-model="item.NOTE"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="TAGS">TAGS</label>
+      <InputText id="TAGS" class="flex-auto" type="text" v-model="item.TAGS"></InputText>
+    </div>
+    <template #footer>
       <Button severity="info" @click="showDialog=false">Cancel</Button>
       <Button severity="info" @click="save()">Save</Button>
+    </template>
   </Dialog>
 </template>
 
