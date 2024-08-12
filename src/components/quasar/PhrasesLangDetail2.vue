@@ -26,8 +26,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = phrasesLangService.value.langPhrases.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = phrasesLangService.value.langPhrases.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MLangPhrase : phrasesLangService.value.newLangPhrase());
 
   const save = async () => {

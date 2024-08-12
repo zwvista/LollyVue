@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
-    <v-card>
+    <v-card class="p-2">
       <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
       <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
       <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
@@ -26,8 +26,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = wordsLangService.value.langWords.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = wordsLangService.value.langWords.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MLangWord : wordsLangService.value.newLangWord());
 
   const save = async () => {

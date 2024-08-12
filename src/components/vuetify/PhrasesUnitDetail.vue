@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
-    <v-card>
+    <v-card class="p-2">
       <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
       <v-select label="UNIT" :items="settingsService.units" item-title="label" v-model="item.UNIT"></v-select>
       <v-select label="PART" :items="settingsService.parts" item-title="label" v-model="item.PART"></v-select>
@@ -28,8 +28,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MUnitPhrase : phrasesUnitService.value.newUnitPhrase());
 
   const save = async () => {

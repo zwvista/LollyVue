@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
-    <v-card>
+    <v-card class="p-2">
       <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
       <v-text-field label="PHRASE" type="text" v-model="item.PHRASE"></v-text-field>
       <v-text-field label="TRANSLATION" type="text" v-model="item.TRANSLATION"></v-text-field>
@@ -24,8 +24,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = phrasesLangService.value.langPhrases.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = phrasesLangService.value.langPhrases.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MLangPhrase : phrasesLangService.value.newLangPhrase());
 
   const save = async () => {

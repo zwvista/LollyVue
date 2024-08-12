@@ -47,8 +47,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = phrasesUnitService.value.unitPhrases.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MUnitPhrase : phrasesUnitService.value.newUnitPhrase());
 
   const save = async () => {

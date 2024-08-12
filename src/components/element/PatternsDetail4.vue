@@ -34,8 +34,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = patternsService.value.patterns.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = patternsService.value.patterns.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MPattern : patternsService.value.newPattern());
 
   const save = async () => {

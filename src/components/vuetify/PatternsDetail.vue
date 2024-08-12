@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
-    <v-card>
+    <v-card class="p-2">
       <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
       <v-text-field label="PATTERN" type="text" v-model="item.PATTERN"></v-text-field>
       <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
@@ -25,8 +25,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const itemOld = patternsService.value.patterns.find(value => value.ID === props.id);
+  const {id} = defineProps({id: Number});
+  const itemOld = patternsService.value.patterns.find(value => value.ID === id);
   const item = ref(itemOld ? Object.create(itemOld) as MPattern : patternsService.value.newPattern());
 
   const save = async () => {

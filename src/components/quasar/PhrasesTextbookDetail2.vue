@@ -30,8 +30,8 @@
   const settingsService = ref(container.resolve(SettingsService));
 
   const showDialog = defineModel();
-  const props = defineProps({id: Number});
-  const item = ref(Object.create(phrasesUnitService.value.textbookPhrases.find(value => value.ID === props.id)!) as MUnitPhrase);
+  const {id} = defineProps({id: Number});
+  const item = ref(Object.create(phrasesUnitService.value.textbookPhrases.find(value => value.ID === id)!) as MUnitPhrase);
 
   const save = async () => {
     item.value.PHRASE = settingsService.value.autoCorrectInput(item.value.PHRASE);
