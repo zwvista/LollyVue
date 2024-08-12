@@ -78,14 +78,14 @@
     await onRefresh();
   })();
 
-  const request = (props) => {
+  const request = async (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     await onRefresh();
   };
 
-  const deletePattern = (id: number) => {
-    patternsService.value.delete(id);
+  const deletePattern = async (id: number) => {
+    await patternsService.value.delete(id);
   };
 
   const googlePattern = (pattern: string) => {

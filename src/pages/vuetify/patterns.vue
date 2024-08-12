@@ -129,8 +129,8 @@
     await onRefresh();
   };
 
-  const deletePattern = (id: number) => {
-    patternsService.value.delete(id);
+  const deletePattern = async (id: number) => {
+    await patternsService.value.delete(id);
   };
 
   const googlePattern = (pattern: string) => {

@@ -75,13 +75,13 @@
     await onRefresh();
   })();
 
-  const rowsChange = (rows: number) => {
+  const rowsChange = async (rows: number) => {
     page.value = 1;
     await onRefresh();
   };
 
-  const deleteWord = (item: MLangWord) => {
-    wordsLangService.value.delete(item);
+  const deleteWord = async (item: MLangWord) => {
+    await wordsLangService.value.delete(item);
   };
 
   const getNote = async (index: number) => {

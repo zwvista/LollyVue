@@ -124,18 +124,18 @@
     await onRefresh();
   })();
 
-  const handleSizeChange = (val: number) => {
+  const handleSizeChange = async (val: number) => {
     rows.value = val;
     await onRefresh();
   };
 
-  const handleCurrentChange = (val: number) => {
+  const handleCurrentChange = async (val: number) => {
     page.value = val;
     await onRefresh();
   };
 
-  const deletePattern = (id: number) => {
-    patternsService.value.delete(id);
+  const deletePattern = async (id: number) => {
+    await patternsService.value.delete(id);
   };
 
   const googlePattern = (pattern: string) => {

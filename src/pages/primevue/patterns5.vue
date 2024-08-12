@@ -67,13 +67,13 @@
     await onRefresh();
   })();
 
-  const rowsChange = (rows: number) => {
+  const rowsChange = async (rows: number) => {
     page.value = 1;
     await onRefresh();
   };
 
-  const deletePattern = (id: number) => {
-    patternsService.value.delete(id);
+  const deletePattern = async (id: number) => {
+    await patternsService.value.delete(id);
   };
 
   const googlePattern = (pattern: string) => {

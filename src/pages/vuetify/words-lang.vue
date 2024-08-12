@@ -142,8 +142,8 @@
     await onRefresh();
   };
 
-  const deleteWord = (item: MLangWord) => {
-    wordsLangService.value.delete(item);
+  const deleteWord = async (item: MLangWord) => {
+    await wordsLangService.value.delete(item);
   };
 
   const getNote = async (index: number) => {

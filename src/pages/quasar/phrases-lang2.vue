@@ -78,14 +78,14 @@
     await onRefresh();
   })();
 
-  const request = (props) => {
+  const request = async (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
     await onRefresh();
   };
 
-  const deletePhrase = (item: MLangPhrase) => {
-    phrasesLangService.value.delete(item);
+  const deletePhrase = async (item: MLangPhrase) => {
+    await phrasesLangService.value.delete(item);
   };
 
   const googlePhrase = (phrase: string) => {

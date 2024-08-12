@@ -136,18 +136,18 @@
     await onRefresh();
   })();
 
-  const handleSizeChange = (val: number) => {
+  const handleSizeChange = async (val: number) => {
     rows.value = val;
     await onRefresh();
   };
 
-  const handleCurrentChange = (val: number) => {
+  const handleCurrentChange = async (val: number) => {
     page.value = val;
     await onRefresh();
   };
 
-  const deleteWord = (item: MLangWord) => {
-    wordsLangService.value.delete(item);
+  const deleteWord = async (item: MLangWord) => {
+    await wordsLangService.value.delete(item);
   };
 
   const getNote = async (index: number) => {

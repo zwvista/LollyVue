@@ -99,8 +99,8 @@
     await onRefresh();
   })();
 
-  const deletePhrase = (item: MUnitPhrase) => {
-    phrasesUnitService.value.delete(item);
+  const deletePhrase = async (item: MUnitPhrase) => {
+    await phrasesUnitService.value.delete(item);
   };
 
   const googlePhrase = (phrase: string) => {

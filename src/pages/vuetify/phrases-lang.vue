@@ -129,8 +129,8 @@
     await onRefresh();
   };
 
-  const deletePhrase = (item: MLangPhrase) => {
-    phrasesLangService.value.delete(item);
+  const deletePhrase = async (item: MLangPhrase) => {
+    await phrasesLangService.value.delete(item);
   };
 
   const googlePhrase = (phrase: string) => {

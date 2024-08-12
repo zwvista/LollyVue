@@ -124,18 +124,18 @@
     await onRefresh();
   })();
 
-  const handleSizeChange = (val: number) => {
+  const handleSizeChange = async (val: number) => {
     rows.value = val;
     await onRefresh();
   };
 
-  const handleCurrentChange = (val: number) => {
+  const handleCurrentChange = async (val: number) => {
     page.value = val;
     await onRefresh();
   };
 
-  const deletePhrase = (item: MLangPhrase) => {
-    phrasesLangService.value.delete(item);
+  const deletePhrase = async (item: MLangPhrase) => {
+    await phrasesLangService.value.delete(item);
   };
 
   const googlePhrase = (phrase: string) => {

@@ -73,13 +73,13 @@
     await onRefresh();
   })();
 
-  const rowsChange = (rows: number) => {
+  const rowsChange = async (rows: number) => {
     page.value = 1;
     await onRefresh();
   };
 
-  const deletePhrase = (item: MUnitPhrase) => {
-    phrasesUnitService.value.delete(item);
+  const deletePhrase = async (item: MUnitPhrase) => {
+    await phrasesUnitService.value.delete(item);
   };
 
   const googlePhrase = (phrase: string) => {
