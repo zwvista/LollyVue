@@ -138,12 +138,12 @@
 
   const handleSizeChange = (val: number) => {
     rows.value = val;
-    onRefresh();
+    await onRefresh();
   };
 
   const handleCurrentChange = (val: number) => {
     page.value = val;
-    onRefresh();
+    await onRefresh();
   };
 
   const deleteWord = (item: MLangWord) => {

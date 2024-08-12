@@ -124,7 +124,7 @@
 
   (async () => {
     await appService.value.getData();
-    onRefresh();
+    await onRefresh();
   })();
 
   const onEnterNewWord = async () => {

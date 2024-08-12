@@ -63,7 +63,7 @@
 
   (async () => {
     await appService.value.getData();
-    onRefresh();
+    await onRefresh();
   })();
 
   const onReorder = ({dragIndex, dropIndex}: any) => {

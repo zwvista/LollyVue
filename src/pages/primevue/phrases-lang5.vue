@@ -69,7 +69,7 @@
 
   const rowsChange = (rows: number) => {
     page.value = 1;
-    onRefresh();
+    await onRefresh();
   };
 
   const deletePhrase = (item: MLangPhrase) => {

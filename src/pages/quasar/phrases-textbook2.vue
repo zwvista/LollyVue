@@ -81,13 +81,13 @@
   (async () => {
     await appService.value.getData();
     pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
-    onRefresh();
+    await onRefresh();
   })();
 
   const request = (props) => {
     pagination.value.page = props.pagination.page;
     pagination.value.rowsPerPage = props.pagination.rowsPerPage;
-    onRefresh();
+    await onRefresh();
   };
 
   const deletePhrase = (item: MUnitPhrase) => {
