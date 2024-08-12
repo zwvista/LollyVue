@@ -133,11 +133,10 @@
     filterType = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      await this.onRefresh();
     }
 
     expandRow = null;

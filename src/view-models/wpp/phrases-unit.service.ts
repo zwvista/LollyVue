@@ -21,13 +21,13 @@ export class PhrasesUnitService {
   }
 
   async getDataInTextbook(filter: string, filterType: number) {
-    await this.appService.initializeObject.pipe(take(1));
+    await this.appService.getData();
     this.unitPhrases = await this.unitPhraseService.getDataByTextbookUnitPart(this.settingsService.selectedTextbook,
         this.settingsService.USUNITPARTFROM, this.settingsService.USUNITPARTTO, filter, filterType);
   }
 
   async getDataInLang(page: number, rows: number, filter: string, filterType: number, textbookFilter: number) {
-    await this.appService.initializeObject.pipe(take(1));
+    await this.appService.getData();
     const res = await this.unitPhraseService.getDataByLang(this.settingsService.selectedLang.ID,
         this.settingsService.textbooks, page, rows, filter, filterType, textbookFilter);
     this.textbookPhrases = res.records;

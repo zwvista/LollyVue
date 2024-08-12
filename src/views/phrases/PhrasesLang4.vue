@@ -98,22 +98,21 @@
     filterType = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.rows = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      this.rows = this.settingsService.USROWSPERPAGE;
+      await this.onRefresh();
     }
 
-    handleSizeChange(val) {
+    async handleSizeChange(val) {
       this.rows = val;
-      this.onRefresh();
+      await this.onRefresh();
     }
 
-    handleCurrentChange(val) {
+    async handleCurrentChange(val) {
       this.page = val;
-      this.onRefresh();
+      await this.onRefresh();
     }
 
     async onRefresh() {

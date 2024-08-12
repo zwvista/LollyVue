@@ -106,11 +106,10 @@
     filterType = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      await this.onRefresh();
     }
 
     expandRow = null;

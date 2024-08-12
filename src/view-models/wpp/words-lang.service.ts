@@ -19,7 +19,7 @@ export class WordsLangService {
   }
 
   async getData(page: number, rows: number, filter: string, filterType: number): Promise<void> {
-    await this.appService.initializeObject.pipe(take(1));
+    await this.appService.getData();
     const res =　await this.langWordService.getDataByLang(this.settingsService.selectedLang.ID, page, rows, filter, filterType);
     this.langWords = res.records;
     this.langWordsCount = res.results;

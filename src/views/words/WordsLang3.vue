@@ -122,12 +122,11 @@
     filterType = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.rows = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      this.rows = this.settingsService.USROWSPERPAGE;
+      await this.onRefresh();
     }
 
     mounted() {

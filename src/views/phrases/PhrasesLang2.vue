@@ -76,18 +76,17 @@
     filterType = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
+      await this.onRefresh();
     }
 
-    request({pagination}) {
+    async request({pagination}) {
       this.pagination.page = pagination.page;
       this.pagination.rowsPerPage = pagination.rowsPerPage;
-      this.onRefresh();
+      await this.onRefresh();
     }
 
     async onRefresh() {

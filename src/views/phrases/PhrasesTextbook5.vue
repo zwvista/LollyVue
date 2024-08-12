@@ -62,17 +62,16 @@
     textbookFilter = 0;
 
     services = {};
-    created() {
+    async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
-      this.appService.initializeObject.subscribe(_ => {
-        this.rows = this.settingsService.USROWSPERPAGE;
-        this.onRefresh();
-      });
+      await this.appService.getData();
+      this.rows = this.settingsService.USROWSPERPAGE;
+      await this.onRefresh();
     }
 
-    rowsChange(rows: number) {
+    async rowsChange(rows: number) {
       this.page = 1;
-      this.onRefresh();
+      await this.onRefresh();
     }
 
     async onRefresh() {
