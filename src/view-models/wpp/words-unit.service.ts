@@ -2,7 +2,6 @@ import { UnitWordService } from '../../services/wpp/unit-word.service';
 import { SettingsService } from '../misc/settings.service';
 import { MUnitWord } from '../../models/wpp/unit-word';
 import { AppService } from '../misc/app.service';
-import { take } from 'rxjs/operators';
 import { LangWordService } from '../../services/wpp/lang-word.service';
 import { singleton } from 'tsyringe';
 

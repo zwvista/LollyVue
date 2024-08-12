@@ -1,7 +1,6 @@
 import { SettingsService } from '../misc/settings.service';
 import { AppService } from '../misc/app.service';
 import { MPattern } from '../../models/wpp/pattern';
-import { take } from 'rxjs/operators';
 import { PatternService } from '../../services/wpp/pattern.service';
 import { singleton } from 'tsyringe';
 
