@@ -3,7 +3,7 @@ import { AppService } from '../misc/app.service';
 import { MPattern } from '../../models/wpp/pattern';
 import { take } from 'rxjs/operators';
 import { PatternService } from '../../services/wpp/pattern.service';
-import { singleton } from "tsyringe";
+import { singleton } from 'tsyringe';
 
 @singleton()
 export class PatternsService {

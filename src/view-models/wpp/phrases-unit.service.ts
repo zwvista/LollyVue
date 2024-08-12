@@ -4,7 +4,7 @@ import { MUnitPhrase } from '../../models/wpp/unit-phrase';
 import { UnitPhraseService } from '../../services/wpp/unit-phrase.service';
 import { take } from 'rxjs/operators';
 import { LangPhraseService } from '../../services/wpp/lang-phrase.service';
-import { singleton } from "tsyringe";
+import { singleton } from 'tsyringe';
 
 @singleton()
 export class PhrasesUnitService {

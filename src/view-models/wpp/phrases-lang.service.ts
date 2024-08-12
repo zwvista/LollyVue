@@ -3,7 +3,7 @@ import { SettingsService } from '../misc/settings.service';
 import { AppService } from '../misc/app.service';
 import { take } from 'rxjs/operators';
 import { MLangPhrase } from '../../models/wpp/lang-phrase';
-import { singleton } from "tsyringe";
+import { singleton } from 'tsyringe';
 
 @singleton()
 export class PhrasesLangService {
