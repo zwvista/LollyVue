@@ -61,11 +61,10 @@
     pageCount.value = (phrasesLangService.value.langPhraseCount + rows.value - 1) / rows.value >> 0;
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(_ => {
-      rows.value = settingsService.value.USROWSPERPAGE;
-      onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    rows.value = settingsService.value.USROWSPERPAGE;
+    await onRefresh();
   })();
 
   const rowsChange = (rows: number) => {

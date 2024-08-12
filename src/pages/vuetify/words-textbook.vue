@@ -136,11 +136,10 @@
     pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(async _ => {
-      rows.value = settingsService.value.USROWSPERPAGE;
-      await onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    rows.value = settingsService.value.USROWSPERPAGE;
+    await onRefresh();
   })();
 
   const rowsChange = async (rows: number) => {

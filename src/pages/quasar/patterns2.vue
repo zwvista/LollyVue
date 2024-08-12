@@ -72,11 +72,10 @@
     pagination.value.rowsNumber = patternsService.value.patternCount;
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(_ => {
-      pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
-      onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
+    onRefresh();
   })();
 
   const request = (props) => {

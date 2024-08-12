@@ -61,10 +61,9 @@
     await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(_ => {
-      onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    onRefresh();
   })();
 
   const onReorder = ({dragIndex, dropIndex}: any) => {

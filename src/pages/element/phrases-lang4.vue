@@ -118,11 +118,10 @@
     await phrasesLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(_ => {
-      rows.value = settingsService.value.USROWSPERPAGE;
-      onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    rows.value = settingsService.value.USROWSPERPAGE;
+    await onRefresh();
   })();
 
   const handleSizeChange = (val: number) => {

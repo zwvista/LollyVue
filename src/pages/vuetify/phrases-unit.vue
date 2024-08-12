@@ -87,10 +87,9 @@
     await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
   };
 
-  (() => {
-    appService.value.initializeObject.subscribe(async _ => {
-      await onRefresh();
-    });
+  (async () => {
+    await appService.value.getData();
+    await onRefresh();
   })();
 
   const expandRow = ref(null);
