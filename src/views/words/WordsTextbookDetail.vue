@@ -5,7 +5,7 @@
     <v-select label="UNIT" :items="settingsService.units" item-text="label" item-value="value" v-model="item.UNIT"></v-select>
     <v-select label="PART" :items="settingsService.parts" item-text="label" item-value="value" v-model="item.PART"></v-select>
     <v-text-field label="SEQNUM" type="text" v-model="item.SEQNUM"></v-text-field>
-    <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
+    <v-text-field label="WORDID" type="text" v-model="item.WORDID" disabled></v-text-field>
     <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
     <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
     <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
