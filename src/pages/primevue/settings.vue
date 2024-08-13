@@ -1,96 +1,57 @@
 <template>
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <v-container class="w-50" v-if="settingsService.selectedLang">
-      <v-row>
-        <v-col cols="4">
-          <label for="lang">Language:</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="lang" :model-value="settingsService.selectedLang" @update:model-value="onLangChange($event)"
-            :items="settingsService.languages" return-object item-title="NAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label for="voice">Voice:</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="voice" :model-value="settingsService.selectedVoice" @update:model-value="onVoiceChange($event)"
-            :items="settingsService.voices" return-object item-title="VOICENAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label for="dictReference">Dictionary(Reference):</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="dictReference" :model-value="settingsService.selectedDictReference" @update:model-value="onDictReferenceChange($event)"
-            :items="settingsService.dictsReference" return-object item-title="NAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label for="dictNote">Dictionary(Note):</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="dictNote" :model-value="settingsService.selectedDictNote" @update:model-value="onDictNoteChange($event)"
-            :items="settingsService.dictsNote" return-object item-title="NAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label for="dictTranslation">Dictionary(Translation):</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="dictTranslation" :model-value="settingsService.selectedDictTranslation" @update:model-value="onDictTranslationChange($event)"
-            :items="settingsService.dictsTranslation" return-object item-title="NAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label for="textbook">Textbook:</label>
-        </v-col>
-        <v-col cols="8">
-          <v-select id="textbook" :model-value="settingsService.selectedTextbook" @update:model-value="onTextbookChange($event)"
-            :items="settingsService.textbooks" return-object item-title="NAME" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <label>Unit:</label>
-        </v-col>
-        <v-col cols="4">
-          <v-select id="unitFrom" :model-value="settingsService.USUNITFROM" @update:model-value="onUnitFromChange($event)"
-            :items="settingsService.units" item-title="label" />
-        </v-col>
-        <v-col cols="4">
-          <v-select id="partFrom" :disabled="toTypeIsUnit" :model-value="settingsService.USPARTFROM" @update:model-value="onPartFromChange($event)"
-            :items="settingsService.parts" item-title="label" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-          <v-select id="toType" :model-value="settingsService.toType" @update:model-value="onToTypeChange($event)"
-             :items="settingsService.toTypes" item-title="label" />
-        </v-col>
-        <v-col cols="4">
-          <v-select id="unitTo" :disabled="!toTypeIsTo" :model-value="settingsService.USUNITTO" @update:model-value="onUnitToChange($event)"
-            :items="settingsService.units" item-title="label" />
-        </v-col>
-        <v-col cols="4">
-          <v-select id="partTo" :disabled="!toTypeIsTo" :model-value="settingsService.USPARTTO" @update:model-value="onPartToChange($event)"
-            :items="settingsService.parts" item-title="label" />
-        </v-col>
-      </v-row>
-      <v-row class="mt-n10">
-        <v-col cols="4">
-        </v-col>
-        <v-col>
-          <v-btn class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="previousUnitPart()">Previous</v-btn>
-          <v-btn class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="nextUnitPart()">Next</v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
+  <div class="h-full flex items-center justify-center">
+    <div class="w-3/6" v-if="settingsService.selectedLang">
+      <div class="flex items-center">
+        <label class="w-1/3" for="lang">Language:</label>
+        <Select class="w-2/3" id="lang" :model-value="settingsService.selectedLang" @update:model-value="onLangChange($event)"
+          :options="settingsService.languages" optionLabel="NAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3" for="voice">Voice:</label>
+        <Select class="w-2/3" id="voice" :model-value="settingsService.selectedVoice" @update:model-value="onVoiceChange($event)"
+          :options="settingsService.voices" optionLabel="VOICENAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3" for="dictReference">Dictionary(Reference):</label>
+        <Select class="w-2/3" id="dictReference" :model-value="settingsService.selectedDictReference" @update:model-value="onDictReferenceChange($event)"
+          :options="settingsService.dictsReference" optionLabel="NAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3" for="dictNote">Dictionary(Note):</label>
+        <Select class="w-2/3" id="dictNote" :model-value="settingsService.selectedDictNote" @update:model-value="onDictNoteChange($event)"
+          :options="settingsService.dictsNote" optionLabel="NAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3" for="dictTranslation">Dictionary(Translation):</label>
+        <Select class="w-2/3" id="dictTranslation" :model-value="settingsService.selectedDictTranslation" @update:model-value="onDictTranslationChange($event)"
+          :options="settingsService.dictsTranslation" optionLabel="NAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3" for="textbook">Textbook:</label>
+        <Select class="w-2/3" id="textbook" :model-value="settingsService.selectedTextbook" @update:model-value="onTextbookChange($event)"
+          :options="settingsService.textbooks" optionLabel="NAME" />
+      </div>
+      <div class="flex items-center mt-2">
+        <label class="w-1/3">Unit:</label>
+        <Select class="w-1/3" id="unitFrom" :model-value="settingsService.USUNITFROM" @update:model-value="onUnitFromChange($event)"
+          :options="settingsService.units" optionLabel="label" optionValue="value" />
+        <Select class="w-1/3" id="partFrom" :disabled="toTypeIsUnit" :model-value="settingsService.USPARTFROM" @update:model-value="onPartFromChange($event)"
+          :options="settingsService.parts" optionLabel="label" optionValue="value" />
+      </div>
+      <div class="flex items-center mt-2">
+        <Select class="w-1/3" id="toType" :model-value="settingsService.toType" @update:model-value="onToTypeChange($event)"
+           :options="settingsService.toTypes" optionLabel="label" optionValue="value" />
+        <Select class="w-1/3" id="unitTo" :disabled="!toTypeIsTo" :model-value="settingsService.USUNITTO" @update:model-value="onUnitToChange($event)"
+          :options="settingsService.units" optionLabel="label" optionValue="value" />
+        <Select class="w-1/3" id="partTo" :disabled="!toTypeIsTo" :model-value="settingsService.USPARTTO" @update:model-value="onPartToChange($event)"
+          :options="settingsService.parts" optionLabel="label" optionValue="value" />
+      </div>
+      <div class="flex items-center mt-2">
+        <div class="w-1/3"></div>
+        <Button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="previousUnitPart()">Previous</Button>
+        <Button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="nextUnitPart()">Next</Button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -173,7 +134,7 @@
 </script>
 
 <style scoped>
-label {
-  margin-top: 16px;
+html, body, #app {
+  height: 100%;
 }
 </style>
