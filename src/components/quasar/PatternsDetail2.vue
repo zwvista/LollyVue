@@ -2,7 +2,7 @@
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
       <q-card-section>
-        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="ID" type="text" v-model="item.ID" disable />
         <q-input label="PATTERN" type="text" v-model="item.PATTERN" />
         <q-input label="NOTE" type="text" v-model="item.NOTE" />
         <q-input label="TAGS" type="text" v-model="item.TAGS" />

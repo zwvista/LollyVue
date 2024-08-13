@@ -2,14 +2,14 @@
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
       <q-card-section>
-        <q-input label="ID" v-model="item.ID" :disable="true" />
+        <q-input label="ID" v-model="item.ID" disable />
         <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT" />
         <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART" />
         <q-input label="SEQNUM" v-model="item.SEQNUM" />
         <q-input label="WORD" v-model="item.WORD" />
         <q-input label="NOTE" v-model="item.NOTE" />
-        <q-input label="FAMIID" v-model="item.FAMIID" :disable="true" />
-        <q-input label="ACCURACY" v-model="item.ACCURACY" :disable="true" />
+        <q-input label="FAMIID" v-model="item.FAMIID" disable />
+        <q-input label="ACCURACY" v-model="item.ACCURACY" disable />
       </q-card-section>
       <q-card-actions>
         <q-space />

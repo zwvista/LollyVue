@@ -2,11 +2,11 @@
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
       <q-card-section>
-        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="ID" type="text" v-model="item.ID" disable />
         <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT" />
         <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART" />
         <q-input label="SEQNUM" type="text" v-model="item.SEQNUM" />
-        <q-input label="PHRASEID" type="text" v-model="item.PHRASEID" :disable="true" />
+        <q-input label="PHRASEID" type="text" v-model="item.PHRASEID" disable />
         <q-input label="PHRASE" type="text" v-model="item.PHRASE" />
         <q-input label="TRANSLATION" type="text" v-model="item.TRANSLATION" />
       </q-card-section>

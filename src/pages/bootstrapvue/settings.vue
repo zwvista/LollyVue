@@ -49,8 +49,8 @@
       </b-row>
       <b-form-group class="mb-2" label-cols="4" content-cols="8">
         <b-button-group>
-          <button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="previousUnitPart()">Previous</button>
-          <button class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="nextUnitPart()">Next</button>
+          <Button rounded class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="previousUnitPart()">Previous</button>
+          <Button rounded class="btn btn-primary mr-2" :disabled="toTypeIsTo" @click="nextUnitPart()">Next</button>
         </b-button-group>
       </b-form-group>
     </b-container>

@@ -13,8 +13,8 @@
       <InputText id="TRANSLATION" class="flex-auto" type="text" v-model="item.TRANSLATION"></InputText>
     </div>
     <template #footer>
-      <Button severity="info" @click="showDialog=false">Cancel</Button>
-      <Button severity="info" @click="save()">Save</Button>
+      <Button rounded severity="info" @click="showDialog=false">Cancel</Button>
+      <Button rounded severity="info" @click="save()">Save</Button>
     </template>
   </Dialog>
 </template>

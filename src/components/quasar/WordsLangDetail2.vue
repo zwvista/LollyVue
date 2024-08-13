@@ -2,11 +2,11 @@
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
       <q-card-section>
-        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
+        <q-input label="ID" type="text" v-model="item.ID" disable />
         <q-input label="WORD" type="text" v-model="item.WORD" />
         <q-input label="NOTE" type="text" v-model="item.NOTE" />
-        <q-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true" />
-        <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true" />
+        <q-input label="FAMIID" type="text" v-model="item.FAMIID" disable />
+        <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" disable />
       </q-card-section>
       <q-card-actions>
         <q-space />

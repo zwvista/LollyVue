@@ -2,16 +2,16 @@
   <q-dialog v-model="showDialog">
     <q-card style="width: 750px">
       <q-card-section>
-        <q-input label="ID" type="text" v-model="item.ID" :disable="true" />
-        <q-input label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" :disable="true" />
+        <q-input label="ID" type="text" v-model="item.ID" disable />
+        <q-input label="TEXTBOOK" type="text" v-model="item.TEXTBOOKNAME" disable />
         <q-select map-options emit-value label="UNIT" :options="settingsService.units" v-model="item.UNIT" />
         <q-select map-options emit-value label="PART" :options="settingsService.parts" v-model="item.PART" />
         <q-input label="SEQNUM" type="text" v-model="item.SEQNUM" />
-        <q-input label="WORDID" type="text" v-model="item.WORDID" :disable="true" />
+        <q-input label="WORDID" type="text" v-model="item.WORDID" disable />
         <q-input label="WORD" type="text" v-model="item.WORD" />
         <q-input label="NOTE" type="text" v-model="item.NOTE" />
-        <q-input label="FAMIID" type="text" v-model="item.FAMIID" :disable="true" />
-        <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" :disable="true" />
+        <q-input label="FAMIID" type="text" v-model="item.FAMIID" disable />
+        <q-input label="ACCURACY" type="text" v-model="item.ACCURACY" disable />
       </q-card-section>
       <q-card-actions>
         <q-space />

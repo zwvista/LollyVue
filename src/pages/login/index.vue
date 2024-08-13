@@ -11,7 +11,7 @@
       </b-form-input>
     </div>
     <div class="form-inline mb-2">
-      <button class="btn btn-primary" @click="login()">Login</button>
+      <Button rounded class="btn btn-primary" @click="login()">Login</button>
     </div>
   </div>
 </template>

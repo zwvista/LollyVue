@@ -89,7 +89,7 @@
     {
       icon: 'fa fa-cog fa-lg',
       title: 'Settings',
-      path: '/settings',
+      path: '/quasar/settings',
     },
   ]);
   const title = ref('Lolly Vue');
