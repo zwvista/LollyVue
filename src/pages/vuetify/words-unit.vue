@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-toolbar>
-      <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
+      <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord" />
       <v-tooltip text="Speak" location="top">
         <template v-slot:activator="{ props }">
           <v-btn v-bind="props" icon="fa-volume-up" color="info" @click="settingsService.speak(newWord)" v-show="settingsService.selectedVoice"></v-btn>
         </template>
       </v-tooltip>
-      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
-      <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
+      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh" />
+      <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
       <v-btn variant="elevated" prepend-icon="fa-plus" color="info" @click.stop="showDetailDialog(0)">Add</v-btn>
       <v-btn variant="elevated" prepend-icon="fa-refresh" color="info" @click="onRefresh()">Refresh</v-btn>
       <v-btn variant="elevated" v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>

@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-toolbar>
-      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh"></v-select>
-      <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
-      <v-select :items="settingsService.textbookFilters" item-title="label" v-model="textbookFilter" @update:modelValue="onRefresh"></v-select>
+      <v-select :items="settingsService.wordFilterTypes" item-title="label" v-model="filterType" @update:modelValue="onRefresh" />
+      <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+      <v-select :items="settingsService.textbookFilters" item-title="label" v-model="textbookFilter" @update:modelValue="onRefresh" />
       <v-btn variant="elevated" prepend-icon="fa-refresh" color="info">Refresh</v-btn>
 <!--      <router-link to="/words-dict/textbook/0">-->
         <v-btn variant="elevated" prepend-icon="fa-book" color="info" @click="onRefresh()">Dictionary</v-btn>
@@ -18,7 +18,7 @@
             label="Rows per page"
             style="width: 125px"
             @update:modelValue="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"
@@ -81,7 +81,7 @@
             label="Rows per page"
             style="width: 125px"
             @update:modelValue="rowsChange"
-          ></v-select>
+           />
         </v-col>
         <v-pagination
           v-model="page"

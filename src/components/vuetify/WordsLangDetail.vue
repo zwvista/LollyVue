@@ -1,13 +1,13 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
     <v-card class="p-2">
-      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
-      <v-text-field label="WORD" type="text" v-model="item.WORD"></v-text-field>
-      <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
-      <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled></v-text-field>
-      <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled></v-text-field>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled />
+      <v-text-field label="WORD" type="text" v-model="item.WORD" />
+      <v-text-field label="NOTE" type="text" v-model="item.NOTE" />
+      <v-text-field label="FAMIID" type="text" v-model="item.FAMIID" disabled />
+      <v-text-field label="ACCURACY" type="text" v-model="item.ACCURACY" disabled />
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
         <v-btn variant="elevated" color="info" @click="save()">Save</v-btn>
       </v-card-actions>

@@ -8,7 +8,7 @@
       <v-btn :icon="rail ? 'fa-chevron-right' : 'fa-chevron-left'" @click.stop="rail = !rail"></v-btn>
       <v-btn :icon="clipped ? 'fa-circle-chevron-left' : 'fa-circle-chevron-down'" @click.stop="clipped = !clipped"></v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <a href="/">
         <v-btn variant="elevated" color="info">1. Veutify</v-btn>
       </a>

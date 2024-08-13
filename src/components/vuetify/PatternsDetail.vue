@@ -1,12 +1,12 @@
 <template>
   <v-dialog v-model="showDialog" max-width="750px">
     <v-card class="p-2">
-      <v-text-field label="ID" type="text" v-model="item.ID" disabled></v-text-field>
-      <v-text-field label="PATTERN" type="text" v-model="item.PATTERN"></v-text-field>
-      <v-text-field label="NOTE" type="text" v-model="item.NOTE"></v-text-field>
-      <v-text-field label="TAGS" type="text" v-model="item.TAGS"></v-text-field>
+      <v-text-field label="ID" type="text" v-model="item.ID" disabled />
+      <v-text-field label="PATTERN" type="text" v-model="item.PATTERN" />
+      <v-text-field label="NOTE" type="text" v-model="item.NOTE" />
+      <v-text-field label="TAGS" type="text" v-model="item.TAGS" />
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn variant="elevated" color="info" @click="showDialog=false">Cancel</v-btn>
         <v-btn variant="elevated" color="info" @click="save()">Save</v-btn>
       </v-card-actions>
