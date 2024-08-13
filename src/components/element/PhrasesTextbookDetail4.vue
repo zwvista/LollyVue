@@ -9,13 +9,13 @@
           <el-input type="text" v-model="item.TEXTBOOKNAME" disabled></el-input>
         </el-form-item>
         <el-form-item label="UNIT:">
-          <el-select map-options emit-value v-model="item.UNIT">
-            <el-option v-for="item in settingsService.units" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select value-key="value" v-model="item.UNIT">
+            <el-option v-for="item in settingsService.units" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="PART:">
-          <el-select map-options emit-value v-model="item.PART">
-            <el-option v-for="item in settingsService.parts" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select value-key="value" emit-value v-model="item.PART">
+            <el-option v-for="item in settingsService.parts" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="PHRASEID:">

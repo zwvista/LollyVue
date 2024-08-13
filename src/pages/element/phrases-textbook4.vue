@@ -4,25 +4,15 @@
       <el-col :span="4">
         <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
           <template #prepend>
-            <el-select v-model="filterType" slot="prepend" @change="onRefresh" style="width: 100px">
-              <el-option
-                v-for="item in settingsService.phraseFilterTypes"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
+            <el-select value-key="value" v-model="filterType" slot="prepend" @change="onRefresh" style="width: 100px">
+              <el-option v-for="item in settingsService.phraseFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-select v-model="textbookFilter" @change="onRefresh">
-          <el-option
-            v-for="item in settingsService.textbookFilters"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
+        <el-select value-key="value" v-model="textbookFilter" @change="onRefresh">
+          <el-option v-for="item in settingsService.textbookFilters" :label="item.label" :value="item.value" />
         </el-select>
       </el-col>
       <el-button type="primary" @click="onRefresh()">Refresh
