@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-  import "reflect-metadata";
   import { LoginService } from '@/view-models/misc/login.service';
   import { GlobalVars } from '@/common/common';
   import { container } from 'tsyringe';

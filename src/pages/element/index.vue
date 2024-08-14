@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-  import "reflect-metadata";
   import { GlobalVars } from '@/common/common';
   import { container } from 'tsyringe';
   import { onMounted, ref } from "vue";
