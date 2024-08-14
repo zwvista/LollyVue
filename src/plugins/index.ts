@@ -14,9 +14,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(fas as any) // Include needed solid icons
-library.add(far as any) // Include needed regular icons
-library.add(fab as any) // Include needed brand icons
+library.add(fas as any, far as any, fab as any);
 
 // Types
 import type { App } from 'vue'
