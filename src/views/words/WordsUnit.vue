@@ -100,7 +100,6 @@
 </template>
 
 <script lang="ts">
-  import "reflect-metadata";
   import { Component, Vue } from 'vue-property-decorator';
   import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
   import Sortable from 'sortablejs';
