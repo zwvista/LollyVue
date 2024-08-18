@@ -73,7 +73,6 @@
 </template>
 
 <script setup lang="ts">
-
   // import Sortable from 'sortablejs';
   import { container } from 'tsyringe';
   import { WordsUnitService } from "@/view-models/wpp/words-unit.service";
@@ -82,7 +81,7 @@
   import { MUnitWord } from "@/models/wpp/unit-word";
   import { googleString } from "@/common/common";
   import { SettingsService } from "@/view-models/misc/settings.service";
-  import WordsUnitDetail from '@/components/vuetify/WordsUnitDetail'
+  import WordsUnitDetail from '@/components/vuetify/WordsUnitDetail.vue'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));

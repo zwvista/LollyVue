@@ -61,7 +61,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { onMounted, ref } from "vue";
-  import PhrasesUnitDetail from '@/components/vuetify/PhrasesUnitDetail'
+  import PhrasesUnitDetail from '@/components/vuetify/PhrasesUnitDetail.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));

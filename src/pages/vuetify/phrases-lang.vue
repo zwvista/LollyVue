@@ -92,7 +92,7 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesLangDetail from '@/components/vuetify/PhrasesLangDetail'
+  import PhrasesLangDetail from '@/components/vuetify/PhrasesLangDetail.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));

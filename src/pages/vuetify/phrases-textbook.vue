@@ -92,7 +92,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesTextbookDetail from '@/components/vuetify/PhrasesTextbookDetail'
+  import PhrasesTextbookDetail from '@/components/vuetify/PhrasesTextbookDetail.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));

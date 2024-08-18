@@ -105,8 +105,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import WordsLangDetail from '@/components/vuetify/WordsLangDetail'
-  import { MUnitWord } from "@/models/wpp/unit-word";
+  import WordsLangDetail from '@/components/vuetify/WordsLangDetail.vue'
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));
