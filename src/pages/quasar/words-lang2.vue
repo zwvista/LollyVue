@@ -59,7 +59,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import WordsLangDetail2 from '@/components/quasar/WordsLangDetail2'
+  import WordsLangDetail2 from '@/components/quasar/WordsLangDetail2.vue'
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));

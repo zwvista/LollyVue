@@ -45,7 +45,7 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesLangDetail2 from '@/components/quasar/PhrasesLangDetail2'
+  import PhrasesLangDetail2 from '@/components/quasar/PhrasesLangDetail2.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));

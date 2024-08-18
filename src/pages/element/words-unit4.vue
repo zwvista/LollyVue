@@ -105,7 +105,7 @@
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-  import WordsUnitDetail4 from '@/components/element/WordsUnitDetail4'
+  import WordsUnitDetail4 from '@/components/element/WordsUnitDetail4.vue'
 
   const appService = ref(container.resolve(AppService));
   const wordsUnitService = ref(container.resolve(WordsUnitService));

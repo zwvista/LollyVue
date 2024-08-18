@@ -46,7 +46,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesTextbookDetail5 from '@/components/primevue/PhrasesTextbookDetail5'
+  import PhrasesTextbookDetail5 from '@/components/primevue/PhrasesTextbookDetail5.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));

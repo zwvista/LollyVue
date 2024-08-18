@@ -45,7 +45,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesTextbookDetail2 from '@/components/quasar/PhrasesTextbookDetail2'
+  import PhrasesTextbookDetail2 from '@/components/quasar/PhrasesTextbookDetail2.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));

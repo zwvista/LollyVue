@@ -41,7 +41,7 @@
   import { MLangPhrase } from '@/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PhrasesLangDetail5 from '@/components/primevue/PhrasesLangDetail5'
+  import PhrasesLangDetail5 from '@/components/primevue/PhrasesLangDetail5.vue'
 
   const appService = ref(container.resolve(AppService));
   const phrasesLangService = ref(container.resolve(PhrasesLangService));

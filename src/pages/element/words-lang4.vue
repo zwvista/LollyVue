@@ -107,7 +107,7 @@
   import { AppService } from '@/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import WordsLangDetail4 from '@/components/element/WordsLangDetail4'
+  import WordsLangDetail4 from '@/components/element/WordsLangDetail4.vue'
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));

@@ -95,7 +95,7 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PatternsDetail4 from '@/components/element/PatternsDetail4'
+  import PatternsDetail4 from '@/components/element/PatternsDetail4.vue'
 
   const appService = ref(container.resolve(AppService));
   const patternsService = ref(container.resolve(PatternsService));

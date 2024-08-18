@@ -41,7 +41,7 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PatternsDetail5 from '@/components/primevue/PatternsDetail5'
+  import PatternsDetail5 from '@/components/primevue/PatternsDetail5.vue'
 
   const appService = ref(container.resolve(AppService));
   const patternsService = ref(container.resolve(PatternsService));

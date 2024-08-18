@@ -44,7 +44,7 @@
   import { PatternsService } from '@/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
-  import PatternsDetail2 from '@/components/quasar/PatternsDetail2'
+  import PatternsDetail2 from '@/components/quasar/PatternsDetail2.vue'
 
   const appService = ref(container.resolve(AppService));
   const patternsService = ref(container.resolve(PatternsService));
