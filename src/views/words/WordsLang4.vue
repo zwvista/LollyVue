@@ -67,7 +67,9 @@
             </el-tooltip>
           </router-link>
           <el-button v-show="settingsService.selectedDictNote" type="warning"
-                 @click="getNote(scope.$index)">Retrieve Note</el-button>
+                     @click="getNote(scope.row)">Get Note</el-button>
+          <el-button v-show="settingsService.selectedDictNote" type="warning"
+                     @click="clearNote(scope.row)">Clear Note</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -132,9 +134,12 @@
       this.wordsLangService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
+    async getNote(index: MLangWord) {
       await this.wordsLangService.getNote(index);
+    }
+
+    async clearNote(index: MLangWord) {
+      await this.wordsLangService.clearNote(index);
     }
 
     googleWord(word: string) {

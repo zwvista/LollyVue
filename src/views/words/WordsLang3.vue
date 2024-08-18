@@ -38,10 +38,10 @@
           <span><md-icon class="fa fa-refresh"></md-icon>Refresh</span>
         </md-button>
         <md-button v-show="settingsService.selectedDictNote" class="md-raised">
-          Retrieve All Notes
+          Get All Notes
         </md-button>
         <md-button v-show="settingsService.selectedDictNote" class="md-raised">
-          Retrieve Notes If Empty
+          Get Notes If Empty
         </md-button>
         <router-link to="/words-dict/lang/0">
           <md-button class="md-raised md-primary">
@@ -84,8 +84,12 @@
             </md-button>
           </router-link>
           <md-button v-show="settingsService.selectedDictNote" class="md-raised"
-                     @click="getNote(wordsLangService.langWords.indexOf(item))">
-            Retrieve Note
+                     @click="getNote(item)">
+            Get Note
+          </md-button>
+          <md-button v-show="settingsService.selectedDictNote" class="md-raised"
+                     @click="clearNote(item)">
+            Clear Note
           </md-button>
         </md-table-cell>
       </md-table-row>
@@ -142,9 +146,12 @@
       this.wordsLangService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
+    async getNote(index: MLangWord) {
       await this.wordsLangService.getNote(index);
+    }
+
+    async clearNote(index: MLangWord) {
+      await this.wordsLangService.clearNote(index);
     }
 
     googleWord(word: string) {

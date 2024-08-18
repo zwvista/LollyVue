@@ -16,8 +16,10 @@
           <Button icon="fa fa-plus" label="Add" />
         </router-link>
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
-        <Button v-show="settingsService.selectedDictNote" label="Retrieve All Notes" class="p-button-warning" />
-        <Button v-show="settingsService.selectedDictNote" label="Retrieve Notes If Empty" class="p-button-warning" />
+        <Button v-show="settingsService.selectedDictNote" label="Get All Notes" class="p-button-warning" @click="getNotes(false)" />
+        <Button v-show="settingsService.selectedDictNote" label="Get Notes If Empty" class="p-button-warning" @click="getNotes(true)" />
+        <Button v-show="settingsService.selectedDictNote" label="Clear All Notes" class="p-button-warning" @click="clearNotes(false)" />
+        <Button v-show="settingsService.selectedDictNote" label="Clear Notes If Empty" class="p-button-warning" @click="clearNotes(true)" />
         <router-link to="/words-dict/unit/0">
           <Button icon="fa fa-book" label="Dictionary" />
         </router-link>
@@ -48,7 +50,8 @@
           <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: slotProps.index }}">
             <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
           </router-link>
-          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(slotProps.index)" />
+          <Button v-show="settingsService.selectedDictNote" label="Get Note" class="p-button-warning" @click="getNote(slotProps.data)" />
+          <Button v-show="settingsService.selectedDictNote" label="Clear Note" class="p-button-warning" @click="clearNote(slotProps.data)" />
         </template>
       </Column>
     </DataTable>
@@ -109,9 +112,12 @@
       await this.wordsUnitService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
-      await this.wordsUnitService.getNote(index);
+    async getNote(item: MUnitWord) {
+      await this.wordsUnitService.getNote(item);
+    }
+
+    async clearNote(item: MUnitWord) {
+      await this.wordsUnitService.clearNote(item);
     }
 
     googleWord(word: string) {
@@ -120,6 +126,10 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    }
+
+    clearNotes(ifEmpty: boolean) {
+      this.wordsUnitService.clearNotes(ifEmpty, () => {}, () => {});
     }
   }
 </script>

@@ -51,7 +51,7 @@
             <el-button circle type="primary" icon="fa fa-google" @click="googlePhrase(scope.row.PHRASE)"></el-button>
           </el-tooltip>
           <el-button v-show="settingsService.selectedDictNote" type="warning"
-                 @click="getNote(scope.$index)">Retrieve Note</el-button>
+                 @click="getNote(scope.$index)">Get Note</el-button>
         </template>
       </el-table-column>
     </el-table>

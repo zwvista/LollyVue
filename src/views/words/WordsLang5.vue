@@ -36,7 +36,8 @@
           <router-link :to="{ name: 'words-dict', params: { type: 'lang', index: slotProps.index }}">
             <Button v-tooltip.top="'Dictionary'" icon="fa fa-book" />
           </router-link>
-          <Button v-show="settingsService.selectedDictNote" label="Retrieve Note" class="p-button-warning" @click="getNote(slotProps.index)" />
+          <Button v-show="settingsService.selectedDictNote" label="Get Note" class="p-button-warning" @click="getNote(slotProps.data)" />
+          <Button v-show="settingsService.selectedDictNote" label="Clear Note" class="p-button-warning" @click="clearNote(slotProps.data)" />
         </template>
       </Column>
     </DataTable>
@@ -89,9 +90,12 @@
       this.wordsLangService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
+    async getNote(index: MLangWord) {
       await this.wordsLangService.getNote(index);
+    }
+
+    async clearNote(index: MLangWord) {
+      await this.wordsLangService.clearNote(index);
     }
 
     googleWord(word: string) {

@@ -89,7 +89,8 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(item)">Get Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNote(item)">Clear Note</v-btn>
           </td>
         </tr>
         </tbody>
@@ -169,9 +170,12 @@
       this.wordsLangService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
+    async getNote(index: MLangWord) {
       await this.wordsLangService.getNote(index);
+    }
+
+    async clearNote(index: MLangWord) {
+      await this.wordsLangService.clearNote(index);
     }
 
     googleWord(word: string) {

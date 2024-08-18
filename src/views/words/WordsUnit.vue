@@ -20,8 +20,10 @@
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning">Retrieve Notes If Empty</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNotes(false)">Get All Notes</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNotes(true)">Get Notes If Empty</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNotes(false)">Clear All Notes</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNotes(true)">Clear Notes If Empty</v-btn>
       <router-link to="/words-dict/unit/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
@@ -90,7 +92,8 @@
                 <span>Dictionary</span>
               </v-tooltip>
             </router-link>
-            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Get Note</v-btn>
+            <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNote(index)">Clear Note</v-btn>
           </td>
         </tr>
         </tbody>
@@ -194,9 +197,12 @@
       await this.wordsUnitService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
-      await this.wordsUnitService.getNote(index);
+    async getNote(item: MUnitWord) {
+      await this.wordsUnitService.getNote(item);
+    }
+
+    async clearNote(item: MUnitWord) {
+      await this.wordsUnitService.clearNote(item);
     }
 
     googleWord(word: string) {
@@ -205,6 +211,10 @@
 
     getNotes(ifEmpty: boolean) {
       this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    }
+
+    clearNotes(ifEmpty: boolean) {
+      this.wordsUnitService.clearNotes(ifEmpty, () => {}, () => {});
     }
   }
 </script>

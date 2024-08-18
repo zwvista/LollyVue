@@ -84,8 +84,12 @@
             </md-button>
           </router-link>
           <md-button v-show="settingsService.selectedDictNote" class="md-raised"
-                     @click="getNote(wordsUnitService.textbookWords.indexOf(item))">
-            Retrieve Note
+                     @click="getNote(item)">
+            Get Note
+          </md-button>
+          <md-button v-show="settingsService.selectedDictNote" class="md-raised"
+                     @click="clearNote(item)">
+            Clear Note
           </md-button>
         </md-table-cell>
       </md-table-row>
@@ -146,9 +150,12 @@
       this.wordsUnitService.delete(item);
     }
 
-    async getNote(index: number) {
-      console.log(index);
-      await this.wordsUnitService.getNote(index);
+    async getNote(item: MUnitWord) {
+      await this.wordsUnitService.getNote(item);
+    }
+
+    async clearNote(item: MUnitWord) {
+      await this.wordsUnitService.clearNote(item);
     }
 
     googleWord(word: string) {
