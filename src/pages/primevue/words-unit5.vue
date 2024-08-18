@@ -14,8 +14,10 @@
         </FloatLabel>
         <Button rounded @click.stop="showDetailDialog(0)"><font-awesome-icon icon="fa-plus"/>Add</Button>
         <Button rounded @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
-        <Button rounded v-show="settingsService.selectedDictNote" label="Retrieve All Notes" severity="warn" />
-        <Button rounded v-show="settingsService.selectedDictNote" label="Retrieve Notes If Empty" severity="warn" />
+        <Button rounded v-show="settingsService.selectedDictNote" label="Get All Notes" severity="warn" @click="getNotes(false)" />
+        <Button rounded v-show="settingsService.selectedDictNote" label="Get Notes If Empty" severity="warn" @click="getNotes(true)" />
+        <Button rounded v-show="settingsService.selectedDictNote" label="Clear All Notes" severity="warn" @click="clearNotes(false)" />
+        <Button rounded v-show="settingsService.selectedDictNote" label="Clear Notes If Empty" severity="warn" @click="clearNotes(true)" />
 <!--        <router-link to="/words-dict/unit/0">-->
           <Button rounded><font-awesome-icon icon="fa-book"/>Dictionary</Button>
 <!--        </router-link>-->
@@ -44,7 +46,8 @@
 <!--          <router-link :to="{ name: 'words-dict', params: { type: 'unit', index: slotProps.index }}">-->
             <Button rounded v-tooltip2.top="'Dictionary'"><font-awesome-icon icon="fa-book"/></Button>
 <!--          </router-link>-->
-          <Button rounded v-show="settingsService.selectedDictNote" label="Retrieve Note" severity="warn" @click="getNote(slotProps.index)" />
+          <Button rounded v-show="settingsService.selectedDictNote" label="Get Note" severity="warn" @click="getNote(slotProps.data)" />
+          <Button rounded v-show="settingsService.selectedDictNote" label="Clear Note" severity="warn" @click="clearNote(slotProps.data)" />
         </template>
       </Column>
     </DataTable>
@@ -102,9 +105,12 @@
     await wordsUnitService.value.delete(item);
   };
 
-  const getNote = async (index: number) => {
-    console.log(index);
-    await wordsUnitService.value.getNote(index);
+  const getNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.getNote(item);
+  };
+
+  const clearNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {
@@ -113,6 +119,10 @@
 
   const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  };
+
+  const clearNotes = (ifEmpty: boolean) => {
+    wordsUnitService.value.clearNotes(ifEmpty, () => {}, () => {});
   };
 
   const showDetailDialog = (id: number) => {

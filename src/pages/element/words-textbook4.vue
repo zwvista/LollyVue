@@ -85,7 +85,9 @@
             </el-tooltip>
 <!--          </router-link>-->
           <el-button v-show="settingsService.selectedDictNote" type="warning"
-                 @click="getNote(scope.$index)">Retrieve Note</el-button>
+                     @click="getNote(scope.row)">Get Note</el-button>
+          <el-button v-show="settingsService.selectedDictNote" type="warning"
+                     @click="clearNote(scope.row)">Clear Note</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -151,9 +153,12 @@
     await wordsUnitService.value.delete(item);
   };
 
-  const getNote = async (index: number) => {
-    console.log(index);
-    await wordsUnitService.value.getNote(index);
+  const getNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.getNote(item);
+  };
+
+  const clearNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {

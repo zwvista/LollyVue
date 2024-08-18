@@ -70,7 +70,8 @@
             </template>
           </v-tooltip>
 <!--        </router-link>-->
-        <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(index)">Retrieve Note</v-btn>
+        <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNote(item)">Get Note</v-btn>
+        <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNote(item)">Clear Note</v-btn>
       </template>
     </v-data-table>
     <div class="text-xs-center">
@@ -105,6 +106,7 @@
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import WordsLangDetail from '@/components/vuetify/WordsLangDetail'
+  import { MUnitWord } from "@/models/wpp/unit-word";
 
   const appService = ref(container.resolve(AppService));
   const wordsLangService = ref(container.resolve(WordsLangService));
@@ -146,9 +148,12 @@
     await wordsLangService.value.delete(item);
   };
 
-  const getNote = async (index: number) => {
-    console.log(index);
-    await wordsLangService.value.getNote(index);
+  const getNote = async (item: MLangWord) => {
+    await wordsUnitService.value.getNote(item);
+  };
+
+  const clearNote = async (item: MLangWord) => {
+    await wordsUnitService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {

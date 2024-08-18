@@ -10,8 +10,10 @@
       <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve All Notes" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Notes If Empty" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get All Notes" @click="getNotes(false)" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get Notes If Empty" @click="getNotes(true)" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear All Notes" @click="clearNotes(false)" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear Notes If Empty" @click="clearNotes(true)" />
 <!--      <router-link to="/words-dict/unit/0">-->
         <q-btn color="primary" icon="fa fa-book" label="Dictionary" />
 <!--      </router-link>-->
@@ -46,8 +48,11 @@
               <q-tooltip>Dictionary</q-tooltip>
             </q-btn>
 <!--          </router-link>-->
-          <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Retrieve Note"
-                 @click="getNote(wordsUnitService.unitWords.indexOf(props.row))">
+          <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get Note"
+                 @click="getNote(props.row)">
+          </q-btn>
+          <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear Note"
+                 @click="clearNote(props.row)">
           </q-btn>
         </q-td>
       </template>
@@ -114,9 +119,12 @@
     await wordsUnitService.value.delete(item);
   };
 
-  const getNote = async (index: number) => {
-    console.log(index);
-    await wordsUnitService.value.getNote(index);
+  const getNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.getNote(item);
+  };
+
+  const clearNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {
@@ -125,6 +133,10 @@
 
   const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  };
+
+  const clearNotes = (ifEmpty: boolean) => {
+    wordsUnitService.value.clearNotes(ifEmpty, () => {}, () => {});
   };
 
   const showDetailDialog = (id: number) => {

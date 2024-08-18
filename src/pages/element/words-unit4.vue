@@ -27,8 +27,10 @@
       <el-button type="primary" @click="onRefresh()">Refresh
         <template #icon><font-awesome-icon icon="fa-refresh" /></template>
       </el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve All Notes</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning">Retrieve Notes If Empty</el-button>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="getNotes(false)">Get All Notes</el-button>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="getNotes(true)">Get Notes If Empty</el-button>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="clearNotes(false)">Clear All Notes</el-button>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="clearNotes(true)">Clear Notes If Empty</el-button>
 <!--      <router-link to="/words-dict/unit/0">-->
         <el-button type="primary">Dictionary
           <template #icon><font-awesome-icon icon="fa-book" /></template>
@@ -84,7 +86,9 @@
             </el-tooltip>
 <!--          </router-link>-->
           <el-button v-show="settingsService.selectedDictNote" type="warning"
-                 @click="getNote(scope.$index)">Retrieve Note</el-button>
+                 @click="getNote(scope.row)">Get Note</el-button>
+          <el-button v-show="settingsService.selectedDictNote" type="warning"
+                 @click="clearNote(scope.row)">Clear Note</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -136,9 +140,12 @@
     await wordsUnitService.value.delete(item);
   };
 
-  const getNote = async (index: number) => {
-    console.log(index);
-    await wordsUnitService.value.getNote(index);
+  const getNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.getNote(item);
+  };
+
+  const clearNote = async (item: MUnitWord) => {
+    await wordsUnitService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {
@@ -147,6 +154,10 @@
 
   const getNotes = (ifEmpty: boolean) => {
     wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  };
+
+  const clearNotes = (ifEmpty: boolean) => {
+    wordsUnitService.value.clearNotes(ifEmpty, () => {}, () => {});
   };
 
   const showDetailDialog = (id: number) => {
