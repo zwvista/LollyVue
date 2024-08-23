@@ -43,8 +43,9 @@
         <tr v-for="(item, index) in items" :key="item.ID">
           <td>{{ item.ID }}</td>
           <td>{{ item.PATTERN }}</td>
-          <td>{{ item.NOTE }}</td>
           <td>{{ item.TAGS }}</td>
+          <td>{{ item.TITLE }}</td>
+          <td>{{ item.URL }}</td>
           <td>
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
@@ -122,8 +123,9 @@
     headers = [
       { text: 'ID', sortable: false, value: 'ID' },
       { text: 'PATTERN', sortable: false, value: 'PATTERN' },
-      { text: 'NOTE', sortable: false, value: 'NOTE' },
       { text: 'TAGS', sortable: false, value: 'TAGS' },
+      { text: 'TITLE', sortable: false, value: 'TITLE' },
+      { text: 'URL', sortable: false, value: 'URL' },
       { text: 'ACTIONS', sortable: false },
     ];
     page = 1;

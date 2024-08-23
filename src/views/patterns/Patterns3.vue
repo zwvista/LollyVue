@@ -38,8 +38,9 @@
       <md-table-row slot="md-table-row" slot-scope="{item}" :style="item.colorStyle">
         <md-table-cell md-label="ID">{{item.ID}}</md-table-cell>
         <md-table-cell md-label="PATTERN">{{item.PATTERN}}</md-table-cell>
-        <md-table-cell md-label="NOTE">{{item.NOTE}}</md-table-cell>
         <md-table-cell md-label="TAGS">{{item.TAGS}}</md-table-cell>
+        <md-table-cell md-label="TITLE">{{item.TITLE}}</md-table-cell>
+        <md-table-cell md-label="URL">{{item.URL}}</md-table-cell>
         <md-table-cell md-label="ACTIONS">
           <md-button class="md-raised md-icon-button md-accent" @click="deletePattern(item.ID)">
             <md-icon class="fa fa-trash"></md-icon>

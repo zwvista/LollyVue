@@ -19,8 +19,9 @@
       <q-tr slot="body" slot-scope="props" :props="props" :style="props.row.colorStyle">
         <q-td key="ID" :props="props">{{props.row.ID}}</q-td>
         <q-td key="PATTERN" :props="props">{{props.row.PATTERN}}</q-td>
-        <q-td key="NOTE" :props="props">{{props.row.NOTE}}</q-td>
         <q-td key="TAGS" :props="props">{{props.row.TAGS}}</q-td>
+        <q-td key="TITLE" :props="props">{{props.row.TITLE}}</q-td>
+        <q-td key="URL" :props="props">{{props.row.URL}}</q-td>
         <q-td key="ACTIONS" :props="props">
           <q-btn round color="red" icon="fa fa-trash" size="xs" @click="deletePattern(props.row.ID)">
             <q-tooltip>Delete</q-tooltip>
@@ -63,8 +64,9 @@
     columns = [
       { name: 'ID', field: 'ID', label: 'ID' },
       { name: 'PATTERN', field: 'PATTERN', label: 'PATTERN' },
-      { name: 'NOTE', field: 'NOTE', label: 'NOTE' },
       { name: 'TAGS', field: 'TAGS', label: 'TAGS' },
+      { name: 'TITLE', field: 'TITLE', label: 'TITLE' },
+      { name: 'URL', field: 'URL', label: 'URL' },
       { name: 'ACTIONS', label: 'ACTIONS' },
     ];
     pagination = {

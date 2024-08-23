@@ -39,8 +39,9 @@
     >
       <el-table-column prop="ID" label="ID"></el-table-column>
       <el-table-column prop="PATTERN" label="PATTERN"></el-table-column>
-      <el-table-column prop="NOTE" label="NOTE"></el-table-column>
       <el-table-column prop="TAGS" label="TAGS"></el-table-column>
+      <el-table-column prop="TITLE" label="TITLE"></el-table-column>
+      <el-table-column prop="URL" label="URL"></el-table-column>
       <el-table-column label="ACTIONS" width="300">
         <template slot-scope="scope">
           <el-tooltip content="Delete">

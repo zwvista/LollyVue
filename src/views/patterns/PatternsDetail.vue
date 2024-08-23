@@ -2,8 +2,9 @@
   <div>
     <v-text-field label="ID" type="text" v-model="pattern.ID" disabled></v-text-field>
     <v-text-field label="PATTERN" type="text" v-model="pattern.PATTERN"></v-text-field>
-    <v-text-field label="NOTE" type="text" v-model="pattern.NOTE"></v-text-field>
     <v-text-field label="TAGS" type="text" v-model="pattern.TAGS"></v-text-field>
+    <v-text-field label="TITLE" type="text" v-model="pattern.TITLE"></v-text-field>
+    <v-text-field label="URL" type="text" v-model="pattern.URL"></v-text-field>
     <v-btn color="info" @click="goBack()">Back</v-btn>
     <v-btn color="info" @click="save()">Save</v-btn>
   </div>
