@@ -9,12 +9,16 @@
       <InputText id="PATTERN" class="flex-auto" type="text" v-model="item.PATTERN"></InputText>
     </div>
     <div class="flex items-center gap-4 mb-4">
-      <label class="w-24" for="NOTE">NOTE:</label>
-      <InputText id="NOTE" class="flex-auto" type="text" v-model="item.NOTE"></InputText>
-    </div>
-    <div class="flex items-center gap-4 mb-4">
       <label class="w-24" for="TAGS">TAGS:</label>
       <InputText id="TAGS" class="flex-auto" type="text" v-model="item.TAGS"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="TITLE">TITLE:</label>
+      <InputText id="TITLE" class="flex-auto" type="text" v-model="item.TITLE"></InputText>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label class="w-24" for="URL">URL:</label>
+      <InputText id="URL" class="flex-auto" type="text" v-model="item.URL"></InputText>
     </div>
     <template #footer>
       <Button rounded severity="info" @click="showDialog=false">Cancel</Button>

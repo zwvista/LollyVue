@@ -55,8 +55,9 @@
   const columns = ref([
     { name: 'ID', field: 'ID', label: 'ID' },
     { name: 'PATTERN', field: 'PATTERN', label: 'PATTERN' },
-    { name: 'NOTE', field: 'NOTE', label: 'NOTE' },
     { name: 'TAGS', field: 'TAGS', label: 'TAGS' },
+    { name: 'TITLE', field: 'TITLE', label: 'TITLE' },
+    { name: 'URL', field: 'URL', label: 'URL' },
     { name: 'ACTIONS', label: 'ACTIONS' },
   ]);
   const pagination = ref({

@@ -8,11 +8,14 @@
         <el-form-item label="PATTERN:">
           <el-input type="text" v-model="item.PATTERN"></el-input>
         </el-form-item>
-        <el-form-item label="NOTE:">
-          <el-input type="text" v-model="item.NOTE"></el-input>
-        </el-form-item>
         <el-form-item label="TAGS:">
           <el-input type="text" v-model="item.TAGS"></el-input>
+        </el-form-item>
+        <el-form-item label="TITLE:">
+          <el-input type="text" v-model="item.TITLE"></el-input>
+        </el-form-item>
+        <el-form-item label="URL:">
+          <el-input type="text" v-model="item.URL"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>

@@ -4,8 +4,9 @@
       <q-card-section>
         <q-input label="ID" type="text" v-model="item.ID" disable />
         <q-input label="PATTERN" type="text" v-model="item.PATTERN" />
-        <q-input label="NOTE" type="text" v-model="item.NOTE" />
         <q-input label="TAGS" type="text" v-model="item.TAGS" />
+        <q-input label="TITLE" type="text" v-model="item.TITLE" />
+        <q-input label="URL" type="text" v-model="item.URL" />
       </q-card-section>
       <q-card-actions>
         <q-space />

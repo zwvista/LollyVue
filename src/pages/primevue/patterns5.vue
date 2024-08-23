@@ -17,8 +17,9 @@
     >
       <Column headerStyle="width: 80px" field="ID" header="ID" />
       <Column field="PATTERN" header="PATTERN" />
-      <Column field="NOTE" header="NOTE" />
       <Column field="TAGS" header="TAGS" />
+      <Column field="TITLE" header="TITLE" />
+      <Column field="URL" header="URL" />
       <Column headerStyle="width: 30%" header="ACTIONS">
         <template #body="slotProps">
          <Button rounded v-tooltip2.top="'Delete'"  severity="danger" @click="deletePattern(slotProps.data.ID)"><font-awesome-icon icon="fa-trash"/></Button>
