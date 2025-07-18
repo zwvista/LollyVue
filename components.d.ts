@@ -7,17 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BButton: typeof import('bootstrap-vue-next')['BButton']
-    BButtonGroup: typeof import('bootstrap-vue-next')['BButtonGroup']
-    BCol: typeof import('bootstrap-vue-next')['BCol']
-    BContainer: typeof import('bootstrap-vue-next')['BContainer']
-    BForm: typeof import('bootstrap-vue-next')['BForm']
-    BFormGroup: typeof import('bootstrap-vue-next')['BFormGroup']
     BFormInput: typeof import('bootstrap-vue-next')['BFormInput']
-    BFormSelect: typeof import('bootstrap-vue-next')['BFormSelect']
-    BFormSelectOption: typeof import('bootstrap-vue-next')['BFormSelectOption']
-    BInputGroup: typeof import('bootstrap-vue-next')['BInputGroup']
-    BRow: typeof import('bootstrap-vue-next')['BRow']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
@@ -32,10 +22,8 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
-    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    ElSpace: typeof import('element-plus/es')['ElSpace']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
