@@ -85,11 +85,11 @@
 </template>
 
 <script setup lang="ts">
-  import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
-  import { googleString } from '@/common/common';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { AppService } from '@/view-models/misc/app.service';
-  import { MLangPhrase } from '@/models/wpp/lang-phrase';
+  import { PhrasesLangService } from '@/shared/view-models/wpp/phrases-lang.service';
+  import { googleString } from '@/shared/common/common';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { AppService } from '@/shared/view-models/misc/app.service';
+  import { MLangPhrase } from '@/shared/models/wpp/lang-phrase';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import PhrasesLangDetail from '@/components/vuetify/PhrasesLangDetail.vue'

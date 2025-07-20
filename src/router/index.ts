@@ -7,7 +7,7 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
-import { GlobalVars } from "@/common/common";
+import { GlobalVars } from "@/shared/common/common";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

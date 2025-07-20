@@ -107,11 +107,11 @@
 </template>
 
 <script setup lang="ts">
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/wpp/unit-word';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { WordsUnitService } from '@/shared/view-models/wpp/words-unit.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { googleString } from '@/shared/common/common';
+  import { MUnitWord } from '@/shared/models/wpp/unit-word';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import WordsTextbookDetail4 from '@/components/element/WordsTextbookDetail4.vue'

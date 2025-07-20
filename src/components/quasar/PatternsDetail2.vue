@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { PatternsService } from '@/shared/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { defineModel, defineProps, ref } from "vue";
-  import { MPattern } from '@/models/wpp/pattern';
+  import { MPattern } from '@/shared/models/wpp/pattern';
 
   const patternsService = ref(container.resolve(PatternsService));
   const settingsService = ref(container.resolve(SettingsService));

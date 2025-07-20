@@ -36,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-  import { googleString } from '@/common/common';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { AppService } from '@/view-models/misc/app.service';
-  import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { googleString } from '@/shared/common/common';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { AppService } from '@/shared/view-models/misc/app.service';
+  import { PatternsService } from '@/shared/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import PatternsDetail5 from '@/components/primevue/PatternsDetail5.vue'

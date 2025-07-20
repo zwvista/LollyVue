@@ -20,11 +20,11 @@
 </template>
 
 <script setup lang="ts">
-  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
-  import { SettingsService } from '@/view-models/misc/settings.service';
+  import { PhrasesUnitService } from '@/shared/view-models/wpp/phrases-unit.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
   import { container } from 'tsyringe';
   import { defineModel, defineProps, ref } from "vue";
-  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
+  import { MUnitPhrase } from '@/shared/models/wpp/unit-phrase';
 
   const phrasesUnitService = ref(container.resolve(PhrasesUnitService));
   const settingsService = ref(container.resolve(SettingsService));

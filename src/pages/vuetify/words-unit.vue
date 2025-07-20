@@ -75,12 +75,12 @@
 <script setup lang="ts">
   // import Sortable from 'sortablejs';
   import { container } from 'tsyringe';
-  import { WordsUnitService } from "@/view-models/wpp/words-unit.service";
+  import { WordsUnitService } from "@/shared/view-models/wpp/words-unit.service";
   import { onMounted, ref } from "vue";
-  import { AppService } from "@/view-models/misc/app.service";
-  import { MUnitWord } from "@/models/wpp/unit-word";
-  import { googleString } from "@/common/common";
-  import { SettingsService } from "@/view-models/misc/settings.service";
+  import { AppService } from "@/shared/view-models/misc/app.service";
+  import { MUnitWord } from "@/shared/models/wpp/unit-word";
+  import { googleString } from "@/shared/common/common";
+  import { SettingsService } from "@/shared/view-models/misc/settings.service";
   import WordsUnitDetail from '@/components/vuetify/WordsUnitDetail.vue'
 
   const appService = ref(container.resolve(AppService));

@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-  import { GlobalVars } from '@/common/common';
+  import { GlobalVars } from '@/shared/common/common';
   import { container } from 'tsyringe';
   import { onMounted, ref } from "vue";
-  import { AppService } from "@/view-models/misc/app.service";
+  import { AppService } from "@/shared/view-models/misc/app.service";
 
   const appService = ref(container.resolve(AppService));
   const items = ref([

@@ -43,11 +43,11 @@
 </template>
 
 <script setup lang="ts">
-  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { MLangWord } from '@/models/wpp/lang-word';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { WordsLangService } from '@/shared/view-models/wpp/words-lang.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { googleString } from '@/shared/common/common';
+  import { MLangWord } from '@/shared/models/wpp/lang-word';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import WordsLangDetail5 from '@/components/primevue/WordsLangDetail5.vue'

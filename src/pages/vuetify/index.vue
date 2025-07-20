@@ -53,8 +53,8 @@
 <script lang="ts" setup>
   import { onMounted, ref } from "vue";
   import { container } from "tsyringe";
-  import { AppService } from "@/view-models/misc/app.service";
-  import { GlobalVars } from "@/common/common";
+  import { AppService } from "@/shared/view-models/misc/app.service";
+  import { GlobalVars } from "@/shared/common/common";
 
   const clipped = ref(true);
   const drawer = ref(true);

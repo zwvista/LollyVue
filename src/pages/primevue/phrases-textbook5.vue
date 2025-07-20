@@ -39,11 +39,11 @@
 </template>
 
 <script setup lang="ts">
-  import { googleString } from '@/common/common';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
-  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { googleString } from '@/shared/common/common';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { PhrasesUnitService } from '@/shared/view-models/wpp/phrases-unit.service';
+  import { MUnitPhrase } from '@/shared/models/wpp/unit-phrase';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import PhrasesTextbookDetail5 from '@/components/primevue/PhrasesTextbookDetail5.vue'

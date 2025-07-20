@@ -67,11 +67,11 @@
 </template>
 
 <script setup lang="ts">
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
-  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { googleString } from '@/shared/common/common';
+  import { MUnitPhrase } from '@/shared/models/wpp/unit-phrase';
+  import { PhrasesUnitService } from '@/shared/view-models/wpp/phrases-unit.service';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
   import { ref } from "vue";
   import PhrasesUnitDetail4 from '@/components/element/PhrasesUnitDetail4.vue'

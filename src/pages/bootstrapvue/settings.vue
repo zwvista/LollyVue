@@ -58,11 +58,11 @@
 </template>
 
 <script setup lang="ts">
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { MLanguage } from '@/models/misc/language';
-  import { MDictionary } from '@/models/misc/dictionary';
-  import { MTextbook } from '@/models/misc/textbook';
-  import { MVoice } from '@/models/misc/voice';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MLanguage } from '@/shared/models/misc/language';
+  import { MDictionary } from '@/shared/models/misc/dictionary';
+  import { MTextbook } from '@/shared/models/misc/textbook';
+  import { MVoice } from '@/shared/models/misc/voice';
   import { container } from 'tsyringe';
   import { computed, ref } from "vue";
 
