@@ -12,12 +12,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { MDictionary } from '@/models/misc/dictionary';
+  import { WordsUnitService } from '@/shared/view-models/wpp/words-unit.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MDictionary } from '@/shared/models/misc/dictionary';
   import DictBrowser from '../../components/DictBrowser.vue';
-  import { HtmlService } from '@/services/misc/html.service';
-  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
+  import { HtmlService } from '@/shared/services/misc/html.service';
+  import { WordsLangService } from '@/shared/view-models/wpp/words-lang.service';
   import { container } from 'tsyringe';
 
   @Component({

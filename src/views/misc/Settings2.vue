@@ -68,11 +68,11 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { SettingsListener, SettingsService } from '@/view-models/misc/settings.service';
-  import { MLanguage } from '@/models/misc/language';
-  import { MDictionary } from '@/models/misc/dictionary';
-  import { MTextbook } from '@/models/misc/textbook';
-  import { MVoice } from '@/models/misc/voice';
+  import { SettingsListener, SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MLanguage } from '@/shared/models/misc/language';
+  import { MDictionary } from '@/shared/models/misc/dictionary';
+  import { MTextbook } from '@/shared/models/misc/textbook';
+  import { MVoice } from '@/shared/models/misc/voice';
   import { container } from 'tsyringe';
 
   @Component

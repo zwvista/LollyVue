@@ -12,9 +12,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
-  import { MLangWord } from '@/models/wpp/lang-word';
-  import { SettingsService } from '@/view-models/misc/settings.service';
+  import { WordsLangService } from '@/shared/view-models/wpp/words-lang.service';
+  import { MLangWord } from '@/shared/models/wpp/lang-word';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
   import { container } from 'tsyringe';
 
   @Component

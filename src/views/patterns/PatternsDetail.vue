@@ -12,9 +12,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { MPattern } from '@/models/wpp/pattern';
-  import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MPattern } from '@/shared/models/wpp/pattern';
+  import { PatternsService } from '@/shared/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
 
   @Component

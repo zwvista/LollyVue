@@ -17,9 +17,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { MUnitWord } from '@/models/wpp/unit-word';
-  import { WordsUnitService } from '@/view-models/wpp/words-unit.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MUnitWord } from '@/shared/models/wpp/unit-word';
+  import { WordsUnitService } from '@/shared/view-models/wpp/words-unit.service';
   import { container } from 'tsyringe';
 
   @Component

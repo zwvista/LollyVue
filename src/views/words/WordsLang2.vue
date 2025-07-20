@@ -66,12 +66,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { MUnitWord } from '@/models/wpp/unit-word';
-  import { WordsLangService } from '@/view-models/wpp/words-lang.service';
-  import { MLangWord } from '@/models/wpp/lang-word';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { googleString } from '@/shared/common/common';
+  import { MUnitWord } from '@/shared/models/wpp/unit-word';
+  import { WordsLangService } from '@/shared/view-models/wpp/words-lang.service';
+  import { MLangWord } from '@/shared/models/wpp/lang-word';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
 
   @Component

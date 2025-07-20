@@ -79,10 +79,10 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { googleString } from '@/common/common';
-  import { AppService } from '@/view-models/misc/app.service';
-  import { PatternsService } from '@/view-models/wpp/patterns.service';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { googleString } from '@/shared/common/common';
+  import { AppService } from '@/shared/view-models/misc/app.service';
+  import { PatternsService } from '@/shared/view-models/wpp/patterns.service';
   import { container } from 'tsyringe';
 
   @Component

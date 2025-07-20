@@ -77,12 +77,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { PhrasesUnitService } from '@/view-models/wpp/phrases-unit.service';
+  import { PhrasesUnitService } from '@/shared/view-models/wpp/phrases-unit.service';
   import Sortable from 'sortablejs';
-  import { googleString } from '@/common/common';
-  import { SettingsService } from '@/view-models/misc/settings.service';
-  import { MUnitPhrase } from '@/models/wpp/unit-phrase';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { googleString } from '@/shared/common/common';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
+  import { MUnitPhrase } from '@/shared/models/wpp/unit-phrase';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from 'tsyringe';
 
   @Component

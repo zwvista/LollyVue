@@ -62,7 +62,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { AppService } from '@/view-models/misc/app.service';
+  import { AppService } from '@/shared/view-models/misc/app.service';
   import { container } from "tsyringe";
 
   @Component

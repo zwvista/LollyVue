@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import WordsUnit from './views/words/WordsUnit.vue';
-import { GlobalVars } from '@/common/common';
+import { GlobalVars } from '@/shared/common/common';
 
 Vue.use(Router);
 

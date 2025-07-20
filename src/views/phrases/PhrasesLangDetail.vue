@@ -10,9 +10,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { PhrasesLangService } from '@/view-models/wpp/phrases-lang.service';
-  import { MLangPhrase } from '@/models/wpp/lang-phrase';
-  import { SettingsService } from '@/view-models/misc/settings.service';
+  import { PhrasesLangService } from '@/shared/view-models/wpp/phrases-lang.service';
+  import { MLangPhrase } from '@/shared/models/wpp/lang-phrase';
+  import { SettingsService } from '@/shared/view-models/misc/settings.service';
   import { container } from 'tsyringe';
 
   @Component
