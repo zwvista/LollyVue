@@ -2,9 +2,9 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="phrasesLangService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" slot="prepend" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="phrasesLangService.filterType" slot="prepend" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.phraseFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
@@ -26,9 +26,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesLangService.langPhraseCount">
       </el-pagination>
@@ -76,9 +76,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesLangService.langPhraseCount">
       </el-pagination>
@@ -103,29 +103,24 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const page = ref(1);
-  const rows = ref(0);
-  const filter = ref('');
-  const filterType = ref(0);
-
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await phrasesLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
+    await phrasesLangService.value.getData();
   };
 
   (async () => {
     await appService.value.getData();
-    rows.value = settingsService.value.USROWSPERPAGE;
+    phrasesLangService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const handleSizeChange = async (val: number) => {
-    rows.value = val;
+    phrasesLangService.value.rows = val;
     await onRefresh();
   };
 
   const handleCurrentChange = async (val: number) => {
-    page.value = val;
+    phrasesLangService.value.page = val;
     await onRefresh();
   };
 

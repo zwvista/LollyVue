@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.wordFilterTypes" v-model="wordsLangService.filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="wordsLangService.filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
 <!--      <router-link to="/words-dict/lang/0">-->
@@ -79,23 +79,21 @@
     rowsPerPage: 0,
     rowsNumber: 10,
   });
-  const filter = ref('');
-  const filterType = ref(0);
 
   const onRefresh = async () => {
-    await wordsLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
+    await wordsLangService.value.getData();
     pagination.value.rowsNumber = wordsLangService.value.langWordsCount;
   };
 
   (async () => {
     await appService.value.getData();
-    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
+    pagination.value.rowsPerPage = wordsLangService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const request = async (props) => {
-    pagination.value.page = props.pagination.page;
-    pagination.value.rowsPerPage = props.pagination.rowsPerPage;
+    pagination.value.page = wordsLangService.value.page = props.pagination.page;
+    pagination.value.rowsPerPage = wordsLangService.value.rows = props.pagination.rowsPerPage;
     await onRefresh();
   };
 
@@ -104,11 +102,11 @@
   };
 
   const getNote = async (item: MLangWord) => {
-    await wordsUnitService.value.getNote(item);
+    await wordsLangService.value.getNote(item);
   };
 
   const clearNote = async (item: MLangWord) => {
-    await wordsUnitService.value.clearNote(item);
+    await wordsLangService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {

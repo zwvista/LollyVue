@@ -2,9 +2,9 @@
   <div>
     <Toolbar>
       <template #start>
-        <Select :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="phrasesUnitService.filterType" @change="onRefresh" />
         <FloatLabel>
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
         <Button rounded @click.stop="showDetailDialog(0)"><font-awesome-icon icon="fa-plus"/>Add</Button>
@@ -15,7 +15,7 @@
       :value="phrasesUnitService.unitPhrases"
       @row-reorder="onReorder"
     >
-      <Column :rowReorder="settingsService.textbooks.length && settingsService.isSingleUnitPart && !filter" headerStyle="width: 3rem" />
+      <Column :rowReorder="settingsService.textbooks.length && settingsService.isSingleUnitPart && !phrasesUnitService.filter" headerStyle="width: 3rem" />
       <Column headerStyle="width: 80px" field="ID" header="ID" />
       <Column headerStyle="width: 80px" field="UNITSTR" header="UNIT" />
       <Column headerStyle="width: 80px" field="PARTSTR" header="PART" />
@@ -54,11 +54,8 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const filter = ref('');
-  const filterType = ref(0);
-
   const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    await phrasesUnitService.value.getDataInTextbook();
   };
 
   (async () => {

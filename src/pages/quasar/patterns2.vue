@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.patternFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.patternFilterTypes" v-model="patternsService.filterType" @input="onRefresh" />
+      <q-input float-label="Filter" v-model="patternsService.filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
     </q-toolbar>
@@ -65,23 +65,21 @@
     rowsPerPage: 0,
     rowsNumber: 10,
   });
-  const filter = ref('');
-  const filterType = ref(0);
 
   const onRefresh = async () => {
-    await patternsService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
+    await patternsService.value.getData();
     pagination.value.rowsNumber = patternsService.value.patternCount;
   };
 
   (async () => {
     await appService.value.getData();
-    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
+    pagination.value.rowsPerPage = patternsService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const request = async (props) => {
-    pagination.value.page = props.pagination.page;
-    pagination.value.rowsPerPage = props.pagination.rowsPerPage;
+    pagination.value.page = patternsService.value.page = props.pagination.page;
+    pagination.value.rowsPerPage = patternsService.value.rows = props.pagination.rowsPerPage;
     await onRefresh();
   };
 

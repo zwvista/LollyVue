@@ -2,16 +2,16 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="phrasesUnitService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" slot="prepend" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="phrasesUnitService.filterType" slot="prepend" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.phraseFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-select value-key="value" v-model="textbookFilter" @change="onRefresh">
+        <el-select value-key="value" v-model="phrasesUnitService.textbookFilter" @change="onRefresh">
           <el-option v-for="item in settingsService.textbookFilters" :label="item.label" :value="item.value" />
         </el-select>
       </el-col>
@@ -23,9 +23,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesUnitService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesUnitService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesUnitService.textbookPhraseCount">
       </el-pagination>
@@ -78,9 +78,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesUnitService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesUnitService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesUnitService.textbookPhraseCount">
       </el-pagination>
@@ -105,30 +105,24 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const page = ref(1);
-  const rows = ref(0);
-  const filter = ref('');
-  const filterType = ref(0);
-  const textbookFilter = ref(0);
-
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await phrasesUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
+    await phrasesUnitService.value.getDataInLang();
   };
 
   (async () => {
     await appService.value.getData();
-    rows.value = settingsService.value.USROWSPERPAGE;
+    phrasesUnitService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const handleSizeChange = async (val: number) => {
-    rows.value = val;
+    phrasesUnitService.value.rows = val;
     await onRefresh();
   };
 
   const handleCurrentChange = async (val: number) => {
-    page.value = val;
+    phrasesUnitService.value.page = val;
     await onRefresh();
   };
 

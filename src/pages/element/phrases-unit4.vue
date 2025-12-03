@@ -2,9 +2,9 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="phrasesUnitService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="phrasesUnitService.filterType" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.phraseFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
@@ -57,8 +57,6 @@
               <template #icon><font-awesome-icon icon="fa-brands fa-google" /></template>
             </el-button>
           </el-tooltip>
-          <el-button v-show="settingsService.selectedDictNote" type="warning"
-                 @click="getNote(scope.$index)">Get Note</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,11 +80,8 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const filter = ref('');
-  const filterType = ref(0);
-
   const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    await phrasesUnitService.value.getDataInTextbook();
   };
 
   (async () => {

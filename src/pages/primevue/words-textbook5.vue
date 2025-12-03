@@ -2,19 +2,19 @@
   <div>
     <Toolbar>
       <template #start>
-        <Select :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <Select :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="wordsUnitService.filterType" @change="onRefresh" />
         <FloatLabel>
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </FloatLabel>
-        <Select :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
+        <Select :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="wordsUnitService.textbookFilter" @change="onRefresh" />
         <Button rounded @click="onRefresh()"><font-awesome-icon icon="fa-refresh"/>Refresh</Button>
 <!--        <router-link to="/words-dict/textbook/0">-->
           <Button rounded><font-awesome-icon icon="fa-book"/>Dictionary</Button>
 <!--        </router-link>-->
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="wordsUnitService.rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
     <DataTable
       :value="wordsUnitService.textbookWords"
     >
@@ -42,7 +42,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="wordsUnitService.rows" :totalRecords="wordsUnitService.textbookWordCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
     <WordsTextbookDetail5 v-if="showDetail" v-model="showDetail" :id="detailId"></WordsTextbookDetail5>
   </div>
 </template>
@@ -63,22 +63,19 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const page = ref(1);
-  const pageCount = ref(1);
-  const rows = ref(0);
-  const filter = ref('');
-  const filterType = ref(0);
-  const textbookFilter = ref(0);
-
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await wordsUnitService.value.getDataInLang(page.value, rows.value, filter.value, filterType.value, textbookFilter.value);
-    pageCount.value = (wordsUnitService.value.textbookWordCount + rows.value - 1) / rows.value >> 0;
+    await wordsUnitService.value.getDataInLang();
+  };
+
+  const onPage = async (event: any) => {
+    wordsUnitService.value.page = event.page + 1;
+    await onRefresh();
   };
 
   (async () => {
     await appService.value.getData();
-    rows.value = settingsService.value.USROWSPERPAGE;
+    wordsUnitService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="phrasesUnitService.filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
     </q-toolbar>
@@ -27,7 +27,7 @@
         <q-btn round color="primary" icon="fa fa-copy" size="xs" v-clipboard:copy="props.row.PHRASE">
           <q-tooltip>Copy</q-tooltip>
         </q-btn>
-        <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googleWord(props.row.PHRASE)">
+        <q-btn round color="primary" icon="fa fa-google" size="xs" @click="googlePhrase(props.row.PHRASE)">
           <q-tooltip>Google Phrase</q-tooltip>
         </q-btn>
       </template>
@@ -66,11 +66,9 @@
     page: 1,
     rowsPerPage: 0, // current rows per page being displayed
   });
-  const filter = ref('');
-  const filterType = ref(0);
 
   const onRefresh = async () => {
-    await phrasesUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    await phrasesUnitService.value.getDataInTextbook();
   };
 
   (async () => {

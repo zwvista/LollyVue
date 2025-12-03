@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.phraseFilterTypes" v-model="phrasesLangService.filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="phrasesLangService.filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
     </q-toolbar>
@@ -64,23 +64,21 @@
     rowsPerPage: 0,
     rowsNumber: 10,
   });
-  const filter = ref('');
-  const filterType = ref(0);
 
   const onRefresh = async () => {
-    await phrasesLangService.value.getData(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value);
+    await phrasesLangService.value.getData();
     pagination.value.rowsNumber = phrasesLangService.value.langPhraseCount;
   };
 
   (async () => {
     await appService.value.getData();
-    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
+    pagination.value.rowsPerPage = phrasesLangService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const request = async (props) => {
-    pagination.value.page = props.pagination.page;
-    pagination.value.rowsPerPage = props.pagination.rowsPerPage;
+    pagination.value.page = phrasesLangService.value.page = props.pagination.page;
+    pagination.value.rowsPerPage = phrasesLangService.value.rows = props.pagination.rowsPerPage;
     await onRefresh();
   };
 

@@ -1,9 +1,9 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
-      <q-select map-options :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh" />
+      <q-select map-options :options="settingsService.wordFilterTypes" v-model="wordsUnitService.filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="wordsUnitService.filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.textbookFilters" v-model="wordsUnitService.textbookFilter" @input="onRefresh" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
 <!--      <router-link to="/words-dict/textbook/0">-->
         <q-btn color="primary" icon="fa fa-book" label="Dictionary" />
@@ -84,24 +84,21 @@
     rowsPerPage: 0,
     rowsNumber: 10,
   });
-  const filter = ref('');
-  const filterType = ref(0);
-  const textbookFilter = ref(0);
 
   const onRefresh = async () => {
-    await wordsUnitService.value.getDataInLang(pagination.value.page, pagination.value.rowsPerPage, filter.value, filterType.value, textbookFilter.value);
+    await wordsUnitService.value.getDataInLang();
     pagination.value.rowsNumber = wordsUnitService.value.textbookWordCount;
   };
 
   (async () => {
     await appService.value.getData();
-    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
+    pagination.value.rowsPerPage = wordsUnitService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const request = async (props) => {
-    pagination.value.page = props.pagination.page;
-    pagination.value.rowsPerPage = props.pagination.rowsPerPage;
+    pagination.value.page = wordsUnitService.value.page = props.pagination.page;
+    pagination.value.rowsPerPage = wordsUnitService.value.rows = props.pagination.rowsPerPage;
     await onRefresh();
   };
 

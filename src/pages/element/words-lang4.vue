@@ -2,9 +2,9 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="wordsLangService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="wordsLangService.filterType" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.wordFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
@@ -26,9 +26,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="wordsLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="wordsLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="wordsLangService.langWordsCount">
       </el-pagination>
@@ -88,9 +88,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="wordsLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="wordsLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="wordsLangService.langWordsCount">
       </el-pagination>
@@ -113,33 +113,29 @@
   const wordsLangService = ref(container.resolve(WordsLangService));
   const settingsService = ref(container.resolve(SettingsService));
 
-  const page = ref(1);
   const pageCount = ref(1);
-  const rows = ref(0);
-  const filter = ref('');
-  const filterType = ref(0);
   const showDetail = ref(false);
   const detailId = ref(0);
 
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await wordsLangService.value.getData(page.value, rows.value, filter.value, filterType.value);
-    pageCount.value = (wordsLangService.value.langWordsCount + rows.value - 1) / rows.value >> 0;
+    await wordsLangService.value.getData();
+    pageCount.value = (wordsLangService.value.langWordsCount + wordsLangService.value.rows - 1) / wordsLangService.value.rows >> 0;
   };
 
   (async () => {
     await appService.value.getData();
-    rows.value = settingsService.value.USROWSPERPAGE;
+    wordsLangService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const handleSizeChange = async (val: number) => {
-    rows.value = val;
+    wordsLangService.value.rows = val;
     await onRefresh();
   };
 
   const handleCurrentChange = async (val: number) => {
-    page.value = val;
+    wordsLangService.value.page = val;
     await onRefresh();
   };
 
@@ -148,11 +144,11 @@
   };
 
   const getNote = async (item: MLangWord) => {
-    await wordsUnitService.value.getNote(item);
+    await wordsLangService.value.getNote(item);
   };
 
   const clearNote = async (item: MLangWord) => {
-    await wordsUnitService.value.clearNote(item);
+    await wordsLangService.value.clearNote(item);
   };
 
   const googleWord = (word: string) => {

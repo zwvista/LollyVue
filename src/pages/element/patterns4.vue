@@ -2,9 +2,9 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="patternsService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="patternsService.filterType" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.patternFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
@@ -26,9 +26,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="patternsService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="patternsService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="patternsService.patternCount">
       </el-pagination>
@@ -78,9 +78,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="patternsService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="patternsService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="patternsService.patternCount">
       </el-pagination>
@@ -104,29 +104,24 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const page = ref(1);
-  const rows = ref(0);
-  const filter = ref('');
-  const filterType = ref(0);
-
   const onRefresh = async () => {
     // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-    await patternsService.value.getData(page.value, rows.value, filter.value, filterType.value);
+    await patternsService.value.getData();
   };
 
   (async () => {
     await appService.value.getData();
-    rows.value = settingsService.value.USROWSPERPAGE;
+    patternsService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
   const handleSizeChange = async (val: number) => {
-    rows.value = val;
+    patternsService.value.rows = val;
     await onRefresh();
   };
 
   const handleCurrentChange = async (val: number) => {
-    page.value = val;
+    patternsService.value.page = val;
     await onRefresh();
   };
 
