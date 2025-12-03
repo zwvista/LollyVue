@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
+      <q-select :options="settingsService.wordFilterTypes" v-model="wordsLangService.filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="wordsLangService.filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/words-lang-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -92,8 +92,6 @@
       rowsPerPage: 0,
       rowsNumber: 10,
     };
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -110,7 +108,7 @@
     }
 
     async onRefresh() {
-      await this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType);
+      await this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage);
       this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
       this.$forceUpdate();
     }

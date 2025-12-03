@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
+        <el-input placeholder="Filter" v-model="wordsLangService.filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="wordsLangService.filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.wordFilterTypes"
               :key="item.value"
@@ -104,8 +104,6 @@
 
     page = 1;
     rows = 0;
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -126,7 +124,7 @@
     }
 
     async onRefresh() {
-      await this.wordsLangService.getData(this.page, this.rows, this.filter, this.filterType);
+      await this.wordsLangService.getData(this.page, this.rows);
       this.$forceUpdate();
     }
 

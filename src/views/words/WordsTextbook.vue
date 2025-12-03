@@ -2,10 +2,10 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="wordsUnitService.filterType" @change="onRefresh"></v-select>
       </v-flex>
       <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
+        <v-text-field label="Filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></v-text-field>
       </v-flex>
       <v-flex xs6 md2>
         <v-select :items="settingsService.textbookFilters" item-text="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
@@ -155,8 +155,6 @@
     page = 1;
     pageCount = 1;
     rows = 0;
-    filter = '';
-    filterType = 0;
     textbookFilter = 0;
 
     services = {};
@@ -174,7 +172,7 @@
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
+      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.textbookFilter);
       this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
       this.$forceUpdate();
     }

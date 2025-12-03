@@ -6,7 +6,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>New Word</label>
-              <md-input v-model="newWord" @keyup.enter="onEnterNewWord"></md-input>
+              <md-input v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord"></md-input>
             </md-field>
           </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="filterType" @md-selected="onRefresh">
+              <md-select v-model="wordsUnitService.filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.wordFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>
@@ -26,7 +26,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>Filter</label>
-              <md-input v-model="filter" @keyup.enter="onRefresh"></md-input>
+              <md-input v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></md-input>
             </md-field>
           </div>
         </div>
@@ -122,9 +122,6 @@
     appService = container.resolve(AppService);
     wordsUnitService = container.resolve(WordsUnitService);
     settingsService = container.resolve(SettingsService);
-    newWord = '';
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -134,17 +131,11 @@
     }
 
     async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsUnitService.create(o);
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
+      await this.wordsUnitService.createWithNewWord();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.wordsUnitService.getDataInTextbook();
     }
 
     async deleteWord(item: MUnitWord) {

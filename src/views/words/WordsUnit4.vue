@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord">
+        <el-input placeholder="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord">
           <el-tooltip slot="append" content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
                        @click="settingsService.speak(newWord)"></el-button>
@@ -10,8 +10,8 @@
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
+        <el-input placeholder="Filter" v-model="wordsUnitService.filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="wordsUnitService.filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.wordFilterTypes"
               :key="item.value"
@@ -96,10 +96,6 @@
     wordsUnitService = container.resolve(WordsUnitService);
     settingsService = container.resolve(SettingsService);
 
-    newWord = '';
-    filter = '';
-    filterType = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
@@ -108,17 +104,11 @@
     }
 
     async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsUnitService.create(o);
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
+      await this.wordsUnitService.createWithNewWord();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.wordsUnitService.getDataInTextbook();
     }
 
     async deleteWord(item: MUnitWord) {

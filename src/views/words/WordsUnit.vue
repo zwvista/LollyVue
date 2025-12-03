@@ -2,7 +2,7 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-text-field label="New Word" type="text" v-model="newWord" @keyup.enter="onEnterNewWord"></v-text-field>
+        <v-text-field label="New Word" type="text" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord"></v-text-field>
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <template v-slot:activator="{ on, attrs }">
@@ -11,10 +11,10 @@
         <span>Speak</span>
       </v-tooltip>
       <v-flex xs6 md2>
-        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+        <v-select :items="settingsService.wordFilterTypes" item-text="label" item-value="value" v-model="wordsUnitService.filterType" @change="onRefresh"></v-select>
       </v-flex>
       <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
+        <v-text-field label="Filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></v-text-field>
       </v-flex>
       <router-link to="/words-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
@@ -130,9 +130,6 @@
       { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
       { text: 'ACTIONS', sortable: false },
     ];
-    newWord = '';
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -180,17 +177,11 @@
     }
 
     async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsUnitService.create(o);
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
+      await this.wordsUnitService.createWithNewWord();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.wordsUnitService.getDataInTextbook();
     }
 
     async deleteWord(item: MUnitWord) {

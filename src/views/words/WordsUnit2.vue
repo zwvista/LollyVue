@@ -1,13 +1,13 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-input float-label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord"></q-input>
+      <q-input float-label="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord"></q-input>
       <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
              @click="settingsService.speak(newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
-      <q-select :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
+      <q-select :options="settingsService.wordFilterTypes" v-model="wordsUnitService.filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/words-unit-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -102,9 +102,6 @@
       page: 1,
       rowsPerPage: 0, // current rows per page being displayed
     };
-    newWord = '';
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -114,17 +111,11 @@
     }
 
     async onEnterNewWord() {
-      if (!this.newWord) return;
-      const o = this.wordsUnitService.newUnitWord();
-      o.WORD = this.settingsService.autoCorrectInput(this.newWord);
-      this.newWord = '';
-      const id = await this.wordsUnitService.create(o);
-      o.ID = id as number;
-      this.wordsUnitService.unitWords.push(o);
+      await this.wordsUnitService.createWithNewWord();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.wordsUnitService.getDataInTextbook();
     }
 
     async deleteWord(item: MUnitWord) {

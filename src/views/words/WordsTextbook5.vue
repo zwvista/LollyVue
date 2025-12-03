@@ -2,15 +2,16 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="wordsUnitService.filterType" @change="onRefresh" />
         <span class="p-float-label">
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </span>
         <DropDown :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
         <router-link to="/words-dict/textbook/0">
           <Button icon="fa fa-book" label="Dictionary" />
+
         </router-link>
       </template>
     </Toolbar>
@@ -66,8 +67,6 @@
     page = 1;
     pageCount = 1;
     rows = 0;
-    filter = '';
-    filterType = 0;
     textbookFilter = 0;
 
     services = {};
@@ -80,7 +79,7 @@
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
+      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.textbookFilter);
       this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
       this.$forceUpdate();
     }
