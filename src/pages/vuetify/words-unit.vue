@@ -28,7 +28,7 @@
       item-key="ID"
     >
       <template v-slot:item.DD="{ item }">
-        <v-btn v-show="settingsService.isSingleUnitPart && !filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
+        <v-btn v-show="settingsService.isSingleUnitPart && !wordsUnitService.filter" style="cursor: move" icon="fa-bars" class="sortHandle"></v-btn>
       </template>
       <template v-slot:item.ACTIONS="{ item, index }">
         <v-tooltip text="Delete" location="top">

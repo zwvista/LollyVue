@@ -29,7 +29,7 @@
       :value="wordsUnitService.unitWords"
       @row-reorder="onReorder"
     >
-      <Column :rowReorder="settingsService.textbooks.length && settingsService.isSingleUnitPart && !filter" headerStyle="width: 3rem" />
+      <Column :rowReorder="settingsService.textbooks.length && settingsService.isSingleUnitPart && !wordsUnitService.filter" headerStyle="width: 3rem" />
       <Column headerStyle="width: 80px" field="ID" header="ID" />
       <Column headerStyle="width: 80px" field="UNITSTR" header="UNIT" />
       <Column headerStyle="width: 80px" field="PARTSTR" header="PART" />
