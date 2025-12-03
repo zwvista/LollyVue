@@ -5,7 +5,7 @@
         <el-input placeholder="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord">
           <el-tooltip slot="append" content="Speak">
             <el-button v-show="settingsService.selectedVoice" circle type="primary" icon="fa fa-volume-up"
-                       @click="settingsService.speak(newWord)"></el-button>
+                       @click="settingsService.speak(wordsUnitService.newWord)"></el-button>
           </el-tooltip>
         </el-input>
       </el-col>

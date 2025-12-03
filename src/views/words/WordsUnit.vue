@@ -6,7 +6,7 @@
       </v-flex>
       <v-tooltip top v-show="settingsService.selectedVoice">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
+          <v-btn v-bind="attrs" v-on="on" icon color="info" @click="settingsService.speak(wordsUnitService.newWord)"><v-icon>fa-volume-up</v-icon></v-btn>
         </template>
         <span>Speak</span>
       </v-tooltip>

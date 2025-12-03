@@ -10,7 +10,7 @@
             </md-field>
           </div>
         </div>
-        <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(newWord)">
+        <md-button class="md-raised md-icon-button md-primary" @click="settingsService.speak(wordsUnitService.newWord)">
           <md-icon class="fa fa-volume-up"></md-icon>
         </md-button>
         <div class="md-layout md-gutter">

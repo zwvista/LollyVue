@@ -3,7 +3,7 @@
     <q-toolbar :inverted="true">
       <q-input float-label="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord"></q-input>
       <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
-             @click="settingsService.speak(newWord)">
+             @click="settingsService.speak(wordsUnitService.newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
       <q-select :options="settingsService.wordFilterTypes" v-model="wordsUnitService.filterType" @input="onRefresh"></q-select>

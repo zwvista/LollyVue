@@ -6,7 +6,7 @@
           <InputText id="word" type="text" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord" />
           <label for="word">New Word</label>
         </span>
-        <Button v-tooltip.top="'Speak'" v-show="settingsService.selectedVoice" icon="fa fa-volume-up" @click="settingsService.speak(newWord)" />
+        <Button v-tooltip.top="'Speak'" v-show="settingsService.selectedVoice" icon="fa fa-volume-up" @click="settingsService.speak(wordsUnitService.newWord)" />
         <DropDown :options="settingsService.wordFilterTypes" optionLabel="label" optionValue="value" v-model="wordsUnitService.filterType" @change="onRefresh" />
         <span class="p-float-label">
           <InputText id="filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh" />
