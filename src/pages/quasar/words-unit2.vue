@@ -1,19 +1,18 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-input label="New Word" v-model="newWord" @keyup.enter="onEnterNewWord" />
+      <q-input label="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord" />
       <q-btn v-show="settingsService.selectedVoice" round color="primary" icon="fa fa-volume-up"
-             @click="settingsService.speak(newWord)">
+             @click="settingsService.speak(wordsUnitService.newWord)">
         <q-tooltip>Speak</q-tooltip>
       </q-btn>
-      <q-select map-options :options="settingsService.wordFilterTypes" v-model="filterType" @input="onRefresh" />
-      <q-input label="Filter" v-model="filter" @keyup.enter="onRefresh" />
+      <q-select map-options :options="settingsService.wordFilterTypes" v-model="wordsUnitService.filterType" @input="onRefresh" />
+      <q-input label="Filter" v-model="wordsUnitService.filter" @keyup.enter="onRefresh" />
       <q-btn color="primary" icon="fa fa-plus" label="Add" @click.stop="showDetailDialog(0)" />
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get All Notes" @click="getNotes(false)" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get Notes If Empty" @click="getNotes(true)" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear All Notes" @click="clearNotes(false)" />
-      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear Notes If Empty" @click="clearNotes(true)" />
+      <q-checkbox v-model="wordsUnitService.ifEmpty" label="If Empty" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Get Notes" @click="getNotes()" />
+      <q-btn v-show="settingsService.selectedDictNote" color="secondary" label="Clear Notes" @click="clearNotes()" />
 <!--      <router-link to="/words-dict/unit/0">-->
         <q-btn color="primary" icon="fa fa-book" label="Dictionary" />
 <!--      </router-link>-->
@@ -92,12 +91,9 @@
     page: 1,
     rowsPerPage: 0, // current rows per page being displayed
   });
-  const newWord = ref('');
-  const filter = ref('');
-  const filterType = ref(0);
 
   const onRefresh = async () => {
-    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    await wordsUnitService.value.getDataInTextbook();
   };
 
   (async () => {
@@ -106,13 +102,7 @@
   })();
 
   const onEnterNewWord = async () => {
-    if (!newWord.value) return;
-    const o = wordsUnitService.value.newUnitWord();
-    o.WORD = settingsService.value.autoCorrectInput(newWord.value);
-    newWord.value = '';
-    const id = await wordsUnitService.value.create(o);
-    o.ID = id as number;
-    wordsUnitService.value.unitWords.push(o);
+    await wordsUnitService.value.createWithNewWord();
   };
 
   const deleteWord = async (item: MUnitWord) => {
@@ -131,12 +121,12 @@
     googleString(word);
   };
 
-  const getNotes = (ifEmpty: boolean) => {
-    wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  const getNotes = () => {
+    wordsUnitService.value.getNotes(() => {}, () => {});
   };
 
-  const clearNotes = (ifEmpty: boolean) => {
-    wordsUnitService.value.clearNotes(ifEmpty, () => {}, () => {});
+  const clearNotes = () => {
+    wordsUnitService.value.clearNotes(() => {}, () => {});
   };
 
   const showDetailDialog = (id: number) => {

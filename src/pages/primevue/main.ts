@@ -14,6 +14,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
+import Checkbox from 'primevue/checkbox';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Dialog from 'primevue/dialog';
@@ -28,6 +29,7 @@ import Tooltip from 'primevue/tooltip';
 const app = createApp(App)
 app.component('Button', Button);
 app.component('Card', Card);
+app.component('Checkbox', Checkbox);
 app.component('Column', Column);
 app.component('DataTable', DataTable);
 app.component('Dialog', Dialog);

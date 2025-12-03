@@ -2,10 +2,10 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="New Word" v-model="newWord" @keyup.enter="onEnterNewWord">
+        <el-input placeholder="New Word" v-model="wordsUnitService.newWord" @keyup.enter="onEnterNewWord">
           <template #append>
             <el-tooltip content="Speak">
-              <el-button v-show="settingsService.selectedVoice" circle type="primary" @click="settingsService.speak(newWord)">
+              <el-button v-show="settingsService.selectedVoice" circle type="primary" @click="settingsService.speak(wordsUnitService.newWord)">
                 <template #icon><font-awesome-icon icon="fa-volume-up" /></template>
               </el-button>
             </el-tooltip>
@@ -13,9 +13,9 @@
         </el-input>
       </el-col>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh">
+        <el-input placeholder="Filter" v-model="wordsUnitService.filter" @input="onRefresh">
           <template #prepend>
-            <el-select value-key="value" v-model="filterType" @change="onRefresh" style="width: 100px">
+            <el-select value-key="value" v-model="wordsUnitService.filterType" @change="onRefresh" style="width: 100px">
               <el-option v-for="item in settingsService.wordFilterTypes" :label="item.label" :value="item.value" />
             </el-select>
           </template>
@@ -27,10 +27,9 @@
       <el-button type="primary" @click="onRefresh()">Refresh
         <template #icon><font-awesome-icon icon="fa-refresh" /></template>
       </el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="getNotes(false)">Get All Notes</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="getNotes(true)">Get Notes If Empty</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="clearNotes(false)">Clear All Notes</el-button>
-      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="clearNotes(true)">Clear Notes If Empty</el-button>
+      <el-checkbox v-model="wordsUnitService.ifEmpty">If Empty</el-checkbox>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="getNotes()">Get Notes</el-button>
+      <el-button v-show="settingsService.selectedDictNote" type="warning" @click="clearNotes()">Clear Notes</el-button>
 <!--      <router-link to="/words-dict/unit/0">-->
         <el-button type="primary">Dictionary
           <template #icon><font-awesome-icon icon="fa-book" /></template>
@@ -113,12 +112,8 @@
   const showDetail = ref(false);
   const detailId = ref(0);
 
-  const newWord = ref('');
-  const filter = ref('');
-  const filterType = ref(0);
-
   const onRefresh = async () => {
-    await wordsUnitService.value.getDataInTextbook(filter.value, filterType.value);
+    await wordsUnitService.value.getDataInTextbook();
   };
 
   (async () => {
@@ -127,13 +122,7 @@
   })();
 
   const onEnterNewWord = async () => {
-    if (!newWord.value) return;
-    const o = wordsUnitService.value.newUnitWord();
-    o.WORD = settingsService.value.autoCorrectInput(newWord.value);
-    newWord.value = '';
-    const id = await wordsUnitService.value.create(o);
-    o.ID = id as number;
-    wordsUnitService.value.unitWords.push(o);
+    await wordsUnitService.value.createWithNewWord();
   };
 
   const deleteWord = async (item: MUnitWord) => {
@@ -152,12 +141,12 @@
     googleString(word);
   };
 
-  const getNotes = (ifEmpty: boolean) => {
-    wordsUnitService.value.getNotes(ifEmpty, () => {}, () => {});
+  const getNotes = () => {
+    wordsUnitService.value.getNotes(() => {}, () => {});
   };
 
-  const clearNotes = (ifEmpty: boolean) => {
-    wordsUnitService.value.clearNotes(ifEmpty, () => {}, () => {});
+  const clearNotes = () => {
+    wordsUnitService.value.clearNotes(() => {}, () => {});
   };
 
   const showDetailDialog = (id: number) => {
