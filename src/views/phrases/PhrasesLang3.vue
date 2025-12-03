@@ -2,9 +2,10 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="phrasesLangService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="phrasesLangService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: phrasesLangService.langPhraseCount, mdPage: phrasesLangService.page, mdData: phrasesLangService.langPhrases}"
       ></md-table-pagination>
     </div>
     <md-table v-model="phrasesLangService.langPhrases">
@@ -67,9 +68,10 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="phrasesLangService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="phrasesLangService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: phrasesLangService.langPhraseCount, mdPage: phrasesLangService.page, mdData: phrasesLangService.langPhrases}"
       ></md-table-pagination>
     </div>
   </div>
@@ -91,8 +93,6 @@
     phrasesLangService = container.resolve(PhrasesLangService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
@@ -101,14 +101,15 @@
       await this.onRefresh();
     }
 
-    async pageChange(page: number) {
+    async updatePagination(page, pageSize, sort, sortOrder) {
+      console.log('pagination has updated', page, pageSize, sort, sortOrder);
       this.phrasesLangService.page = page;
+      this.phrasesLangService.rows = pageSize;
       await this.onRefresh();
     }
 
     async onRefresh() {
       await this.phrasesLangService.getData();
-      this.pageCount = (this.phrasesLangService.langPhraseCount + this.phrasesLangService.rows - 1) / this.phrasesLangService.rows >> 0;
       this.$forceUpdate();
     }
 

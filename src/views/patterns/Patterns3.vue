@@ -2,9 +2,10 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="patternsService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="patternsService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: patternsService.patternCount, mdPage: patternsService.page, mdData: patternsService.patterns}"
       ></md-table-pagination>
     </div>
     <md-table v-model="patternsService.patterns">
@@ -69,9 +70,10 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="patternsService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="patternsService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: patternsService.patternCount, mdPage: patternsService.page, mdData: patternsService.patterns}"
       ></md-table-pagination>
     </div>
   </div>
@@ -91,8 +93,6 @@
     patternsService = container.resolve(PatternsService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
@@ -101,14 +101,15 @@
       await this.onRefresh();
     }
 
-    async pageChange(page: number) {
+    async updatePagination(page, pageSize, sort, sortOrder) {
+      console.log('pagination has updated', page, pageSize, sort, sortOrder);
       this.patternsService.page = page;
+      this.patternsService.rows = pageSize;
       await this.onRefresh();
     }
 
     async onRefresh() {
       await this.patternsService.getData();
-      this.pageCount = (this.patternsService.patternCount + this.patternsService.rows - 1) / this.patternsService.rows >> 0;
       this.$forceUpdate();
     }
 

@@ -2,9 +2,10 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="phrasesUnitService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="phrasesUnitService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: phrasesUnitService.textbookPhraseCount, mdPage: phrasesUnitService.page, mdData: phrasesUnitService.textbookPhrases}"
       ></md-table-pagination>
     </div>
     <md-table v-model="phrasesUnitService.textbookPhrases">
@@ -76,9 +77,10 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="phrasesUnitService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="phrasesUnitService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: phrasesUnitService.textbookPhraseCount, mdPage: phrasesUnitService.page, mdData: phrasesUnitService.textbookPhrases}"
       ></md-table-pagination>
     </div>
   </div>
@@ -99,8 +101,6 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -109,14 +109,15 @@
       await this.onRefresh();
     }
 
-    async pageChange(page: number) {
+    async updatePagination(page, pageSize, sort, sortOrder) {
+      console.log('pagination has updated', page, pageSize, sort, sortOrder);
       this.phrasesUnitService.page = page;
+      this.phrasesUnitService.rows = pageSize;
       await this.onRefresh();
     }
 
     async onRefresh() {
       await this.phrasesUnitService.getDataInLang();
-      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.phrasesUnitService.rows - 1) / this.phrasesUnitService.rows >> 0;
       this.$forceUpdate();
     }
 

@@ -2,9 +2,10 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="wordsUnitService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="wordsUnitService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: wordsUnitService.textbookWordCount, mdPage: wordsUnitService.page, mdData: wordsUnitService.textbookWords}"
       ></md-table-pagination>
     </div>
     <md-table v-model="wordsUnitService.textbookWords">
@@ -96,9 +97,10 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="wordsUnitService.page"
-        :length="pageCount"
-        @input="pageChange"
+        :md-page-size="wordsUnitService.rows"
+        :md-page-options="settingsService.USROWSPERPAGEOPTIONS"
+        :md-update="updatePagination"
+        :md-data="{mdCount: wordsUnitService.textbookWordCount, mdPage: wordsUnitService.page, mdData: wordsUnitService.textbookWords}"
       ></md-table-pagination>
     </div>
   </div>
@@ -119,8 +121,6 @@
     wordsUnitService = container.resolve(WordsUnitService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
@@ -129,15 +129,16 @@
       await this.onRefresh();
     }
 
-    async pageChange(page: number) {
+    async updatePagination(page, pageSize, sort, sortOrder) {
+      console.log('pagination has updated', page, pageSize, sort, sortOrder);
       this.wordsUnitService.page = page;
+      this.wordsUnitService.rows = pageSize;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       await this.wordsUnitService.getDataInLang();
-      this.pageCount = (this.wordsUnitService.textbookWordCount + this.wordsUnitService.rows - 1) / this.wordsUnitService.rows >> 0;
       this.$forceUpdate();
     }
 
