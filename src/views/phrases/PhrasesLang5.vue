@@ -13,7 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
     <DataTable
       :value="phrasesLangService.langPhrases"
     >
@@ -32,7 +32,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
   </div>
 </template>
 
@@ -51,8 +51,6 @@
     phrasesLangService = container.resolve(PhrasesLangService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
@@ -61,15 +59,14 @@
       await this.onRefresh();
     }
 
-    async rowsChange(rows: number) {
-      this.phrasesLangService.page = 1;
+    async onPage(event: any) {
+      this.phrasesLangService.page = event.page + 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       await this.phrasesLangService.getData();
-      this.pageCount = (this.phrasesLangService.langPhraseCount + this.phrasesLangService.rows - 1) / this.phrasesLangService.rows >> 0;
       this.$forceUpdate();
     }
 

@@ -3,7 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select :options="settingsService.wordFilterTypes" v-model="wordsUnitService.filterType" @input="onRefresh"></q-select>
       <q-input float-label="Filter" v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></q-input>
-      <q-select :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
+      <q-select :options="settingsService.textbookFilters" v-model="wordsUnitService.textbookFilter" @input="onRefresh"></q-select>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
       <router-link to="/words-dict/textbook/0">
         <q-btn color="primary" icon="fa fa-book" label="Dictionary"></q-btn>

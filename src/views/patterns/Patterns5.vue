@@ -13,7 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
     <DataTable
       :value="patternsService.patterns"
     >
@@ -34,7 +34,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
   </div>
 </template>
 
@@ -62,8 +62,8 @@
       await this.onRefresh();
     }
 
-    async rowsChange(rows: number) {
-      this.patternsService.page = 1;
+    async onPage(event: any) {
+      this.patternsService.page = event.page + 1;
       await this.onRefresh();
     }
 

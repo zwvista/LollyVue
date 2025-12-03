@@ -16,7 +16,7 @@
         </router-link>
       </template>
     </Toolbar>
-    <Paginator :rows.sync="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
     <DataTable
       :value="wordsLangService.langWords"
     >
@@ -41,7 +41,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onPage($event)" />
   </div>
 </template>
 
@@ -60,8 +60,6 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    pageCount = 1;
-
     services = {};
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
@@ -70,15 +68,14 @@
       await this.onRefresh();
     }
 
-    async rowsChange(rows: number) {
-      this.wordsLangService.page = 1;
+    async onPage(event: any) {
+      this.wordsLangService.page = event.page + 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
       await this.wordsLangService.getData();
-      this.pageCount = (this.wordsLangService.langWordsCount + this.wordsLangService.rows - 1) / this.wordsLangService.rows >> 0;
       this.$forceUpdate();
     }
 

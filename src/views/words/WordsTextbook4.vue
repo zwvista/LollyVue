@@ -13,7 +13,7 @@
           </el-select>
         </el-input>
       </el-col>
-      <el-select v-model="textbookFilter" @change="onRefresh">
+      <el-select v-model="wordsUnitService.textbookFilter" @change="onRefresh">
         <el-option
           v-for="item in settingsService.textbookFilters"
           :key="item.value"

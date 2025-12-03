@@ -29,7 +29,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="textbookFilter" @md-selected="onRefresh">
+              <md-select v-model="wordsUnitService.textbookFilter" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.textbookFilters" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>

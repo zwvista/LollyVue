@@ -3,7 +3,7 @@
     <q-toolbar :inverted="true">
       <q-select :options="settingsService.phraseFilterTypes" v-model="phrasesUnitService.filterType" @input="onRefresh"></q-select>
       <q-input float-label="Filter" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh"></q-input>
-      <q-select :options="settingsService.textbookFilters" v-model="textbookFilter" @input="onRefresh"></q-select>
+      <q-select :options="settingsService.textbookFilters" v-model="phrasesUnitService.textbookFilter" @input="onRefresh"></q-select>
       <q-btn color="primary" icon="fa fa-refresh" label="Refresh" @click="onRefresh()"></q-btn>
     </q-toolbar>
     <q-table

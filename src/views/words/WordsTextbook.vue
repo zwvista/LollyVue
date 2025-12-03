@@ -8,7 +8,7 @@
         <v-text-field label="Filter" type="text" v-model="wordsUnitService.filter" @keyup.enter="onRefresh"></v-text-field>
       </v-flex>
       <v-flex xs6 md2>
-        <v-select :items="settingsService.textbookFilters" item-text="label" item-value="value" v-model="textbookFilter" @change="onRefresh"></v-select>
+        <v-select :items="settingsService.textbookFilters" item-text="label" item-value="value" v-model="wordsUnitService.textbookFilter" @change="onRefresh"></v-select>
       </v-flex>
       <v-btn color="info"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
       <router-link to="/words-dict/textbook/0">
