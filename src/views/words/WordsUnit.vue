@@ -20,10 +20,9 @@
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
       </router-link>
       <v-btn color="info" @click="onRefresh()"><v-icon left>fa-refresh</v-icon>Refresh</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNotes(false)">Get All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNotes(true)">Get Notes If Empty</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNotes(false)">Clear All Notes</v-btn>
-      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNotes(true)">Clear Notes If Empty</v-btn>
+      <v-checkbox label="If Empty" v-model="wordsUnitService.ifEmpty"></v-checkbox>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="getNotes()">Get Notes</v-btn>
+      <v-btn v-show="settingsService.selectedDictNote" color="warning" @click="clearNotes()">Clear Notes</v-btn>
       <router-link to="/words-dict/unit/0">
         <v-btn color="info"><v-icon left>fa-book</v-icon>Dictionary</v-btn>
       </router-link>
@@ -200,12 +199,12 @@
       googleString(word);
     }
 
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    getNotes() {
+      this.wordsUnitService.getNotes(() => {}, () => {});
     }
 
-    clearNotes(ifEmpty: boolean) {
-      this.wordsUnitService.clearNotes(ifEmpty, () => {}, () => {});
+    clearNotes() {
+      this.wordsUnitService.clearNotes(() => {}, () => {});
     }
   }
 </script>

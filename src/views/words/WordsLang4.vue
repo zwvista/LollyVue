@@ -25,9 +25,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="wordsLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="wordsLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="wordsLangService.langWordsCount">
       </el-pagination>
@@ -77,9 +77,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="wordsLangService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="wordsLangService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="wordsLangService.langWordsCount">
       </el-pagination>
@@ -102,29 +102,26 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
-    rows = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async handleSizeChange(val) {
-      this.rows = val;
+      this.wordsLangService.rows = val;
       await this.onRefresh();
     }
 
     async handleCurrentChange(val) {
-      this.page = val;
+      this.wordsLangService.page = val;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.wordsLangService.getData(this.page, this.rows);
+      await this.wordsLangService.getData();
       this.$forceUpdate();
     }
 

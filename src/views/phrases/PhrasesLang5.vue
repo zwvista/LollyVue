@@ -2,9 +2,9 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="phrasesLangService.filterType" @change="onRefresh" />
         <span class="p-float-label">
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="phrasesLangService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </span>
         <router-link to="/phrases-lang-detail/0">
@@ -13,7 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="phrasesLangService.langPhrases"
     >
@@ -32,7 +32,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="phrasesLangService.rows" :totalRecords="phrasesLangService.langPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -51,29 +51,25 @@
     phrasesLangService = container.resolve(PhrasesLangService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.phrasesLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async rowsChange(rows: number) {
-      this.page = 1;
+      this.phrasesLangService.page = 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.phrasesLangService.getData(this.page, this.rows, this.filter, this.filterType);
-      this.pageCount = (this.phrasesLangService.langPhraseCount + this.rows - 1) / this.rows >> 0;
+      await this.phrasesLangService.getData();
+      this.pageCount = (this.phrasesLangService.langPhraseCount + this.phrasesLangService.rows - 1) / this.phrasesLangService.rows >> 0;
       this.$forceUpdate();
     }
 

@@ -2,7 +2,7 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="patternsService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -12,7 +12,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="filterType" @md-selected="onRefresh">
+              <md-select v-model="patternsService.filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.patternFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>
@@ -22,7 +22,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>Filter</label>
-              <md-input v-model="filter" @keyup.enter="onRefresh"></md-input>
+              <md-input v-model="patternsService.filter" @keyup.enter="onRefresh"></md-input>
             </md-field>
           </div>
         </div>
@@ -69,7 +69,7 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="patternsService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -91,28 +91,24 @@
     patternsService = container.resolve(PatternsService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.patternsService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async pageChange(page: number) {
-      this.page = page;
+      this.patternsService.page = page;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
-      this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
+      await this.patternsService.getData();
+      this.pageCount = (this.patternsService.patternCount + this.patternsService.rows - 1) / this.patternsService.rows >> 0;
       this.$forceUpdate();
     }
 

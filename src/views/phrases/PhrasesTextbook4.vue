@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
+        <el-input placeholder="Filter" v-model="phrasesUnitService.filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="phrasesUnitService.filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.phraseFilterTypes"
               :key="item.value"
@@ -27,9 +27,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesUnitService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesUnitService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesUnitService.textbookPhraseCount">
       </el-pagination>
@@ -74,9 +74,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="phrasesUnitService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="phrasesUnitService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="phrasesUnitService.textbookPhraseCount">
       </el-pagination>
@@ -99,32 +99,26 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
-    textbookFilter = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.phrasesUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async handleSizeChange(val) {
-      this.rows = val;
+      this.phrasesUnitService.rows = val;
       await this.onRefresh();
     }
 
     async handleCurrentChange(val) {
-      this.page = val;
+      this.phrasesUnitService.page = val;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
+      await this.phrasesUnitService.getDataInLang();
       this.$forceUpdate();
     }
 

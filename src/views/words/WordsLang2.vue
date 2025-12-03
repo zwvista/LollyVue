@@ -97,18 +97,18 @@
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async request({pagination}) {
-      this.pagination.page = pagination.page;
-      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.pagination.page = this.wordsLangService.page = pagination.page;
+      this.pagination.rowsPerPage = this.wordsLangService.rows = pagination.rowsPerPage;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.wordsLangService.getData(this.pagination.page, this.pagination.rowsPerPage);
+      await this.wordsLangService.getData();
       this.pagination.rowsNumber = this.wordsLangService.langWordsCount;
       this.$forceUpdate();
     }

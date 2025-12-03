@@ -112,30 +112,26 @@
     wordsUnitService = container.resolve(WordsUnitService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
-    rows = 0;
-    textbookFilter = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async handleSizeChange(val) {
-      this.rows = val;
+      this.wordsUnitService.rows = val;
       await this.onRefresh();
     }
 
     async handleCurrentChange(val) {
-      this.page = val;
+      this.wordsUnitService.page = val;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.textbookFilter);
+      await this.wordsUnitService.getDataInLang();
       this.$forceUpdate();
     }
 

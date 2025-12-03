@@ -16,10 +16,13 @@
           <Button icon="fa fa-plus" label="Add" />
         </router-link>
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
-        <Button v-show="settingsService.selectedDictNote" label="Get All Notes" class="p-button-warning" @click="getNotes(false)" />
-        <Button v-show="settingsService.selectedDictNote" label="Get Notes If Empty" class="p-button-warning" @click="getNotes(true)" />
-        <Button v-show="settingsService.selectedDictNote" label="Clear All Notes" class="p-button-warning" @click="clearNotes(false)" />
-        <Button v-show="settingsService.selectedDictNote" label="Clear Notes If Empty" class="p-button-warning" @click="clearNotes(true)" />
+        <!--https://web.archive.org/web/20220323102337/https://www.primefaces.org/primevue-v2/#/checkbox-->
+        <div class="field-checkbox">
+          <Checkbox id="ifEmpty" v-model="wordsUnitService.ifEmpty" :binary="true" />
+          <label for="ifEmpty">If Empty</label>
+        </div>
+        <Button v-show="settingsService.selectedDictNote" label="Get Notes" class="p-button-warning" @click="getNotes()" />
+        <Button v-show="settingsService.selectedDictNote" label="Clear Notes" class="p-button-warning" @click="clearNotes()" />
         <router-link to="/words-dict/unit/0">
           <Button icon="fa fa-book" label="Dictionary" />
         </router-link>
@@ -114,12 +117,12 @@
       googleString(word);
     }
 
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    getNotes() {
+      this.wordsUnitService.getNotes(() => {}, () => {});
     }
 
-    clearNotes(ifEmpty: boolean) {
-      this.wordsUnitService.clearNotes(ifEmpty, () => {}, () => {});
+    clearNotes() {
+      this.wordsUnitService.clearNotes(() => {}, () => {});
     }
   }
 </script>

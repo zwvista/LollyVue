@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
+      <q-select :options="settingsService.phraseFilterTypes" v-model="phrasesUnitService.filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/phrases-unit-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -78,8 +78,6 @@
       page: 1,
       rowsPerPage: 0, // current rows per page being displayed
     };
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -89,7 +87,7 @@
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.phrasesUnitService.getDataInTextbook();
     }
 
     deletePhrase(item: MUnitPhrase) {

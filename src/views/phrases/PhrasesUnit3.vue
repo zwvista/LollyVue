@@ -5,7 +5,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="filterType" @md-selected="onRefresh">
+              <md-select v-model="phrasesUnitService.filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.phraseFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>
@@ -15,7 +15,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>Filter</label>
-              <md-input v-model="filter" @keyup.enter="onRefresh"></md-input>
+              <md-input v-model="phrasesUnitService.filter" @keyup.enter="onRefresh"></md-input>
             </md-field>
           </div>
         </div>
@@ -80,9 +80,6 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    filter = '';
-    filterType = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -91,7 +88,7 @@
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.phrasesUnitService.getDataInTextbook();
     }
 
     deletePhrase(item: MUnitPhrase) {

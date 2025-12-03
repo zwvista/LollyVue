@@ -2,7 +2,7 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="wordsLangService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -96,7 +96,7 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="wordsLangService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -119,15 +119,13 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
@@ -135,8 +133,8 @@
     }
 
     async onRefresh() {
-      await this.wordsLangService.getData(this.page, this.rows);
-      this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+      await this.wordsLangService.getData();
+      this.pageCount = (this.wordsLangService.langWordsCount + this.wordsLangService.rows - 1) / this.wordsLangService.rows >> 0;
       this.$forceUpdate();
     }
 

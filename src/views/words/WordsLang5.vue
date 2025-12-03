@@ -16,7 +16,7 @@
         </router-link>
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="wordsLangService.langWords"
     >
@@ -41,7 +41,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="wordsLangService.rows" :totalRecords="wordsLangService.langWordsCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -60,27 +60,25 @@
     wordsLangService = container.resolve(WordsLangService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async rowsChange(rows: number) {
-      this.page = 1;
+      this.wordsLangService.page = 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.wordsLangService.getData(this.page, this.rows);
-      this.pageCount = (this.wordsLangService.langWordsCount + this.rows - 1) / this.rows >> 0;
+      await this.wordsLangService.getData();
+      this.pageCount = (this.wordsLangService.langWordsCount + this.wordsLangService.rows - 1) / this.wordsLangService.rows >> 0;
       this.$forceUpdate();
     }
 

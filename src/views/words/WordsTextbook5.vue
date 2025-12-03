@@ -64,23 +64,20 @@
     wordsUnitService = container.resolve(WordsUnitService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    textbookFilter = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.textbookFilter);
-      this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+      await this.wordsUnitService.getDataInLang();
+      this.pageCount = (this.wordsUnitService.textbookWordCount + this.wordsUnitService.rows - 1) / this.wordsUnitService.rows >> 0;
       this.$forceUpdate();
     }
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select :options="settingsService.patternFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
+      <q-select :options="settingsService.patternFilterTypes" v-model="patternsService.filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="patternsService.filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/patterns-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -74,25 +74,23 @@
       rowsPerPage: 0,
       rowsNumber: 10,
     };
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.patternsService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async request({pagination}) {
-      this.pagination.page = pagination.page;
-      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.pagination.page = this.patternsService.page = pagination.page;
+      this.pagination.rowsPerPage = this.patternsService.rows = pagination.rowsPerPage;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.patternsService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType);
+      await this.patternsService.getData();
       this.pagination.rowsNumber = this.patternsService.patternCount;
       this.$forceUpdate();
     }

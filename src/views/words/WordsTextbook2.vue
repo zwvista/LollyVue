@@ -95,24 +95,23 @@
       rowsPerPage: 0,
       rowsNumber: 10,
     };
-    textbookFilter = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.wordsUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async request({pagination}) {
-      this.pagination.page = pagination.page;
-      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.pagination.page = this.wordsUnitService.page = pagination.page;
+      this.pagination.rowsPerPage = this.wordsUnitService.rows = pagination.rowsPerPage;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.wordsUnitService.getDataInLang(this.pagination.page, this.pagination.rowsPerPage, this.textbookFilter);
+      await this.wordsUnitService.getDataInLang();
       this.pagination.rowsNumber = this.wordsUnitService.textbookWordCount;
       this.$forceUpdate();
     }

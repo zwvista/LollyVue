@@ -1,8 +1,8 @@
 <template>
   <div>
     <q-toolbar :inverted="true">
-      <q-select :options="settingsService.phraseFilterTypes" v-model="filterType" @input="onRefresh"></q-select>
-      <q-input float-label="Filter" v-model="filter" @keyup.enter="onRefresh"></q-input>
+      <q-select :options="settingsService.phraseFilterTypes" v-model="phrasesLangService.filterType" @input="onRefresh"></q-select>
+      <q-input float-label="Filter" v-model="phrasesLangService.filter" @keyup.enter="onRefresh"></q-input>
       <router-link to="/phrases-lang-detail/0">
         <q-btn color="primary" icon="fa fa-plus" label="Add"></q-btn>
       </router-link>
@@ -72,25 +72,23 @@
       rowsPerPage: 0,
       rowsNumber: 10,
     };
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.phrasesLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async request({pagination}) {
-      this.pagination.page = pagination.page;
-      this.pagination.rowsPerPage = pagination.rowsPerPage;
+      this.pagination.page = this.phrasesLangService.page = pagination.page;
+      this.pagination.rowsPerPage = this.phrasesLangService.rows = pagination.rowsPerPage;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.phrasesLangService.getData(this.pagination.page, this.pagination.rowsPerPage, this.filter, this.filterType);
+      await this.phrasesLangService.getData();
       this.pagination.rowsNumber = this.phrasesLangService.langPhraseCount;
       this.$forceUpdate();
     }

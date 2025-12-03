@@ -38,17 +38,12 @@
         <md-button class="md-raised md-primary" @click="onRefresh()">
           <span><md-icon class="fa fa-refresh"></md-icon>Refresh</span>
         </md-button>
-        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="getNotes(false)">
-          Get All Notes
+        <md-checkbox v-model="wordsUnitService.ifEmpty">If Empty</md-checkbox>
+        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="getNotes()">
+          Get Notes
         </md-button>
-        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="getNotes(true)">
-          Get Notes If Empty
-        </md-button>
-        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="clearNotes(false)">
-          Clear All Notes
-        </md-button>
-        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="clearNotes(true)">
-          Clear Notes If Empty
+        <md-button v-show="settingsService.selectedDictNote" class="md-raised" @click="clearNotes()">
+          Clear Notes
         </md-button>
         <router-link to="/words-dict/unit/0">
           <md-button class="md-raised md-primary">
@@ -154,12 +149,12 @@
       googleString(word);
     }
 
-    getNotes(ifEmpty: boolean) {
-      this.wordsUnitService.getNotes(ifEmpty, () => {}, () => {});
+    getNotes() {
+      this.wordsUnitService.getNotes(() => {}, () => {});
     }
 
-    clearNotes(ifEmpty: boolean) {
-      this.wordsUnitService.clearNotes(ifEmpty, () => {}, () => {});
+    clearNotes() {
+      this.wordsUnitService.clearNotes(() => {}, () => {});
     }
   }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="phrasesUnitService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -12,7 +12,7 @@
         <div class="md-layout md-gutter">
           <div class="md-layout-item">
             <md-field>
-              <md-select v-model="filterType" @md-selected="onRefresh">
+              <md-select v-model="phrasesUnitService.filterType" @md-selected="onRefresh">
                 <md-option v-for="o in settingsService.phraseFilterTypes" :value="o.value">{{o.label}}</md-option>
               </md-select>
             </md-field>
@@ -22,7 +22,7 @@
           <div class="md-layout-item">
             <md-field>
               <label>Filter</label>
-              <md-input v-model="filter" @keyup.enter="onRefresh"></md-input>
+              <md-input v-model="phrasesUnitService.filter" @keyup.enter="onRefresh"></md-input>
             </md-field>
           </div>
         </div>
@@ -76,7 +76,7 @@
     </md-table>
     <div class="text-xs-center">
       <md-table-pagination
-        v-model="page"
+        v-model="phrasesUnitService.page"
         :length="pageCount"
         @input="pageChange"
       ></md-table-pagination>
@@ -99,29 +99,24 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
-    textbookFilter = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.phrasesUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async pageChange(page: number) {
-      this.page = page;
+      this.phrasesUnitService.page = page;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
-      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
+      await this.phrasesUnitService.getDataInLang();
+      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.phrasesUnitService.rows - 1) / this.phrasesUnitService.rows >> 0;
       this.$forceUpdate();
     }
 

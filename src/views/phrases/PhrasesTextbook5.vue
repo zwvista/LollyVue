@@ -2,16 +2,16 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="phrasesUnitService.filterType" @change="onRefresh" />
         <span class="p-float-label">
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </span>
         <DropDown :options="settingsService.textbookFilters" optionLabel="label" optionValue="value" v-model="textbookFilter" @change="onRefresh" />
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="phrasesUnitService.rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="phrasesUnitService.textbookPhrases"
     >
@@ -35,7 +35,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="phrasesUnitService.rows" :totalRecords="phrasesUnitService.textbookPhraseCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -54,30 +54,25 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
-    textbookFilter = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.phrasesUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async rowsChange(rows: number) {
-      this.page = 1;
+      this.phrasesUnitService.page = 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.phrasesUnitService.getDataInLang(this.page, this.rows, this.filter, this.filterType, this.textbookFilter);
-      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.rows - 1) / this.rows >> 0;
+      await this.phrasesUnitService.getDataInLang();
+      this.pageCount = (this.phrasesUnitService.textbookPhraseCount + this.phrasesUnitService.rows - 1) / this.phrasesUnitService.rows >> 0;
       this.$forceUpdate();
     }
 

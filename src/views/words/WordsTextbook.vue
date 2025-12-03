@@ -20,14 +20,14 @@
         <v-col cols="12" md="3">
           <v-select
             :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
+            v-model="wordsUnitService.rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
-          v-model="page"
+          v-model="wordsUnitService.page"
           :length="pageCount"
           :total-visible="20"
           @input="onRefresh"
@@ -108,14 +108,14 @@
         <v-col cols="12" md="3">
           <v-select
             :items="settingsService.USROWSPERPAGEOPTIONS"
-            v-model="rows"
+            v-model="wordsUnitService.rows"
             label="Rows per page"
             style="width: 125px"
             @change="rowsChange"
           ></v-select>
         </v-col>
         <v-pagination
-          v-model="page"
+          v-model="wordsUnitService.page"
           :length="pageCount"
           :total-visible="20"
           @input="onRefresh"
@@ -152,28 +152,25 @@
       { text: 'ACCURACY', sortable: false, value: 'ACCURACY' },
       { text: 'ACTIONS', sortable: false },
     ];
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    textbookFilter = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.wordsUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async rowsChange(rows: number) {
-      this.page = 1;
+      this.wordsUnitService.page = 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.wordsUnitService.getDataInLang(this.page, this.rows, this.textbookFilter);
-      this.pageCount = (this.wordsUnitService.textbookWordCount + this.rows - 1) / this.rows >> 0;
+      await this.wordsUnitService.getDataInLang();
+      this.pageCount = (this.wordsUnitService.textbookWordCount + this.wordsUnitService.rows - 1) / this.wordsUnitService.rows >> 0;
       this.$forceUpdate();
     }
 

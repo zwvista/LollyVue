@@ -2,9 +2,9 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <DropDown :options="settingsService.phraseFilterTypes" optionLabel="label" optionValue="value" v-model="phrasesUnitService.filterType" @change="onRefresh" />
         <span class="p-float-label">
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </span>
         <router-link to="/phrases-unit-detail/0">
@@ -56,9 +56,6 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    filter = '';
-    filterType = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -77,7 +74,7 @@
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.phrasesUnitService.getDataInTextbook();
     }
 
     deletePhrase(item: MUnitPhrase) {

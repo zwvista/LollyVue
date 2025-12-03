@@ -2,9 +2,9 @@
   <div>
     <Toolbar>
       <template #start>
-        <DropDown :options="settingsService.patternFilterTypes" optionLabel="label" optionValue="value" v-model="filterType" @change="onRefresh" />
+        <DropDown :options="settingsService.patternFilterTypes" optionLabel="label" optionValue="value" v-model="patternsService.filterType" @change="onRefresh" />
         <span class="p-float-label">
-          <InputText id="filter" type="text" v-model="filter" @keyup.enter="onRefresh" />
+          <InputText id="filter" type="text" v-model="patternsService.filter" @keyup.enter="onRefresh" />
           <label for="filter">Filter</label>
         </span>
         <router-link to="/patterns-detail/0">
@@ -13,7 +13,7 @@
         <Button icon="fa fa-refresh" label="Refresh" @click="onRefresh()" />
       </template>
     </Toolbar>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
     <DataTable
       :value="patternsService.patterns"
     >
@@ -34,7 +34,7 @@
         </template>
       </Column>
     </DataTable>
-    <Paginator :rows.sync="rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
+    <Paginator :rows.sync="patternsService.rows" :totalRecords="patternsService.patternCount" :rowsPerPageOptions="settingsService.USROWSPERPAGEOPTIONS" @page="onRefresh" />
   </div>
 </template>
 
@@ -52,29 +52,25 @@
     patternsService = container.resolve(PatternsService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
     pageCount = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.patternsService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async rowsChange(rows: number) {
-      this.page = 1;
+      this.patternsService.page = 1;
       await this.onRefresh();
     }
 
     async onRefresh() {
       // https://stackoverflow.com/questions/4228356/integer-division-with-remainder-in-javascript
-      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
-      this.pageCount = (this.patternsService.patternCount + this.rows - 1) / this.rows >> 0;
+      await this.patternsService.getData();
+      this.pageCount = (this.patternsService.patternCount + this.patternsService.rows - 1) / this.patternsService.rows >> 0;
       this.$forceUpdate();
     }
 

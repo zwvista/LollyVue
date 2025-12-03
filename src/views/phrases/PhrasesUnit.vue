@@ -2,10 +2,10 @@
   <div>
     <v-toolbar>
       <v-flex xs6 md2>
-        <v-select :items="settingsService.phraseFilterTypes" item-text="label" item-value="value" v-model="filterType" @change="onRefresh"></v-select>
+        <v-select :items="settingsService.phraseFilterTypes" item-text="label" item-value="value" v-model="phrasesUnitService.filterType" @change="onRefresh"></v-select>
       </v-flex>
       <v-flex xs6 md2>
-        <v-text-field label="Filter" type="text" v-model="filter" @keyup.enter="onRefresh"></v-text-field>
+        <v-text-field label="Filter" type="text" v-model="phrasesUnitService.filter" @keyup.enter="onRefresh"></v-text-field>
       </v-flex>
       <router-link to="/phrases-unit-detail/0">
         <v-btn color="info"><v-icon left>fa-plus</v-icon>Add</v-btn>
@@ -102,8 +102,6 @@
       { text: 'TRANSLATION', sortable: false, value: 'TRANSLATION' },
       { text: 'ACTIONS', sortable: false },
     ];
-    filter = '';
-    filterType = 0;
 
     services = {};
     async created() {
@@ -151,7 +149,7 @@
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.phrasesUnitService.getDataInTextbook();
     }
 
     deletePhrase(item: MUnitPhrase) {

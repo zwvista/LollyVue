@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
+        <el-input placeholder="Filter" v-model="patternsService.filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="patternsService.filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.patternFilterTypes"
               :key="item.value"
@@ -25,9 +25,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="patternsService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="patternsService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="patternsService.patternCount">
       </el-pagination>
@@ -69,9 +69,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="page"
+        :current-page.sync="patternsService.page"
         :page-sizes="settingsService.USROWSPERPAGEOPTIONS"
-        :page-size="rows"
+        :page-size="patternsService.rows"
         layout="total, sizes, prev, pager, next, jumper"
         :total="patternsService.patternCount">
       </el-pagination>
@@ -93,31 +93,26 @@
     patternsService = container.resolve(PatternsService);
     settingsService = container.resolve(SettingsService);
 
-    page = 1;
-    rows = 0;
-    filter = '';
-    filterType = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.rows = this.settingsService.USROWSPERPAGE;
+      this.patternsService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
     async handleSizeChange(val) {
-      this.rows = val;
+      this.patternsService.rows = val;
       await this.onRefresh();
     }
 
     async handleCurrentChange(val) {
-      this.page = val;
+      this.patternsService.page = val;
       await this.onRefresh();
     }
 
     async onRefresh() {
-      await this.patternsService.getData(this.page, this.rows, this.filter, this.filterType);
+      await this.patternsService.getData();
       this.$forceUpdate();
     }
 

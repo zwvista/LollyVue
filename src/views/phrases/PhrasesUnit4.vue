@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <el-col :span="4">
-        <el-input placeholder="Filter" v-model="filter" @input="onRefresh" class="input-with-select">
-          <el-select v-model="filterType" slot="prepend" @change="onRefresh">
+        <el-input placeholder="Filter" v-model="phrasesUnitService.filter" @input="onRefresh" class="input-with-select">
+          <el-select v-model="phrasesUnitService.filterType" slot="prepend" @change="onRefresh">
             <el-option
               v-for="item in settingsService.phraseFilterTypes"
               :key="item.value"
@@ -73,9 +73,6 @@
     phrasesUnitService = container.resolve(PhrasesUnitService);
     settingsService = container.resolve(SettingsService);
 
-    filter = '';
-    filterType = 0;
-
     services = {};
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
@@ -84,7 +81,7 @@
     }
 
     async onRefresh() {
-      await this.phrasesUnitService.getDataInTextbook(this.filter, this.filterType);
+      await this.phrasesUnitService.getDataInTextbook();
     }
 
     deletePhrase(item: MUnitPhrase) {
