@@ -77,7 +77,7 @@
     async created() {
       this.$set(this.services, 'phrasesLangService', this.phrasesLangService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.phrasesLangService.rows = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

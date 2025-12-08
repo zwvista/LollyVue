@@ -64,7 +64,6 @@
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

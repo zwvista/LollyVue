@@ -125,7 +125,6 @@
     async created() {
       this.$set(this.services, 'wordsUnitService', this.wordsUnitService);
       await this.appService.getData();
-      this.wordsUnitService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

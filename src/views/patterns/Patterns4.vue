@@ -97,7 +97,6 @@
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.patternsService.rows = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

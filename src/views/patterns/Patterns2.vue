@@ -79,7 +79,7 @@
     async created() {
       this.$set(this.services, 'patternsService', this.patternsService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.patternsService.rows = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

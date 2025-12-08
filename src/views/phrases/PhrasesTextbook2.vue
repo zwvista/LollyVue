@@ -85,7 +85,7 @@
     async created() {
       this.$set(this.services, 'phrasesUnitService', this.phrasesUnitService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.phrasesUnitService.rows = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 

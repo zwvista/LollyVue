@@ -97,7 +97,7 @@
     async created() {
       this.$set(this.services, 'wordsLangService', this.wordsLangService);
       await this.appService.getData();
-      this.pagination.rowsPerPage = this.wordsLangService.rows = this.settingsService.USROWSPERPAGE;
+      this.pagination.rowsPerPage = this.settingsService.USROWSPERPAGE;
       await this.onRefresh();
     }
 
