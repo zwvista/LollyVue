@@ -61,7 +61,6 @@
 
   (async () => {
     await appService.value.getData();
-    phrasesLangService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 

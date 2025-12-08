@@ -121,7 +121,6 @@
 
   (async () => {
     await appService.value.getData();
-    phrasesUnitService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 

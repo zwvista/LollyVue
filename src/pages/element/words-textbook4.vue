@@ -129,7 +129,6 @@
 
   (async () => {
     await appService.value.getData();
-    wordsUnitService.value.rows = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 

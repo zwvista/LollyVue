@@ -72,7 +72,7 @@
 
   (async () => {
     await appService.value.getData();
-    pagination.value.rowsPerPage = phrasesLangService.value.rows = settingsService.value.USROWSPERPAGE;
+    pagination.value.rowsPerPage = settingsService.value.USROWSPERPAGE;
     await onRefresh();
   })();
 
